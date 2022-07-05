@@ -1,0 +1,175 @@
+.ai-modal-container {
+  height: fit-content;
+//   height: 500px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding-top: 10px;
+	p {
+		margin: 0;
+	}
+}
+
+
+.clara-img-container {
+//   width: 70%;
+  // height: 100%;
+}
+
+.ai-modal-btn-container {
+  display: flex;
+  gap: 15px;
+  // >* {
+  // 	background-color: #091e420a;
+  // 	border: none;
+  // 	border-radius: 3px;
+  // 	box-shadow: none;
+  // 	box-sizing: border-box;
+  // 	cursor: pointer;
+  // 	display: block;
+  // 	height: 32px;
+  // 	margin-top: 8px;
+  // 	max-width: 300px;
+  // 	overflow: hidden;
+  // 	padding: 6px 12px;
+  // 	position: relative;
+  // 	text-decoration: none;
+  // 	text-overflow: ellipsis;
+  // 	transition-duration: 85ms;
+  // 	transition-property: background-color, border-color, box-shadow;
+  // 	transition-timing-function: ease;
+  // 	-webkit-user-select: none;
+  // 	user-select: none;
+  // 	white-space: nowrap;
+  // 	text-align: left;
+  // 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
+  // 	  Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+  // 	font-size: 14px;
+  // 	font-weight: 400;
+  // 	line-height: 20px;
+  // 	display: flex;
+  // 	justify-self: flex-start;
+  // 	align-items: center;
+  // 	color: #172b4d;
+
+  // 	background-color: rgba(9, 30, 66, 0.208);
+  // 	&:hover {
+  // 		background-color: rgba(9, 30, 66, 0.338);
+  // 	}
+  // }
+}
+
+.avatar {
+  width: 150px;
+  aspect-ratio: 1;
+  // box-sizing: border-box;
+  border: 5px white solid;
+  // border-radius: 50%;
+  overflow: hidden;
+  // box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+  transform: translatey(0px);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    // box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+    transform: translatey(0px);
+  }
+  50% {
+    // box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+    transform: translatey(-20px);
+  }
+  100% {
+    // box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+    transform: translatey(0px);
+  }
+}
+
+.rec-btn {
+  width: 35px;
+  height: 35px;
+  font-size: 0;
+  background-color: red;
+  border: 0;
+  border-radius: 35px;
+  margin: 18px;
+  outline: none;
+}
+
+.not-recording {
+  background-color: darkred;
+}
+
+.recording {
+  animation-name: pulse;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0px 0px 5px 0px rgba(173, 0, 0, 0.3);
+  }
+  65% {
+    box-shadow: 0px 0px 5px 13px rgba(173, 0, 0, 0.3);
+  }
+  90% {
+    box-shadow: 0px 0px 5px 13px rgba(173, 0, 0, 0);
+  }
+}
+
+.ai-modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #091e420a;
+  border: none;
+  border-radius: 3px;
+  box-shadow: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 32px;
+  margin-top: 8px;
+  max-width: 300px;
+  overflow: hidden;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition-duration: 85ms;
+  transition-property: background-color, border-color, box-shadow;
+  transition-timing-function: ease;
+  -webkit-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
+    Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+  color: #172b4d;
+
+  background-color: #091e4235;
+  &:hover {
+    background-color: rgba(9, 30, 66, 0.338);
+  }
+}
+
+.ai-commands-btn {
+	width: 194px
+}
+
+.command-btn-icon {
+	padding-top: 6px;
+}

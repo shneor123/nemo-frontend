@@ -1,0 +1,20 @@
+.bg-picker {
+    box-sizing: border-box;
+    padding: 12px 6px 12px 12px;
+    width: 100%;
+
+    .bg-options-container {
+        grid-gap: 8px;
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(2, 1fr);
+
+        .color-selected {
+            border-radius: 8px;
+            cursor: pointer;
+            height: 96px;
+            // width: 152.5px;
+            width: 100%;
+        }
+    }
+}
