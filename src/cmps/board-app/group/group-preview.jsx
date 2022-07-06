@@ -2,7 +2,7 @@ import { TaskList } from "../task/task-list.jsx";
 import { MdMoreHoriz } from "react-icons/md";
 import { IoAdd } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
-import { useState, memo, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { removeGroup, saveGroup } from "../../../store/actions/group.action.js";
 import { saveTask } from "../../../store/actions/task.action.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -81,9 +81,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState }) => {
 
     if (filterBy.members?.length) {
       taskToShow = taskToShow.filter(task => task.members.some(member => filterBy.members.includes(member._id)))
-
     }
-
     return taskToShow
   }
 
@@ -129,8 +127,8 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState }) => {
                           placeholder="Enter a title for this card..."
                           value={newTask.title}
                           onChange={(ev) => handleChange(ev, setNewTask)}
-                          onKeyDown={onHandleKeySubmit}
-                        ></textarea>
+                          onKeyDown={onHandleKeySubmit}>
+                        </textarea>
                         <div ref={addTaskRef} className="btn-add-task ">
                           <button>Add card</button>
                           <span onClick={() => setIsAddTask(false)}>

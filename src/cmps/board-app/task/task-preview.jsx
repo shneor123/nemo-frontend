@@ -7,7 +7,7 @@ import { labelService } from "../../../services/label.service";
 import { BsPencil } from "react-icons/bs";
 import { FiCheckSquare, FiPaperclip } from "react-icons/fi";
 import { GrTextAlignFull } from "react-icons/gr"
-import { toggleLabelPreview } from '../../../store/actions/label.action'
+import { toggleLabelPreview } from "../../../store/actions/label.action"
 import { userService } from "../../../services/user.service";
 import { HiOutlineEye } from "react-icons/hi"
 import { DueDatePreview } from "./dates/due-date-preview"
@@ -94,7 +94,7 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState }) =
                       onClick={onToggleLabelPreview}
                       key={label.id}
                       style={{ backgroundColor: label.color }}
-                      className={`label-preview ${labelOpenState ? 'label-open' : ''}`}
+                      className={`label-preview ${labelOpenState ? "label-open" : ""}`}
                     >{labelOpenState && label.title}</span>
                   );
                 })}
@@ -105,17 +105,17 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState }) =
               {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
               {!!task.description && <span className="badge"><GrTextAlignFull /></span>}
               {!!task.attachments?.length && <span className="badge"> <FiPaperclip /></span>}
-              {!!task.dueDate && <span className=' badge'><DueDatePreview dueDate={task.dueDate} task={task}
+              {!!task.dueDate && <span className="badge"><DueDatePreview dueDate={task.dueDate} task={task}
                 boardId={boardId} groupId={groupId} /> </span>
               }
               {!!sumTodos && (
                 <div style={
                   sumTodos === sumTodosDone ? {
-                    backgroundColor: '#61bd4f',
-                    color: 'white', borderRadius: '3px'
+                    backgroundColor: "#61bd4f",
+                    color: "white", borderRadius: "3px"
                   } : {}} className="badge checklist-badge">
                   <FiCheckSquare />
-                  {/* <FiCheckSquare style={{paddingTop:'2px'}} /> */}
+                  {/* <FiCheckSquare style={{paddingTop:"2px"}} /> */}
                   <div className="sum-todos-badge-title">
                     {sumTodosDone}/{sumTodos}
                   </div>

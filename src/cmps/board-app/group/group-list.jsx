@@ -1,10 +1,10 @@
 import { GroupPreview } from "./group-preview.jsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { IoAdd } from "react-icons/io5";
-import { saveGroup, setGroups } from "../../../store/actions/group.action.js";
+import { saveGroup } from "../../../store/actions/group.action.js";
 import { IoMdClose } from "react-icons/io";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 import { userService } from "../../../services/user.service.js";
 
 export const GroupList = ({ groups, boardId, activities, labelOpenState }) => {
@@ -20,8 +20,7 @@ export const GroupList = ({ groups, boardId, activities, labelOpenState }) => {
 
   const onAddGroup = (ev = null) => {
     ev.preventDefault();
-    var groupId
-    if (!groupTitle.title) return;
+    if (!groupTitle.title) return
     const activity = {
       boardTxt: 'added ' + groupTitle.title + ' to this board',
       byMember: userService.getLoggedinUser()

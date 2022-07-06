@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import {  useState, useRef } from "react";
 import { IoCheckbox } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 import { saveTodo, removeTodo } from '../../../../store/actions/checklist.action.js';

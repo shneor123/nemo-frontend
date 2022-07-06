@@ -5,12 +5,24 @@
     // background-color: red;
 }
 
+.due-data {
+    max-width: 100%;
+    display: block;
+
+    @include for-mobile-layout {
+        margin-top: 50px;
+    }
+}
+
 
 .data-gutter-card {
-    display: block;
-    float: left;
-    margin: 0 8px 8px 0;
     max-width: 100%;
+    display: block;
+    margin: 0 8px 8px 0;
+
+    @include for-normal-layout {
+        float: left;
+    }
 
     &-title {
         color: #5e6c84;
@@ -25,8 +37,6 @@
         white-space: nowrap;
     }
 }
-
-
 
 .label-data-item {
     border-radius: 3px;
@@ -60,6 +70,10 @@
     width: auto;
     background-color: #e1e4e8;
     cursor: pointer;
+
+    &:hover {
+        background-color: #d9dadd;
+    }
 }
 
 .round-data-btn {

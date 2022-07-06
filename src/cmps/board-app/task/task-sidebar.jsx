@@ -3,7 +3,7 @@ import { BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { MdOutlineScreenShare } from "react-icons/md";
 import { BsPerson } from "react-icons/bs";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { userService } from "../../../services/user.service";
 import { useDispatch } from "react-redux";

@@ -54,6 +54,10 @@
 
                 &:hover {
                     background-color: #091e420a;
+
+                    @include for-mobile-layout {
+                        background-color: none;
+                    }
                 }
 
                 .attachment-preview-img {
@@ -84,12 +88,12 @@
 
                 .attachment-details {
                     box-sizing: border-box;
-                    // cursor: pointer;
                     cursor: auto;
                     margin: 0;
                     min-height: 80px;
                     padding: 8px 8px 8px 128px;
                     z-index: 0;
+                    
 
                     .attachment-name {
                         word-wrap: break-word;

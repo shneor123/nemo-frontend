@@ -78,6 +78,7 @@
         padding: 0.6em 1.3em;
         position: relative;
         cursor: pointer;
+
         &.login {
             background-color: #5aac44;
         }
@@ -121,6 +122,15 @@
             width: 99%;
             cursor: pointer;
 
+            .span-btn {
+                color: unset;
+            }
+
+            .link-btn {
+                text-decoration: unset;
+                color: unset;
+            }
+
             .guest-icon {
                 height: 30px;
                 width: 24px;
@@ -135,8 +145,6 @@
                 width: 24px;
             }
         }
-
-
     }
 
     .left-hero {
@@ -159,8 +167,6 @@
 
     .dif-choice {
         margin: auto;
-
-
 
         a {
             color: #5e98ba;

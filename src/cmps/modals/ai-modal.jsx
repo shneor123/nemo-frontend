@@ -1,16 +1,14 @@
-// external
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+
+import { saveChecklist } from "../../store/actions/checklist.action"
+
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition"
-// services
+import { MdOutlineExpandLess, MdOutlineExpandMore } from 'react-icons/md'
+
 import { aiService } from "../../services/ai.service"
 import { utilService } from "../../services/util.service"
-// actions
-import { saveChecklist } from "../../store/actions/checklist.action"
-// react
-import { useDispatch } from "react-redux"
-// assets
 import clara from '../../assets/img/clara.png'
-import { MdOutlineExpandLess, MdOutlineExpandMore } from 'react-icons/md'
-import { useState } from "react"
 
 
 export function AiModal({ task, boardId, groupId }) {
@@ -44,16 +42,6 @@ export function AiModal({ task, boardId, groupId }) {
   ]
   const { listening } = useSpeechRecognition()
   let { transcript, resetTranscript } = useSpeechRecognition({ commands })
-
-
-
-
-
-
-
-
-
-
 
   return (
     <div className="ai-modal-container">

@@ -30,9 +30,6 @@ export const TaskDetails = () => {
   }, [board]);
 
 
-
-
-
   const handleKeyEvent = (e) => {
     if (e.key === "Escape") navigate(-1);
   };
@@ -57,8 +54,7 @@ export const TaskDetails = () => {
         onKeyDown={handleKeyEvent}
         // onClick={() => navigate(-1)}
         onClick={() => navigate(`/board/${boardId}`)}
-        className="task-details-wrapper"
-      >
+        className="task-details-wrapper">
 
         <div className="task-details" onClick={(ev) => ev.stopPropagation()}>
           {task?.style?.backgroundColor &&

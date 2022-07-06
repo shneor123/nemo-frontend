@@ -131,8 +131,6 @@ export const DynamicModalCmp = ({
       if (bottom >= 500 && bottom < 600) bottom -= 400;
       if (bottom >= 600 && bottom < 700) bottom -= 450;
       if (bottom >= 700) bottom -= 460;
-      // if (bottom >= 230 && bottom < 260) bottom -= 100;
-      // if (bottom >= 260 && bottom < 300) bottom -= 140;
       modalTypeToOpen = (
         <AiModal
           onCloseModal={onCloseModal}

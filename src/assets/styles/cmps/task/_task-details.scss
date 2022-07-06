@@ -1,11 +1,17 @@
 .task-details {
-  margin-top: 48px;
-  margin-bottom: 80px;
+  z-index: 20;
   width: 768px;
-  background-color: #f4f5f7;
-  border-radius: 2px;
-  max-height: auto;
+  position: relative;
   min-height: 600px;
+  margin: auto;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+
+  @include for-mobile-layout {
+    width: 95%;
+    margin-top: 50px;
+  }
 
 
   &-wrapper {
@@ -20,6 +26,7 @@
     overflow-x: hidden;
     outline: none
   }
+
 
   &-header {
     margin: 12px 40px 8px 56px;
@@ -70,7 +77,6 @@
 
     &-button-container {
       overflow: hidden;
-      // z-index: 10;
       display: flex;
       flex-direction: column;
     }
@@ -79,21 +85,23 @@
       flex-grow: 1;
       padding: 0 16px 8px 8px;
       width: calc(100% - 600px);
+      
+      @include for-mobile-layout {
+        margin-left: 10px;
+        width: 45%;
+      }
     }
   }
-
 
   &-main {
     margin: 0;
     padding: 0 8px 8px 16px;
     position: relative;
     width: 552px;
-    // width: 575px;
     z-index: 1;
     display: flex;
     flex-direction: column;
   }
-
 }
 
 .task-title-group {
@@ -104,6 +112,11 @@
 .helper-container {
   display: flex;
   justify-content: space-between;
+
+  @include for-mobile-layout {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .task-details-back-btn {

@@ -1,14 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-// Icons
+
 import { IoCheckbox } from 'react-icons/io5';
 import { MdCheckBoxOutlineBlank } from 'react-icons/md';
-// Service
+
 import { utilService } from '../../../../services/util.service'
-// Store
 import { saveTask } from '../../../../store/actions/task.action'
 
-import { TaskDateModal } from './task-date-modal'
 
 export function DatePreview({ task, boardId, groupId }) {
 
@@ -32,7 +30,6 @@ export function DatePreview({ task, boardId, groupId }) {
                 <IoCheckbox className='checkbox-checked' onClick={toggleIsDone} />
                 : <MdCheckBoxOutlineBlank className='checkbox-blank' onClick={toggleIsDone} />
             }
-            
 
             <button type='button'>
                 <span> {utilService.getDateByTimestamp(task.dueDate)}</span>

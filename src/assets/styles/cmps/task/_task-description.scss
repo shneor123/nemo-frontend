@@ -31,6 +31,10 @@
     width: 496px;
     height: 56px;
 
+    @include for-mobile-layout {
+        width: 63%;
+    }
+
     &:focus {
         background-color: #fff;
         border: 0 #fff;
