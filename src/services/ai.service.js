@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 
-const OPENAI_API_KEY = "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"
+const OPENAI_API_KEY = "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"
 
 
 const configuration = new Configuration({
@@ -14,7 +14,7 @@ async function getAiTextCompletion(sttInput) {
             .createCompletion(
                 "text-davinci-002",
                 {
-                    prompt: `build a to do list for ${sttInput} \n`,
+                    prompt: `build a to-do list for ${sttInput} \n`,
                     temperature: 1,
                     max_tokens: 311,
                     top_p: 0.3,
