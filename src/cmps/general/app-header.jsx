@@ -56,16 +56,7 @@ export const AppHeader = () => {
         {/* implement guest feature if no user logged in */}
         <div style={{background: `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover ` }} className="user-avatar"></div>
       </nav>
-
     )}
-
-
   </header>
-
-
-
-
-
-
   );
 };

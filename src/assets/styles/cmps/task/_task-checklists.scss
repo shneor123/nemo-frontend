@@ -6,6 +6,7 @@
             padding: 8px;
             position: relative;
 
+
             .icon-check {
                 margin-inline-end: 0px;
                 margin-inline-start: -50px;
@@ -157,6 +158,11 @@
         margin: 0 0 0 40px;
         overflow: hidden;
         position: relative;
+
+        @include for-mobile-layout {
+            width: 63%;
+        }
+
     }
 
     .checklist-progress-bar-current {

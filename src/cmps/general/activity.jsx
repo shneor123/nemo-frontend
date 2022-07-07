@@ -108,7 +108,7 @@ export const Activity = ({ activities, taskId, boardId }) => {
                             style={{ background: `url(${activity.byMember?.imgUrl}) center center / cover ` }}>
                         </div>
                         <div className="comment-info">
-                            <h2> <span>{activity.byMember?.fullname}</span> <span className="time">{utilService.timeSince(activity.createdAt)}</span></h2>
+                            <h2> <span> {activity.byMember?.fullname}</span> <span className="time">{utilService.timeSince(activity.createdAt)}</span></h2>
                             <div className="comment-preview">{activity.comment}</div>
                         </div>
 

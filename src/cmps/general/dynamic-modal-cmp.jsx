@@ -71,10 +71,11 @@ export const DynamicModalCmp = ({
       );
       break;
     case "Dates":
-      if (bottom >= 170 && bottom < 200) bottom -= 50;
-      if (bottom >= 200 && bottom < 270) bottom -= 100;
-      if (bottom >= 270 && bottom < 330) bottom -= 160;
-      if (bottom >= 330) bottom -= 200;
+        bottom -= 60;
+        if (bottom >= 210 && bottom < 250) bottom -= 50;
+        if (bottom >= 300 && bottom < 330) bottom -= 100;
+        if (bottom >= 330 && bottom < 380) bottom -= 160;
+        if (bottom >= 380) bottom -= 200;
 
       modalTypeToOpen = (
         <TaskDateModal boardId={boardId} groupId={groupId} task={task} />
@@ -93,7 +94,7 @@ export const DynamicModalCmp = ({
       );
       break;
     case "Cover":
-      bottom -= 100;
+      bottom -= 120;
       if (bottom >= 210 && bottom < 250) bottom -= 50;
       if (bottom >= 300 && bottom < 330) bottom -= 100;
       if (bottom >= 330 && bottom < 380) bottom -= 160;

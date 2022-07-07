@@ -5,7 +5,6 @@
   display: flex;
   z-index: 2;
   top: 44px;
-  //   justify-content: space-between;
   width: 100%;
 
   &-right,
@@ -18,35 +17,8 @@
     flex-direction: column;
     align-items: flex-end;
   }
-
-  // justify-content: center;
-  // align-items: center;
 }
 
-//     &-left {
-//         float: left;
-//     }
-
-//     &-right {
-//         float: right;
-//     }
-// }
-
-// .toolbar-btn {
-//     background-color: hsla(0, 0%, 41%, 0.651);
-//     border-radius: 3px;
-//     cursor: default;
-//     float: left;
-//     font-size: 14px;
-//     height: 32px;
-//     margin: 0 4px 4px 0;
-//     position: relative;
-//     text-decoration: none;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// }
-// .board-toolbar-title-container {
 .board-toolbar-title-container {
   border-radius: 3px;
   margin-right: 4px;
@@ -88,7 +60,6 @@
   text-overflow: ellipsis;
   padding: 8px;
 
-
   &:hover {
     background-color: #ffffff52;
     cursor: pointer;
@@ -98,8 +69,6 @@
 .star-btn {
   display: flex;
   align-items: center;
-
-
 }
 
 .toolbar-divider {
@@ -107,6 +76,10 @@
   float: left;
   height: 16px;
   margin: 8px 8px 12px 4px;
+
+  @include for-mobile-layout {
+    // display: none;
+  }
 }
 
 .toolbar-members {
@@ -116,6 +89,7 @@
   align-items: center;
   width: fit-content;
   margin-right: 4px;
+
   &>* {
     margin-left: -15px;
   }
@@ -127,6 +101,10 @@
   justify-content: space-between;
   align-items: center;
   width: 110px;
+
+  @include for-mobile-layout {
+    width: 30px;
+  }
 }
 
 .filter-btn {
@@ -134,6 +112,7 @@
   justify-content: space-between;
   align-items: center;
   width: 75px;
+  margin-left: 3px;
 
   svg {
     margin-bottom: 3px;
@@ -142,6 +121,11 @@
 
 .tool-title {
   margin-bottom: 3px;
+
+  @include for-mobile-layout {
+    display: none;
+  }
+
 }
 
 .share-btn {
@@ -175,13 +159,12 @@
   svg {
     margin-top: 2px;
   }
-
-
 }
 
 
 @media screen and (max-width: 700px) {
   .toolbar-members {
     align-items: flex-start;
+    // padding-right: 2px;
   }
 }

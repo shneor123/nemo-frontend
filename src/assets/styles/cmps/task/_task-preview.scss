@@ -146,10 +146,6 @@
   text-overflow: ellipsis;
   vertical-align: top;
   display: inline-block;
-
-  @include for-mobile-layout {
-    width: 63%;
-}
 }
 
 .badge-text {

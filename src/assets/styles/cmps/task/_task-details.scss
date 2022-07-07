@@ -13,7 +13,6 @@
     margin-top: 50px;
   }
 
-
   &-wrapper {
     width: 100%;
     height: 100%;
@@ -26,7 +25,6 @@
     overflow-x: hidden;
     outline: none
   }
-
 
   &-header {
     margin: 12px 40px 8px 56px;
@@ -79,13 +77,13 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-    }
 
+    }
     &-container {
       flex-grow: 1;
       padding: 0 16px 8px 8px;
       width: calc(100% - 600px);
-      
+
       @include for-mobile-layout {
         margin-left: 10px;
         width: 45%;
@@ -114,8 +112,8 @@
   justify-content: space-between;
 
   @include for-mobile-layout {
-    display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    justify-content: center;
   }
 }
 

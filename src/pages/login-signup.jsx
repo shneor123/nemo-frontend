@@ -135,7 +135,7 @@ export const LoginSignup = (props) => {
               <p>Continue as Guest</p>{" "}</Link>
           </button>
           <button>
-          <LoginWithGoogle onLoginGoogle={onLoginGoogle} />
+              <LoginWithGoogle onLoginGoogle={onLoginGoogle} />
           </button>
         </div>
         <hr />
