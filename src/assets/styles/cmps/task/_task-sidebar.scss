@@ -1,0 +1,63 @@
+.task-details-sidebar-btn {
+  background-color: #091e420a;
+  border: none;
+  border-radius: 3px;
+  box-shadow: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 32px;
+  margin-top: 8px;
+  max-width: 300px;
+  overflow: hidden;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition-duration: 85ms;
+  transition-property: background-color, border-color, box-shadow;
+  transition-timing-function: ease;
+  -webkit-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
+    Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+  color: #172b4d;
+
+  &-text {
+    margin-left: 5px;
+    //delete if working without span
+    // font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
+    //   Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+    // font-size: 14px;
+    // font-weight: 400;
+    // line-height: 20px;
+  }
+
+  &-icon {
+    margin-top: 5px;
+  }
+
+  &:hover {
+    background-color: #091e4214;
+    border: none;
+    box-shadow: none;
+    color: #091e42;
+    outline: 0;
+  }
+}
+
+.join-btn {
+  margin-bottom: 16px;
+}
+
+.none {
+  display: none;
+}

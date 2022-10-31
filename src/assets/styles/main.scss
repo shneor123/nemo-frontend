@@ -1,0 +1,70 @@
+// Setup
+@import "setup/variables";
+@import "setup/functions";
+@import "setup/mixins";
+@import "setup/typography";
+
+// // Basics
+@import "basics/helpers";
+@import "basics/layout";
+@import "basics/base";
+@import "basics/links";
+
+
+// Pages
+@import 'pages/home-page';
+@import 'pages/board-app';
+@import "pages/login-signup";
+@import "pages/work-space";
+@import "pages/login-signup";
+
+//  Components
+
+// General
+@import "cmps/general/app-header";
+@import "cmps/general/toolbar";
+@import "cmps/general/avatar";
+@import "cmps/general/menu";
+@import "cmps/general/loader";
+
+// Workspace
+@import "cmps/work-space/board-list";
+@import "cmps/work-space/board-preview";
+@import "cmps/work-space/new-board";
+
+// Group
+@import "cmps/group/group-list";
+@import "cmps/group/group-preview";
+
+// Task
+@import "cmps/task/task-preview";
+@import "cmps/task/task-list";
+@import "cmps/task/task-details";
+@import "cmps/task/task-sidebar";
+@import "cmps/task/task-description";
+@import "cmps/task/task-activity";
+@import "cmps/task/task-checklists";
+@import "cmps/task/data-gutter";
+@import "cmps/task-atachment-modal";
+@import "cmps/task-atachment-preivew";
+@import "cmps/task-dates";
+@import "cmps/task-date-preview";
+@import "cmps/edit-preview";
+
+//menu
+@import "cmps/menu/main-menu";
+@import "cmps/menu/color-menu";
+@import "cmps/menu/filter-menu.scss";
+
+
+// Modals
+@import "cmps/modals/dynamic-modal-cmp";
+@import "cmps/modals/member-modal";
+@import "cmps/modals/label-modal";
+@import "cmps/modals/checklist-modal";
+@import "cmps/modals/cover-modal";
+@import "cmps/modals/action-modal";
+@import "cmps/modals/ai-modal";
+
+
+@import "cmps/modals/generic-modal-helpers";

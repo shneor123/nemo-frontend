@@ -1,0 +1,158 @@
+.app-header {
+  &-home {
+    position: absolute;
+    width: 100%;
+    height: 68.25px;
+
+    & nav {
+      padding: 16px;
+      width: 100%;
+      height: 100%;
+
+      & .login-btn {
+        font-family: "Charlie Text", sans-serif;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        font-weight: 400;
+        padding: 0.25rem 0.5rem;
+        font-size: 1.09375rem;
+        line-height: 1.5;
+        border-radius: 0.2rem;
+        background-color: transparent;
+        border-color: transparent;
+        color: #0051cc !important;
+        cursor: pointer;
+      }
+
+      & .signup-btn {
+        // take out unnecessary css from here and hover as well
+        font-family: "Charlie-Text", sans-serif;
+        font-weight: bold;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        padding: 0.25rem 0.5rem;
+        font-size: 1.09375rem;
+        line-height: 1.5;
+        border-radius: 0.2rem;
+        font-weight: 500 !important;
+        color: #fff !important;
+        text-decoration: none;
+        background-color: #0065ff !important;
+        cursor: pointer;
+      }
+
+      & .signup-btn:hover {
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        cursor: default !important;
+        box-sizing: border-box;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        padding: 0.25rem 0.5rem;
+        font-size: 1.09375rem;
+        line-height: 1.5;
+        border-radius: 0.2rem;
+        font-weight: 500 !important;
+        color: #fff !important;
+        text-decoration: none;
+        background-color: #0051cc !important;
+      }
+    }
+  }
+
+  &-login-signup {
+    display: none;
+  }
+
+  &-login-signup {
+    display: none;
+  }
+
+  &-workspace {
+    background-color: $clr2;
+    height: 44px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    & nav {
+      display: flex;
+      justify-content: space-between;
+      height: 100%;
+      padding: 6px 4px;
+
+      & .logo-container {
+        width: 75px;
+        height: 15px;
+        padding: 8px 0;
+        margin: 0;
+        opacity: 1;
+        display: flex;
+        align-items: center;
+
+      }
+    }
+
+    &-task-details {
+      background-color: red;
+    }
+  }
+
+  // workspace and board header height
+  // max-height: 44px;
+  // padding: 6px 4px;
+}
+
+.logo-title-home {
+  font-size: 37px;
+  font-family: "Charlie-Text-Semibold";
+  font-weight: 700;
+}
+
+.logo-img-home {
+  width: 30px;
+  padding-top: 2px;
+}
+
+.trello-logo-after-login {
+  // color: #0d295886;
+  color: #f5f5f5;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.trello-logo-after-login-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.trello-logo-after-login-title {
+  margin: 0;
+  color: #f5f5f5;
+}
