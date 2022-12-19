@@ -1,15 +1,17 @@
-import { TaskList } from "../task/task-list.jsx";
+import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
+
 import { MdMoreHoriz } from "react-icons/md";
 import { IoAdd } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
-import { useState, useRef, useEffect } from "react";
-import { removeGroup, saveGroup } from "../../../store/actions/group.action.js";
-import { saveTask } from "../../../store/actions/task.action.js";
-import { useDispatch, useSelector } from "react-redux";
-import { Draggable } from "react-beautiful-dnd";
-import { userService } from "../../../services/user.service.js";
-import { DynamicModalCmp } from "../../general/dynamic-modal-cmp.jsx";
-import { useForm } from "../../../hooks/useForm.js";
+
+import { TaskList } from "../task/task-list";
+import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
+import { removeGroup, saveGroup } from "../../../store/actions/group.action";
+import { saveTask } from "../../../store/actions/task.action";
+import { userService } from "../../../services/user.service";
+import { useForm } from "../../../hooks/useForm";
 
 export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, boardMembers }) => {
   let { filterBy } = useSelector((storeState) => storeState.boardModule);
@@ -170,9 +172,10 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
                           name="newTaskTitle"
                           placeholder="Enter a title for this card..."
                           value={fields.newTaskTitle}
-                          onChange={handleChange}>
-                        </textarea>
-                        
+                          onChange={handleChange}
+                          onKeyDown={onHandleKeySubmit}
+                          autoFocus
+                        ></textarea>
                         <div ref={addTaskRef} className="btn-add-task ">
                           <button>Add card</button>
                           <span onClick={() => setIsAddTask(false)}>

@@ -1,11 +1,11 @@
-import { GroupPreview } from "./group-preview.jsx";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Droppable } from "react-beautiful-dnd";
 import { IoAdd } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
-import { saveGroup } from "../../../store/actions/group.action.js";
-import { Droppable } from "react-beautiful-dnd";
-import { useForm } from "../../../hooks/useForm.js";
+import { GroupPreview } from "./group-preview";
+import { useForm } from "../../../hooks/useForm";
+import { saveGroup } from "../../../store/actions/group.action";
 
 export const GroupList = ({ groups, boardId, activities, labelOpenState, labels, boardMembers }) => {
   const dispatch = useDispatch();
