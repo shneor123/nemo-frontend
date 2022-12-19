@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { useState } from "react";
 import { saveChecklist } from '../../store/actions/checklist.action';
 import { utilService } from '../../services/util.service';
 import { userService } from '../../services/user.service';
@@ -29,7 +28,6 @@ export const ChecklistModal = ({ boardId, groupId, taskId, onCloseModal, taskTit
         <form onSubmit={onSaveChecklist} className=" flex column">
             {/* make a label modal helper class and change classname */}
             <label className='modal-small-title check-title' htmlFor='title'>Title</label>
-
             <input type="text"
                 name='title'
                 id='title'
@@ -39,7 +37,5 @@ export const ChecklistModal = ({ boardId, groupId, taskId, onCloseModal, taskTit
             />
             <button>Add</button>
         </form>
-
-
     </div>
 }

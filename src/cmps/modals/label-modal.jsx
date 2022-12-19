@@ -1,19 +1,16 @@
 import { useDispatch } from "react-redux";
-import { toggleLabel } from "../../store/actions/label.action";
 import { BsPencil } from "react-icons/bs";
 import { FiCheck } from "react-icons/fi";
+import { toggleLabel } from "../../store/actions/label.action";
 
 export const LabelModal = ({ boardId, groupId, task, labels }) => {
-
   const dispatch = useDispatch();
+
   const onToggleLabel = (labelId) => {
     dispatch(toggleLabel(boardId, groupId, task.id, labelId));
   };
 
-
-  const onEditLabel = () => {
-      
-  }
+  const onEditLabel = () => { }
 
   return (
     <div className="label-modal-container">
@@ -33,7 +30,7 @@ export const LabelModal = ({ boardId, groupId, task, labels }) => {
                 </button>
                 <div
                   // style={{ backgroundColor: label.color, '--i': 'blue'}}
-                  style={{  '--label-color': label.color}}
+                  style={{ '--label-color': label.color }}
                   className="task-label"
                   onClick={() => onToggleLabel(label.id)}
                 >
@@ -50,7 +47,7 @@ export const LabelModal = ({ boardId, groupId, task, labels }) => {
             );
           })}
         </div>
-          <button className="create-label-btn">Create a new Label</button>
+        <button className="create-label-btn">Create a new Label</button>
       </div>
     </div>
   );

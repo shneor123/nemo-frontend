@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
 import { addUserToBoard } from "../../store/actions/board.action";
+
+
 export const InviteModal = ({ boardId, users, boardMembers }) => {
   console.log(users);
   const dispatch = useDispatch()
