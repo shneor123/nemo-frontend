@@ -1,5 +1,4 @@
 import { userService } from '../../services/user.service.js';
-import {taskService} from '../../services/task.service'
 
 export function loadUsers() {
     return async dispatch => {
@@ -41,7 +40,6 @@ export function login(credentials) {
         }
     }
 }
-
 
 export function signup(credentials) {
     return async (dispatch) => {

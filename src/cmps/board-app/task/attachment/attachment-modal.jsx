@@ -6,12 +6,6 @@ import { utilService } from '../../../../services/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 
 export const AttachmentModal = ({ task, boardId, groupId }) => {
-
-    // const [attachImg, setAttachImg] = useState(attach.isImg ? attach.url : 'https://i.ibb.co/cJq4Hbk/file.jpg');
-    // const [isAttachImg, setIsAttachImg] = useState(attachImg !== 'https://i.ibb.co/cJq4Hbk/file.jpg');
-
-
-
     const [attachData, setAttachData] = useState({ url: '' })
 
     const dispatch = useDispatch()

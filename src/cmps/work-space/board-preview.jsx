@@ -29,7 +29,8 @@ export function BoardPreview({ board, onToggleStar }) {
           </span>
         </div>
       </Link>
-            {/* <button className="remove_board" onClick={onRemoveTask}>Delete</button>  */}
+            {/* <button className="remove_board"   onClick={onRemoveTask}>Delete</button>  */}
     </div>
   )
 }
+

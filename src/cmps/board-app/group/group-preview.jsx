@@ -170,10 +170,9 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
                           name="newTaskTitle"
                           placeholder="Enter a title for this card..."
                           value={fields.newTaskTitle}
-                          onChange={handleChange}
-                          onKeyDown={onHandleKeySubmit}
-                          autoFocus
-                        ></textarea>
+                          onChange={handleChange}>
+                        </textarea>
+                        
                         <div ref={addTaskRef} className="btn-add-task ">
                           <button>Add card</button>
                           <span onClick={() => setIsAddTask(false)}>

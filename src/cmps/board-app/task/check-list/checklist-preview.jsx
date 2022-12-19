@@ -15,7 +15,6 @@ export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, 
 
     const dispatch = useDispatch()
 
-
     const onSaveTask = () => {
         checklist.title = fields.title
         dispatch(saveChecklist(checklist, boardId, groupId, task.id));

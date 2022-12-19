@@ -1,8 +1,4 @@
 import { boardService } from "../../services/board.service.js";
-import { socketService } from "../../services/socket.service.js";
-import { userService } from "../../services/user.service.js";
-
-// socketService.setup()
 
 // Action Creators:
 export function getActionRemoveBoard(boardId) {
@@ -30,37 +26,14 @@ export function getActionSetBoard(board) {
     }
 }
 
-// var subscriber
-
 export function loadBoard(boardId) {
     return async (dispatch) => {
         try {
-
             const boardFromDb = await boardService.getById(boardId)
             dispatch(getActionSetBoard(boardFromDb))
-
-            // socketService.off('update-board')
-            // console.log('turned socket off');
-            // socketService.on('update-board', async (boardFromSocket) => {
-            // if (!boardFromSocket) {
-            //     console.log('no board from socket');
-            //     const boardFromDb = await boardService.getById(boardId)
-            //     console.log('boardFromDB', boardFromDb);
-            //     dispatch(getActionSetBoard(boardFromDb))
-            // } 
-            // console.log('board from socket', boardFromSocket);
-            // dispatch(getActionSetBoard(boardFromSocket))
-            // })
         } catch (err) {
             console.log('Cannot load boards', err)
         }
-
-        // if (subscriber) boardService.unsubscribe(subscriber)
-        // subscriber = (ev) => {
-        //     console.log('Got notified', ev.data)
-        //     dispatch(ev.data)
-        // }
-        // boardService.subscribe(subscriber)
     }
 }
 
@@ -76,12 +49,6 @@ export function loadBoards() {
             .catch(err => {
                 console.log('Cannot load boards', err)
             })
-
-        // if (subscriber) boardService.unsubscribe(subscriber)
-        // subscriber = (ev) => {
-        //     dispatch(ev.data)
-        // }
-        // boardService.subscribe(subscriber)
     }
 }
 
@@ -122,7 +89,6 @@ export function updateBoard(board) {
     }
 }
 
-
 export function saveBg(boardId, color) {
     return async (dispatch) => {
         try {
@@ -136,7 +102,6 @@ export function saveBg(boardId, color) {
     }
 }
 
-
 export function setFilter(filterBy) {
     return (dispatch) => {
         return dispatch({
@@ -145,7 +110,6 @@ export function setFilter(filterBy) {
         })
     }
 }
-
 
 export function addUserToBoard(boardId, user) {
     console.log('boardId', boardId);
@@ -162,8 +126,6 @@ export function addUserToBoard(boardId, user) {
 
     }
 }
-
-
 
 // Demo for Optimistic Mutation (IOW - Assuming the server call will work,
 //  so updating the UI first)

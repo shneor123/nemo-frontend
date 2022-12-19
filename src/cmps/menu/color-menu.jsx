@@ -32,25 +32,24 @@ export const ColorMenuModal = ({ board, isColorModalOpen }) => {
     }
 
 
-    return <section style={{ display: isColorModalOpen }} >
-
-        <section className="bg-picker">
-            <div className="bg-options-container">
-                {bgColors.map((color) => {
-                    return (
-                        <div key={color.id} className="choose-color-list ">
-                            <div
-                                style={{ backgroundColor: color.color }}
-                                className="color-selected"
-                                onClick={() => chooseBg(color.color)}
-                            >
+    return (
+        <section style={{ display: isColorModalOpen }} >
+            <section className="bg-picker">
+                <div className="bg-options-container">
+                    {bgColors.map((color) => {
+                        return (
+                            <div key={color.id} className="choose-color-list ">
+                                <div
+                                    style={{ backgroundColor: color.color }}
+                                    className="color-selected"
+                                    onClick={() => chooseBg(color.color)}
+                                >
+                                </div>
                             </div>
-                        </div>
-                    )
-                })}
-            </div>
-
+                        )
+                    })}
+                </div>
+            </section>
         </section>
-
-    </section>
+    )
 }
