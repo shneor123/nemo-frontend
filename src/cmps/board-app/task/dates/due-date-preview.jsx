@@ -44,19 +44,3 @@ export function DueDatePreview({ task, boardId, groupId, dueDate }) {
     </div>
   )
 }
-
-
-
-// <div className='task-badges flex'>
-// <div className='badges-icons flex justify-center align-center'>
-//     {/* DUE DATE */}
-//     {dueDate && (
-//         <div className='due-date-container'>
-//             <DueDatePreview
-//                 dueDate={dueDate}
-//                 task={task}
-//                 boardId={board._id}
-//                 groupId={groupId}
-//             />
-//         </div>
-//     )}

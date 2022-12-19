@@ -9,6 +9,7 @@ import { GrTextAlignFull } from "react-icons/gr"
 import { HiOutlineEye } from "react-icons/hi"
 
 import { EditPreview } from "./task-edit";
+import { DueDatePreview } from "./dates/due-date-preview";
 import { toggleLabelPreview } from '../../../store/actions/label.action'
 import { removeTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/user.service";
@@ -145,6 +146,14 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
                   </div>
                 </div>
               )}
+              <div className='badge'>
+                {/* DUE DATE */}
+                {task.dueDate && (
+                  <DueDatePreview dueDate={task.dueDate}
+                    task={task} boardId={board._id} groupId={groupId}
+                  />
+                )}
+              </div>
             </div>
             <div className="task-members-preview">
               {task?.members.map(member => {

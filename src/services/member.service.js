@@ -21,7 +21,6 @@ async function toggleMember(boardId, groupId, taskId, user) {
     }
 }
 
-
 async function joinTask(boardId, groupId, taskId, user) {
     try {
         let task = await taskService.getTaskById(boardId, groupId, taskId)
