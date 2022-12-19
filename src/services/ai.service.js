@@ -1,10 +1,8 @@
-import { Configuration, OpenAIApi } from "openai";
-
-const OPENAI_API_KEY = "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"
-
+import { Configuration, OpenAIApi } from 'openai'
+import secret from '../.secret/keys.json'
 
 const configuration = new Configuration({
-    apiKey: OPENAI_API_KEY,
+    apiKey: secret.OPENAI_API_KEY,
 })
 
 async function getAiTextCompletion(sttInput) {
@@ -14,8 +12,7 @@ async function getAiTextCompletion(sttInput) {
             .createCompletion(
                 "text-davinci-002",
                 {
-                    prompt: `build ${sttInput} \n`,
-                    // prompt: `build a to-do list for ${sttInput} \n`,
+                    prompt: `build for${sttInput} \n`,
                     temperature: 1,
                     max_tokens: 311,
                     top_p: 0.3,
@@ -23,9 +20,8 @@ async function getAiTextCompletion(sttInput) {
                     presence_penalty: 0,
                 })
 
-        const splittingPattern = /[A-Za-z ]+/g
-        const filteredResponse = response.data.choices[0].text.match(splittingPattern)
-     
+        var splittingPattern = /[A-Za-z ']+/g
+        var filteredResponse = response.data.choices[0].text.match(splittingPattern)
         return {
             checklistTitle: sttInput,
             todoTitles: filteredResponse

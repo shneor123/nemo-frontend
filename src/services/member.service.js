@@ -2,10 +2,7 @@ import { taskService } from "./task.service"
 
 export const memberService = {
     toggleMember,
-    // getMembersById,
-    // getMemberById,
     joinTask
-    // editMember
 }
 
 async function toggleMember(boardId, groupId, taskId, user) {

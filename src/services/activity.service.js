@@ -4,10 +4,7 @@ import { utilService } from "./util.service";
 
 export const activityService = {
     saveActivity,
-
 }
-
-
 
 async function saveActivity(activity, boardId) {
     const activityId = activity.id

@@ -3,8 +3,7 @@ export const utilService = {
     isValidUrl,
     isValidImg,
     getDateByTimestamp,
-    timeSince,
-    getDeepCopy
+    timeSince
     
 }
 
@@ -24,11 +23,9 @@ function isValidUrl(txt) {
     return urlExp.test(txt)
 }
 
-
 function isValidImg(filename) {
     return (/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(filename)
 }
-
 
 function getDateByTimestamp(timestamp) {
     const currYear = new Date().getFullYear()
@@ -43,7 +40,6 @@ function getDateByTimestamp(timestamp) {
         { hour: 'numeric', minute: 'numeric', hour12: true }).toLocaleUpperCase()}`
     return strDate
 }
-
 
 function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -80,9 +76,4 @@ function timeSince(date) {
 
 function getRandomColor() {
     return '#' + Math.floor(Math.random()*16777215).toString(16);
-}
-
-
-function getDeepCopy(object) {
-    return JSON.parse(JSON.stringify(object))
 }

@@ -35,8 +35,6 @@ async function post(entityType, newEntity) {
 
 }
 
-
-
 function put(entityType, updatedEntity) {
     return query(entityType)
         .then(entities => {

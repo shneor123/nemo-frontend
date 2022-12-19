@@ -1,7 +1,5 @@
 import { storageService } from './async-storage.service'
-// import { httpService } from './http.service'
 import { store } from '../store/store'
-// import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
 import { utilService } from './util.service'
 import { httpService } from './http.service'
 
@@ -69,6 +67,7 @@ async function login(credentials) {
 
     }
 }
+
 async function signup(credentials) {
     // const user = await storageService.post('user', credentials)
     const user = await httpService.post(`${AUTH_ENDPOINT}/signup`, credentials)
@@ -76,6 +75,7 @@ async function signup(credentials) {
     saveLocalUser(user)
     return user
 }
+
 async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     // socketService.logout()
@@ -87,9 +87,6 @@ function saveLocalUser(user) {
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
-
-
-
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }

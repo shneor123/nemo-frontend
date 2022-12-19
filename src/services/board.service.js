@@ -3,8 +3,6 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { httpService } from './http.service.js'
 import { socketService } from './socket.service.js'
-// const boardChannel = new BroadcastChannel('boardChannel')
-// const listeners = []
 
 export const boardService = {
     save,
@@ -13,7 +11,7 @@ export const boardService = {
     remove
 
 }
-window.cs = boardService;
+// window.cs = boardService;
 
 const STORAGE_KEY = 'board'
 const BOARD_BASE_ENDPOINT = 'board'
@@ -33,6 +31,7 @@ async function getById(boardId) {
 async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
 }
+
 async function save(board) {
     if (board._id) {
         const savedBoard = await httpService.put(BOARD_BASE_ENDPOINT, board)
@@ -750,7 +749,5 @@ const ourBoard = {
         }
     ],
 }
-
-
 // storageService.post(STORAGE_KEY, ourBoard).then(x => console.log(x))
 

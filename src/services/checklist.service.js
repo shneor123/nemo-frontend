@@ -1,4 +1,3 @@
-import { boardService } from "./board.service"
 import { taskService } from "./task.service"
 import { utilService } from "./util.service"
 
@@ -16,6 +15,7 @@ async function removeChecklist(boardId, groupId, taskId, checklistId, activity) 
     taskToUpdate.checklists = updateChecklists
     return taskService.saveTask(taskToUpdate, boardId, groupId, activity)
 }
+
 async function saveChecklist(checklist, boardId, groupId, taskId, activity) {
     if (activity) {
         activity.id = utilService.makeId()
@@ -29,6 +29,7 @@ async function saveChecklist(checklist, boardId, groupId, taskId, activity) {
     else taskToUpdate.checklists[checklistIdx] = checklist
     return await taskService.saveTask(taskToUpdate, boardId, groupId, activity)
 }
+
 async function saveTodo(todo, checklistId, boardId, groupId, taskId, activity) {
     if (activity) {
         activity.id = utilService.makeId()
@@ -43,6 +44,7 @@ async function saveTodo(todo, checklistId, boardId, groupId, taskId, activity) {
     else taskToUpdate.checklists[checklistIdx].todos[todoIdx] = todo
     return taskService.saveTask(taskToUpdate, boardId, groupId, activity)
 }
+
 async function removeTodo(todo, checklistId, boardId, groupId, taskId) {
     const todoId = todo.id
     const taskToUpdate = await taskService.getTaskById(boardId, groupId, taskId)
