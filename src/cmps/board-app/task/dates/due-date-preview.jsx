@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
 import { IoTimeOutline } from 'react-icons/io5'
 import { GrCheckboxSelected } from 'react-icons/gr'
 import { MdCheckBoxOutlineBlank } from 'react-icons/md'
-
 import { saveTask } from '../../../../store/actions/task.action'
 
 export function DueDatePreview({ task, boardId, groupId, dueDate }) {
@@ -46,3 +44,19 @@ export function DueDatePreview({ task, boardId, groupId, dueDate }) {
     </div>
   )
 }
+
+
+
+// <div className='task-badges flex'>
+// <div className='badges-icons flex justify-center align-center'>
+//     {/* DUE DATE */}
+//     {dueDate && (
+//         <div className='due-date-container'>
+//             <DueDatePreview
+//                 dueDate={dueDate}
+//                 task={task}
+//                 boardId={board._id}
+//                 groupId={groupId}
+//             />
+//         </div>
+//     )}

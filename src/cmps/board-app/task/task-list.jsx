@@ -1,11 +1,6 @@
 import { TaskPreview } from "./task-preview";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { memo, useEffect, useState } from "react";
-import { setTasks } from "../../../store/actions/task.action";
-import { useDispatch } from "react-redux";
-import { utilService } from "../../../services/util.service";
+import {  Droppable } from "react-beautiful-dnd";
 export const TaskList = ({ tasks, groupId, boardId, labelOpenState, labels, boardMembers }) => {
-  const dispatch = useDispatch();
   return (
     <Droppable droppableId={groupId}  >
       {(provided) => (

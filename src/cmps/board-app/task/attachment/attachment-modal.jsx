@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
 import { uploadService } from '../../../../services/cloudinary.service'
 import { utilService } from '../../../../services/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 
 export const AttachmentModal = ({ task, boardId, groupId }) => {
-    const [attachData, setAttachData] = useState({ url: '' })
-
     const dispatch = useDispatch()
+    const [attachData, setAttachData] = useState({ url: '' })
 
     const onAttachLink = ev => {
         ev.preventDefault()

@@ -1,17 +1,18 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { removeTask } from "../../../store/actions/task.action";
 import { Draggable } from "react-beautiful-dnd";
-import { Link } from "react-router-dom";
-import { useEffect, useRef, useState, memo } from "react";
-import { labelService } from "../../../services/label.service";
+
 import { BsPencil } from "react-icons/bs";
 import { FiCheckSquare, FiPaperclip } from "react-icons/fi";
 import { GrTextAlignFull } from "react-icons/gr"
-import { toggleLabelPreview } from '../../../store/actions/label.action'
-import { userService } from "../../../services/user.service";
 import { HiOutlineEye } from "react-icons/hi"
+
 import { EditPreview } from "./task-edit";
+import { toggleLabelPreview } from '../../../store/actions/label.action'
+import { removeTask } from "../../../store/actions/task.action";
+import { userService } from "../../../services/user.service";
+import { labelService } from "../../../services/label.service";
 
 export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
   const dispatch = useDispatch();

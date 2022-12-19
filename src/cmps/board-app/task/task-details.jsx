@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+
+import { GrClose } from 'react-icons/gr'
+import { AiOutlineCreditCard } from "react-icons/ai";
 import { TaskSidebar } from "./task-sidebar";
 import { TaskDetailsMain } from "./task-details-main";
-import { useSelector } from "react-redux";
-import { GrClose } from 'react-icons/gr'
 import { saveTask } from "../../../store/actions/task.action";
-import { AiOutlineCreditCard } from "react-icons/ai";
-import { useDispatch } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 
 export const TaskDetails = () => {
@@ -47,7 +47,6 @@ export const TaskDetails = () => {
       <section
         tabIndex={"0"}
         onKeyDown={handleKeyEvent}
-        // onClick={() => navigate(-1)}
         onClick={() => navigate(`/board/${boardId}`)}
         className="task-details-wrapper"
       >
@@ -57,11 +56,9 @@ export const TaskDetails = () => {
             <div className="cover-color" style={{ backgroundColor: task.style.backgroundColor }}>
               <div className="task-details-back-btn"
                 onClick={() => navigate(`/board/${boardId}`)}
-              // onClick={() => navigate(-1)}
               ><GrClose /> </div>
             </div>}
           {!!task?.style?.backgroundColor || <div className="task-details-back-btn"
-            //  onClick={() => navigate(-1)}
             onClick={() => navigate(`/board/${boardId}`)}
           ><GrClose /> </div>}
 

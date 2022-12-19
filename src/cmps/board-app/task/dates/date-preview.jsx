@@ -1,15 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-// Icons
 import { IoCheckbox } from 'react-icons/io5';
 import { MdCheckBoxOutlineBlank } from 'react-icons/md';
-// Service
 import { utilService } from '../../../../services/util.service'
-// Store
 import { saveTask } from '../../../../store/actions/task.action'
-import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp';
-
-import { TaskDateModal } from './task-date-modal'
 
 export function DatePreview({ task, boardId, groupId }) {
 

@@ -7,14 +7,14 @@ export const LabelsDataCard = ({ task, labels }) => {
     <div className="label-data">
       <h3 className="data-gutter-card-title">Labels</h3>
       {labelsToRender.map((label) => {
-        return (
-          <div
-            key={label.id}
-            style={{ backgroundColor: label.color }}
-            className="label-data-item"
-          ></div>
-        );
-      }
+          return (
+            <div
+              key={label.id}
+              style={{ backgroundColor: label.color }}
+              className="label-data-item"
+            ></div>
+          );
+        }
       )}
       <div className="add-data-gutter-btn">
         <FiPlus />

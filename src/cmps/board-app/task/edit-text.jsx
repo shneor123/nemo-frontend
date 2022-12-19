@@ -2,9 +2,6 @@ import { useDispatch } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 import { saveTask } from "../../../store/actions/task.action";
 
-
-
-
 export const EditText = ({ task, boardId, groupId, onCloseQuickEdit }) => {
     const [fields, handleChange] = useForm({ title: task.title });
     const dispatch = useDispatch()
@@ -25,7 +22,6 @@ export const EditText = ({ task, boardId, groupId, onCloseQuickEdit }) => {
                     onChange={handleChange}
                     autoFocus
                     onFocus={(e) => e.target.select()}
-
                 >
                 </textarea>
                 <button onClick={onSaveTask}>Save</button>

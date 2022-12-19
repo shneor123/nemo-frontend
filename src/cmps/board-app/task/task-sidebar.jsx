@@ -1,14 +1,15 @@
+import {  useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { TiTag } from "react-icons/ti";
 import { BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { MdOutlineScreenShare } from "react-icons/md";
+import { GiRobotAntennas } from 'react-icons/gi'
 import { BsPerson } from "react-icons/bs";
-import { useEffect, useRef, useState } from "react";
+
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { userService } from "../../../services/user.service";
-import { useDispatch } from "react-redux";
 import { joinTask } from "../../../store/actions/member.action";
-import { GiRobotAntennas } from 'react-icons/gi'
 
 export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, groupTitle }) => {
   const buttons = [

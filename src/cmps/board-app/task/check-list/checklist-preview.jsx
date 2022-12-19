@@ -1,20 +1,19 @@
-import { TodosList } from './todo-list.jsx'
-import { IoMdCheckboxOutline } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { saveChecklist } from '../../../../store/actions/checklist.action.js';
-import { ChecklistProgressBar } from './checklist-progress.jsx'
-import { useForm } from '../../../../hooks/useForm.js';
+import { IoMdCheckboxOutline } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
+import { TodosList } from './todo-list'
+import { saveChecklist } from '../../../../store/actions/checklist.action';
+import { ChecklistProgressBar } from './checklist-progress'
+import { useForm } from '../../../../hooks/useForm';
 
 
 
 export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, groupId }) => {
+    const dispatch = useDispatch()
     const [isEditOpen, setIsEditOpen] = useState(false)
     const [fields, handleChange] = useForm({ title: checklist.title });
-
-    const dispatch = useDispatch()
-
+    
     const onSaveTask = () => {
         checklist.title = fields.title
         dispatch(saveChecklist(checklist, boardId, groupId, task.id));
@@ -45,12 +44,8 @@ export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, 
                             <button onClick={() => onRemoveChecklist(checklist.id)}>Delete</button>
                         </div>}
                 </div>
-
             </div>
-
             <ChecklistProgressBar checklist={checklist} />
-
-
             <TodosList
                 checklistId={checklist.id}
                 todos={checklist.todos}

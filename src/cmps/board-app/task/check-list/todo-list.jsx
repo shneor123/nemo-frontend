@@ -6,10 +6,9 @@ import { useDispatch } from "react-redux";
 import { useForm } from "../../../../hooks/useForm.js";
 
 export const TodosList = ({ todos, checklistId, taskId, boardId, groupId, taskTitle }) => {
-  console.log(todos);
+  const dispatch = useDispatch();
   const [isAddOpen, setIsAddOpen] = useState();
   const [fields, handleChange, clearFields] = useForm({ title: "" });
-  const dispatch = useDispatch();
 
   const onAddTodo = () => {
     const updatedTodo = {}
@@ -63,7 +62,6 @@ export const TodosList = ({ todos, checklistId, taskId, boardId, groupId, taskTi
           </div>
         </form>
       )}
-
       {!isAddOpen && (
         <div className="todo-add">
           <button onClick={() => setIsAddOpen(true)}>Add an item</button>
