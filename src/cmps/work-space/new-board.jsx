@@ -1,7 +1,6 @@
 
-import { useEffect, useRef, useState } from "react";
-// import React, { useState } from "react";
-import { DynamicModalCmp } from "../general/dynamic-modal-cmp.jsx";
+import { useRef, useState } from "react";
+import { DynamicModalCmp } from "../general/dynamic-modal-cmp";
 
 export function CreateNewBoard() {
 
@@ -9,14 +8,11 @@ export function CreateNewBoard() {
   const modalDetails = useRef();
   const modalTitle = useRef();
 
-
-
   const onCloseModal = () => {
     setIsModalOpen(false);
   };
 
   const onOpenModal = (ev, txt) => {
-
     if (isModalOpen) {
       setIsModalOpen(false);
     }
@@ -24,9 +20,6 @@ export function CreateNewBoard() {
     modalDetails.current = ev.target.getBoundingClientRect();
     setIsModalOpen(true);
   };
-  // const toggleModal = () => {
-  //   setIsModalOpen(!isModalOpen);
-  // }
 
   return (
     <div className="new-board-container">
@@ -43,6 +36,3 @@ export function CreateNewBoard() {
     </div>
   );
 }
-
-// toggleModal={toggleModal}
-// onClick={toggleModal}

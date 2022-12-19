@@ -1,21 +1,20 @@
-import { GroupList } from "../cmps/board-app/group/group-list.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useParams } from "react-router";
-import { handleDrag, loadBoard } from "../store/actions/board.action";
-import { useEffect } from "react";
-import { ToolBar } from "../cmps/general/toolbar.jsx";
-import { loadUsers } from "../store/actions/user.actions.js";
-import { socketService } from "../services/socket.service.js";
-import { getActionSetBoard } from "../store/actions/board.action";
-import { DragDropContext } from "react-beautiful-dnd";
-import { Loader } from "../cmps/general/loader.jsx";
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Outlet, useParams } from "react-router"
+import { Loader } from "../cmps/general/loader"
+import { ToolBar } from "../cmps/general/toolbar"
+import { GroupList } from "../cmps/board-app/group/group-list"
+import { handleDrag, loadBoard } from "../store/actions/board.action"
+import { loadUsers } from "../store/actions/user.actions"
+import { socketService } from "../services/socket.service"
+import { DragDropContext } from "react-beautiful-dnd"
 
 export const BoardApp = () => {
-  const { boardId } = useParams();
-  const { board } = useSelector((storeState) => storeState.boardModule);
-  const { users } = useSelector((storeState) => storeState.userModule);
-  // const { users } = useSelector((storeState) => storeState.userModule);
-  const dispatch = useDispatch();
+  const { boardId } = useParams()
+  const dispatch = useDispatch()
+  const { board } = useSelector((storeState) => storeState.boardModule)
+  const { users } = useSelector((storeState) => storeState.userModule)
+
   useEffect(() => {
     setSocket()
     onLoadBoard();
@@ -36,12 +35,12 @@ export const BoardApp = () => {
   }
 
   const onLoadUsers = () => {
-    dispatch(loadUsers());
-  };
+    dispatch(loadUsers())
+  }
 
   const onLoadBoard = () => {
-    dispatch(loadBoard(boardId));
-  };
+    dispatch(loadBoard(boardId))
+  }
 
   const onDragEnd = (result) => {
     const { source, destination, type } = result;
@@ -58,7 +57,7 @@ export const BoardApp = () => {
   };
 
 
-  if (!board) return <Loader />;
+  if (!board) return <Loader />
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>

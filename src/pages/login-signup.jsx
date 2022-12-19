@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react"
+import { useSelector ,useDispatch} from "react-redux"
 import { Link, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router"
+
+import GoogleButton from "react-google-button"
+import { GoogleLogin } from "react-google-login"
+import { gapi } from "gapi-script"
+
+import { login, signup } from "../store/actions/user.actions"
+import { useForm } from "../hooks/useForm"
 import leftHero from "../assets/svg/leftHero.svg"
 import rightHero from "../assets/svg/rightHero.svg"
 import guest from "../assets/svg/guest.svg"
-import { useDispatch } from "react-redux"
-import { login, signup } from "../store/actions/user.actions"
-import { useNavigate } from "react-router"
-import { useSelector } from "react-redux"
-import { useForm } from "../hooks/useForm"
-import { GoogleLogin } from "react-google-login"
-import { gapi } from "gapi-script"
-import GoogleButton from "react-google-button"
 
 export const LoginSignup = () => {
   const dispatch = useDispatch()
@@ -55,7 +56,7 @@ export const LoginSignup = () => {
     dispatch(signup(credentials))
     clearFields()
     // figure out flow,
-    // navigate('/workspace')
+    navigate('/workspace')
   }
 
   const onLogin = (ev) => {
@@ -78,9 +79,6 @@ export const LoginSignup = () => {
       <header className="login-header">
         <h1>Nemo</h1>{" "}
       </header>
-      {/* <GoogleLogin clientId={CLIENT_ID}
-      buttonText="Login With Google"
-      /> */}
       <div className="login-signup-container">
         <form className="flex column " onSubmit={isSignup ? onSignUp : onLogin}>
           {isSignup ? (
@@ -138,10 +136,6 @@ export const LoginSignup = () => {
               ></GoogleButton>
             )}
           />
-          {/* <button>
-            <img src={google} className="google-icon" />
-            <p className="google-txtx">Continue with Google</p>{" "}
-          </button> */}
         </div>
         <hr />
         <div className="dif-choice flex">
