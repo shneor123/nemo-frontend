@@ -1,12 +1,10 @@
-import { Link, useLocation, useParams } from "react-router-dom"
-import { ReactComponent as HomeLogo } from "../../assets/svg/homePageLogo.svg"
-import Logole from "../../assets/img/ttttCapture.PNG"
-import { useDispatch, useSelector } from "react-redux"
-import { loadUser, onLogout } from "../../store/actions/user.actions"
-import { userService } from "../../services/user.service"
-import { useNavigate } from "react-router"
 import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router"
+import { useLocation } from "react-router-dom"
 import { gapi } from "gapi-script";
+import {  onLogout } from "../../store/actions/user.actions"
+import Logole from "../../assets/img/ttttCapture.PNG"
 
 
 export const AppHeader = () => {
@@ -68,7 +66,6 @@ export const AppHeader = () => {
       {pathname !== "/" && (
         <nav className='nav-bar'>
           {/* <button onClick={onUserLogout}>logout</button> */}
-
           <div
             onClick={() => navigate("/workspace")}
             className='trello-logo-after-login-container'

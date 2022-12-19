@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
-import { Menu } from "./menu";
+import { useDispatch } from "react-redux";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { FaEllipsisH } from "react-icons/fa";
-import { userService } from "../../services/user.service";
 import { MdOutlineFilterList } from "react-icons/md";
 import { BsPersonPlus } from "react-icons/bs";
+import { Menu } from "./menu";
 import { DynamicModalCmp } from "./dynamic-modal-cmp";
-import { useDispatch } from "react-redux";
+import { userService } from "../../services/user.service";
 import { updateBoard } from "../../store/actions/board.action";
 
 
@@ -15,8 +15,6 @@ export const ToolBar = ({ boardId, board, users }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState(null)
   const modalDetails = useRef();
-  // const modalTitle = useRef();
-  // let modalTitle;
   const dispatch = useDispatch()
 
   const user = userService.getLoggedinUser();
@@ -33,7 +31,6 @@ export const ToolBar = ({ boardId, board, users }) => {
       setIsModalOpen(false);
     }
     modalDetails.current = ev.target.getBoundingClientRect();
-    // modalTitle = txt;
     setModalTitle(txt)
     setIsModalOpen(true);
   };
