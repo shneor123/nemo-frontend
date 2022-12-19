@@ -1,29 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { setFilter } from "../../store/actions/board.action";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
-import { saveLabel } from "../../store/actions/label.action";
 
 
 export const FilterMenu = ({ isFilterModalOpen, board }) => {
     const dispatch = useDispatch()
     const [currFilter, setCurrFilter] = useState({ txt: '', labelIds: [], memberIds: [] })
-    // const { users } = useSelector((storeState) => storeState.userModule)
-
-    // const [filterLabels, setFilterLabels] = useState(null)
 
     useEffect(() => {
         onSetFilter()
     }, [currFilter])
 
-
-
     const onHandleChange = ({ target }) => {
         const field = target.name;
         const value = target.value;
         setCurrFilter(() => ({ ...currFilter, [field]: value }))
-
     }
 
     const onSetFilter = () => {
@@ -79,8 +71,8 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
                     return (
                         <li key={member._id}>
                             <div className="user-preview-conainer" onClick={() => setMemberChecked(member._id)}>
-                                {!member.checked && < MdCheckBoxOutlineBlank className="check-box-blank" onClick={() => setMemberChecked(member.id)} />}
-                                {member.checked && < MdCheckBox className="check-box-full" onClick={() => setMemberChecked(member.id)} />}
+                                {!member.checked && < MdCheckBoxOutlineBlank className="check-box-blank" onClick={() => setMemberChecked(member._id)} />}
+                                {member.checked && < MdCheckBox className="check-box-full" onClick={() => setMemberChecked(member._id)} />}
                                 <div className="user-info">
                                     <div className="user-img-container ">
                                         <img src={member.imgUrl} />
@@ -119,8 +111,6 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
                     )
                 })}
             </ul>
-
-
         </section>
     )
 }

@@ -3,12 +3,10 @@ import { useDispatch } from "react-redux";
 import { saveBg } from "../../store/actions/board.action";
 
 export const ColorMenuModal = ({ board, isColorModalOpen }) => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     useEffect(() => {
     }, [board]);
-
-
 
     const bgColors = [
         { id: 'c1', color: '#d29034' },
@@ -26,11 +24,9 @@ export const ColorMenuModal = ({ board, isColorModalOpen }) => {
         changeBg(color)
     }
 
-
     const changeBg = (color) => {
         dispatch(saveBg(board._id, color));
     }
-
 
     return (
         <section style={{ display: isColorModalOpen }} >
