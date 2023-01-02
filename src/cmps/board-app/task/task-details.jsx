@@ -80,7 +80,7 @@ export const TaskDetails = () => {
             </p>
           </div>
           <div className="helper-container">
-            <TaskDetailsMain task={task} boardId={boardId} groupId={groupId} labels={board.labels} activities={board.activities} />
+            <TaskDetailsMain task={task} boardId={boardId} groupId={groupId} labels={board.labels} activities={board.activities} boardMembers={board.members} />
             <TaskSidebar
               boardId={boardId}
               groupId={groupId}
