@@ -14,15 +14,19 @@ export function DueDatePreview({ task, boardId, groupId, dueDate }) {
     ev.preventDefault()
     ev.stopPropagation()
     task.isDone = !task.isDone
-    dispatch(saveTask(task, boardId, groupId))
+    dispatch(saveTask(boardId, groupId, task, task.id))
   }
+
 
   const getDueStatus = () => {
     if (task.isDone) return { txt: 'COMPLETE', className: 'complete' };
     else if (Date.now() > dueDate) {
-        return { txt: 'OVERDUE', className: 'over-due' };
+      return { txt: 'OVERDUE', className: 'over-due' };
+    } else {
+      const timeDiff = dueDate - Date.now();
+      if (timeDiff < 90000000) return { txt: 'DUE SOON', className: 'due-soon' };
     }
-}
+  };
 
   if (!getDueStatus()) return <></>
   return (

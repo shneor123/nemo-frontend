@@ -5,7 +5,6 @@ import { DashboardAllTasks } from '../cmps/dashboard/dashboard-all-tasks'
 import { DashboardDueSoon } from '../cmps/dashboard/dashboard-due-soon'
 import { DashboardOverdue } from '../cmps/dashboard/dashboard-overdue'
 import { DashboardChart } from '../cmps/dashboard/dashboard-chart'
-import { DashboardComplete } from '../cmps/dashboard/dashboard-complete'
 import { useSelector } from 'react-redux'
 
 export const Dashboard = () => {
@@ -33,9 +32,6 @@ export const Dashboard = () => {
           <section className="dashboard-grid">
             <div className="all-task-container grid-item">
               <DashboardAllTasks tasks={tasks} />
-            </div>
-            <div className="complete-container grid-item">
-              <DashboardComplete tasks={tasks} />
             </div>
             <div className="due-soon-container grid-item">
               <DashboardDueSoon tasks={tasks} />

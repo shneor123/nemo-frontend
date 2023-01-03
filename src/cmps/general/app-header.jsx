@@ -5,10 +5,6 @@ import { useLocation } from "react-router-dom"
 import { gapi } from "gapi-script";
 import { onLogout } from "../../store/actions/user.actions"
 import Logole from "../../assets/img/ttttCapture.PNG"
-import { CreateNewBoard } from "../work-space/new-board"
-import { Button } from "semantic-ui-react";
-import { AiOutlineDashboard } from "react-icons/ai";
-
 
 export const AppHeader = () => {
   const { pathname } = useLocation()
@@ -19,7 +15,6 @@ export const AppHeader = () => {
 
   let routeClass
   let googleUser
-
   useEffect(() => {
     if (pathname !== "/" && pathname !== "/login" && pathname !== "/signup") {
       const auth2 = gapi?.auth2?.getAuthInstance()
@@ -39,9 +34,6 @@ export const AppHeader = () => {
     dispatch(onLogout())
     navigate("/login")
   }
-
-  const filterRef = useRef()
-
 
   return (
     <header
@@ -68,10 +60,6 @@ export const AppHeader = () => {
           </div>
         </nav>
       )}
-      {/* <div className="header-create-board">
-          <CreateNewBoard />
-      </div> */}
-
 
       {pathname !== "/" && (
         <nav className='nav-bar'>
@@ -96,7 +84,7 @@ export const AppHeader = () => {
             </svg>
             <h1 className='trello-logo-after-login-title'>Nemo</h1>
           </div>
-          {/* <span>hello {user?.username || 'guest'}</span> */}
+          <span>hello {user?.username || 'guest'}</span>
           {/* implement guest feature if no user logged in */}
           <div
             style={{
@@ -104,7 +92,6 @@ export const AppHeader = () => {
             }}
             className='user-avatar'
           ></div>
-
         </nav>
       )}
     </header>

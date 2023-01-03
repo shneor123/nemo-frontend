@@ -27,6 +27,7 @@ export const LoginSignup = () => {
     username: "",
     password: "",
     fullname: "",
+    imgUrl: "",
   })
 
   useEffect(() => {

@@ -2,8 +2,10 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { utilService } from '../../../../services/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
+import { BsSquareHalf } from "react-icons/bs"
 
 export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
+    console.log("🚀 ~ file: attachment-preview.jsx:8 ~ AttachmentPreview ~ task", task)
 
     const dispatch = useDispatch()
 
@@ -20,7 +22,6 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
         // dispatch(saveTask(task, boardId, groupId, taskToUpdate))
     }
 
-
     return (
         <>
             <div className='attachment-preview-container' >
@@ -33,13 +34,15 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
                     <span className='attachment-name'>{attachment.name}</span>
                     <div className='actions-container'>
                         <span>{utilService.timeSince(attachment.createdAt)}</span>
-                        <span>-</span>
+                        <span> -</span>
                         <span className='action-btn' onClick={onRemoveAttachment}>Delete</span>
-                        <span>-</span>
+                        <span> -</span>
                         <span className='action-btn' onClick={editTitle}>Edit</span>
-                        <span>-</span>
-                        <span className='action-btn' > Cover</span>
+                        <span> -</span>
                     </div>
+                    <span className='actions-container action-btn' >
+                        <BsSquareHalf style={{ transform: `rotate(270deg)`, height: '10px' }} />
+                        {(attachment.url === task.style.backgroundColor) ? 'Remove' : 'Make'} Cover</span>
                 </div>
             </div>
         </>

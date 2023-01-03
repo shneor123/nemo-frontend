@@ -32,6 +32,7 @@ export const DynamicModalCmp = ({
   groupTitle,
   board,
 }) => {
+
   let modalTypeToOpen;
   console.log(modalTitle);
   switch (modalTitle) {

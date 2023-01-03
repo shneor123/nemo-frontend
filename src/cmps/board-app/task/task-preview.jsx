@@ -146,8 +146,8 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
                   </div>
                 </div>
               )}
-              <div className='badge'>
-                {/* DUE DATE */}
+              {/* DUE DATE */}
+              <div className='badge badges-icons'>
                 {task.dueDate && (
                   <DueDatePreview dueDate={task.dueDate}
                     task={task} boardId={board._id} groupId={groupId}
