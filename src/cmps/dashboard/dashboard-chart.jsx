@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 
 export const DashboardChart = ({ tasks, board }) => {
+  console.log("🚀 ~ file: dashboard-chart.jsx:5 ~ DashboardChart ~ board", board)
   const [dataType, setDataType] = useState('label')
 
   var chartLabels = []
@@ -11,17 +12,18 @@ export const DashboardChart = ({ tasks, board }) => {
   switch (dataType) {
     case 'label':
       // eslint-disable-next-line
-      // const labelsIdMap = board.Labels.reduce((acc, label) => ((acc[label.id] = 0), acc), {})
-      // tasks.forEach((task) => task.labelIds.forEach((labelId) => (labelsIdMap[labelId] += 1)))
+      const labelsIdMap = board.labels.reduce((acc, label) => ((acc[label.id] = 0), acc), {})
+      tasks.forEach((task) => task.labelIds.forEach((labelId) => (labelsIdMap[labelId] += 1)))
 
-      // for (let labelId in labelsIdMap) {
-      //   const label = board.labels.find((label) => label.id === labelId)
-      //   chartData.push(labelsIdMap[labelId])
-      //   chartLabels.push(label.title)
-      //   chartColors.push(label.color)
-      // }
+      for (let labelId in labelsIdMap) {
+        const label = board.labels.find((label) => label.id === labelId)
+        chartData.push(labelsIdMap[labelId])
+        chartLabels.push(label.title)
+        chartColors.push(label.color)
+        // chartLabels.push(label.checked)
+      }
 
-      // break
+      break
     case 'group':
       board.groups.forEach((group) => {
         chartLabels.push(group.title)
@@ -33,6 +35,10 @@ export const DashboardChart = ({ tasks, board }) => {
       const membersIdMap = board.members.reduce((acc, member) => ((acc[member._id] = 0), acc), {})
       tasks.forEach((task) =>
         task.members.forEach((member) => {
+          if (membersIdMap[member._id]) {
+            chartData.push(membersIdMap[member._id])
+            chartLabels.push(member.fullname)
+          }
           if (membersIdMap[member._id] !== undefined) membersIdMap[member._id] += 1
         })
       )
@@ -40,7 +46,7 @@ export const DashboardChart = ({ tasks, board }) => {
       for (let memberId in membersIdMap) {
         const member = board.members.find((member) => member._id === memberId)
         chartData.push(membersIdMap[memberId])
-        chartLabels.push(member.fullname)
+        chartLabels.push(member)
       }
       break
     default:

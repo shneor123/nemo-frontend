@@ -35,7 +35,7 @@ export const Dashboard = () => {
               <DashboardAllTasks tasks={tasks} />
             </div>
             <div className="complete-container grid-item">
-              {/* <DashboardComplete tasks={tasks} /> */}
+              <DashboardComplete tasks={tasks} />
             </div>
             <div className="due-soon-container grid-item">
               <DashboardDueSoon tasks={tasks} />
