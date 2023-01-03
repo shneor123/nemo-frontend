@@ -1,10 +1,13 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { useLocation } from "react-router-dom"
 import { gapi } from "gapi-script";
-import {  onLogout } from "../../store/actions/user.actions"
+import { onLogout } from "../../store/actions/user.actions"
 import Logole from "../../assets/img/ttttCapture.PNG"
+import { CreateNewBoard } from "../work-space/new-board"
+import { Button } from "semantic-ui-react";
+import { AiOutlineDashboard } from "react-icons/ai";
 
 
 export const AppHeader = () => {
@@ -37,6 +40,9 @@ export const AppHeader = () => {
     navigate("/login")
   }
 
+  const filterRef = useRef()
+
+
   return (
     <header
       style={
@@ -62,6 +68,10 @@ export const AppHeader = () => {
           </div>
         </nav>
       )}
+      {/* <div className="header-create-board">
+          <CreateNewBoard />
+      </div> */}
+
 
       {pathname !== "/" && (
         <nav className='nav-bar'>
@@ -70,6 +80,7 @@ export const AppHeader = () => {
             onClick={() => navigate("/workspace")}
             className='trello-logo-after-login-container'
           >
+
             <svg
               className='trello-logo-after-login'
               stroke='currentColor'
@@ -93,6 +104,7 @@ export const AppHeader = () => {
             }}
             className='user-avatar'
           ></div>
+
         </nav>
       )}
     </header>

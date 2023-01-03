@@ -11,6 +11,7 @@ import { Menu } from "./menu";
 import { InviteModal } from "../modals/invite-modal.jsx";
 import { AiModal } from "../modals/ai-modal";
 import { FilterMenu } from "../menu/filter-menu";
+import { Dashboard } from "../dashboard/dashboard";
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, right, left },
@@ -36,7 +37,8 @@ export const DynamicModalCmp = ({
   switch (modalTitle) {
     case "Members":
       if (bottom >= 200 && bottom < 240) bottom -= 70;
-      if (bottom >= 240) bottom -= 150;
+      if (bottom >= 240) bottom -=135;
+      // left = 730;
       modalTypeToOpen = (
         <MemberModal
           boardId={boardId}
@@ -150,6 +152,10 @@ export const DynamicModalCmp = ({
       left = 1091.8;
       modalTypeToOpen = <FilterMenu board={board} />;
       break;
+    case "dashboard":
+      // left = 1091.8;
+      modalTypeToOpen = <Dashboard task={task} />;
+      break;
   }
 
 
@@ -186,6 +192,7 @@ export const DynamicModalCmp = ({
       </div>
       {/* <div style={modalTitle === 'Menu' ? {maxHeight:'448px'} : {}} className="modal-content-wrapper">{modalTypeToOpen}</div> */}
       <div className="modal-content-wrapper">{modalTypeToOpen}</div>
+     
     </div>
   );
 };

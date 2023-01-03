@@ -172,6 +172,45 @@
 
 
 
+.dashboard-side-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    height: 100%;
+    color: $clr9;
+    text-transform: capitalize;
+    font-size: 0.6rem;
+  
+    @include for-narrow-layout {
+      font-size: 1rem;
+    }
+    @include for-mobile-layout {
+      font-size: 0.8rem;
+    }
+  
+    .text-container {
+      flex-grow: 1;
+      align-self: flex-start;
+  
+      .title {
+        margin-bottom: 1.25em;
+        font-size: 1.25em;
+        font-weight: 500;
+      }
+  
+      .info {
+        font-weight: 600;
+        font-size: 2em;
+      }
+    }
+  
+    .chart-container {
+      margin: 1em;
+      width: 5em;
+      height: 80px;
+    }
+  }
 
 // Media helpers
 
