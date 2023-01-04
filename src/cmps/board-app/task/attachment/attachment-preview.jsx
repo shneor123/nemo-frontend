@@ -3,16 +3,25 @@ import { useDispatch } from 'react-redux'
 import { utilService } from '../../../../services/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 import { BsSquareHalf } from "react-icons/bs"
+import { userService } from '../../../../services/user.service'
 
 export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
-    console.log("🚀 ~ file: attachment-preview.jsx:8 ~ AttachmentPreview ~ task", task)
-
     const dispatch = useDispatch()
 
     const onRemoveAttachment = () => {
+        const { name } = attachment;
         const attachmentIdx = task.attachments.findIndex(attachment => attachment.id === attachment)
         task.attachments.splice(attachmentIdx, 1)
-        dispatch(saveTask(task, boardId, groupId, attachmentIdx))
+        const activity = {
+            txt: 'deleted attachment from this card',
+            boardTxt: `deleted the ${name} attachment`,
+            byMember: userService.getLoggedinUser() || {
+                username: "guest",
+                fullname: "guest",
+                imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            },
+        }
+        dispatch(saveTask(task, boardId, groupId, activity, attachmentIdx))
     }
 
     const editTitle = (name) => {

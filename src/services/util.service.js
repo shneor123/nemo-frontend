@@ -3,7 +3,8 @@ export const utilService = {
   isValidUrl,
   isValidImg,
   getDateByTimestamp,
-  timeSince
+  timeSince,
+  getInitials
 }
 
 function makeId(length = 6) {
@@ -71,4 +72,12 @@ function timeSince(date) {
   }
   if (Math.floor(seconds) === 0) return "Just now";
   return Math.floor(seconds) + " seconds ago";
+}
+
+function getInitials(name) {
+  const initials = name
+    .split(' ')
+    .map((word) => word[0])
+    .join('')
+  return initials
 }

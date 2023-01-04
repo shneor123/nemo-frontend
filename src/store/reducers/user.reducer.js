@@ -1,34 +1,35 @@
+import { userService } from "../../services/user.service"
+
 let initialState = {}
+
+const guestUser = {
+    _id: '1',
+    fullname: 'Guest',
+    username: 'guest@gmail.com',
+    imgUrl: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+}
 
 initialState = {
     users: [],
-    user: null,
+    user: userService.getLoggedinUser() || guestUser,
     watchedUser: null
 }
 
 export function userReducer(state = initialState, action) {
-    var newState = state;
+    let users
     switch (action.type) {
-        case 'SET_USER':
-            newState = { ...state, user: action.user }
-            break;
-
-        case 'REMOVE_USER':
-            newState = {
-                ...state,
-                users: state.users.filter(user => user._id !== action.userId)
-            }
-            break;
-
         case 'SET_USERS':
-            newState = { ...state, users: action.users }
-            break;
+            return { ...state, users: action.users }
+        case 'SET_USER':
+            return { ...state, user: action.user ? action.user : guestUser }
+        case 'REMOVE_USER':
+            users = state.users.filter(user => user._id !== action.userId)
+            return { ...state, users }
+        case 'SET_WATCHED_USER':
+            return { ...state, watchedUser: action.user }
+        case 'SET_USER_MSG':
+            return { ...state, msg: action.msg }
         default:
+            return state
     }
-
-    // For debug:
-    // window.userState = newState;
-    // console.log('State:', newState);
-    return newState;
-
 }

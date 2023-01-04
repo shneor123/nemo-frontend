@@ -24,7 +24,7 @@ export const MemberModal = ({ boardMembers, boardId, groupId, task, users }) => 
           return (
             <div
               key={user._id}
-              onClick={() => toggleUser(user)}
+              // onClick={() => toggleUser(user)}
               className="modal-member-item-container"
             >
               <div className="modal-member-item">

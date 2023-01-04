@@ -58,7 +58,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
         byMember: userService.getLoggedinUser() || {
           username: "guest",
           fullname: "guest",
-          imgUrl: "https://www.computerhope.com/jargon/g/guest-user.jpg",
+          imgUrl:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         },
       };
       const taskToAdd = { title: fields.newTaskTitle };

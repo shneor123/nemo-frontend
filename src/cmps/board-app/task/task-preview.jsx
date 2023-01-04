@@ -15,7 +15,7 @@ import { removeTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/user.service";
 import { labelService } from "../../../services/label.service";
 
-export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
+export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [labels, setLabels] = useState([]);
@@ -59,8 +59,17 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
 
   const onRemoveTask = (ev) => {
     ev.stopPropagation();
+    const activity = {
+      txt: "deleted this task" + task.title,
+      boardTxt: "deleted the " + task.title,
+      byMember: userService.getLoggedinUser() || {
+        username: "guest",
+        fullname: "guest",
+        imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+      },
+    }
     setIsEdit(false)
-    dispatch(removeTask(boardId, groupId, task.id));
+    dispatch(removeTask(boardId, groupId, task.id, activity));
   };
 
   const onToggleLabelPreview = (ev) => {

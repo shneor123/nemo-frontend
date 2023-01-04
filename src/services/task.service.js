@@ -51,7 +51,7 @@ async function removeTask(boardId, groupId, taskId, activity) {
     const taskIdx = board.groups[groupIdx].tasks.findIndex(task => taskId === task.id)
     board.groups[groupIdx].tasks.splice(taskIdx, 1)
 
-    // board.activities.unshift(activity)
+    board.activities.unshift(activity)
     boardService.save(board)
     return board
 }
@@ -79,19 +79,3 @@ async function setTasks(boardId, groupId, tasks) {
         console.log(err);
     }
 }
-
-
-
-function getImgsFromTask(task) {
-    let imgs = []
-    if (task.attachments) {
-        task.attachments.forEach((attach) => {
-            if (attach.isImg) {
-                imgs.push(attach)
-            }
-        })
-    }
-    if (imgs.length <= 0) return null
-    return imgs
-}
-

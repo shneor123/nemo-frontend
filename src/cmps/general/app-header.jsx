@@ -1,28 +1,36 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { NavLink, useLocation } from "react-router-dom"
 import { useNavigate } from "react-router"
-import { useLocation } from "react-router-dom"
 import { gapi } from "gapi-script";
+
 import { onLogout } from "../../store/actions/user.actions"
+import { DynamicModalCmp } from "../../cmps/general/dynamic-modal-cmp"
+import { utilService } from "../../services/util.service";
 import Logole from "../../assets/img/ttttCapture.PNG"
 
 export const AppHeader = () => {
-  const { pathname } = useLocation()
   const { user } = useSelector((storeState) => storeState.userModule)
   const { board } = useSelector((storeState) => storeState.boardModule)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { pathname } = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const modalDetails = useRef();
+  const modalTitle = useRef();
 
   let routeClass
   let googleUser
+
   useEffect(() => {
     if (pathname !== "/" && pathname !== "/login" && pathname !== "/signup") {
       const auth2 = gapi?.auth2?.getAuthInstance()
       const profile = auth2?.currentUser?.get().getBasicProfile()
       googleUser = profile?.getName()
-      console.log(googleUser);
+      // console.log(googleUser);
     }
   }, [pathname])
+
 
   if (pathname === "/") routeClass = "-home"
   if (pathname === "/login" || pathname === "/signup")
@@ -30,10 +38,19 @@ export const AppHeader = () => {
   if (pathname === "/workspace") routeClass = "-workspace"
   if (pathname.includes("/board")) routeClass = "-workspace"
 
-  const onUserLogout = () => {
-    dispatch(onLogout())
-    navigate("/login")
+  const onCloseModal = () => {
+    setIsModalOpen(false);
   }
+
+  const onOpenModal = (ev, txt) => {
+    if (isModalOpen) {
+      setIsModalOpen(false)
+    }
+    modalTitle.current = txt
+    modalDetails.current = ev.target.getBoundingClientRect()
+    setIsModalOpen(true)
+  }
+
 
   return (
     <header
@@ -51,19 +68,18 @@ export const AppHeader = () => {
             <span className='logo-title-home'>Nemo</span>
           </div>
           <div className='nav-menu'>
-            <a href='/login' className='login-btn'>
+            <NavLink to='/login' className='login-btn'>
               Log In
-            </a>
-            <a href='/signup' className='signup-btn'>
+            </NavLink>
+            <NavLink to='/signup' className='signup-btn'>
               Sign Up
-            </a>
+            </NavLink>
           </div>
         </nav>
       )}
 
       {pathname !== "/" && (
         <nav className='nav-bar'>
-          {/* <button onClick={onUserLogout}>logout</button> */}
           <div
             onClick={() => navigate("/workspace")}
             className='trello-logo-after-login-container'
@@ -84,14 +100,26 @@ export const AppHeader = () => {
             </svg>
             <h1 className='trello-logo-after-login-title'>Nemo</h1>
           </div>
-          <span>hello {user?.username || 'guest'}</span>
-          {/* implement guest feature if no user logged in */}
+          
+          {isModalOpen && (
+            <DynamicModalCmp
+              modalDetails={modalDetails.current}
+              modalTitle={modalTitle.current}
+              type={modalTitle}
+              user={user}
+              onCloseModal={onCloseModal}
+            />
+          )}
           <div
-            style={{
-              background: `url(${user?.imgUrl}) center center / cover `,
-            }}
-            className='user-avatar'
-          ></div>
+            className="user-img-container" onClick={(ev) => { onOpenModal(ev, 'account actions') }}>
+            {user &&
+              (user?.imgUrl ? (
+                <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
+              ) : (
+                <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
+              ))}
+            {!user && <span className="user-initial"></span>}
+          </div>
         </nav>
       )}
     </header>

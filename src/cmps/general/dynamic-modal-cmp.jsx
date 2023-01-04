@@ -12,6 +12,7 @@ import { InviteModal } from "../modals/invite-modal.jsx";
 import { AiModal } from "../modals/ai-modal";
 import { FilterMenu } from "../menu/filter-menu";
 import { Dashboard } from "../dashboard/dashboard";
+import { AccountActions } from "../modals/account-actions";
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, right, left },
@@ -26,6 +27,7 @@ export const DynamicModalCmp = ({
   task,
   labels,
   users,
+  user,
   boardMembers,
   modalClasses,
   activities,
@@ -156,6 +158,10 @@ export const DynamicModalCmp = ({
     case "dashboard":
       // left = 1091.8;
       modalTypeToOpen = <Dashboard task={task} />;
+      break;
+    case "account actions":
+      left = 1125;
+      modalTypeToOpen = <AccountActions user={user} />;
       break;
   }
 

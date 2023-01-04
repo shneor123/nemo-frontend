@@ -5,6 +5,7 @@ import { MdCheckBoxOutlineBlank } from 'react-icons/md';
 import { utilService } from '../../../../services/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
+import { userService } from '../../../../services/user.service';
 
 export function DatePreview({ task, boardId, groupId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,7 +15,16 @@ export function DatePreview({ task, boardId, groupId }) {
 
     const toggleIsDone = () => {
         task.isDone = !task.isDone
-        dispatch(saveTask(task, boardId, groupId))
+        const activity = {
+            txt: 'marked due date in this card',
+            boardTxt: `marked the due date ${(task.isDone) ? "complete " : "incomplete"}`,
+            byMember: userService.getLoggedinUser() || {
+                username: "guest",
+                fullname: "guest",
+                imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            },
+        }
+        dispatch(saveTask(task, boardId, groupId, activity))
     }
 
     const getDueStatus = () => {
