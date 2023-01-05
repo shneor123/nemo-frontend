@@ -97,7 +97,7 @@ export const LoginSignup = () => {
             <h1>Login to Nemo</h1>
           )}
           <input
-            type="text"
+            type="email"
             id="username"
             name="username"
             placeholder="Enter username"

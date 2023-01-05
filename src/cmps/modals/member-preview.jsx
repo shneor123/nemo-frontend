@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
-import { utilService } from '../services/util.service'
-import { DynamicModalCmp } from './general/dynamic-modal-cmp'
+import { utilService } from '../../services/util.service'
+import { DynamicModalCmp } from '../general/dynamic-modal-cmp'
 
 export const MemberPreview = ({ member, task, board, }) => {
   const memberRef = useRef()
@@ -41,7 +41,9 @@ export const MemberPreview = ({ member, task, board, }) => {
             <img src={member.imgUrl} alt={member.fullname} className="member-img" />
           </div>
         ) : (
-          <div onClick={(ev) => onOpenModal(ev, 'member actions')} className="member">{member.fullname}</div>
+          <div onClick={(ev) => onOpenModal(ev, 'member actions')} className="member">
+            {member.fullname}
+          </div>
         )}
       </div>
 

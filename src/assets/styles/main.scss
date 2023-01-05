@@ -74,19 +74,171 @@
 @import "cmps/dashboard/dashboard-chart";
 @import "cmps/dashboard/dashboard";
 
+$bg-clr: rgba(250, 251, 252, 255);
 
-.member-img {
-    cursor: pointer;
-    float: left;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    background-repeat: round;
-    background: center;
-    background-size: cover;
-    margin-right: 3px;
-    object-fit: cover;
-    max-width: 100%;
-    margin-right: 8px;
-    margin: 0 8px 4px 0;
+$font-clr1: #ffffff;
+$font-clr2: #4d4d4d;
+$font-clr3: #505f79;
+$font-clr4: #5e6c84; // DYNAMIC MODAL INNER COMPONENT
+$font-clr5: #b3bac5;
+
+$clr1: #ced4da; // INPUT BORDER
+$clr2: #495057; // INPUT FONT COLOR
+$clr3: #5e6c84; // LOGIN-SIGNUP TITLE
+$clr4: #fafbfc; // INPUT BG COLOR
+$clr5: #dfe1e6; // INPUT BORDER 2
+$clr6: #5aac44; // LOGIN BTN
+$clr7: #0052cc; // SIGNUP BTN
+$clr8: #091e420a; // TASK DETAIL BUTTON
+$clr9: #091e4214; // TASK DETAIL BUTTON - HOVER
+$clr10: #42526e; // TASK CLOSE BTN
+$clr11: #b04632; // DANGER
+$clr12: #091e4221;
+$clr13: #eb5a46;
+$clr14: tomato;
+
+$brand-clr1: #026aa7; // MAIN BRAND
+$brand-clr2: #0079bf; // ACTIVE FONT
+$brand-clr3: #e4f0f6; // ACTIVE BACKGROUND
+$brand-clr4: #172b4d; // BUTTON / TASKS DETAILS FONT
+$brand-clr5: #0065ff; // BUTTON 2
+$brand-clr6: #0d1e42; // FONT
+$brand-clr7: #80b2ff; // INPUT OUTLINE
+$brand-clr8: #ebecf0; // GROUP BACKGROUND
+$brand-clr9: #f4f5f7; // GROUP HEADER BUTTON BACKGROUND
+$brand-clr10: #ffd229; // STAR
+$brand-clr11: #97a0af; // BOARD-TILE
+$brand-clr12: rgb(23, 43, 77);
+$brand-clr13: #4c9aff; // INPUT BORDER
+$brand-clr14: rgb(66, 82, 110);
+
+@mixin task-sub-header() {
+  color: #5e6c84;
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  line-height: 20px;
+  margin: 0 8px 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.member-section {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 280px;
+
+  .search-box {
+    input {
+      margin: 4px 0 12px;
+      width: 100%;
+      background-color: #fafbfc;
+      border: none;
+      border-radius: 3px;
+      box-shadow: inset 0 0 0 2px #dfe1e6;
+      box-sizing: border-box;
+      display: block;
+      line-height: 20px;
+      margin-bottom: 12px;
+      outline: none;
+      padding: 8px 12px;
+      transition-duration: 85ms;
+      transition-property: background-color, border-color, box-shadow;
+      transition-timing-function: ease;
+      color: #172b4d;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+        sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+
+      &:focus {
+        background-color: #fff;
+        box-shadow: inset 0 0 0 2px #0079bf;
+      }
+    }
   }
+
+  .members-box {
+    margin-top: 12px;
+
+    .label {
+      @include task-sub-header();
+      margin-bottom: 6px;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-bottom: 6px;
+
+        &:hover {
+          background-color: #091e420a;
+          cursor: pointer;
+          border-radius: 3px;
+        }
+
+        .member-list {
+          border-radius: 3px;
+          display: block;
+          height: 40px;
+          line-height: 32px;
+          margin-bottom: 2px;
+          overflow: hidden;
+          padding: 4px 0;
+          position: relative;
+          text-decoration: none;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          color: #172b4d;
+
+          .member {
+            @include task-member-button(tomato);
+            margin-right: 8px;
+          }
+
+          .member-img {
+            cursor: pointer;
+            float: left;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            background-repeat: round;
+            background: center;
+            background-size: cover;
+            margin-right: 3px;
+            object-fit: cover;
+            max-width: 100%;
+            margin-right: 8px;
+            margin: 0 8px 4px 0;
+          }
+
+          .member-txt {
+            color: #172b4d;
+            font-size: 14px;
+            font-weight: 400;
+          }
+
+          .member-icon {
+            background-clip: content-box;
+            background-origin: content-box;
+            padding: 4px;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            svg {
+              height: 14px;
+              width: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

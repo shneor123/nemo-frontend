@@ -6,10 +6,9 @@ import { MdOutlineCreateNewFolder, MdOutlineFilterList } from "react-icons/md";
 import { BsPersonPlus } from "react-icons/bs";
 import { Menu } from "./menu";
 import { DynamicModalCmp } from "./dynamic-modal-cmp";
-import { userService } from "../../services/user.service";
 import { updateBoard } from "../../store/actions/board.action";
 import { useNavigate } from "react-router";
-import { MemberPreview } from "../member-preview";
+import { MemberPreview } from "../modals/member-preview";
 
 
 export const ToolBar = ({ boardId, board, users }) => {
@@ -76,18 +75,27 @@ export const ToolBar = ({ boardId, board, users }) => {
     return board.members.length - shownMembers
   }
 
+  const moreMembersRef = useRef()
+
+  const getMembersForModal = (members) => {
+    const membersForModal = members.slice(4)
+    return membersForModal
+  }
+
   return (
     <div className="toolbar">
       {isModalOpen && (
         <DynamicModalCmp
           modalDetails={modalDetails.current}
           modalTitle={modalTitle}
-          users={users}
-          boardMembers={board.members}
           onCloseModal={onCloseModal}
-          boardId={boardId}
           board={board}
+          users={users}
+          boardId={boardId}
+          boardMembers={board.members}
           member={membersToShow}
+          moreMembers={getMembersForModal(board.members)}
+          element={moreMembersRef.current}
         />
       )}
       <Menu
@@ -112,7 +120,7 @@ export const ToolBar = ({ boardId, board, users }) => {
         <div className="toolbar-members">
           {membersToShow().map((member) => {
             return (
-              <div key={member._id} className="user-avatar" 
+              <div key={member._id} className="user-avatar"
                 style={{ background: `url(${member?.imgUrl}) center center / cover ` }}
               >
                 <MemberPreview
@@ -124,10 +132,11 @@ export const ToolBar = ({ boardId, board, users }) => {
               </div>
             )
           })}
+
           {getLengthOfExtraMembers() > 0 && (
-            <div c
+            <div
               className="extra-member-avatar"
-            //  onClick={(ev) => { onOpenModal(ev, 'more-members') }}
+              onClick={(ev) => onOpenModal(ev, 'more-members')}
             >
               {`+${getLengthOfExtraMembers()}`}
             </div>

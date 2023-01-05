@@ -15,6 +15,7 @@ import { Dashboard } from "../dashboard/dashboard";
 import { AccountActions } from "../modals/account-actions";
 import { MemberActions } from "../modals/member-actions";
 import { useRef } from "react";
+import { MoreMembers } from "../modals/more-members";
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, right, left },
@@ -36,6 +37,8 @@ export const DynamicModalCmp = ({
   activities,
   groupTitle,
   board,
+  moreMembers,
+  element
 }) => {
   let modalTypeToOpen;
   console.log(modalTitle);
@@ -171,6 +174,18 @@ export const DynamicModalCmp = ({
           task={task}
           board={board}
           onCloseModal={onCloseModal}
+          member={member}
+        />
+      );
+      break;
+    case "more-members":
+      modalTypeToOpen = (
+        <MoreMembers
+          board={board}
+          task={task}
+          onCloseModal={onCloseModal}
+          element={element}
+          moreMembers={moreMembers}
           member={member}
         />
       );

@@ -1,12 +1,14 @@
 
-export const MemberActions = ({ member, board ,task}) => {
+export const MemberActions = ({ member, task }) => {
 
   return (
     <div className="member-actions">
       <div className="member-info">
         <div className="member-img-container">
           {member?.imgUrl ? (
-            <img src={member.imgUrl} alt={member.fullname} className="member-img" />
+            <div>
+              <img src={member.imgUrl} alt={member.fullname} className="member-img" />
+            </div>
           ) : (
             <div className="member">{member.fullname}</div>
           )}
