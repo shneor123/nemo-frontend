@@ -25,8 +25,7 @@ export const MemberModal = ({ boardMembers, boardId, groupId, task, users }) => 
             <div
               key={user._id}
               onClick={() => toggleUser(user)}
-              className="modal-member-item-container"
-            >
+              className="modal-member-item-container">
               <div className="modal-member-item user-img-container">
                 <div
                   style={{ marginRight: "8px" }}
@@ -34,7 +33,8 @@ export const MemberModal = ({ boardMembers, boardId, groupId, task, users }) => 
                   {user?.imgUrl ? (
                     <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
                   ) : (
-                    <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
+                    <span className="user-initial">{user.username}</span>
+
                   )}
                 </div>
                 {user.fullname}

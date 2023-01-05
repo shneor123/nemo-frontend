@@ -14,6 +14,7 @@ import { FilterMenu } from "../menu/filter-menu";
 import { Dashboard } from "../dashboard/dashboard";
 import { AccountActions } from "../modals/account-actions";
 import { MemberActions } from "../modals/member-actions";
+import { useRef } from "react";
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, right, left },
@@ -30,6 +31,7 @@ export const DynamicModalCmp = ({
   users,
   user,
   boardMembers,
+  member,
   modalClasses,
   activities,
   groupTitle,
@@ -166,10 +168,10 @@ export const DynamicModalCmp = ({
     case "member actions":
       modalTypeToOpen = (
         <MemberActions
-          onCloseModal={onCloseModal}
-          board={board}
-          boardMembers={boardMembers}
           task={task}
+          board={board}
+          onCloseModal={onCloseModal}
+          member={member}
         />
       );
       break;

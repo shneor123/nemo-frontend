@@ -73,3 +73,20 @@
 
 @import "cmps/dashboard/dashboard-chart";
 @import "cmps/dashboard/dashboard";
+
+
+.member-img {
+    cursor: pointer;
+    float: left;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    background-repeat: round;
+    background: center;
+    background-size: cover;
+    margin-right: 3px;
+    object-fit: cover;
+    max-width: 100%;
+    margin-right: 8px;
+    margin: 0 8px 4px 0;
+  }

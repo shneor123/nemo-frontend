@@ -9,46 +9,19 @@ import { DynamicModalCmp } from "./dynamic-modal-cmp";
 import { userService } from "../../services/user.service";
 import { updateBoard } from "../../store/actions/board.action";
 import { useNavigate } from "react-router";
+import { MemberPreview } from "../member-preview";
 
 
 export const ToolBar = ({ boardId, board, users }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState(null)
+  const [shownMembers, setShownMembers] = useState('4')
   const modalDetails = useRef();
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const dashboardRef = useRef()
 
-  const user = userService.getLoggedinUser();
-
-  const onOpenMenu = () => {
-    setIsMenuOpen(true);
-  };
-  const onCloseMenu = () => {
-    setIsMenuOpen(false);
-  };
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-    }
-    modalDetails.current = ev.target.getBoundingClientRect();
-    setModalTitle(txt)
-    setIsModalOpen(true);
-  };
-
-  const onCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-
-  const onToggleStar = () => {
-    board.isStar = !board.isStar
-    dispatch(updateBoard(board))
-  }
-
-  const [shownMembers, setShownMembers] = useState('4')
 
   useEffect(() => {
     window.addEventListener("resize", handleResize)
@@ -67,6 +40,31 @@ export const ToolBar = ({ boardId, board, users }) => {
     } else if (window.innerWidth < 711) {
       setShownMembers(4)
     }
+  }
+
+  const onOpenMenu = () => {
+    setIsMenuOpen(true);
+  }
+  const onCloseMenu = () => {
+    setIsMenuOpen(false);
+  }
+
+  const onOpenModal = (ev, txt) => {
+    if (isModalOpen) {
+      setIsModalOpen(false);
+    }
+    modalDetails.current = ev.target.getBoundingClientRect();
+    setModalTitle(txt)
+    setIsModalOpen(true);
+  }
+
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  }
+
+  const onToggleStar = () => {
+    board.isStar = !board.isStar
+    dispatch(updateBoard(board))
   }
 
   const membersToShow = () => {
@@ -89,6 +87,7 @@ export const ToolBar = ({ boardId, board, users }) => {
           onCloseModal={onCloseModal}
           boardId={boardId}
           board={board}
+          member={membersToShow}
         />
       )}
       <Menu
@@ -97,7 +96,6 @@ export const ToolBar = ({ boardId, board, users }) => {
         board={board}
         activities={board.activities}
       />
-
       <div className="toolbar-left">
         <span className="board-toolbar-title-container">
           <h1 className="board-toolbar-title">{board.title}</h1>
@@ -114,9 +112,16 @@ export const ToolBar = ({ boardId, board, users }) => {
         <div className="toolbar-members">
           {membersToShow().map((member) => {
             return (
-              <div key={member._id} className="user-avatar" onClick={(ev) => onOpenModal(ev, "member actions")}
+              <div key={member._id} className="user-avatar" 
                 style={{ background: `url(${member?.imgUrl}) center center / cover ` }}
-              ></div>
+              >
+                <MemberPreview
+                  key={member._id}
+                  member={member}
+                  isInTaskDetails={true}
+                  board={board}
+                />
+              </div>
             )
           })}
           {getLengthOfExtraMembers() > 0 && (

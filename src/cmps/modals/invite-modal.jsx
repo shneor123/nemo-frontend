@@ -3,12 +3,11 @@ import QRCode from "react-qr-code";
 import { useDispatch } from "react-redux";
 import { utilService } from "../../services/util.service";
 import { addUserToBoard } from "../../store/actions/board.action";
-import { toggleMember } from "../../store/actions/member.action";
 
 
 export const InviteModal = ({ boardId, users, boardMembers }) => {
-  console.log(users);
   const dispatch = useDispatch()
+  const [isQRShown, setIsQRShown] = useState(false);
   const boardMemberIds = boardMembers.map(boardMember => boardMember = boardMember._id)
   const usersToInvite = users.filter(user => !boardMemberIds.includes(user._id))
 
@@ -16,7 +15,6 @@ export const InviteModal = ({ boardId, users, boardMembers }) => {
     dispatch(addUserToBoard(boardId, user))
   }
 
-  const [isQRShown, setIsQRShown] = useState(false);
 
   return (
     <div className="member-modal">
