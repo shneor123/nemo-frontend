@@ -91,7 +91,6 @@ export const ToolBar = ({ boardId, board, users }) => {
           board={board}
         />
       )}
-
       <Menu
         isMenuOpen={isMenuOpen}
         onCloseMenu={onCloseMenu}
@@ -115,14 +114,15 @@ export const ToolBar = ({ boardId, board, users }) => {
         <div className="toolbar-members">
           {membersToShow().map((member) => {
             return (
-              <div key={member._id} className="user-avatar"
+              <div key={member._id} className="user-avatar" onClick={(ev) => onOpenModal(ev, "member actions")}
                 style={{ background: `url(${member?.imgUrl}) center center / cover ` }}
               ></div>
             )
           })}
           {getLengthOfExtraMembers() > 0 && (
-            <div className="extra-member-avatar"
-            // onClick={(event) => handleExtraPopup(event)}
+            <div c
+              className="extra-member-avatar"
+            //  onClick={(ev) => { onOpenModal(ev, 'more-members') }}
             >
               {`+${getLengthOfExtraMembers()}`}
             </div>

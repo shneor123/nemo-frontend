@@ -54,12 +54,13 @@
 //menu
 @import "cmps/menu/main-menu";
 @import "cmps/menu/color-menu";
-@import "cmps/menu/filter-menu.scss";
+@import "cmps/menu/filter-menu";
 
 
 // Modals
 @import "cmps/modals/dynamic-modal-cmp";
 @import "cmps/modals/member-modal";
+@import "cmps/modals/member-actions";
 @import "cmps/modals/label-modal";
 @import "cmps/modals/checklist-modal";
 @import "cmps/modals/cover-modal";
@@ -72,4 +73,3 @@
 
 @import "cmps/dashboard/dashboard-chart";
 @import "cmps/dashboard/dashboard";
-

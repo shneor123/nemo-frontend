@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { toggleMember } from "../../store/actions/member.action";
 import { FiCheck } from "react-icons/fi";
-import { saveTask } from "../../store/actions/task.action";
+import { utilService } from "../../services/util.service";
 
 export const MemberModal = ({ boardMembers, boardId, groupId, task, users }) => {
   const dispatch = useDispatch();
@@ -24,18 +24,20 @@ export const MemberModal = ({ boardMembers, boardId, groupId, task, users }) => 
           return (
             <div
               key={user._id}
-              // onClick={() => toggleUser(user)}
+              onClick={() => toggleUser(user)}
               className="modal-member-item-container"
             >
-              <div className="modal-member-item">
+              <div className="modal-member-item user-img-container">
                 <div
-                  style={{
-                    background: `url(${user?.imgUrl}) center center / cover `,
-                    marginRight: "8px",
-                  }}
-                  className="user-avatar"
-                ></div>
-                {user.username} ({user.fullname})
+                  style={{ marginRight: "8px" }}
+                  className="user-avatar">
+                  {user?.imgUrl ? (
+                    <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
+                  ) : (
+                    <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
+                  )}
+                </div>
+                {user.fullname}
                 {memberIds.includes(user._id) && (
                   <div className="modal-member-check-icon">
                     <FiCheck />

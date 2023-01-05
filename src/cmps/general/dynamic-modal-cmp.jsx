@@ -13,6 +13,7 @@ import { AiModal } from "../modals/ai-modal";
 import { FilterMenu } from "../menu/filter-menu";
 import { Dashboard } from "../dashboard/dashboard";
 import { AccountActions } from "../modals/account-actions";
+import { MemberActions } from "../modals/member-actions";
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, right, left },
@@ -24,8 +25,8 @@ export const DynamicModalCmp = ({
   onRemoveGroup,
   boardId,
   groupId,
-  task,
   labels,
+  task,
   users,
   user,
   boardMembers,
@@ -34,13 +35,12 @@ export const DynamicModalCmp = ({
   groupTitle,
   board,
 }) => {
-
   let modalTypeToOpen;
   console.log(modalTitle);
   switch (modalTitle) {
     case "Members":
       if (bottom >= 200 && bottom < 240) bottom -= 70;
-      if (bottom >= 240) bottom -=135;
+      if (bottom >= 240) bottom -= 135;
       // left = 730;
       modalTypeToOpen = (
         <MemberModal
@@ -161,7 +161,17 @@ export const DynamicModalCmp = ({
       break;
     case "account actions":
       left = 1125;
-      modalTypeToOpen = <AccountActions user={user} />;
+      modalTypeToOpen = (<AccountActions user={user} onCloseModal={onCloseModal} />)
+      break;
+    case "member actions":
+      modalTypeToOpen = (
+        <MemberActions
+          onCloseModal={onCloseModal}
+          board={board}
+          boardMembers={boardMembers}
+          task={task}
+        />
+      );
       break;
   }
 
@@ -199,7 +209,7 @@ export const DynamicModalCmp = ({
       </div>
       {/* <div style={modalTitle === 'Menu' ? {maxHeight:'448px'} : {}} className="modal-content-wrapper">{modalTypeToOpen}</div> */}
       <div className="modal-content-wrapper">{modalTypeToOpen}</div>
-     
+
     </div>
   );
 };
