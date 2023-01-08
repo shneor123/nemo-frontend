@@ -47,7 +47,7 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
         dispatch(setFilter(currFilter))
     }
 
-    board.labels[3].title = 'Important'
+    // board.labels[3].title = 'Important'
 
     return (
         <section className="filter-container" style={{ display: isFilterModalOpen }}>

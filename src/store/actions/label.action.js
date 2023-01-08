@@ -28,7 +28,7 @@ export function toggleLabelPreview(boardId) {
         }
     }
 }
-export function saveLabel(boardId, labels) {
+export function saveLabel(labels, boardId) {
     return async (dispatch) => {
         try {
             const board = await boardService.getById(boardId)

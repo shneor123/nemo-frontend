@@ -22,9 +22,6 @@ async function toggleLabel(boardId, groupId, taskId, labelId) {
     }
 }
 
-
-
-
 function getLabelsById(board, task) {
     const labels = board.labels.filter(label => task.labelIds.includes(label.id))
     return labels

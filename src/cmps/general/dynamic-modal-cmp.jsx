@@ -16,6 +16,8 @@ import { AccountActions } from "../modals/account-actions";
 import { MemberActions } from "../modals/member-actions";
 import { useRef } from "react";
 import { MoreMembers } from "../modals/more-members";
+import { ModalLabelCreate } from "../modals/modal-label-create";
+import { ModalLabelChange } from "../modals/modal-label-change";
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, right, left },
@@ -38,8 +40,13 @@ export const DynamicModalCmp = ({
   groupTitle,
   board,
   moreMembers,
-  element
+  element,
 }) => {
+  const editLabel = useRef()
+  const changeEditLabel = (label) => {
+    editLabel.current = label
+    console.log(label)
+  }
   let modalTypeToOpen;
   console.log(modalTitle);
   switch (modalTitle) {
@@ -65,7 +72,9 @@ export const DynamicModalCmp = ({
           boardId={boardId}
           groupId={groupId}
           task={task}
+          board={board}
           labels={labels}
+          changeEditLabel={changeEditLabel}
           onCloseModal={onCloseModal}
         />
       );
@@ -187,6 +196,29 @@ export const DynamicModalCmp = ({
           element={element}
           moreMembers={moreMembers}
           member={member}
+        />
+      );
+      break;
+    case "Create label":
+      if (bottom >= 200 && bottom < 240) bottom -= 70;
+      if (bottom >= 240) bottom -= 150;
+      // left = 1000;
+      modalTypeToOpen = (
+        <ModalLabelCreate
+          task={task}
+          editLabel={editLabel}
+          onCloseModal={onCloseModal}
+        />
+      );
+      break;
+    case "Change label":
+      if (bottom >= 500 && bottom < 600) bottom -= 300;
+      // left = 1000;
+      modalTypeToOpen = (
+        <ModalLabelChange
+          task={task}
+          editLabel={editLabel}
+          onCloseModal={onCloseModal}
         />
       );
       break;
