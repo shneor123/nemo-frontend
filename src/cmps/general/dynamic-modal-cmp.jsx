@@ -187,7 +187,7 @@ export const DynamicModalCmp = ({
         />
       );
       break;
-    case "more-members":
+    case "more members":
       modalTypeToOpen = (
         <MoreMembers
           board={board}

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { onLogout } from '../../store/actions/user.actions'
 import { setModal } from '../../store/app/app.actions'
@@ -25,7 +25,9 @@ export const AccountActions = ({ user }) => {
       <div className="account-info">
         <div className="account-img-container">
           {user?.imgUrl ? (
+            <Link to={'/users'}>
             <img src={user.imgUrl} alt={user.fullName} className="account-img" />
+            </Link>
           ) : (
             <a className="account">{utilService.getInitials(user.fullname)}</a>
           )}

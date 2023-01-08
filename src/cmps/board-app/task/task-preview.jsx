@@ -10,6 +10,7 @@ import { HiOutlineEye } from "react-icons/hi"
 
 import { EditPreview } from "./task-edit";
 import { DueDatePreview } from "./dates/due-date-preview";
+import { MemberPreview } from "../../modals/member-preview";
 import { toggleLabelPreview } from '../../../store/actions/label.action'
 import { removeTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/user.service";
@@ -136,10 +137,8 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
               </div>
             )}
             <span className="task-preview-title">{task.title}</span>
-
             <div className="badges">
               {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
-              {/* todo: add date badge here  */}
               {!!task.description && <span className="badge"><GrTextAlignFull /></span>}
               {!!task.attachments?.length && <span className="badge"> <FiPaperclip /></span>}
               {!!sumTodos && (
@@ -164,11 +163,21 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
                 )}
               </div>
             </div>
-            <div className="task-members-preview">
-              {task?.members.map(member => {
-                return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
-              })}
-            </div>
+
+            {/* MENBER PREVIEW */}
+            {task.members && !!task.members.length && !task.style.isCover && (
+              <div className="task-members-preview">
+                {task.members.map((member) => (
+                  <MemberPreview
+                    key={member._id}
+                    member={member}
+                    isInTaskDetails={false}
+                    task={task}
+                    board={board}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

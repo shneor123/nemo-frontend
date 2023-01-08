@@ -64,7 +64,12 @@ export const BoardApp = () => {
         <div style={board.style} className="board-app-wrapper">
           <Outlet />
           <div className="board-app">
-            <ToolBar boardId={boardId} board={board} users={users} />
+            <ToolBar
+              boardId={boardId}
+              board={board}
+              users={users}
+              groups={board.groups}
+            />
             {board && (
               <GroupList
                 labelOpenState={board.labelOpenState}

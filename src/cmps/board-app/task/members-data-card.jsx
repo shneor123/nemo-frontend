@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
+import { MemberPreview } from "../../modals/member-preview";
 
-export const MembersDataCard = ({ task, boardId, groupId ,boardMembers}) => {
+export const MembersDataCard = ({ task, boardId, groupId, boardMembers }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalDetails = useRef()
@@ -25,10 +26,18 @@ export const MembersDataCard = ({ task, boardId, groupId ,boardMembers}) => {
   return (
     <div className="member-data">
       <h3 className="data-gutter-card-title">Members</h3>
-      {task.members.map(member => {
-        return <div key={member._id} style={{ background: `url(${member?.imgUrl}) center center / cover ` }} className="member-data-item user-avatar">
-        </div>
-      })}
+      <div className="task-members-preview">
+        {task.members.map((member) => (
+          <MemberPreview
+            key={member._id}
+            member={member}
+            isInTaskDetails={false}
+            task={task}
+          // board={board}
+          />
+        ))}
+      </div>
+
       {isModalOpen && (
         <DynamicModalCmp
           modalDetails={modalDetails.current}

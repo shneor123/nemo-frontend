@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { AiOutlineStar, AiFillStar, AiOutlineDashboard } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar, AiOutlineDashboard, AiOutlinePlus } from "react-icons/ai";
 import { FaEllipsisH } from "react-icons/fa";
 import { MdOutlineCreateNewFolder, MdOutlineFilterList } from "react-icons/md";
 import { BsPersonPlus } from "react-icons/bs";
@@ -20,6 +20,8 @@ export const ToolBar = ({ boardId, board, users }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const dashboardRef = useRef()
+  const moreMembersRef = useRef()
+
 
 
   useEffect(() => {
@@ -75,7 +77,6 @@ export const ToolBar = ({ boardId, board, users }) => {
     return board.members.length - shownMembers
   }
 
-  const moreMembersRef = useRef()
 
   const getMembersForModal = (members) => {
     const membersForModal = members.slice(4)
@@ -109,11 +110,7 @@ export const ToolBar = ({ boardId, board, users }) => {
           <h1 className="board-toolbar-title">{board.title}</h1>
         </span>
         <span onClick={onToggleStar} className="toolbar-btn star-btn">
-          {board.isStar ? (
-            <AiFillStar color={"gold"} size={17} />
-          ) : (
-            <AiOutlineStar size={17} />
-          )}
+          {board.isStar ? <AiFillStar color={"gold"} size={17} /> : <AiOutlineStar size={17} />}
         </span>
         <span className="toolbar-divider"></span>
 
@@ -136,7 +133,7 @@ export const ToolBar = ({ boardId, board, users }) => {
           {getLengthOfExtraMembers() > 0 && (
             <div
               className="extra-member-avatar"
-              onClick={(ev) => onOpenModal(ev, 'more-members')}
+              onClick={(ev) => onOpenModal(ev, 'more members')}
             >
               {`+${getLengthOfExtraMembers()}`}
             </div>
@@ -173,3 +170,45 @@ export const ToolBar = ({ boardId, board, users }) => {
     </div >
   );
 };
+
+
+// {board.members && (
+//   <div className="member-img-container">
+//     {board.members.length <= 4 &&
+//       board.members.map((member) => (
+//         <MemberPreview
+//           key={member._id}
+//           member={member}
+//           isInTaskDetails={true}
+//           board={board}
+//         />
+//       ))}
+//     {board.members.length > 4 &&
+//       getMembersForPreview(board.members).map((member) => (
+//         <MemberPreview
+//           key={member._id}
+//           member={member}
+//           isInTaskDetails={true}
+//           board={board}
+//         />
+//       ))}
+//     {board.members.length > 4 && (
+//       <button
+//         ref={moreMembersRef}
+//         className="more-members"
+//         onClick={(ev) => onOpenModal(ev, 'more members')}
+//       >
+//         {' '}
+//         +{getMembersForModal(board.members).length}{' '}
+//       </button>
+//     )}
+//     {/* eslint-disable-next-line */}
+//     <a
+//       className="members-add-button round"
+//       ref={memberRef}
+
+//     >
+//       <AiOutlinePlus />
+//     </a>
+//   </div>
+// )}

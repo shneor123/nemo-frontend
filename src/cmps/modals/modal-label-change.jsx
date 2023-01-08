@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { boardService } from '../../services/board.service'
+import { utilService } from '../../services/util.service'
 
 export const ModalLabelChange = ({ task, editLabel }) => {
   const [labelName, setLabelName] = useState(editLabel.title)
   const [color, setColor] = useState(editLabel.color)
   const { board } = useSelector((storeState) => storeState.boardModule)
-  console.log("🚀 ~ file: modal-label-change.jsx:9 ~ ModalLabelChange ~ board", board)
 
   const searchInput = useRef(null)
 
@@ -18,7 +18,7 @@ export const ModalLabelChange = ({ task, editLabel }) => {
     ev.preventDefault()
     const boardLabelIdx = board.labels.findIndex((boardLabel) => boardLabel._id === editLabel.id)
     board.labels[boardLabelIdx] = {
-      id: editLabel.id,
+      id: utilService.makeId(5),
       title: labelName,
       color: color,
     }
@@ -32,7 +32,6 @@ export const ModalLabelChange = ({ task, editLabel }) => {
       console.error(err)
     }
   }
-
 
 
   const onDelete = (ev) => {

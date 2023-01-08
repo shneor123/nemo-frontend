@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useSelector ,useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Link, useLocation } from "react-router-dom"
 import { useNavigate } from "react-router"
 
@@ -9,9 +9,11 @@ import { gapi } from "gapi-script"
 
 import { login, signup } from "../store/actions/user.actions"
 import { useForm } from "../hooks/useForm"
+import { FiPaperclip } from "react-icons/fi";
 import leftHero from "../assets/svg/leftHero.svg"
 import rightHero from "../assets/svg/rightHero.svg"
 import guest from "../assets/svg/guest.svg"
+import { ImgUploader } from "./img-uploader"
 
 export const LoginSignup = () => {
   const dispatch = useDispatch()
@@ -22,16 +24,20 @@ export const LoginSignup = () => {
   const { pathname } = useLocation()
   const { user } = useSelector((storeState) => storeState.userModule)
 
+  const [toggleShow, setToggleShow] = useState(false)
   const [isSignup, setIsSignup] = useState(false)
-  const [credentials, handleChange, clearFields] = useForm({
+  const [credentials, handleChange, setCredentials] = useForm({
     username: "",
     password: "",
     fullname: "",
+    imgUrl: ""
   })
+
+  console.log(credentials.imgUrl)
 
   useEffect(() => {
     onIsSignup()
-    clearFields()
+    clearState()
   }, [pathname])
 
   useEffect(() => {
@@ -44,6 +50,9 @@ export const LoginSignup = () => {
     gapi.load("client:auth2", start)
   }, [])
 
+  const clearState = () => {
+    setCredentials({ username: "", password: "", fullname: "", imgUrl: "" })
+  }
   const onIsSignup = () => {
     if (pathname === "/signup") setIsSignup(true)
     else setIsSignup(false)
@@ -54,8 +63,7 @@ export const LoginSignup = () => {
     if (!credentials.username || !credentials.password || !credentials.fullname)
       return
     dispatch(signup(credentials))
-    clearFields()
-    // figure out flow,
+    clearState()
     navigate('/workspace')
   }
 
@@ -74,6 +82,9 @@ export const LoginSignup = () => {
     console.log("failed", res)
   }
 
+  const onUploaded = (imgUrl) => {
+    setCredentials({ ...credentials, imgUrl });
+  }
   return (
     <section className="login-page flex column">
       <header className="login-header">
@@ -92,6 +103,27 @@ export const LoginSignup = () => {
                 value={credentials.fullname}
                 onChange={handleChange}
               />
+              <div>
+                <p className="upper-login-attach ">
+                  {<button className="btn-opt-login"
+                    onClick={() => setToggleShow(!toggleShow)} >
+                    <span className="badge"><FiPaperclip /></span>
+                    {toggleShow ? 'Hide details' : 'Attach'}
+                  </button>}
+                </p>
+                {toggleShow && <div className='attach'>
+                  <ImgUploader onUploaded={onUploaded} />
+                  <input
+                    className="inputAttach"
+                    type="text"
+                    id="upload-file-url"
+                    name="imgUrl"
+                    placeholder="Enter link img profile"
+                    value={credentials.imgUrl}
+                    onChange={handleChange} />
+                </div>
+                }
+              </div>
             </>
           ) : (
             <h1>Login to Nemo</h1>

@@ -7,6 +7,8 @@ import { WorkSpace } from "./pages/work-space.jsx";
 import { BoardApp } from "./pages/board-app.jsx";
 import { TaskDetails } from "./cmps/board-app/task/task-details.jsx";
 import { Dashboard } from "./pages/dashboard.jsx";
+import { UsersInfo } from "./pages/user-info.jsx";
+import { UserApp } from "./pages/user-app.jsx";
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route element={<LoginSignup />} path={"/signup"} />
         <Route element={<LoginSignup />} path={"/login"} />
         <Route element={<WorkSpace />} path={"/workspace"} />
+        <Route element={<UserApp />} path={"/users"} />
         <Route element={<BoardApp />} path={"/board/:boardId"}>
           <Route element={<TaskDetails />} path={":groupId/:taskId"} />
           <Route element={<Dashboard />} path="dashboard" />

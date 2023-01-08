@@ -27,7 +27,6 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
   });
 
   function handleBackClick() {
-    console.log("hi");
     addTaskRef.current?.focus();
     if (addTaskRef.current) addTaskRef.current.scrollIntoView();
   }

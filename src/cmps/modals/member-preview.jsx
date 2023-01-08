@@ -1,9 +1,7 @@
 import { useRef, useState } from 'react'
-import { utilService } from '../../services/util.service'
 import { DynamicModalCmp } from '../general/dynamic-modal-cmp'
 
 export const MemberPreview = ({ member, task, board, }) => {
-  const memberRef = useRef()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState(null)
   const modalDetails = useRef();

@@ -72,8 +72,6 @@
 .star-btn {
   display: flex;
   align-items: center;
-
-
 }
 
 .toolbar-divider {
@@ -93,6 +91,7 @@
 
   &>* {
     margin-left: -15px;
+    margin-right: 5px;
   }
 
   .extra-member-avatar {
