@@ -11,15 +11,14 @@ export const DashboardChart = ({ tasks, board }) => {
 
   switch (dataType) {
     case 'label':
-      // eslint-disable-next-line
       const labelsIdMap = board.labels.reduce((acc, label) => ((acc[label.id] = 0), acc), {})
       tasks.forEach((task) => task.labelIds.forEach((labelId) => (labelsIdMap[labelId] += 1)))
 
       for (let labelId in labelsIdMap) {
         const label = board.labels.find((label) => label.id === labelId)
         chartData.push(labelsIdMap[labelId])
-        chartLabels.push(label.title)
-        chartColors.push(label.color)
+        // chartLabels.push(label.title)
+        // chartColors.push(label.color)
         // chartLabels.push(label.checked)
       }
 

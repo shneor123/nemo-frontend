@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, NavLink, useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { useNavigate } from "react-router"
 import { gapi } from "gapi-script";
 
-import { onLogout } from "../../store/actions/user.actions"
 import { DynamicModalCmp } from "../../cmps/general/dynamic-modal-cmp"
 import { utilService } from "../../services/util.service";
 import Logole from "../../assets/img/ttttCapture.PNG"
-import { MdOutlineCreateNewFolder } from "react-icons/md";
 
 export const AppHeader = () => {
   const { user } = useSelector((storeState) => storeState.userModule)
@@ -16,7 +14,6 @@ export const AppHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const modalDetails = useRef();
   const modalTitle = useRef();
 
@@ -87,24 +84,22 @@ export const AppHeader = () => {
             className='trello-logo-after-login-container'
           >
             <div className="logo-continor">
-            <svg onClick={() => navigate("/")}
-              className='trello-logo-after-login'
-              stroke='currentColor'
-              fill='currentColor'
-              strokeWidth='0'
-              version='1.1'
-              viewBox='0 0 16 16'
-              height='1em'
-              width='1em'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path d='M14.5 0h-13c-0.825 0-1.5 0.675-1.5 1.5v13c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-13c0-0.825-0.675-1.5-1.5-1.5zM7 12c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-8c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v8zM13 9c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-5c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v5z'></path>
-            </svg>
-            <h1 onClick={() => navigate("/")} className='trello-logo-after-login-title'>Nemo</h1>
+              <svg onClick={() => navigate("/")}
+                className='trello-logo-after-login'
+                stroke='currentColor'
+                fill='currentColor'
+                strokeWidth='0'
+                version='1.1'
+                viewBox='0 0 16 16'
+                height='1em'
+                width='1em'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M14.5 0h-13c-0.825 0-1.5 0.675-1.5 1.5v13c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-13c0-0.825-0.675-1.5-1.5-1.5zM7 12c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-8c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v8zM13 9c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-5c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v5z'></path>
+              </svg>
+              <h1 onClick={() => navigate("/")} className='trello-logo-after-login-title'>Nemo</h1>
             </div>
-            <NavLink to={"/workspace"} className="workspace-link">
-              Workspaces
-            </NavLink>
+            <NavLink to={"/workspace"} className="workspace-link"> Workspaces </NavLink>
           </div>
 
           {isModalOpen && (
@@ -116,8 +111,7 @@ export const AppHeader = () => {
               onCloseModal={onCloseModal}
             />
           )}
-          <div
-            className="user-img-container" onClick={(ev) => { onOpenModal(ev, 'account actions') }}>
+          <div className="user-img-container" onClick={(ev) => { onOpenModal(ev, 'account actions') }}>
             {user &&
               (user?.imgUrl ? (
                 <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />

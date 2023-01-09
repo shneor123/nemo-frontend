@@ -9,11 +9,9 @@ import { gapi } from "gapi-script"
 
 import { login, signup } from "../store/actions/user.actions"
 import { useForm } from "../hooks/useForm"
-import { FiPaperclip } from "react-icons/fi";
 import leftHero from "../assets/svg/leftHero.svg"
 import rightHero from "../assets/svg/rightHero.svg"
 import guest from "../assets/svg/guest.svg"
-import { ImgUploader } from "./img-uploader"
 
 export const LoginSignup = () => {
   const dispatch = useDispatch()
@@ -22,9 +20,6 @@ export const LoginSignup = () => {
     "581503330169-quq0h6dh3790itj0hdd6q16dsq0tqbjj.apps.googleusercontent.com"
 
   const { pathname } = useLocation()
-  const { user } = useSelector((storeState) => storeState.userModule)
-
-  const [toggleShow, setToggleShow] = useState(false)
   const [isSignup, setIsSignup] = useState(false)
   const [credentials, handleChange, setCredentials] = useForm({
     username: "",
@@ -32,8 +27,6 @@ export const LoginSignup = () => {
     fullname: "",
     imgUrl: ""
   })
-
-  console.log(credentials.imgUrl)
 
   useEffect(() => {
     onIsSignup()
@@ -103,27 +96,14 @@ export const LoginSignup = () => {
                 value={credentials.fullname}
                 onChange={handleChange}
               />
-              <div>
-                <p className="upper-login-attach ">
-                  {<button className="btn-opt-login"
-                    onClick={() => setToggleShow(!toggleShow)} >
-                    <span className="badge"><FiPaperclip /></span>
-                    {toggleShow ? 'Hide details' : 'Attach'}
-                  </button>}
-                </p>
-                {toggleShow && <div className='attach'>
-                  <ImgUploader onUploaded={onUploaded} />
-                  <input
-                    className="inputAttach"
-                    type="text"
-                    id="upload-file-url"
-                    name="imgUrl"
-                    placeholder="Enter link img profile"
-                    value={credentials.imgUrl}
-                    onChange={handleChange} />
-                </div>
-                }
-              </div>
+              <input
+                className="inputAttach"
+                type="text"
+                id="upload-file-url"
+                name="imgUrl"
+                placeholder="Enter link img profile"
+                value={credentials.imgUrl}
+                onChange={handleChange} />
             </>
           ) : (
             <h1>Login to Nemo</h1>

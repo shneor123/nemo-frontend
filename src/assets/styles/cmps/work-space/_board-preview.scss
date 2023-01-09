@@ -75,10 +75,11 @@
         position: absolute;
         bottom: 10px;
         left: 10px;
-        background-color: transparent!important;
+        background-color: transparent !important;
         border: none;
         cursor: pointer;
-        &:hover{
+
+        &:hover {
             background-color: rgb(64, 53, 119);
             border: 5px solid rgb(64, 53, 119);
             border-radius: 50px;

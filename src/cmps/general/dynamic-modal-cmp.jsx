@@ -43,12 +43,11 @@ export const DynamicModalCmp = ({
   element,
 }) => {
   const editLabel = useRef()
-  const changeEditLabel = (label) => {
-    editLabel.current = label
-    console.log(label)
-  }
+  const changeEditLabel = (label) => { editLabel.current = label }
+
   let modalTypeToOpen;
-  console.log(modalTitle);
+  console.log(modalTitle)
+
   switch (modalTitle) {
     case "Members":
       if (bottom >= 200 && bottom < 240) bottom -= 70;

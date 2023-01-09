@@ -15,7 +15,8 @@ export function BoardPreview({ board, onToggleStar }) {
     <div>
       <Link to={`/board/${board._id}`}>
         <div className="board-preview-container"
-          style={{ background: `${board.style.background} center center / cover`, backgroundColor: `${board.style.background}` }}>
+          style={{ background: `${board.style.background} center center / cover`, backgroundColor: `${board.style}` }}
+        >
           <h3> {board.title}</h3>
           <span className="starred-container">
             {(board.isStar) ?
@@ -25,7 +26,7 @@ export function BoardPreview({ board, onToggleStar }) {
           </span>
         </div>
       </Link>
-      {/* <button className="remove_board"   onClick={onRemoveTask}>Delete</button>  */}
+      {/* <button className="remove_board" onClick={onRemoveTask}>Delete</button> */}
     </div>
   )
 }
