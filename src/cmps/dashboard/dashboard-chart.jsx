@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 
 export const DashboardChart = ({ tasks, board }) => {
-  console.log("🚀 ~ file: dashboard-chart.jsx:5 ~ DashboardChart ~ board", board)
   const [dataType, setDataType] = useState('label')
 
   var chartLabels = []
@@ -12,15 +11,19 @@ export const DashboardChart = ({ tasks, board }) => {
   switch (dataType) {
     case 'label':
       const labelsIdMap = board.labels.reduce((acc, label) => ((acc[label.id] = 0), acc), {})
-      tasks.forEach((task) => task.labelIds.forEach((labelId) => (labelsIdMap[labelId] += 1)))
+      // tasks.forEach((task) => task.labelIds.forEach((labelId) => (labelsIdMap[labelId] += 1)))
 
       for (let labelId in labelsIdMap) {
-        const label = board.labels.find((label) => label.id === labelId)
+        const label = board.labels.find((label) => {
+          return label.id === labelId
+        })
         chartData.push(labelsIdMap[labelId])
-        // chartLabels.push(label.title)
-        // chartColors.push(label.color)
+        chartLabels.push(label.title)
+        chartColors.push(label.color)
         // chartLabels.push(label.checked)
       }
+
+
 
       break
     case 'group':
@@ -29,8 +32,9 @@ export const DashboardChart = ({ tasks, board }) => {
         chartData.push(group.tasks.length)
       })
       break
+
+
     case 'member':
-      // eslint-disable-next-line
       const membersIdMap = board.members.reduce((acc, member) => ((acc[member._id] = 0), acc), {})
       tasks.forEach((task) =>
         task.members.forEach((member) => {
@@ -92,7 +96,7 @@ export const DashboardChart = ({ tasks, board }) => {
         </nav>
       </header>
       <div className="graph-container">
-        <Bar options={options} data={data}/>
+        <Bar options={options} data={data} />
       </div>
     </div>
   )

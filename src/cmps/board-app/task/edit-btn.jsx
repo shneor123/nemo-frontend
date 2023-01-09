@@ -8,6 +8,7 @@ import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { useState } from "react";
 import { useRef } from "react";
 import { GiRobotAntennas } from 'react-icons/gi'
+import { useSelector } from "react-redux";
 
 export const EditBtn = ({ onOpenTaskDetails, onRemoveTask, boardId, labels, groupId, task, closeQuickEdit, boardMembers }) => {
 

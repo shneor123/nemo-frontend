@@ -1,13 +1,15 @@
-import {  useState } from "react"
+import { useState } from "react"
 import { IoMdClose } from "react-icons/io"
 import { FiChevronLeft } from "react-icons/fi"
 
 import { MainMenu } from "../menu/main-menu"
 import { ColorMenuModal } from "../menu/color-menu"
 import { FilterMenu } from "../menu/filter-menu"
+import { ImgsMenuModal } from "../menu/imgs-menu"
 
 export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
   const [isColorModalOpen, setIsColorModalOpen] = useState('none');
+  const [isImgModalOpen, setIsImgModalOpen] = useState('none');
   const [isFilterModalOpen, setIsFilterModalOpen] = useState('none');
   const [isMainMenuOpen, setIsMainMenuOpen] = useState('block');
 
@@ -15,20 +17,27 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
     setIsMainMenuOpen('none')
     setIsFilterModalOpen('none')
     setIsColorModalOpen('block')
+    setIsImgModalOpen('none')
 
+  }
+  const onOpenImges = () => {
+    setIsMainMenuOpen('none')
+    setIsFilterModalOpen('none')
+    setIsColorModalOpen('none')
+    setIsImgModalOpen('block')
   }
   const onOpenFilter = () => {
     setIsMainMenuOpen('none')
     setIsFilterModalOpen('block')
     setIsColorModalOpen('none')
-
+    setIsImgModalOpen('none')
   }
 
   const onOpenMenu = () => {
     setIsMainMenuOpen('block')
     setIsColorModalOpen('none')
     setIsFilterModalOpen('none')
-
+    setIsImgModalOpen('none')
   }
 
   return (
@@ -37,6 +46,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
         <div className="modal-header">
           {isMainMenuOpen === 'block' && 'Menu'}
           {isColorModalOpen === 'block' && 'Colors'}
+          {isImgModalOpen === 'block' && 'Photos'}
           {isFilterModalOpen === 'block' && 'Filter'}
           <span
             onClick={onOpenMenu}
@@ -50,10 +60,12 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
       </div>
       <div className="menu-content-wrapper">
         <ColorMenuModal board={board} isColorModalOpen={isColorModalOpen} />
-        <FilterMenu isFilterModalOpen={isFilterModalOpen} board={board} />
+        <ImgsMenuModal board={board} isImgModalOpen={isImgModalOpen} />
+        <FilterMenu board={board} isFilterModalOpen={isFilterModalOpen} />
         <MainMenu
           onOpenColors={onOpenColors}
           onOpenFilter={onOpenFilter}
+          onOpenImges={onOpenImges}
           isMainMenuOpen={isMainMenuOpen}
           activities={activities}
           boardId={board.id}
@@ -62,14 +74,3 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
     </div>
   )
 }
-
-{/* <h1 style={{display:isUniqeModalOpen}}>filter</h1>
-      <h1 style={{display:isUniqeModalOpen}}>archive</h1>
-      <h1 style={{display:isUniqeModalOpen}} onClick={onOpenColors}>colors</h1>
-      <h1 style={{display:isUniqeModalOpen}}>activity</h1>
-      <h1 style={{ display:isColorModalOpen }}>color open</h1>
-      <h1 style={{ display:isFilterModalOpen }}>filter open</h1>
-      <h1 style={{ display:isArchiveModalOpen }}>archive open</h1> */}
-    // </>
-    // <ColorMenuModal/>
-    // <Activity/>

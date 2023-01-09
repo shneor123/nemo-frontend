@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 
-export const LabelsDataCard = ({ task, labels, boardId, groupId }) => {
+export const LabelsDataCard = ({ board, task, labels, boardId, groupId }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalDetails = useRef()
@@ -31,6 +31,7 @@ export const LabelsDataCard = ({ task, labels, boardId, groupId }) => {
           boardId={boardId}
           groupId={groupId}
           task={task}
+          board={board}
           labels={labels}
           type={modalTitle}
           onCloseModal={onCloseModal}

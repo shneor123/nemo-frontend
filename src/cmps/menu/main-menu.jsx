@@ -4,7 +4,7 @@ import { Activity } from "../general/activity"
 import colors from '../../assets/img/colors.jpg'
 import imgs from '../../assets/img/imgs.jpg'
 
-export const MainMenu = ({ isMainMenuOpen, activities, boardId, onOpenColors, onOpenFilter }) => {
+export const MainMenu = ({ onOpenImges, isMainMenuOpen, activities, boardId, onOpenColors, onOpenFilter }) => {
     return (
         <section style={{ display: isMainMenuOpen }}>
             <section className="upper-side-menu">
@@ -20,9 +20,10 @@ export const MainMenu = ({ isMainMenuOpen, activities, boardId, onOpenColors, on
                         <img src={colors} />
                         <div className="title">Colors</div>
                     </div>
-                    <div className="image-container">
+                    
+                    <div className="image-container" onClick={onOpenImges}>
                         <img src={imgs} />
-                        <div className="title">photos</div>
+                        <div className="title">Photos</div>
                     </div>
 
                 </div>

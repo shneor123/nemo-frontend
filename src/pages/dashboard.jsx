@@ -1,15 +1,13 @@
-import { useNavigate, useOutletContext } from 'react-router-dom'
-
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { VscClose } from 'react-icons/vsc'
 import { DashboardAllTasks } from '../cmps/dashboard/dashboard-all-tasks'
 import { DashboardDueSoon } from '../cmps/dashboard/dashboard-due-soon'
 import { DashboardOverdue } from '../cmps/dashboard/dashboard-overdue'
 import { DashboardChart } from '../cmps/dashboard/dashboard-chart'
-import { useSelector } from 'react-redux'
 import { DashboardComplete } from '../cmps/dashboard/dashboard-complete'
 
 export const Dashboard = () => {
-  // const { board } = useOutletContext()
   const { board } = useSelector((storeState) => storeState.boardModule)
 
   const navigate = useNavigate()

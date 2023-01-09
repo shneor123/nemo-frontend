@@ -164,7 +164,7 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
               </div>
             </div>
 
-            {/* MENBER PREVIEW */}
+            {/* MENBER PREVIEW
             {task.members && !!task.members.length && !task.style.isCover && (
               <div className="task-members-preview">
                 {task.members.map((member) => (
@@ -177,7 +177,14 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
                   />
                 ))}
               </div>
-            )}
+            )} */}
+            {/* MENBER PREVIEW */}
+            <div className="task-members-preview">
+              {task?.members.map(member => {
+                return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
+              })}
+            </div>
+
           </div>
         </div>
       )}

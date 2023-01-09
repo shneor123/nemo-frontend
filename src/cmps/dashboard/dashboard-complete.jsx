@@ -2,7 +2,6 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
 export const DashboardComplete = ({ tasks }) => {
-  console.log("🚀 ~ file: dashboard-complete.jsx:5 ~ DashboardComplete ~ tasks", tasks)
   const completeTasks = tasks.filter((task) => task.isComplete)
 
   const percentOfComplete = tasks.length ? parseInt((completeTasks.length / tasks.length) * 100) : 0

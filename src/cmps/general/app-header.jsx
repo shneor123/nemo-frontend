@@ -7,6 +7,7 @@ import { gapi } from "gapi-script";
 import { DynamicModalCmp } from "../../cmps/general/dynamic-modal-cmp"
 import { utilService } from "../../services/util.service";
 import Logole from "../../assets/img/ttttCapture.PNG"
+import { Filter } from "./filter";
 
 export const AppHeader = () => {
   const { user } = useSelector((storeState) => storeState.userModule)
@@ -101,6 +102,7 @@ export const AppHeader = () => {
             </div>
             <NavLink to={"/workspace"} className="workspace-link"> Workspaces </NavLink>
           </div>
+          {/* <Filter/> */}
 
           {isModalOpen && (
             <DynamicModalCmp

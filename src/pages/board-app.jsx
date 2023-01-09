@@ -61,10 +61,12 @@ export const BoardApp = () => {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div style={board.style} className="board-app-wrapper">
+        <div
+          style={{ background: board.style.background ? `${board.style.background} center center / cover` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style}` }}
+          className="board-app-wrapper">
           <Outlet />
           <div className="board-app">
-            <ToolBar boardId={boardId} board={board} users={users}/>
+            <ToolBar boardId={boardId} board={board} users={users} />
             {board && (
               <GroupList
                 labelOpenState={board.labelOpenState}

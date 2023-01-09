@@ -15,7 +15,6 @@ export const InviteModal = ({ boardId, users, boardMembers }) => {
     dispatch(addUserToBoard(boardId, user))
   }
 
-
   return (
     <div className="member-modal">
       <input

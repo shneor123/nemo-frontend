@@ -255,9 +255,7 @@ export const DynamicModalCmp = ({
           </span>
         </div>
       </div>
-      {/* <div style={modalTitle === 'Menu' ? {maxHeight:'448px'} : {}} className="modal-content-wrapper">{modalTypeToOpen}</div> */}
       <div className="modal-content-wrapper">{modalTypeToOpen}</div>
-
     </div>
   );
 };

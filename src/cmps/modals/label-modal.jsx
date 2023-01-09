@@ -4,7 +4,6 @@ import { BsPencil } from "react-icons/bs"
 import { FiCheck } from "react-icons/fi"
 import { toggleLabel } from "../../store/actions/label.action"
 import { DynamicModalCmp } from "../general/dynamic-modal-cmp"
-import { boardService } from "../../services/board.service"
 
 export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) => {
   const dispatch = useDispatch()
@@ -12,8 +11,6 @@ export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) 
   const onToggleLabel = (labelId) => {
     dispatch(toggleLabel(boardId, groupId, task.id, labelId))
   }
-
-  const onEditLabel = () => { }
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalDetails = useRef()
