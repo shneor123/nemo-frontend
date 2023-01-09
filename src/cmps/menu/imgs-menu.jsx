@@ -2,10 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { boardService } from '../../services/board.service'
 import { utilService } from '../../services/util.service'
 
-
+import { AccessKey } from '../../.secret/api'
 
 export function ImgsMenuModal({ board, isImgModalOpen }) {
-    console.log("🚀 ~ file: imgs-menu.jsx:8 ~ ImgsMenuModal ~ board", board.style)
     const unsplash = useRef()
     const [img, setImg] = useState('')
     const [res, setRes] = useState(unsplash.current || [])
@@ -18,7 +17,6 @@ export function ImgsMenuModal({ board, isImgModalOpen }) {
     const onPickImg = (url) => {
         const style = { bgImg: url }
         onUpdateBoard({ ...board, style: style })
-        console.log("🚀 ~ file: imgs-menu.jsx:18 ~ onPickImg ~ style", style)
     }
 
     const onUpdateBoard = async (updatedBoard) => {
@@ -29,10 +27,8 @@ export function ImgsMenuModal({ board, isImgModalOpen }) {
         }
     }
 
-    const ACCESS_KEY = '6R9IL0iFJQ_9wFH326TzYeiQv7t3gmhpSGsUQcW78e8'
-
     const fetchRequest = async () => {
-        const data = await fetch(`https://api.unsplash.com/search/photos?page=1&query=${img}&client_id=${ACCESS_KEY}`)
+        const data = await fetch(`https://api.unsplash.com/search/photos?page=1&query=${img}&client_id=${AccessKey}`)
         const dataJ = await data.json()
         const result = dataJ.results
         const miniRes = result.map((img) => img.urls)

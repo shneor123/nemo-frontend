@@ -1,8 +1,8 @@
 import { Configuration, OpenAIApi } from 'openai'
-import secret from '../.secret/keys.json'
+import { OpenaiApiKey } from '../.secret/api'
 
 const configuration = new Configuration({
-    apiKey: secret.OPENAI_API_KEY,
+    apiKey: OpenaiApiKey,
 })
 
 async function getAiTextCompletion(sttInput) {
