@@ -6,7 +6,6 @@ import { MdCheckBoxOutlineBlank } from 'react-icons/md'
 import { saveTask } from '../../../../store/actions/task.action'
 
 export function DueDatePreview({ task, boardId, groupId, dueDate }) {
-
   const [isHover, setHover] = useState(false)
   const dispatch = useDispatch()
 

@@ -11,21 +11,17 @@ export const DashboardChart = ({ tasks, board }) => {
   switch (dataType) {
     case 'label':
       const labelsIdMap = board.labels.reduce((acc, label) => ((acc[label.id] = 0), acc), {})
-      // tasks.forEach((task) => task.labelIds.forEach((labelId) => (labelsIdMap[labelId] += 1)))
+      tasks.forEach((task) => task.labelIds.forEach((labelId) => (labelsIdMap[labelId] += 1)))
 
       for (let labelId in labelsIdMap) {
-        const label = board.labels.find((label) => {
-          return label.id === labelId
-        })
+        const label = board.labels.find((label) => label.id === labelId)
         chartData.push(labelsIdMap[labelId])
         chartLabels.push(label.title)
         chartColors.push(label.color)
-        // chartLabels.push(label.checked)
       }
 
-
-
       break
+
     case 'group':
       board.groups.forEach((group) => {
         chartLabels.push(group.title)
@@ -33,15 +29,10 @@ export const DashboardChart = ({ tasks, board }) => {
       })
       break
 
-
     case 'member':
       const membersIdMap = board.members.reduce((acc, member) => ((acc[member._id] = 0), acc), {})
       tasks.forEach((task) =>
         task.members.forEach((member) => {
-          if (membersIdMap[member._id]) {
-            chartData.push(membersIdMap[member._id])
-            chartLabels.push(member.fullname)
-          }
           if (membersIdMap[member._id] !== undefined) membersIdMap[member._id] += 1
         })
       )
@@ -49,12 +40,13 @@ export const DashboardChart = ({ tasks, board }) => {
       for (let memberId in membersIdMap) {
         const member = board.members.find((member) => member._id === memberId)
         chartData.push(membersIdMap[memberId])
-        chartLabels.push(member)
+        chartLabels.push(member.fullname)
       }
       break
     default:
       break
   }
+
 
   const options = {
     responsive: true,
