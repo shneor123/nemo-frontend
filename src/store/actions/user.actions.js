@@ -37,7 +37,7 @@ export function login(credentials) {
 }
 
 export function signup(credentials) {
-    return async (dispatch) => {
+    return async dispatch => {
         try {
             const user = await userService.signup(credentials)
             dispatch({ type: 'SET_USER', user })

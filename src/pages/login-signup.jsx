@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { Link, useLocation } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
+import { Link, useLocation } from "react-router-dom"
 
-import GoogleButton from "react-google-button"
-import { GoogleLogin } from "react-google-login"
 import { gapi } from "gapi-script"
+import { LoginWithGoogle } from "../login/LoginGoogle"
+import { CLIENT_ID } from '../.secret/api'
+
 
 import { login, signup } from "../store/actions/user.actions"
 import { useForm } from "../hooks/useForm"
@@ -13,14 +14,14 @@ import leftHero from "../assets/svg/leftHero.svg"
 import rightHero from "../assets/svg/rightHero.svg"
 import guest from "../assets/svg/guest.svg"
 
-export const LoginSignup = () => {
+
+export const LoginSignup = (props) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const CLIENT_ID =
-    "581503330169-quq0h6dh3790itj0hdd6q16dsq0tqbjj.apps.googleusercontent.com"
 
   const { pathname } = useLocation()
   const [isSignup, setIsSignup] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [credentials, handleChange, setCredentials] = useForm({
     username: "",
     password: "",
@@ -43,9 +44,11 @@ export const LoginSignup = () => {
     gapi.load("client:auth2", start)
   }, [])
 
+  // var accessToken = gapi.auth.getToken().access_token
   const clearState = () => {
     setCredentials({ username: "", password: "", fullname: "", imgUrl: "" })
   }
+
   const onIsSignup = () => {
     if (pathname === "/signup") setIsSignup(true)
     else setIsSignup(false)
@@ -67,22 +70,9 @@ export const LoginSignup = () => {
     navigate("/workspace")
   }
 
-  const onSuccess = (res) => {
-    navigate("/workspace")
-  }
-
-  const onFailure = (res) => {
-    console.log("failed", res)
-  }
-
-  const onUploaded = (imgUrl) => {
-    setCredentials({ ...credentials, imgUrl });
-  }
   return (
     <section className="login-page flex column">
-      <header className="login-header">
-        <h1>Nemo</h1>{" "}
-      </header>
+      <header className="login-header"><h1>Nemo</h1></header>
       <div className="login-signup-container">
         <form className="flex column " onSubmit={isSignup ? onSignUp : onLogin}>
           {isSignup ? (
@@ -134,20 +124,7 @@ export const LoginSignup = () => {
             <img src={guest} className="guest-icon" />
             <p onClick={() => navigate('/workspace')}>Continue as Guest</p>{" "}
           </button>
-          <GoogleLogin
-            clientId={CLIENT_ID}
-            buttonText="Login With Google"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single-host-origin"}
-            render={(renderProps) => (
-              <GoogleButton
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                style={{ width: "100%" }}
-              ></GoogleButton>
-            )}
-          />
+          <LoginWithGoogle />
         </div>
         <hr />
         <div className="dif-choice flex">

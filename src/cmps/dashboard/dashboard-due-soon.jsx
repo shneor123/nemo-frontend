@@ -3,7 +3,7 @@ import 'react-circular-progressbar/dist/styles.css'
 
 export const DashboardDueSoon = ({ tasks }) => {
   const dueSoon = tasks.filter(
-    (task) => task.dueDate && !task.isComplete && Date.now() - task.dueDate < 1000 * 60 * 60 * 24
+    (task) => task.dueDate && !task.isDane && Date.now() - task.dueDate < 1000 * 60 * 60 * 24
   )
 
   const percentOfComplete = tasks.length ? parseInt((dueSoon.length / tasks.length) * 100) : 0

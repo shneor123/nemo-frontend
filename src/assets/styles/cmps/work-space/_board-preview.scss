@@ -78,6 +78,7 @@
         background-color: transparent !important;
         border: none;
         cursor: pointer;
+        z-index: 1000;
 
         &:hover {
             background-color: rgb(64, 53, 119);
