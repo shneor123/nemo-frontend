@@ -1,5 +1,5 @@
 import { taskService } from "./task.service"
-import { utilService } from "./util.service"
+import { utilService } from "../basic/util.service"
 
 
 export const checklistService = {

@@ -1,4 +1,4 @@
-import { userService } from '../../services/user.service'
+import { userService } from '../../services/basic/user.service'
 
 export function loadUsers() {
     return async dispatch => {

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { saveChecklist } from '../../store/actions/checklist.action';
-import { utilService } from '../../services/util.service';
-import { userService } from '../../services/user.service';
+import { utilService } from '../../services/basic/util.service';
+import { userService } from '../../services/basic/user.service';
 import { useForm } from '../../hooks/useForm';
 
 

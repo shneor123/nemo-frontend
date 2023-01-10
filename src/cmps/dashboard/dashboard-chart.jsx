@@ -19,7 +19,6 @@ export const DashboardChart = ({ tasks, board }) => {
         chartLabels.push(label.title)
         chartColors.push(label.color)
       }
-
       break
 
     case 'group':

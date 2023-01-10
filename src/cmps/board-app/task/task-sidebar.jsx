@@ -8,7 +8,7 @@ import { GiRobotAntennas } from 'react-icons/gi'
 import { BsPerson } from "react-icons/bs";
 
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
-import { userService } from "../../../services/user.service";
+import { userService } from "../../../services/basic/user.service";
 import { joinTask } from "../../../store/actions/member.action";
 
 export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, groupTitle }) => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import QRCode from "react-qr-code";
 import { useDispatch } from "react-redux";
-import { utilService } from "../../services/util.service";
+import { utilService } from "../../services/basic/util.service";
 import { addUserToBoard } from "../../store/actions/board.action";
 
 

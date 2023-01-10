@@ -6,13 +6,7 @@ export const utilService = {
   timeSince,
   getInitials,
   getDemoImages,
-  getTimeFormat
 }
-function getTimeFormat(date) {
-  const time = new Intl.DateTimeFormat('he', { hour: 'numeric', minute: 'numeric' })
-  return time.format(date)
-}
-
 
 function makeId(length = 6) {
   var txt = '';

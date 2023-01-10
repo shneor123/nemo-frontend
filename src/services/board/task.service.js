@@ -1,5 +1,5 @@
 import { boardService } from "./board.service"
-import { utilService } from "./util.service"
+import { utilService } from "../basic/util.service"
 
 export const taskService = {
     removeTask,

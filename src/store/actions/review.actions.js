@@ -1,5 +1,5 @@
 import { reviewService } from '../../services/review.service'
-import { userService } from '../../services/user.service'
+import { userService } from '../../services/basic/user.service'
 
 const SCORE_FOR_REVIEW = 500
 

@@ -1,8 +1,8 @@
 
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
-import { httpService } from './http.service.js'
-import { socketService } from './socket.service.js'
+import { storageService } from '../basic/async-storage.service.js'
+import { utilService } from '../basic/util.service'
+import { httpService } from '../basic/http.service.js'
+import { socketService } from '../basic/socket.service.js'
 
 export const boardService = {
     save,

@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { boardService } from '../../services/board.service.js'
-
-import { utilService } from '../../services/util.service.js'
-import { saveLabel } from '../../store/actions/label.action.js'
+import { useSelector } from 'react-redux'
+import { boardService } from '../../services/board/board.service'
+import { utilService } from '../../services/basic/util.service'
 
 export const ModalLabelCreate = () => {
   const { board } = useSelector((storeState) => storeState.boardModule)

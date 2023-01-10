@@ -1,4 +1,4 @@
-import { taskService } from "../../services/task.service.js";
+import { taskService } from "../../services/board/task.service.js";
 import { getActionSetBoard } from "./board.action.js";
 export function removeTask(boardId, groupId, taskId, activity) {
     return async (dispatch) => {

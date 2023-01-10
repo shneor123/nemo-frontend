@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 import { MemberPreview } from "../modals/member-preview";
 
 
-export const ToolBar = ({ boardId, board, users }) => {
+export const ToolBar = ({ boardId, board, users, groups }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState(null)
@@ -168,47 +168,5 @@ export const ToolBar = ({ boardId, board, users }) => {
         </div>
       </div>
     </div >
-  );
-};
-
-
-// {board.members && (
-//   <div className="member-img-container">
-//     {board.members.length <= 4 &&
-//       board.members.map((member) => (
-//         <MemberPreview
-//           key={member._id}
-//           member={member}
-//           isInTaskDetails={true}
-//           board={board}
-//         />
-//       ))}
-//     {board.members.length > 4 &&
-//       getMembersForPreview(board.members).map((member) => (
-//         <MemberPreview
-//           key={member._id}
-//           member={member}
-//           isInTaskDetails={true}
-//           board={board}
-//         />
-//       ))}
-//     {board.members.length > 4 && (
-//       <button
-//         ref={moreMembersRef}
-//         className="more-members"
-//         onClick={(ev) => onOpenModal(ev, 'more members')}
-//       >
-//         {' '}
-//         +{getMembersForModal(board.members).length}{' '}
-//       </button>
-//     )}
-//     {/* eslint-disable-next-line */}
-//     <a
-//       className="members-add-button round"
-//       ref={memberRef}
-
-//     >
-//       <AiOutlinePlus />
-//     </a>
-//   </div>
-// )}
+  )
+}

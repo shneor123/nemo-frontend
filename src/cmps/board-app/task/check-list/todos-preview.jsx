@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { MdMoreHoriz } from "react-icons/md";
 import { DynamicModalCmp } from "../../../general/dynamic-modal-cmp";
 import { saveTodo, removeTodo } from '../../../../store/actions/checklist.action';
-import { userService } from "../../../../services/user.service";
+import { userService } from "../../../../services/basic/user.service";
 import { useForm } from "../../../../hooks/useForm";
 
 

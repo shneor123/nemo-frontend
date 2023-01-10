@@ -1,14 +1,10 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { MdOutlineExpandLess, MdOutlineExpandMore } from 'react-icons/md'
-// external
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition"
-// services
-import { aiService } from "../../services/ai.service"
-import { utilService } from "../../services/util.service"
-// actions
+import { aiService } from "../../services/board/ai.service"
+import { utilService } from "../../services/basic/util.service"
 import { saveChecklist } from "../../store/actions/checklist.action"
-// assets
 import clara from '../../assets/img/clara.png'
 
 

@@ -1,4 +1,4 @@
-import { activityService } from "../../services/activity.service.js";
+import { activityService } from "../../services/board/activity.service.js";
 import { getActionSetBoard } from "./board.action.js";
 
 export function saveActivity(activity, boardId) {

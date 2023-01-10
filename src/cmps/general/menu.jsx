@@ -18,19 +18,19 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
     setIsFilterModalOpen('none')
     setIsColorModalOpen('block')
     setIsImgModalOpen('none')
-
   }
   const onOpenImges = () => {
+    setIsImgModalOpen('block')
     setIsMainMenuOpen('none')
     setIsFilterModalOpen('none')
     setIsColorModalOpen('none')
-    setIsImgModalOpen('block')
   }
   const onOpenFilter = () => {
     setIsMainMenuOpen('none')
     setIsFilterModalOpen('block')
     setIsColorModalOpen('none')
     setIsImgModalOpen('none')
+
   }
 
   const onOpenMenu = () => {
@@ -38,6 +38,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
     setIsColorModalOpen('none')
     setIsFilterModalOpen('none')
     setIsImgModalOpen('none')
+
   }
 
   return (

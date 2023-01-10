@@ -7,6 +7,7 @@ import { DashboardOverdue } from '../cmps/dashboard/dashboard-overdue'
 import { DashboardChart } from '../cmps/dashboard/dashboard-chart'
 import { DashboardComplete } from '../cmps/dashboard/dashboard-complete'
 
+
 export const Dashboard = () => {
   const { board } = useSelector((storeState) => storeState.boardModule)
 
@@ -17,7 +18,6 @@ export const Dashboard = () => {
     board.groups.forEach((group) => group.tasks.forEach((task) => tasks.push(task)))
     return tasks.filter((task) => !task.archivedAt)
   }
-
   const tasks = getTasks()
 
   return (
@@ -41,8 +41,8 @@ export const Dashboard = () => {
             <div className="overdue-container grid-item">
               <DashboardOverdue tasks={tasks} />
             </div>
-          </section>
 
+          </section>
           <div className="main-chart-container">
             <DashboardChart tasks={tasks} board={board} />
           </div>

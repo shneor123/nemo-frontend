@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { utilService } from "../../../../services/util.service.js";
+import { utilService } from "../../../../services/basic/util.service";
 import { TodoPreview } from "./todos-preview.jsx";
 import { saveTodo } from "../../../../store/actions/checklist.action.js";
 import { useDispatch } from "react-redux";

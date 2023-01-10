@@ -7,7 +7,6 @@ import { gapi } from "gapi-script"
 import { LoginWithGoogle } from "../login/LoginGoogle"
 import { CLIENT_ID } from '../.secret/api'
 
-
 import { login, signup } from "../store/actions/user.actions"
 import { useForm } from "../hooks/useForm"
 import leftHero from "../assets/svg/leftHero.svg"
@@ -21,7 +20,6 @@ export const LoginSignup = (props) => {
 
   const { pathname } = useLocation()
   const [isSignup, setIsSignup] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [credentials, handleChange, setCredentials] = useForm({
     username: "",
     password: "",
@@ -43,6 +41,7 @@ export const LoginSignup = (props) => {
     }
     gapi.load("client:auth2", start)
   }, [])
+
 
   // var accessToken = gapi.auth.getToken().access_token
   const clearState = () => {
@@ -69,6 +68,7 @@ export const LoginSignup = (props) => {
     dispatch(login(credentials))
     navigate("/workspace")
   }
+
 
   return (
     <section className="login-page flex column">

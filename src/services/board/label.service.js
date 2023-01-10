@@ -1,4 +1,3 @@
-import { boardService } from "./board.service";
 import { taskService } from "./task.service";
 
 export const labelService = {

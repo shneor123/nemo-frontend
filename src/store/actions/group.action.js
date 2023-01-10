@@ -1,4 +1,4 @@
-import { groupService } from "../../services/group.service.js";
+import { groupService } from "../../services/board/group.service.js";
 import { getActionSetBoard } from "./board.action.js";
 
 export function saveGroup(groupTitle, boardId, groupId) {

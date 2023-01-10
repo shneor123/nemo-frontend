@@ -1,7 +1,7 @@
-import { boardService } from "../../services/board.service.js";
-import { labelService } from "../../services/label.service.js";
-import { taskService } from "../../services/task.service.js";
-import { getActionSetBoard } from "./board.action.js";
+import { boardService } from "../../services/board/board.service";
+import { labelService } from "../../services/board/label.service";
+import { taskService } from "../../services/board/task.service";
+import { getActionSetBoard } from "./board.action";
 
 
 export function toggleLabel(boardId, groupId, taskId, labelId, activity) {

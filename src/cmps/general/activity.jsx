@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { IoListOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { utilService } from "../../services/util.service";
+import { utilService } from "../../services/basic/util.service";
 import { saveActivity } from "../../store/actions/activity.action";
 import { useForm } from '../../hooks/useForm'
 

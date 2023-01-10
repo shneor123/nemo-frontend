@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { boardService } from '../../services/board.service'
-import { utilService } from '../../services/util.service'
+import { boardService } from '../../services/board/board.service'
+import { utilService } from '../../services/basic/util.service'
 
 import { AccessKey } from '../../.secret/api'
 

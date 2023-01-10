@@ -1,5 +1,9 @@
 .dates-modal {
     .secondary-btn {
+        text-align: center;
+        box-shadow: none;
+        line-height: 20px;
+        font-weight: 400;
         background-color: #0079bf;
         border: none;
         border-radius: 3px;
@@ -13,8 +17,20 @@
         &:hover {
             background-color: #026aa7;
             box-shadow: none;
+            border: none;
+            color: #ffffff;
+        }
+
+        &.gray {
+            margin-top: 8px;
+            background-color: rgba(9, 30, 66, 0.04);
+            color: #172b4d;
+
+            &:hover {
+                background-color: rgba(9, 30, 66, 0.08);
+                box-shadow: none;
+                border: none;
+            }
         }
     }
 }
-
-

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { boardService } from '../../services/board.service'
+import { boardService } from '../../services/board/board.service'
 
 export const ModalLabelChange = ({ task, editLabel }) => {
   const searchInput = useRef(null)

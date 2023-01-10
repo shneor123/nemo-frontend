@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { DynamicModalCmp } from '../general/dynamic-modal-cmp';
 import { MemberPreview } from '../modals/member-preview';
 
-export function MoreMembers({ moreMembers, board, element, member, onCloseModal }) {
+export function MoreMembers({ moreMembers, board, element, onCloseModal }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState(null)
   const modalDetails = useRef()
@@ -28,9 +28,6 @@ export function MoreMembers({ moreMembers, board, element, member, onCloseModal 
           onCloseModal={onCloseModal}
           moreMembers={moreMembers}
           member={moreMembers}
-        // member={member}
-
-
         />
       )}
       <div className="members-box">
@@ -39,7 +36,7 @@ export function MoreMembers({ moreMembers, board, element, member, onCloseModal 
           member?.imgUrl ? (
             <li key={member._id}>
               <div className="member-list">
-                <span className='member-img'><MemberPreview member={member} board={board}/></span>
+                <span className='member-img'><MemberPreview member={member} board={board} /></span>
                 <span className="member-txt">{`${member.fullname}`}</span>
               </div>
 

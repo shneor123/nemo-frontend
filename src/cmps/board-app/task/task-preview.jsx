@@ -10,11 +10,10 @@ import { HiOutlineEye } from "react-icons/hi"
 
 import { EditPreview } from "./task-edit";
 import { DueDatePreview } from "./dates/due-date-preview";
-import { MemberPreview } from "../../modals/member-preview";
 import { toggleLabelPreview } from '../../../store/actions/label.action'
 import { removeTask } from "../../../store/actions/task.action";
-import { userService } from "../../../services/user.service";
-import { labelService } from "../../../services/label.service";
+import { userService } from "../../../services/basic/user.service";
+import { labelService } from "../../../services/board/label.service";
 
 export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
   const dispatch = useDispatch();
@@ -163,21 +162,6 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
                 )}
               </div>
             </div>
-
-            {/* MENBER PREVIEW
-            {task.members && !!task.members.length && !task.style.isCover && (
-              <div className="task-members-preview">
-                {task.members.map((member) => (
-                  <MemberPreview
-                    key={member._id}
-                    member={member}
-                    isInTaskDetails={false}
-                    task={task}
-                    board={board}
-                  />
-                ))}
-              </div>
-            )} */}
             {/* MENBER PREVIEW */}
             <div className="task-members-preview">
               {task?.members.map(member => {

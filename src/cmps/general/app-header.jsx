@@ -5,9 +5,8 @@ import { useNavigate } from "react-router"
 import { gapi } from "gapi-script";
 
 import { DynamicModalCmp } from "../../cmps/general/dynamic-modal-cmp"
-import { utilService } from "../../services/util.service";
+import { utilService } from "../../services/basic/util.service";
 import Logole from "../../assets/img/ttttCapture.PNG"
-import { Filter } from "./filter";
 
 export const AppHeader = () => {
   const { user } = useSelector((storeState) => storeState.userModule)
@@ -26,11 +25,15 @@ export const AppHeader = () => {
     if (pathname !== "/" && pathname !== "/login" && pathname !== "/signup") {
       const auth2 = gapi?.auth2?.getAuthInstance()
       const profile = auth2?.currentUser?.get().getBasicProfile()
-      googleUser = profile?.getName()
-      // console.log(googleUser);
+      // googleUser = profile?.getName()
+      googleUser = profile?.getImageUrl()
+      // console.log(googleUser)
     }
   }, [pathname])
-
+  const auth2 = gapi?.auth2?.getAuthInstance()
+  const profile = auth2?.currentUser?.get().getBasicProfile()
+  googleUser = profile?.getImageUrl()
+  console.log("🚀 ~ file: app-header.jsx:35 ~ AppHeader ~ googleUser", googleUser)
 
   if (pathname === "/") routeClass = "-home"
   if (pathname === "/login" || pathname === "/signup")
@@ -102,7 +105,6 @@ export const AppHeader = () => {
             </div>
             <NavLink to={"/workspace"} className="workspace-link"> Workspaces </NavLink>
           </div>
-          {/* <Filter/> */}
 
           {isModalOpen && (
             <DynamicModalCmp
@@ -113,6 +115,7 @@ export const AppHeader = () => {
               onCloseModal={onCloseModal}
             />
           )}
+
           <div className="user-img-container" onClick={(ev) => { onOpenModal(ev, 'account actions') }}>
             {user &&
               (user?.imgUrl ? (

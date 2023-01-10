@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { utilService } from '../../services/basic/util.service';
 import { DynamicModalCmp } from '../general/dynamic-modal-cmp'
 
 export const MemberPreview = ({ member, task, board, }) => {
@@ -36,11 +37,11 @@ export const MemberPreview = ({ member, task, board, }) => {
       <div className="member-img-container">
         {member?.imgUrl ? (
           <div onClick={(ev) => onOpenModal(ev, 'member actions')}>
-            <img src={member.imgUrl} alt={member.fullname} className="member-img" />
+            <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
           </div>
         ) : (
-          <div onClick={(ev) => onOpenModal(ev, 'member actions')} className="member">
-            {member.fullname}
+          <div onClick={(ev) => onOpenModal(ev, 'member actions')} className="member-img">
+            {utilService.getInitials(member.fullname)}
           </div>
         )}
       </div>

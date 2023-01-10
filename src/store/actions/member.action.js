@@ -1,5 +1,5 @@
-import { memberService } from "../../services/member.service";
-import { taskService } from "../../services/task.service";
+import { memberService } from "../../services/board/member.service";
+import { taskService } from "../../services/board/task.service";
 import { getActionSetBoard } from "./board.action";
 
 export function toggleMember(boardId, groupId, taskId, user) {

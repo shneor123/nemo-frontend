@@ -26,17 +26,17 @@ export const MembersDataCard = ({ task, boardId, groupId, boardMembers }) => {
   return (
     <div className="member-data">
       <h3 className="data-gutter-card-title">Members</h3>
-      <div className="task-members-preview">
+      {/* <div className="task-members-preview">
         {task.members.map((member) => (
-          <MemberPreview
-            key={member._id}
-            member={member}
-            isInTaskDetails={false}
-            task={task}
-          // board={board}
-          />
-        ))}
+          <MemberPreview key={member._id}member={member}
+            isInTaskDetails={false} task={task} board={board}
+          />))}</div> */}
+      <div className="task-members-preview">
+        {task?.members.map(member => {
+          return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
+        })}
       </div>
+
 
       {isModalOpen && (
         <DynamicModalCmp

@@ -15,10 +15,6 @@ export const GroupList = ({ groups, boardId, activities, labelOpenState, labels,
   const onAddGroup = (ev = null) => {
     ev.preventDefault();
     if (!newGroup.title) return;
-    // const activity = {
-    //   boardTxt: 'added ' + groupTitle.title + ' to this board',
-    //   byMember: userService.getLoggedinUser()
-    // }
     dispatch(saveGroup(newGroup, boardId));
     setIsAddGroup(false);
     clearFields();

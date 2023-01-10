@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { utilService } from '../../../../services/util.service'
+import { utilService } from '../../../../services/basic/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 import { BsSquareHalf } from "react-icons/bs"
-import { userService } from '../../../../services/user.service'
+import { userService } from '../../../../services/basic/user.service'
 
 export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
     const dispatch = useDispatch()

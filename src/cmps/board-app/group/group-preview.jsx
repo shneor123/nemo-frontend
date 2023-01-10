@@ -10,7 +10,7 @@ import { TaskList } from "../task/task-list";
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { removeGroup, saveGroup } from "../../../store/actions/group.action";
 import { saveTask } from "../../../store/actions/task.action";
-import { userService } from "../../../services/user.service";
+import { userService } from "../../../services/basic/user.service";
 import { useForm } from "../../../hooks/useForm";
 
 export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, boardMembers }) => {

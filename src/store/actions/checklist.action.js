@@ -1,4 +1,4 @@
-import { checklistService } from "../../services/checklist.service.js";
+import { checklistService } from "../../services/board/checklist.service.js";
 import { getActionSetBoard } from "./board.action.js";
 
 export function removeChecklist(boardId, groupId, taskId, checklistId, activity) {

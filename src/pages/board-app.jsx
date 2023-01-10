@@ -6,7 +6,7 @@ import { ToolBar } from "../cmps/general/toolbar"
 import { GroupList } from "../cmps/board-app/group/group-list"
 import { handleDrag, loadBoard } from "../store/actions/board.action"
 import { loadUsers } from "../store/actions/user.actions"
-import { socketService } from "../services/socket.service"
+import { socketService } from "../services/basic/socket.service"
 import { DragDropContext } from "react-beautiful-dnd"
 
 export const BoardApp = () => {
@@ -62,11 +62,11 @@ export const BoardApp = () => {
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <div
-          style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}`}}
+          style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}
           className="board-app-wrapper">
           <Outlet />
           <div className="board-app">
-            <ToolBar boardId={boardId} board={board} users={users} />
+            <ToolBar boardId={boardId} board={board} users={users} groups={board.groups} />
             {board && (
               <GroupList
                 labelOpenState={board.labelOpenState}

@@ -2,10 +2,10 @@ import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { IoCheckbox } from 'react-icons/io5';
 import { MdCheckBoxOutlineBlank } from 'react-icons/md';
-import { utilService } from '../../../../services/util.service'
+import { utilService } from '../../../../services/basic/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
-import { userService } from '../../../../services/user.service';
+import { userService } from '../../../../services/basic/user.service';
 
 export function DatePreview({ task, boardId, groupId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);

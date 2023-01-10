@@ -1,4 +1,4 @@
-import { userService } from "../../services/user.service"
+import { userService } from "../../services/basic/user.service"
 
 let initialState = {}
 

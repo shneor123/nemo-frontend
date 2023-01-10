@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { uploadService } from '../../../../services/cloudinary.service'
-import { userService } from '../../../../services/user.service'
-import { utilService } from '../../../../services/util.service'
+import { uploadService } from '../../../../services/board/cloudinary.service'
+import { userService } from '../../../../services/basic/user.service'
+import { utilService } from '../../../../services/basic/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 
 export const AttachmentModal = ({ task, boardId, groupId }) => {

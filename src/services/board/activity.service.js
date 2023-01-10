@@ -1,6 +1,6 @@
-import { boardService } from "./board.service";
-import { userService } from "./user.service";
-import { utilService } from "./util.service";
+import { boardService } from "../board/board.service";
+import { userService } from "../basic/user.service";
+import { utilService } from "../basic/util.service";
 
 export const activityService = {
     saveActivity,

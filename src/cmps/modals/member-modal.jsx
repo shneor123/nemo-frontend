@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { toggleMember } from "../../store/actions/member.action";
 import { FiCheck } from "react-icons/fi";
-import { utilService } from "../../services/util.service";
+import { utilService } from "../../services/basic/util.service";
 
 export const MemberModal = ({ boardMembers, boardId, groupId, task, users }) => {
   const dispatch = useDispatch();
