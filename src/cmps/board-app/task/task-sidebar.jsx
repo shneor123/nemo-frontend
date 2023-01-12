@@ -13,9 +13,16 @@ import { HiOutlineMinus } from "react-icons/hi";
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { userService } from "../../../services/basic/user.service";
 import { joinTask } from "../../../store/actions/member.action";
-import { boardService } from "../../../services/board/board.service";
+import { saveTask } from "../../../store/actions/task.action";
 
-export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, labels, groupTitle }) => {
+export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, groupTitle }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const user = userService.getLoggedinUser()
+  const dispatch = useDispatch()
+  const modalDetails = useRef()
+  const modalTitle = useRef()
+  const deleteRef = useRef()
+
   const buttons = [
     { txt: "Members", icon: <BsPerson /> },
     { txt: "Labels", icon: <TiTag /> },
@@ -26,33 +33,9 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
     { txt: "AI Clara", icon: <GiRobotAntennas /> },
   ]
 
-  const user = userService.getLoggedinUser()
-  const dispatch = useDispatch()
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalDetails = useRef();
-  const modalTitle = useRef();
-
-
   const onJoinTask = () => {
     dispatch(joinTask(boardId, groupId, task.id, user))
   }
-
-  const onCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-    }
-    modalTitle.current = txt;
-    modalDetails.current = ev.target.getBoundingClientRect();
-    setIsModalOpen(true);
-  };
-
-  const deleteRef = useRef()
-
 
   const onRestoreTask = () => {
     updateTask({ ...task, archivedAt: null })
@@ -61,20 +44,23 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
   const onArchiveTask = () => {
     updateTask({ ...task, archivedAt: Date.now() })
   }
+
   const updateTask = (updatedTask) => {
-    const currGroup = board?.groups.find(group => group.id === groupId);
-    const currTask = currGroup?.tasks?.findIndex(task => task.id === updatedTask.id);
-    const taskIdx = currTask
-    currGroup.tasks[taskIdx] = updatedTask
-    onUpdateBoard(board)
+    task.archivedAt = updatedTask.archivedAt
+    dispatch(saveTask(task, boardId, groupId))
   }
 
-  const onUpdateBoard = async (updatedBoard) => {
-    try {
-      await boardService.save(updatedBoard)
-    } catch (err) {
-      console.error(err)
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  }
+
+  const onOpenModal = (ev, txt) => {
+    if (isModalOpen) {
+      setIsModalOpen(false)
     }
+    modalTitle.current = txt
+    modalDetails.current = ev.target.getBoundingClientRect()
+    setIsModalOpen(true)
   }
 
   return (
@@ -122,29 +108,25 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
       <div>
         {task.archivedAt ? (
           <div>
-            <a className="sidebar-button" onClick={onRestoreTask}>
+            <div className="sidebar-button" onClick={onRestoreTask}>
               <span className="sidebar-icon"> <CgUndo /> </span>
               <span>Send to board</span>
-            </a>
+            </div>
 
-            <a className="sidebar-button delete-btn" ref={deleteRef}
+            <div className="sidebar-button delete-btn" ref={deleteRef}
               onClick={(ev) => { onOpenModal(ev, 'task-delete'); }}>
               <span className="sidebar-icon"> <HiOutlineMinus /> </span>
               <span>Delete</span>
-            </a>
+            </div>
           </div>
         ) : (
-          <a className="sidebar-button"
-            onClick={onArchiveTask}
-          >
-            <span className="sidebar-icon">
-              <RiArchiveLine />
-            </span>
+          <div className="sidebar-button" onClick={onArchiveTask}>
+            <span className="sidebar-icon"> <RiArchiveLine /> </span>
             <span>Archive</span>
-          </a>
+          </div>
         )}
       </div>
     </div >
-  );
-};
+  )
+}
 

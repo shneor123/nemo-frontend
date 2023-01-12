@@ -36,16 +36,16 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
   const getTaskClass = (isQuick) => {
     if (task.style) {
       if (task.style.backgroundColor && task.style.coverSize) {
-        if (!isQuick) return 'task-preview styled'
-        else return 'task-preview color-header'
+        if (!isQuick) return 'task-preview- styled'
+        else return 'task-preview- color-header'
       } else if (task.style.backgroundColor && !task.style.coverSize) {
-        return 'task-preview color-header'
+        return 'task-preview- color-header'
       } else if (task.style.imgUrl && task.style.coverSize) {
-        return 'task-preview styled img'
+        return 'task-preview- styled img'
       } else if (task.style.imgUrl && !task.style.coverSize) {
-        return 'task-preview img-header'
+        return 'task-preview- img-header'
       }
-      return 'task-preview'
+      return 'task-preview-'
     }
   }
 
@@ -116,7 +116,7 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
   };
 
   return (
-    <div className="task-preview-handle">
+    <div className="task-preview">
       {isModalOpen && (
         <DynamicModalCmp
           modalDetails={modalDetails.current}
@@ -146,13 +146,10 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
       </div>
 
       <div className="edit">
-        <span className="button-att" onClick={OnSentToBoard}>
-          Send to board
-        </span>
+        <a onClick={OnSentToBoard}>Send to board</a>
         <span>
-          <a className="button-att"
-            onClick={(ev) => { onOpenModal(ev, 'task-delete') }}>
-            <span className="button-att">Delete</span>
+          <a onClick={(ev) => { onOpenModal(ev, 'task-delete') }}>
+            <span>Delete</span>
           </a>
         </span>
       </div>

@@ -1,3 +1,4 @@
+import { RiArchiveLine } from 'react-icons/ri'
 import { ArchivedPreview } from './archived-preview'
 
 export function ArchivedList({ board, onUpdateBoard, isArchivedModalOpen }) {
@@ -10,8 +11,8 @@ export function ArchivedList({ board, onUpdateBoard, isArchivedModalOpen }) {
   }
 
   return (
-    <div className="group-preview archived" style={{ display: isArchivedModalOpen }}>
-      <div className="task-list archived">
+    <div className="group-preview- archived" style={{ display: isArchivedModalOpen }}>
+      <div className="task-list- archived">
         {tasks.some((task) => task.task.archivedAt) ? (
           tasks.map(
             (task, index) =>
@@ -27,7 +28,11 @@ export function ArchivedList({ board, onUpdateBoard, isArchivedModalOpen }) {
               )
           )
         ) : (
-          <div className="empty">Archive empty</div>
+          <div className='sidebar-'>
+            <span className="sidebar-icon-list"> <RiArchiveLine /> </span>
+            <span>Archive Item</span>
+            <div className="empty">Archive empty</div>
+          </div>
         )}
       </div>
     </div>

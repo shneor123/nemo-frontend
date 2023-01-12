@@ -103,73 +103,74 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
       {(provided) => (
         <div
           onClick={onOpenTaskDetails}
-          className="task-preview-wrapper"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          {task.attachments.length > 0 && <div style={{ backgroundImage: `url(${task.attachments[0].url})` }} className="task-preview-image"></div>}
-          {task?.style?.backgroundColor && task.coverSize === "uncover" && (
-            <div style={task.style} className="task-preview-color-top"></div>
-          )}
-          {/* <button onClick={onRemoveTask}>fdjisa</button> */}
-          {/* {task?.style?.backgroundColor && task.coverSize === "cover" && <div style={task.style} className="task-preview-cover-container">} */}
-          <div
-            style={task.coverSize === "cover" ? task.style : {}}
-            className="task-preview-container"
-          >
-            <div className="task-preview-edit-icon" onClick={openQuickEdit}>
-              <BsPencil />
-            </div>
-            {!!labels?.length && (
-              <div className="label-container">
-                {labels.map((label) => {
-                  return (
-                    <span
-                      onClick={onToggleLabelPreview}
-                      key={label.id}
-                      style={{ backgroundColor: label.color }}
-                      className={`label-preview ${labelOpenState ? 'label-open' : ''}`}
-                    >{labelOpenState && label.title}</span>
-                  );
-                })}
-              </div>
-            )}
-            <span className="task-preview-title">{task.title}</span>
-            <div className="badges">
-              {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
-              {!!task.description && <span className="badge"><GrTextAlignFull /></span>}
-              {!!task.attachments?.length && <span className="badge"> <FiPaperclip /></span>}
-              {!!sumTodos && (
-                <div style={
-                  sumTodos === sumTodosDone ? {
-                    backgroundColor: '#61bd4f',
-                    color: 'white', borderRadius: '3px'
-                  } : {}} className="badge checklist-badge">
-                  <FiCheckSquare />
-                  {/* <FiCheckSquare style={{paddingTop:'2px'}} /> */}
-                  <div className="sum-todos-badge-title">
-                    {sumTodosDone}/{sumTodos}
+          {!task.archivedAt && <span>
+            <div className="task-preview-wrapper">
+              {task.attachments.length > 0 && <div style={{ backgroundImage: `url(${task.attachments[0].url})` }} className="task-preview-image"></div>}
+              {task?.style?.backgroundColor && task.coverSize === "uncover" && (
+                <div style={task.style} className="task-preview-color-top"></div>
+              )}
+              <div style={task.coverSize === "cover" ? task.style : {}} className="task-preview-container"
+              >
+                <div className="task-preview-edit-icon" onClick={openQuickEdit}>
+                  <BsPencil />
+                </div>
+
+                {!!labels?.length && (
+                  <div className="label-container">
+                    {labels.map((label) => {
+                      return (
+                        <span
+                          onClick={onToggleLabelPreview}
+                          key={label.id}
+                          style={{ backgroundColor: label.color }}
+                          className={`label-preview ${labelOpenState ? 'label-open' : ''}`}
+                        >{labelOpenState && label.title}</span>
+                      )
+                    })}
+                  </div>
+                )}
+                <span className="task-preview-title">{task.title}</span>
+
+                <div className="badges">
+                  {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
+                  {!!task.description && <span className="badge"><GrTextAlignFull /></span>}
+                  {!!task.attachments?.length && <span className="badge"> <FiPaperclip /></span>}
+                  {!!sumTodos && (
+                    <div style={
+                      sumTodos === sumTodosDone ? {
+                        backgroundColor: '#61bd4f',
+                        color: 'white', borderRadius: '3px'
+                      } : {}} className="badge checklist-badge">
+                      <FiCheckSquare />
+                      {/* <FiCheckSquare style={{paddingTop:'2px'}} /> */}
+                      <div className="sum-todos-badge-title">
+                        {sumTodosDone}/{sumTodos}
+                      </div>
+                    </div>
+                  )}
+                  {/* DUE DATE */}
+                  <div className='badge badges-icons'>
+                    {task.dueDate && (
+                      <DueDatePreview dueDate={task.dueDate}
+                        task={task} boardId={board._id} groupId={groupId}
+                      />
+                    )}
                   </div>
                 </div>
-              )}
-              {/* DUE DATE */}
-              <div className='badge badges-icons'>
-                {task.dueDate && (
-                  <DueDatePreview dueDate={task.dueDate}
-                    task={task} boardId={board._id} groupId={groupId}
-                  />
-                )}
+                {/* MENBER PREVIEW */}
+                <div className="task-members-preview">
+                  {task?.members.map(member => {
+                    return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
+                  })}
+                </div>
               </div>
             </div>
-            {/* MENBER PREVIEW */}
-            <div className="task-members-preview">
-              {task?.members.map(member => {
-                return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
-              })}
-            </div>
-
-          </div>
+          </span>
+          }
         </div>
       )}
     </Draggable>}</>

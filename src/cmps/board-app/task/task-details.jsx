@@ -98,7 +98,6 @@ export const TaskDetails = () => {
               boardMembers={board.members}
               task={task}
               users={users}
-              board={board}
             />
           </div>
         </div>
