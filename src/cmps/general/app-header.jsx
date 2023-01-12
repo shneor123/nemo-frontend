@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { NavLink, useLocation } from "react-router-dom"
 import { useNavigate } from "react-router"
 import { gapi } from "gapi-script";
@@ -14,12 +14,11 @@ export const AppHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const modalDetails = useRef();
-  const modalTitle = useRef();
+  const modalDetails = useRef()
+  const modalTitle = useRef()
 
   let routeClass
   let googleUser
-
 
   useEffect(() => {
     if (pathname !== "/" && pathname !== "/login" && pathname !== "/signup") {
@@ -33,7 +32,6 @@ export const AppHeader = () => {
   const auth2 = gapi?.auth2?.getAuthInstance()
   const profile = auth2?.currentUser?.get().getBasicProfile()
   googleUser = profile?.getImageUrl()
-  console.log("🚀 ~ file: app-header.jsx:35 ~ AppHeader ~ googleUser", googleUser)
 
   if (pathname === "/") routeClass = "-home"
   if (pathname === "/login" || pathname === "/signup")
@@ -105,7 +103,6 @@ export const AppHeader = () => {
             </div>
             <NavLink to={"/workspace"} className="workspace-link"> Workspaces </NavLink>
           </div>
-
           {isModalOpen && (
             <DynamicModalCmp
               modalDetails={modalDetails.current}
@@ -115,7 +112,6 @@ export const AppHeader = () => {
               onCloseModal={onCloseModal}
             />
           )}
-
           <div className="user-img-container" onClick={(ev) => { onOpenModal(ev, 'account actions') }}>
             {user &&
               (user?.imgUrl ? (

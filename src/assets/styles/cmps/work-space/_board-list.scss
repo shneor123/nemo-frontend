@@ -7,4 +7,7 @@
   margin-inline-start: 15%;
   margin-inline-end: 15%;
 
+  @include for-mobile-layout {
+    margin-inline-start: 20%;
+  }
 }

@@ -1,16 +1,17 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { MdOutlineExpandLess, MdOutlineExpandMore } from 'react-icons/md'
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition"
 import { aiService } from "../../services/board/ai.service"
 import { utilService } from "../../services/basic/util.service"
 import { saveChecklist } from "../../store/actions/checklist.action"
+import { useDispatch } from "react-redux"
 import clara from '../../assets/img/clara.png'
+import { MdOutlineExpandLess, MdOutlineExpandMore } from 'react-icons/md'
+import { useState } from "react"
 
 
 export function AiModal({ task, boardId, groupId }) {
-  const dispatch = useDispatch()
+
   const [isExpanded, setIsExpanded] = useState(false)
+  const dispatch = useDispatch()
   
   const onCreateAiChecklist = ({ checklistTitle, todoTitles }) => {
     const checklist = { title: checklistTitle }
@@ -28,7 +29,7 @@ export function AiModal({ task, boardId, groupId }) {
   
   const commands = [
     {
-      command: "build for *",
+      command: "build a to-do list for *",
       callback: async (sttInput) => {
         try {
           const response = await aiService.getAiTextCompletion(sttInput)

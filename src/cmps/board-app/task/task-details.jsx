@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router";
 
 import { GrClose } from 'react-icons/gr'
 import { AiOutlineCreditCard } from "react-icons/ai";
+import { RiArchiveLine } from "react-icons/ri";
 import { TaskSidebar } from "./task-sidebar";
 import { TaskDetailsMain } from "./task-details-main";
 import { saveTask } from "../../../store/actions/task.action";
@@ -62,6 +63,14 @@ export const TaskDetails = () => {
             onClick={() => navigate(`/board/${boardId}`)}
           ><GrClose /> </div>}
 
+          {task.archivedAt && (
+            <div className="task-archived">
+              <div className="archive-icon-container">
+                <RiArchiveLine className="archive-icon" />
+              </div>
+              <p>This task is archived.</p>
+            </div>
+          )}
           <div className="task-details-header">
             <span className="header-icon"> <AiOutlineCreditCard /></span>
             <form onSubmit={onSaveTask}>
@@ -89,6 +98,7 @@ export const TaskDetails = () => {
               boardMembers={board.members}
               task={task}
               users={users}
+              board={board}
             />
           </div>
         </div>

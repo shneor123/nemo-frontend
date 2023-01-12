@@ -7,7 +7,7 @@ import { saveTask } from '../../../../store/actions/task.action'
 import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
 import { userService } from '../../../../services/basic/user.service';
 
-export function DatePreview({ task, boardId, groupId }) {
+export function DatePreview({group, task, boardId, groupId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalDetails = useRef();
     const modalTitle = useRef();
@@ -55,6 +55,7 @@ export function DatePreview({ task, boardId, groupId }) {
                     boardId={boardId}
                     groupId={groupId}
                     task={task}
+                    group={group}
                     type={modalTitle}
                     onCloseModal={onCloseModal}
                 />

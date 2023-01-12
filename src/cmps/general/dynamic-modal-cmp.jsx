@@ -18,9 +18,12 @@ import { useRef } from "react";
 import { MoreMembers } from "../modals/more-members";
 import { ModalLabelCreate } from "../modals/modal-label-create";
 import { ModalLabelChange } from "../modals/modal-label-change";
+import { AttachmentDelete } from "../modals/attachment-delete";
+import { ChecklistDelete } from "../modals/checklist-delete";
+import { TaskDelete } from "../modals/task-delete";
 
 export const DynamicModalCmp = ({
-  modalDetails: { bottom, right, left },
+  modalDetails: { bottom, left, top },
   width,
   height,
   onCloseModal,
@@ -41,6 +44,11 @@ export const DynamicModalCmp = ({
   board,
   moreMembers,
   element,
+  group,
+  onRemoveAttachment,
+  onRemoveChecklist,
+  checklist,
+  OnDelete
 }) => {
   const editLabel = useRef()
   const changeEditLabel = (label) => { editLabel.current = label }
@@ -98,7 +106,7 @@ export const DynamicModalCmp = ({
       if (bottom >= 330) bottom -= 200;
       width = '343px'
       modalTypeToOpen = (
-        <TaskDateModal boardId={boardId} groupId={groupId} task={task} />
+        <TaskDateModal boardId={boardId} groupId={groupId} task={task} group={group} />
       );
       break;
     case "Attachment":
@@ -169,7 +177,6 @@ export const DynamicModalCmp = ({
       modalTypeToOpen = <FilterMenu board={board} />;
       break;
     case "dashboard":
-      // left = 1091.8;
       modalTypeToOpen = <Dashboard task={task} />;
       break;
     case "account actions":
@@ -221,9 +228,51 @@ export const DynamicModalCmp = ({
         />
       );
       break;
+    case 'attachment-delete':
+      modalTypeToOpen = (
+        <AttachmentDelete onRemoveAttachment={onRemoveAttachment} />
+      )
+      break
+    case 'checklist-delete':
+      modalTypeToOpen = (
+        <ChecklistDelete onRemoveChecklist={onRemoveChecklist} checklist={checklist} />
+      )
+      break
+    case 'task-delete':
+      if (bottom >= 170 && bottom < 200) bottom -= 50;
+      left = 1000;
+      modalTypeToOpen = (
+        <TaskDelete OnDelete={OnDelete} />
+      )
+      break
   }
 
 
+  const getModalPositionStyle = () => {
+    // const getModalPositionStyle = (top, height, left) => {
+    if (width < 800) {
+      // const { top, left, height, right } = event.target.getBoundingClientRect();
+      const startSide = (width / left < 10) ? 'left' : 'right'
+      const startSideValue = (width / left < 10) ? 130 : left;
+      if ((modalTypeToOpen === 'Dates' || modalTypeToOpen === 'Labels' || modalTypeToOpen === 'Create Board' || modalTypeToOpen === 'Cover')) {
+        return { top: top / 10, left }
+      }
+      if (width > 1050) return { top: top + bottom, left: left }
+      return { top: top, [startSide]: startSideValue + 'rem' }
+    } else {
+
+      // const { top, left, right } = event.target.getBoundingClientRect();
+      const startSide = (width - left > 320) ? 'left' : 'right'
+      const startSideValue = (width - left > 320) ? left : 20;
+
+      if (width > 1050) return { top: top, [startSide]: startSideValue }
+      if ((modalTypeToOpen === 'dates' || modalTypeToOpen === 'labels' || modalTypeToOpen === 'createBoard' || modalTypeToOpen === 'cover')) {
+
+        return { top: top / 2, right: 15 }
+      }
+      return { top: top, [startSide]: startSideValue + 'px' }
+    }
+  }
 
   return (
     <div
@@ -241,11 +290,12 @@ export const DynamicModalCmp = ({
           }
           : {
             top: bottom,
-            left,
+            left: left,
             width: width || "304px",
             height: height || ""
           }
       }
+    // style={getModalPositionStyle()}
     >
       <div className="modal-header-wrapper">
         <div className="modal-header">

@@ -8,6 +8,10 @@
     opacity: 0.8;
     padding: 10px 0 0 10px;
 
+    @include for-mobile-layout {
+        opacity: 0.9;
+    }
+
     &:hover {
         opacity: 0.9;
         transition: 0.1s ease-in-out;
@@ -33,7 +37,7 @@
 
     // 550px
     @include for-mobile-layout {
-        width: 152px;
+        width: 250px;
         height: 96%;
     }
 
@@ -78,7 +82,6 @@
         background-color: transparent !important;
         border: none;
         cursor: pointer;
-        z-index: 1000;
 
         &:hover {
             background-color: rgb(64, 53, 119);

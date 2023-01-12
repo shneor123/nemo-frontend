@@ -67,12 +67,12 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
                 <p className="sub-title">Members</p>
             </div>
             <ul className="clean-list">
-                {board.members && board.members.map((member) => {
+                {board.members && board.members.map((member) =>{
                     return (
                         <li key={member._id}>
                             <div className="user-preview-conainer" onClick={() => setMemberChecked(member._id)}>
-                                {!member.checked && < MdCheckBoxOutlineBlank className="check-box-blank" onClick={() => setMemberChecked(member._id)} />}
-                                {member.checked && < MdCheckBox className="check-box-full" onClick={() => setMemberChecked(member._id)} />}
+                                {!member.checked && < MdCheckBoxOutlineBlank className="check-box-blank" onClick={() => setMemberChecked(member.id)} />}
+                                {member.checked && < MdCheckBox className="check-box-full" onClick={() => setMemberChecked(member.id)} />}
                                 <div className="user-info">
                                     <div className="user-img-container ">
                                         <img src={member.imgUrl} />

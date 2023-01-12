@@ -102,7 +102,7 @@ export const LoginSignup = (props) => {
             type="email"
             id="username"
             name="username"
-            placeholder="Enter username"
+            placeholder="Enter email"
             value={credentials.username}
             onChange={handleChange}
           />

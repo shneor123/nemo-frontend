@@ -32,7 +32,6 @@ export const AttachmentModal = ({ task, boardId, groupId }) => {
         updateAttachment.createdAt = Date.now()
         updateAttachment.name = 'Media Url'
         task.attachments.push(updateAttachment)
-
         const activity = {
             txt: 'add attachment in this card',
             boardTxt: `added ${updateAttachment.name} in this attachment card`,
@@ -40,9 +39,8 @@ export const AttachmentModal = ({ task, boardId, groupId }) => {
                 username: "guest",
                 fullname: "guest",
                 imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            },
+            }
         }
-
         dispatch(saveTask(task, boardId, groupId, activity))
     }
 

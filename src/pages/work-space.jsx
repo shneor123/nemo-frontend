@@ -44,7 +44,7 @@ export const WorkSpace = () => {
               <h3>Starred boards</h3>
             </div>
             <div className="primary-boards-container-section">
-
+              {/* <DynamicFilter boards={boards} onToggleStar={onToggleStar} /> */}
               <BoardList
                 boards={getStarredBoards()}
                 updateBoard={updateBoard}

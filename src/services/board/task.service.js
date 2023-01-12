@@ -22,6 +22,7 @@ async function saveTask(task, boardId, groupId, activity) {
     } else {
         task.id = utilService.makeId()
         task.attachments = []
+        task.archivedAt = null
         task.labelIds = []
         task.checklists = []
         task.style = {}

@@ -9,7 +9,7 @@ export const checklistService = {
     removeTodo
 }
 
-async function removeChecklist(boardId, groupId, taskId, checklistId, activity) {
+async function removeChecklist(boardId, groupId, taskId,checklistId, activity) {
     const taskToUpdate = await taskService.getTaskById(boardId, groupId, taskId)
     const updateChecklists = taskToUpdate.checklists.filter(checklist => checklistId !== checklist.id)
     taskToUpdate.checklists = updateChecklists

@@ -1,7 +1,7 @@
 import { boardService } from "../../services/board/board.service"
 
 export const MemberActions = ({ task, member, board }) => {
-  
+
   const onRemoveMember = () => {
     const memberIdx = board.members.findIndex((boardMember) => boardMember.id === member._id)
     board.members.splice(memberIdx, 1)
@@ -16,8 +16,6 @@ export const MemberActions = ({ task, member, board }) => {
   //   }
   //   onUpdateBoard(board)
   // }
-
-
 
   const onUpdateBoard = async (updatedBoard) => {
     try {

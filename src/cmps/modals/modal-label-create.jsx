@@ -5,7 +5,6 @@ import { utilService } from '../../services/basic/util.service'
 
 export const ModalLabelCreate = () => {
   const { board } = useSelector((storeState) => storeState.boardModule)
-  console.log("🚀 ~ file: modal-label-create.jsx:9 ~ ModalLabelCreate ~ board", board)
   const [updatedBoard, setUpdatedBoard] = useState(board)
   const [labelName, setLabelName] = useState('')
   const [color, setColor] = useState('#7bc86c')

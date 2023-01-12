@@ -1,8 +1,9 @@
 import { Configuration, OpenAIApi } from 'openai'
-import { OpenaiApiKey } from '../../.secret/api'
+import secret from '../.secret/keys.json'
+
 
 const configuration = new Configuration({
-    apiKey: OpenaiApiKey,
+    apiKey: secret.OPENAI_API_KEY,
 })
 
 async function getAiTextCompletion(sttInput) {
@@ -12,7 +13,7 @@ async function getAiTextCompletion(sttInput) {
             .createCompletion(
                 "text-davinci-002",
                 {
-                    prompt: `build for${sttInput} \n`,
+                    prompt: `build a to-do list for ${sttInput} \n`,
                     temperature: 1,
                     max_tokens: 311,
                     top_p: 0.3,

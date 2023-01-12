@@ -6,7 +6,7 @@ import { useForm } from '../../hooks/useForm';
 
 
 export const ChecklistModal = ({ boardId, groupId, taskId, onCloseModal, taskTitle }) => {
-    const [fields, handleChange] = useForm({title: 'Checklist'})
+    const [fields, handleChange] = useForm({ title: 'Checklist' })
     const dispatch = useDispatch()
 
     const onSaveChecklist = (ev) => {
@@ -18,7 +18,11 @@ export const ChecklistModal = ({ boardId, groupId, taskId, onCloseModal, taskTit
         const activity = {
             txt: 'added Checklist to this card',
             boardTxt: 'added Checklist to ' + taskTitle,
-            byMember: userService.getLoggedinUser()
+            byMember: userService.getLoggedinUser() || {
+                username: "guest",
+                fullname: "guest",
+                imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            },
         }
         dispatch(saveChecklist(checklist, boardId, groupId, taskId, activity));
         onCloseModal()

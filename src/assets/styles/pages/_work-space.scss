@@ -1,5 +1,6 @@
 .workspace-page {
     padding-top: 40px;
+
     a {
         text-decoration: none;
     }
@@ -30,7 +31,10 @@
     .title-header-icon-container {
         margin-right: 10px;
 
-        // font-size: 20px;
+        @include for-mobile-layout {
+            margin-inline-start: 20px;
+        }
+
         .header-icon {
             color: #42526e;
             height: 24px;

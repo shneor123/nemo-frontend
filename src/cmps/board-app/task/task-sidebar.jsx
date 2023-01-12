@@ -1,17 +1,21 @@
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { TiTag } from "react-icons/ti";
 import { BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs";
+import { RiArchiveLine } from 'react-icons/ri'
 import { FiPaperclip } from "react-icons/fi";
 import { MdOutlineScreenShare } from "react-icons/md";
 import { GiRobotAntennas } from 'react-icons/gi'
 import { BsPerson } from "react-icons/bs";
+import { CgUndo } from "react-icons/cg";
+import { HiOutlineMinus } from "react-icons/hi";
 
 import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { userService } from "../../../services/basic/user.service";
 import { joinTask } from "../../../store/actions/member.action";
+import { boardService } from "../../../services/board/board.service";
 
-export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, groupTitle }) => {
+export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, labels, groupTitle }) => {
   const buttons = [
     { txt: "Members", icon: <BsPerson /> },
     { txt: "Labels", icon: <TiTag /> },
@@ -46,6 +50,32 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
     modalDetails.current = ev.target.getBoundingClientRect();
     setIsModalOpen(true);
   };
+
+  const deleteRef = useRef()
+
+
+  const onRestoreTask = () => {
+    updateTask({ ...task, archivedAt: null })
+  }
+
+  const onArchiveTask = () => {
+    updateTask({ ...task, archivedAt: Date.now() })
+  }
+  const updateTask = (updatedTask) => {
+    const currGroup = board?.groups.find(group => group.id === groupId);
+    const currTask = currGroup?.tasks?.findIndex(task => task.id === updatedTask.id);
+    const taskIdx = currTask
+    currGroup.tasks[taskIdx] = updatedTask
+    onUpdateBoard(board)
+  }
+
+  const onUpdateBoard = async (updatedBoard) => {
+    try {
+      await boardService.save(updatedBoard)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <div className="task-details-sidebar-container">
@@ -88,6 +118,33 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
           );
         })}
       </div>
-    </div>
+      <h3 className="task-details-sidebar-section-title actions">Actions</h3>
+      <div>
+        {task.archivedAt ? (
+          <div>
+            <a className="sidebar-button" onClick={onRestoreTask}>
+              <span className="sidebar-icon"> <CgUndo /> </span>
+              <span>Send to board</span>
+            </a>
+
+            <a className="sidebar-button delete-btn" ref={deleteRef}
+              onClick={(ev) => { onOpenModal(ev, 'task-delete'); }}>
+              <span className="sidebar-icon"> <HiOutlineMinus /> </span>
+              <span>Delete</span>
+            </a>
+          </div>
+        ) : (
+          <a className="sidebar-button"
+            onClick={onArchiveTask}
+          >
+            <span className="sidebar-icon">
+              <RiArchiveLine />
+            </span>
+            <span>Archive</span>
+          </a>
+        )}
+      </div>
+    </div >
   );
 };
+
