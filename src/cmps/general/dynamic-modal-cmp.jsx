@@ -239,6 +239,7 @@ export const DynamicModalCmp = ({
       )
       break
     case 'task-delete':
+      if (bottom >= 380) bottom -= 105;
       if (bottom >= 170 && bottom < 200) bottom -= 50;
       left = 1000;
       modalTypeToOpen = (

@@ -30,9 +30,20 @@ export function TaskDateModal({ boardId, groupId, task }) {
         task.dueDate = Date.parse(selectedDate)
         dispatch(saveTask(task, boardId, groupId, activity))
     }
-    const onRemove = () => {}
+
+    const onRemove = () => {
+        const updatedTask = { ...task }
+        updatedTask.dueDate = null
+        updateTask(updatedTask)
+    }
+
+    const updateTask = (updatedTask) => {
+        task.dueDate = updatedTask.dueDate
+        dispatch(saveTask(task, boardId, groupId))
+    }
 
     return (
+
         <section className='dates-modal'>
             <div className='details-container'>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>

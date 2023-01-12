@@ -1,16 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { IoCheckbox } from 'react-icons/io5';
-import { MdCheckBoxOutlineBlank } from 'react-icons/md';
-import { utilService } from '../../../../services/basic/util.service'
-import { saveTask } from '../../../../store/actions/task.action'
+import React, { useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { IoCheckbox } from 'react-icons/io5'
+import { MdCheckBoxOutlineBlank } from 'react-icons/md'
+
 import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
-import { userService } from '../../../../services/basic/user.service';
+import { saveTask } from '../../../../store/actions/task.action'
+import { utilService } from '../../../../services/basic/util.service'
+import { userService } from '../../../../services/basic/user.service'
 
 export function DatePreview({group, task, boardId, groupId }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const modalDetails = useRef();
-    const modalTitle = useRef();
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const modalDetails = useRef()
+    const modalTitle = useRef()
     const dispatch = useDispatch()
 
     const toggleIsDone = () => {
@@ -33,18 +34,18 @@ export function DatePreview({group, task, boardId, groupId }) {
             return { txt: 'overdue', className: 'over-due' };
         }
     }
+
     const onCloseModal = () => {
         setIsModalOpen(false);
-    };
-
+    }
     const onOpenModal = (ev, txt) => {
         if (isModalOpen) {
-            setIsModalOpen(false);
+            setIsModalOpen(false)
         }
-        modalTitle.current = txt;
-        modalDetails.current = ev.target.getBoundingClientRect();
-        setIsModalOpen(true);
-    };
+        modalTitle.current = txt
+        modalDetails.current = ev.target.getBoundingClientRect()
+        setIsModalOpen(true)
+    }
 
     return (
         <div className='date-preview-container'>
