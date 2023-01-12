@@ -14,6 +14,7 @@ export const EditPreview = ({ onRemoveTask, closeQuickEdit, task, onOpenTaskDeta
                     groupId={groupId}
                     boardId={boardId}
                     boardMembers={boardMembers}
+                    onCloseQuickEdit={onCloseQuickEdit}
                 />
                 <EditText task={task} boardId={boardId} groupId={groupId} onCloseQuickEdit={onCloseQuickEdit}
                 />

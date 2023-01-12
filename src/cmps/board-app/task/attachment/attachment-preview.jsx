@@ -6,7 +6,10 @@ import { BsSquareHalf } from "react-icons/bs"
 import { userService } from '../../../../services/basic/user.service'
 import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
 export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const dispatch = useDispatch()
+    const modalDetails = useRef()
+    const modalTitle = useRef()
 
     const onRemoveAttachment = () => {
         const { name } = attachment;
@@ -23,21 +26,34 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
         }
         dispatch(saveTask(task, boardId, groupId, activity, attachmentIdx))
     }
+
     const editTitle = (name) => { }
 
-    const toggleAttachmentCover = () => { }
 
 
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const modalDetails = useRef()
-    const modalTitle = useRef()
+
+    const toggleAttachmentCover = (ev) => {
+        const { id, name, url } = attachment
+        const { coverSize } = task
+        task.style = { url: url, coverSize: coverSize === task.coverSize }
+        updateTask({ ...task })
+    }
+
+    
+
+    const updateTask = (updatedTask) => {
+        task.attachment = updatedTask
+        dispatch(saveTask(task, boardId, groupId))
+    }
+
+
+    // const toggleAttachmentCover = () => { }
 
     const onCloseModal = () => {
         setIsModalOpen(false)
-    };
+    }
 
     const onOpenModal = (ev, txt) => {
-        // closeQuickEdit()
         if (isModalOpen) {
             setIsModalOpen(false)
         }

@@ -13,7 +13,6 @@ export const BoardApp = () => {
   const { boardId } = useParams()
   const dispatch = useDispatch()
   const { board } = useSelector((storeState) => storeState.boardModule)
-  console.log("🚀 ~ file: board-app.jsx:16 ~ BoardApp ~ board", board)
   const { users } = useSelector((storeState) => storeState.userModule)
 
   useEffect(() => {

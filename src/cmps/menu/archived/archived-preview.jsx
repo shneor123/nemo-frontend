@@ -1,8 +1,6 @@
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { utilService } from '../../../services/basic/util.service'
-
 import { TaskPreviewIcons } from './task-preview-icons'
 import { DynamicModalCmp } from '../../general/dynamic-modal-cmp'
 
@@ -10,6 +8,9 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
   const navigate = useNavigate()
   const [updatedTask, setUpdatedTask] = useState(task)
   const taskRef = useRef()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const modalDetails = useRef()
+  const modalTitle = useRef()
 
   const onOpenDetails = (ev) => {
     ev.stopPropagation()
@@ -97,14 +98,9 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
     onUpdateBoard(board)
   }
 
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const modalDetails = useRef()
-  const modalTitle = useRef()
-
   const onCloseModal = () => {
     setIsModalOpen(false)
-  };
+  }
 
   const onOpenModal = (ev, txt) => {
     if (isModalOpen) {
@@ -113,7 +109,7 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
     modalTitle.current = txt
     modalDetails.current = ev.target.getBoundingClientRect()
     setIsModalOpen(true)
-  };
+  }
 
   return (
     <div className="task-preview">
