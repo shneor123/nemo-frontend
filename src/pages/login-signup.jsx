@@ -124,7 +124,7 @@ export const LoginSignup = (props) => {
             <img src={guest} className="guest-icon" />
             <p onClick={() => navigate('/workspace')}>Continue as Guest</p>{" "}
           </button>
-          <LoginWithGoogle />
+          {/* <LoginWithGoogle /> */}
         </div>
         <hr />
         <div className="dif-choice flex">
