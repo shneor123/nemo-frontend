@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 import { MemberPreview } from "../modals/member-preview";
 
 
-export const ToolBar = ({ boardId, board, users, groups }) => {
+export const ToolBar = ({ boardId, board, users }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState(null)
@@ -22,8 +22,6 @@ export const ToolBar = ({ boardId, board, users, groups }) => {
   const dashboardRef = useRef()
   const moreMembersRef = useRef()
 
-
-
   useEffect(() => {
     window.addEventListener("resize", handleResize)
     handleResize()
@@ -32,7 +30,6 @@ export const ToolBar = ({ boardId, board, users, groups }) => {
       window.removeEventListener("resize", handleResize)
     }
   }, [])
-
   const handleResize = () => {
     if (window.innerWidth < 671) {
       setShownMembers(2)
@@ -42,14 +39,12 @@ export const ToolBar = ({ boardId, board, users, groups }) => {
       setShownMembers(4)
     }
   }
-
   const onOpenMenu = () => {
     setIsMenuOpen(true);
   }
   const onCloseMenu = () => {
     setIsMenuOpen(false);
   }
-
   const onOpenModal = (ev, txt) => {
     if (isModalOpen) {
       setIsModalOpen(false);
@@ -58,16 +53,13 @@ export const ToolBar = ({ boardId, board, users, groups }) => {
     setModalTitle(txt)
     setIsModalOpen(true);
   }
-
   const onCloseModal = () => {
     setIsModalOpen(false);
   }
-
   const onToggleStar = () => {
     board.isStar = !board.isStar
     dispatch(updateBoard(board))
   }
-
   const membersToShow = () => {
     let members = [...board?.members]
     members = members.splice(0, shownMembers)
@@ -76,8 +68,6 @@ export const ToolBar = ({ boardId, board, users, groups }) => {
   const getLengthOfExtraMembers = () => {
     return board.members.length - shownMembers
   }
-
-
   const getMembersForModal = (members) => {
     const membersForModal = members.slice(4)
     return membersForModal
@@ -103,6 +93,7 @@ export const ToolBar = ({ boardId, board, users, groups }) => {
         isMenuOpen={isMenuOpen}
         onCloseMenu={onCloseMenu}
         board={board}
+        groups={board.groups}
         activities={board.activities}
       />
       <div className="toolbar-left">

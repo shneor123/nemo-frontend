@@ -14,6 +14,34 @@
     color: #42526e;
 }
 
+.text-desc-about {
+    background-color: #091e420a;
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    color: #172b4d;
+    cursor: pointer;
+    display: block;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+    outline: none;
+    padding: 8px 12px;
+    resize: none;
+    text-decoration: none;
+    margin-left: 34px;
+    width: 256px;
+    height: 100%;
+
+    &:focus {
+        background-color: #fff;
+        border: 0 #fff;
+        box-shadow: inset 0 0 0 2px #0079bf;
+        min-height: 108px;
+        outline: none;
+        cursor: auto;
+
+    }
+
+}
 .text-desc {
     background-color: #091e420a;
     border: none;
