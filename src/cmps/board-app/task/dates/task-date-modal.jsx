@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider, KeyboardDatePicker, } from '@material-ui/pickers'
 
-import { removeTask, saveTask } from '../../../../store/actions/task.action'
+import { saveTask } from '../../../../store/actions/task.action'
 import { userService } from '../../../../services/basic/user.service'
+import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
 
 export function TaskDateModal({ boardId, groupId, task }) {
-
-    const [selectedDate, setSelectedDate] = useState(new Date())
     const dispatch = useDispatch()
+    const modalDetails = useRef()
+    const modalTitle = useRef()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedDate, setSelectedDate] = useState(new Date())
 
     const handleDateChange = (date) => {
         setSelectedDate(date)
@@ -42,9 +45,31 @@ export function TaskDateModal({ boardId, groupId, task }) {
         dispatch(saveTask(task, boardId, groupId))
     }
 
-    return (
+    const onCloseModal = () => {
+        setIsModalOpen(false)
+    }
 
+    const onOpenModal = (ev, txt) => {
+        if (isModalOpen) {
+            setIsModalOpen(false)
+        }
+        modalTitle.current = txt
+        modalDetails.current = ev.target.getBoundingClientRect()
+        setIsModalOpen(true)
+    }
+
+    return (
         <section className='dates-modal'>
+            {isModalOpen && (
+                <DynamicModalCmp
+                    modalDetails={modalDetails.current}
+                    modalTitle={modalTitle.current}
+                    type={modalTitle}
+                    onRemove={onRemove}
+                    onCloseModal={onCloseModal}
+                />
+            )}
+
             <div className='details-container'>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
@@ -62,7 +87,7 @@ export function TaskDateModal({ boardId, groupId, task }) {
                     />
                 </MuiPickersUtilsProvider>
                 <button className='secondary-btn' onClick={onSetDate}> Save </button>
-                <button className='secondary-btn gray' onClick={onRemove}> Remove </button>
+                <button className='secondary-btn gray' onClick={(ev) => { onOpenModal(ev, 'date-delete') }}> Remove </button>
             </div>
         </section>
     )

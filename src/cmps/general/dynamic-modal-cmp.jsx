@@ -14,13 +14,14 @@ import { FilterMenu } from "../menu/filter-menu";
 import { Dashboard } from "../dashboard/dashboard";
 import { AccountActions } from "../modals/account-actions";
 import { MemberActions } from "../modals/member-actions";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { MoreMembers } from "../modals/more-members";
 import { ModalLabelCreate } from "../modals/modal-label-create";
 import { ModalLabelChange } from "../modals/modal-label-change";
 import { AttachmentDelete } from "../modals/attachment-delete";
 import { ChecklistDelete } from "../modals/checklist-delete";
 import { TaskDelete } from "../modals/task-delete";
+import { DateDelete } from "../modals/date-delete";
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, left, top },
@@ -48,7 +49,8 @@ export const DynamicModalCmp = ({
   onRemoveAttachment,
   onRemoveChecklist,
   checklist,
-  OnDelete
+  OnDelete,
+  onRemove
 }) => {
   const editLabel = useRef()
   const changeEditLabel = (label) => { editLabel.current = label }
@@ -246,6 +248,14 @@ export const DynamicModalCmp = ({
         <TaskDelete OnDelete={OnDelete} />
       )
       break
+    case 'date-delete':
+      if (bottom >= 380) bottom -= 105;
+      if (bottom >= 170 && bottom < 200) bottom -= 50;
+      left = 1000;
+      modalTypeToOpen = (
+        <DateDelete onRemove={onRemove} />
+      )
+      break
   }
 
 
@@ -276,40 +286,40 @@ export const DynamicModalCmp = ({
   }
 
   return (
-    <div
-      // tabIndex={"0"}
-      // onBlur={onCloseModal}
-      className={`modal-container ${modalClasses}`}
-      style={
-        modalTitle === "Menu"
-          ? {
-            top: bottom,
-            right: 0, // when menu open
-            // right: -340, //when closed
-            // height:`calc(100vh - 80px)`,
-            width: width || "304px",
-          }
-          : {
-            top: bottom,
-            left: left,
-            width: width || "304px",
-            height: height || ""
-          }
-      }
-    // style={getModalPositionStyle()}
-    >
-      <div className="modal-header-wrapper">
-        <div className="modal-header">
-          {modalTitle}
-          <span onClick={onCloseModal} className="modal-close-btn">
-            <IoMdClose />
-          </span>
+      <div 
+        // tabIndex={"0"}
+        // onBlur={onCloseModal}
+        className={`modal-container ${modalClasses}`}
+        style={
+          modalTitle === "Menu"
+            ? {
+              top: bottom,
+              right: 0, // when menu open
+              // right: -340, //when closed
+              // height:`calc(100vh - 80px)`,
+              width: width || "304px",
+            }
+            : {
+              top: bottom,
+              left: left,
+              width: width || "304px",
+              height: height || ""
+            }
+        }
+      // style={getModalPositionStyle()}
+      >
+        <div className="modal-header-wrapper">
+          <div className="modal-header">
+            {modalTitle}
+            <span onClick={onCloseModal} className="modal-close-btn">
+              <IoMdClose />
+            </span>
+          </div>
         </div>
+        <div className="modal-content-wrapper">{modalTypeToOpen}</div>
       </div>
-      <div className="modal-content-wrapper">{modalTypeToOpen}</div>
-    </div>
-  );
-};
+  )
+}
 
 // props:
 // {
