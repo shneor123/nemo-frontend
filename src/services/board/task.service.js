@@ -6,7 +6,8 @@ export const taskService = {
     getTaskById,
     saveTask,
     setTasks,
-    getModalPosition
+    getModalPosition,
+    getEmptyAttachment
 }
 window.ts = taskService;
 

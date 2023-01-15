@@ -85,7 +85,22 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
   const onCloseQuickEdit = () => {
     setIsEdit(!isEdit)
   }
+  const getTaskStyle = (isQuick) => {
+    if (task.style) {
+      if (task.style.imgUrl && task.style.isCover) {
+        return { backgroundImage: `url(${task.style.imgUrl})` }
+      }
+      if (task.style.bgColor) {
+        if (isQuick) return { borderTop: `32px solid ${task.style.bgColor}` }
 
+        if (!task.style.isCover) {
+          return { borderTop: `32px solid ${task.style.bgColor}` }
+        } else {
+          return { backgroundColor: `${task.style.bgColor}` }
+        }
+      }
+    } else return ''
+  }
 
   return (
     <>{isEdit ? <EditPreview
@@ -108,13 +123,9 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
           ref={provided.innerRef}
         >
           {!task.archivedAt && <span>
-            <div className="task-preview-wrapper">
+            <div className="task-preview-wrapper" style={getTaskStyle()}>
               {task.attachments.length > 0 && <div style={{ backgroundImage: `url(${task.attachments[0].url})` }} className="task-preview-image"></div>}
-              {task?.style?.backgroundColor && task.coverSize === "uncover" && (
-                <div style={task.style} className="task-preview-color-top"></div>
-              )}
-              <div style={task.coverSize === "cover" ? task.style : {}} className="task-preview-container"
-              >
+              <div className="task-preview-container">
                 <div className="task-preview-edit-icon" onClick={openQuickEdit}>
                   <BsPencil />
                 </div>
@@ -146,7 +157,6 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
                         color: 'white', borderRadius: '3px'
                       } : {}} className="badge checklist-badge">
                       <FiCheckSquare />
-                      {/* <FiCheckSquare style={{paddingTop:'2px'}} /> */}
                       <div className="sum-todos-badge-title">
                         {sumTodosDone}/{sumTodos}
                       </div>

@@ -43,7 +43,6 @@
     }
 }
 
-
 .add-board {
     .board-preview-wrapper {
         display: flex;
@@ -95,8 +94,6 @@
             }
         }
 
-
-
         .color-selected {
             align-items: center;
             background-position: 50%;
@@ -120,24 +117,53 @@
     }
 
     .add-board-title {
-        border-radius: 3px;
-        box-sizing: border-box;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 20px;
-        transition-duration: 85ms;
-        transition-property: background-color, border-color, box-shadow;
-        transition-timing-function: ease;
+        margin: 0 0 12px;
         width: 100%;
         background-color: #fafbfc;
         border: none;
-        box-shadow: inset 0 0 0 2px #dfe1e6;
-        color: #172b4d;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-        margin-bottom: 0;
-        margin-top: 2px;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 2px #0079bf;
+        box-sizing: border-box;
+        display: block;
+        line-height: 20px;
+        margin-bottom: 6px;
         outline: none;
         padding: 8px 12px;
+        transition-duration: 85ms;
+        transition-property: background-color, border-color, box-shadow;
+        transition-timing-function: ease;
+        color: #172b4d;
+        font-size: 14px;
+        font-weight: 400;
+
+
+        &:hover {
+            box-shadow: inset 0 0 0 2px #eb5a46;
+            background-color: #ebecf0;
+        }
+
+        &:focus {
+            background-color: #fff;
+            box-shadow: inset 0 0 0 2px #0079bf;
+        }
+    }
+
+    .title-msg {
+        display: flex;
+        flex-direction: row;
+        margin-top: 4px;
+
+        span {
+            margin-right: 8px;
+        }
+
+        p {
+            margin: 0 0 8px;
+            color: #172b4d;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+        }
     }
 
     .create-btn {

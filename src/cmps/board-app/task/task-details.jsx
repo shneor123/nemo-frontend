@@ -9,6 +9,7 @@ import { TaskSidebar } from "./task-sidebar";
 import { TaskDetailsMain } from "./task-details-main";
 import { saveTask } from "../../../store/actions/task.action";
 import { useForm } from "../../../hooks/useForm";
+import { TaskDetailsCover } from "../../board-app/task/task-details-cover";
 
 export const TaskDetails = () => {
   const navigate = useNavigate()
@@ -53,15 +54,21 @@ export const TaskDetails = () => {
       >
 
         <div className="task-details" onClick={(ev) => ev.stopPropagation()}>
-          {task?.style?.backgroundColor &&
-            <div className="cover-color" style={{ backgroundColor: task.style.backgroundColor }}>
+          {task.style && <TaskDetailsCover task={task}/>}
+
+
+
+          {/* {task?.style?.bgColor &&
+            <div className="cover-color" style={{ backgroundColor: task.style.bgColor }}>
               <div className="task-details-back-btn"
-                onClick={() => navigate(`/board/${boardId}`)}
-              ><GrClose /> </div>
+                onClick={() => navigate(`/board/${boardId}`)}>
+                <GrClose />
+              </div>
             </div>}
-          {!!task?.style?.backgroundColor || <div className="task-details-back-btn"
+
+          {!!task?.style?.bgColor || <div className="task-details-back-btn"
             onClick={() => navigate(`/board/${boardId}`)}
-          ><GrClose /> </div>}
+          ><GrClose /> </div>} */}
 
           {task.archivedAt && (
             <div className="task-archived">

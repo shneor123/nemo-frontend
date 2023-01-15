@@ -7,7 +7,63 @@ export const utilService = {
   getInitials,
   getDemoImages,
   getDateTimeFormat,
-  formatTimeToDM
+  formatTimeToDM,
+  isImage,
+  getExtension
+}
+
+function getExtension(filename) {
+  try {
+    var parts = filename.split('.')
+    return _imageOrVideo(parts[parts.length - 1])
+  } catch (error) {
+    return 'image'
+  }
+}
+
+function _imageOrVideo(filename) {
+  var type = ''
+  switch (filename) {
+    case 'm4v':
+      type = 'video'
+      break
+    case 'avi':
+      type = 'video'
+      break
+    case 'mpg':
+      type = 'video'
+      break
+    case 'mp4':
+      type = 'video'
+      break
+    case 'mkv':
+      type = 'video'
+      break
+    case 'mov':
+      type = 'video'
+      break
+    case 'jpg':
+      type = 'image'
+      break
+    case 'gif':
+      type = 'image'
+      break
+    case 'bmp':
+      type = 'image'
+      break
+    case 'png':
+      type = 'image'
+      break
+    default:
+      type = 'image'
+      break
+  }
+  return type
+}
+
+
+function isImage(url) {
+  return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
 }
 
 

@@ -26,7 +26,7 @@ import { useNavigate } from "react-router";
 import { taskService } from "../../services/board/task.service";
 
 export const DynamicModalCmp = ({
-  modalDetails: { bottom, left, top ,right},
+  modalDetails: { bottom, left, top, right },
   width,
   height,
   onCloseModal,
@@ -185,7 +185,7 @@ export const DynamicModalCmp = ({
       modalTypeToOpen = <Dashboard task={task} />;
       break;
     case "account actions":
-      left = 1125;
+      left = 100;
       modalTypeToOpen = (<AccountActions user={user} onCloseModal={onCloseModal} />)
       break;
     case "member actions":
@@ -288,38 +288,38 @@ export const DynamicModalCmp = ({
   }
 
   return (
-      <div 
-        // tabIndex={"0"}
-        // onBlur={onCloseModal}
-        className={`modal-container ${modalClasses}`}
-        style={
-          modalTitle === "Menu"
-            ? {
-              top: bottom,
-              right: 0, // when menu open
-              // right: -340, //when closed
-              // height:`calc(100vh - 80px)`,
-              width: width || "304px",
-            }
-            : {
-              top: bottom,
-              left: left,
-              width: width || "304px",
-              height: height || ""
-            }
-        }
-      // style={getModalPositionStyle()}
-      >
-        <div className="modal-header-wrapper">
-          <div className="modal-header">
-            {modalTitle}
-            <span onClick={onCloseModal} className="modal-close-btn">
-              <IoMdClose />
-            </span>
-          </div>
+    <div
+      // tabIndex={"0"}
+      // onBlur={onCloseModal}
+      className={`modal-container ${modalClasses}`}
+      style={
+        modalTitle === "Menu"
+          ? {
+            top: bottom,
+            right: 0, // when menu open
+            // right: -340, //when closed
+            // height:`calc(100vh - 80px)`,
+            width: width || "304px",
+          }
+          : {
+            top: bottom,
+            left: left,
+            width: width || "304px",
+            height: height || ""
+          }
+      }
+    // style={getModalPositionStyle()}
+    >
+      <div className="modal-header-wrapper">
+        <div className="modal-header">
+          {modalTitle}
+          <span onClick={onCloseModal} className="modal-close-btn">
+            <IoMdClose />
+          </span>
         </div>
-        <div className="modal-content-wrapper">{modalTypeToOpen}</div>
       </div>
+      <div className="modal-content-wrapper">{modalTypeToOpen}</div>
+    </div>
   )
 }
 

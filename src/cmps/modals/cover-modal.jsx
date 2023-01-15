@@ -1,158 +1,299 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { utilService } from "../../services/basic/util.service"
-import { uploadService } from "../../services/board/cloudinary.service"
-import { taskService } from "../../services/board/task.service"
-import { saveTask } from "../../store/actions/task.action"
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
+import { uploadService } from '../../services/board/cloudinary.service'
+import { utilService } from '../../services/basic/util.service'
+import { saveTask } from '../../store/actions/task.action'
+import { taskService } from '../../services/board/task.service'
 
 export const CoverModal = ({ boardId, groupId, task }) => {
-    const [selectedColor, setSelectedColor] = useState(null)
-    const [selectedSize, setSelectedSize] = useState('uncover')
-    const dispatch = useDispatch()
+    const [isOnPreviewTextColor, setIsOnPreviewTextColor] = useState(false)
     const [newTask, setNewTask] = useState(task)
-    let fileURL = ''
+    const [isCover, setIsCover] = useState(task.style.isCover || '')
+    console.log("🚀 ~ file: cover-modal.jsx:14 ~ CoverModal ~ ask.style.coverSize", task)
+    const dispatch = useDispatch()
+    const fileURL = ''
 
-    const coverColors = [
-        { id: 'c1', color: '#61bd4f' },
-        { id: 'c2', color: '#f2d600' },
-        { id: 'c3', color: '#ff9f1a' },
-        { id: 'c4', color: '#ed5a46' },
-        { id: 'c5', color: '#c377e0' },
-        { id: 'c6', color: '#5ba4cf' },
-        { id: 'c7', color: '#00c2e0' },
-        { id: 'c8', color: '#51e898' },
-        { id: 'c9', color: '#ff78cb' },
-        { id: 'c10', color: '#344563' }
-    ]
-
-    const chooseColor = (color) => {
-        setSelectedColor(color)
-        saveColor(color.color)
+    
+    const onPreviewTextColor = (bool) => {
+        setIsOnPreviewTextColor(bool)
     }
 
-    const chooseSize = (size) => {
-        setSelectedSize(size)
-        saveColor(selectedColor.color, size)
+    const onChangeCover = (bool) => {
+        setIsCover(bool)
+        const updatedTask = { ...newTask }
+        updatedTask.style.isCover = bool
+        dispatch(saveTask(updatedTask, boardId, groupId))
+        dispatch(saveTask(updatedTask, boardId, groupId))
+        setNewTask(updatedTask)
     }
 
-    const saveColor = (color, size) => {
-        let taskAfterCopy = JSON.parse(JSON.stringify(task));
-        taskAfterCopy.style.backgroundColor = color
-        if (!size) taskAfterCopy.coverSize = selectedSize
-        else taskAfterCopy.coverSize = size
-        dispatch(saveTask(taskAfterCopy, boardId, groupId))
+    const onLightFont = (bool) => {
+        const updatedTask = { ...newTask }
+        updatedTask.style.isCover = true
+        updatedTask.style.isLight = bool
+        dispatch(saveTask(updatedTask, boardId, groupId))
+        setNewTask(updatedTask)
     }
 
-    // const onPickAttachments = (attach) => {
-    //     const updatedTask = { ...newTask }
-    //     const style = { imgUrl: attach, coverSize: selectedSize }
-    //     updatedTask.style = style
-    //     dispatch(saveTask(updatedTask, boardId, groupId))
-    //     setNewTask(updatedTask)
-    // }
+    const onPickColor = (color) => {
+        const updatedTask = { ...newTask }
+        const style = { bgColor: color, isCover: isCover }
+        updatedTask.style = style
+        dispatch(saveTask(updatedTask, boardId, groupId))
+        setNewTask(updatedTask)
+    }
 
-    // const addAttachment = async (ev) => {
-    //     console.log(ev.target.files);
-    //     ev.preventDefault()
+    const onPickAttachments = (attach) => {
+        const updatedTask = { ...newTask }
+        const style = { imgUrl: attach, isCover: isCover }
+        updatedTask.style = style
+        setNewTask(updatedTask)
+        dispatch(saveTask(updatedTask, boardId, groupId))
+    }
 
-    //     if (!ev.target.files) ev.target.files = [fileURL]
-    //     if (!newTask.attachments) newTask.attachments = []
-    //     let attachment = taskService.getEmptyAttachment()
-    //     const updatedTask = { ...newTask }
+    const onPickUnsplash = (url) => {
+        const updatedTask = { ...newTask }
+        const style = { imgUrl: url, isCover: isCover }
+        updatedTask.style = style
+        dispatch(saveTask(updatedTask, boardId, groupId))
+        setNewTask(updatedTask)
+    }
 
-    //     try {
-    //         const res = await uploadService.uploadImg(ev)
-    //         attachment.fileName = res.original_filename
-    //         attachment.url = res.secure_url
-    //         updatedTask.attachments.unshift(attachment)
-    //         dispatch(saveTask(updatedTask, boardId, groupId))
-    //         setNewTask(updatedTask)
-    //     } catch (err) {
-    //         attachment.fileName = fileURL
-    //         attachment.url = fileURL
-    //         updatedTask.attachments.unshift(attachment)
-    //         dispatch(saveTask(updatedTask, boardId, groupId))
-    //         setNewTask(updatedTask)
-    //     }
-    // }
+    const onRemoveCover = () => {
+        const updatedTask = { ...newTask }
+        const style = {}
+        updatedTask.style = style
+        dispatch(saveTask(updatedTask, boardId, groupId))
+        setNewTask(updatedTask)
+    }
+
+    const addAttachment = async (ev) => {
+        console.log(ev.target.files);
+        ev.preventDefault()
+
+        if (!ev.target.files) ev.target.files = [fileURL]
+        if (!newTask.attachments) newTask.attachments = []
+        let attachment = taskService.getEmptyAttachment()
+        const updatedTask = { ...newTask }
+
+        try {
+            const res = await uploadService.uploadImg(ev)
+            attachment.fileName = res.original_filename
+            attachment.url = res.secure_url
+            updatedTask.attachments.unshift(attachment)
+            dispatch(saveTask(updatedTask, boardId, groupId))
+            setNewTask(updatedTask)
+        } catch (err) {
+            attachment.fileName = fileURL
+            attachment.url = fileURL
+            updatedTask.attachments.unshift(attachment)
+            setNewTask(updatedTask)
+            dispatch(saveTask(updatedTask, boardId, groupId))
+        }
+    }
 
     return (
-        <section className="cover-modal-container">
-            <div className="cover-size">
-                <h4>Size</h4>
-                <div className="size-choice-container">
-                    <div className={`uncover-choice choice ${(selectedSize !== 'uncover') ? '' : 'selected'}`}
-                        onClick={() => chooseSize('uncover')}>
-                        <div className="upper-background" style={{ backgroundColor: selectedColor?.color }}>
-                        </div>
-                        <div className="lower-background">
-                            <div className="two-text-stripes-module">
-                                <div className="upper-stripe" style={{ backgroundColor: selectedColor?.color }}></div>
-                                <div className="lower-stripe" style={{ backgroundColor: selectedColor?.color }}></div>
-                                <div className="lower-dummy-btns-area">
-                                    <div className="flex">
-                                        <div className="simple-dummy-short" style={{ backgroundColor: selectedColor?.color }}> </div>
-                                        <div className="simple-dummy-short" style={{ backgroundColor: selectedColor?.color }}> </div>
-                                    </div>
-                                    <div className="dummy-circle" style={{ backgroundColor: selectedColor?.color }}></div>
-                                </div>
+        <>
+            <div className="size-section">
+                <h3 className="label">Size</h3>
+                <div className="box-container">
+                    <button
+                        className={`box-half`}
+                        onClick={() => {
+                            onPreviewTextColor(false)
+                            onChangeCover(false)
+                        }}
+                    >
+                        <div
+                            className="background"
+                            style={{ background: newTask?.style?.imgUrl ? `url('${newTask.style.imgUrl}')` : newTask.style.bgColor }}
+                        ></div>
+                        <div className="lines">
+                            <div className="lines_1"></div>
+                            <div className="lines_2"></div>
+                            <div className="lines_3">
+                                <div className="lines_3_1"></div>
+                                <div className="lines_3_2"></div>
                             </div>
+                            <div className="lines_4"></div>
                         </div>
-                    </div>
-                    <div className={`uncover-choice choice ${(selectedSize !== 'uncover') ? '' : 'selected'}`}
-                        onClick={() => chooseSize('cover')}
-                        style={{ backgroundColor: selectedColor?.color }} >
-                        <div className="two-text-stripes-module">
-                            <div className="upper-stripe"></div>
-                            <div className="lower-stripe" ></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button className="wide-cover-btn" onClick={() => chooseColor('')}>Remove cover</button>
-            <h4>colors</h4>
-            <div className="color-selection">
-                {coverColors.map((color) => {
-                    return (
-                        <div key={color.id} className="choose-color-container">
-                            <div
-                                style={{ backgroundColor: color.color }}
-                                className={`color-view ${(color.id === selectedColor?.id) ? 'selected' : ''}`}
-                                onClick={() => chooseColor(color)}
-                            >
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
-            {/* <div className={`cover-choice choice ${selectedSize === 'cover' ? 'selected' : ''}`}
-             onClick={() => chooseSize('uncover')}
-            >
-                <div className="attachments-section">
-                    <h3 className="label">Attachments</h3>
-                    <div className="box-container">
-                        {newTask?.attachments &&
-                            !!newTask?.attachments.length &&
-                            newTask?.attachments.map(
-                                (attachment) =>
-                                    utilService.isValidImg(attachment.url) && (
-                                        <button
-                                            key={attachment.id}
-                                            onClick={() => onPickAttachments(attachment.url)}
-                                            className="box-full"
-                                            style={{ backgroundImage: `url(${attachment.url})` }}
-                                        ></button>
-                                    )
-                            )}
-                    </div>
+                    </button>
 
-                    <label htmlFor="file-upload" className="custom-file-upload cover-btn">
-                        <i className=""></i> Upload a cover image
-                    </label>
-                    <input id="file-upload" type="file" onInput={addAttachment} />
+                    <button
+                        className={`box-full`}
+                        onClick={() => {
+                            onPreviewTextColor(true)
+                            onChangeCover(true)
+                        }}
+                        style={
+                            newTask?.style?.imgUrl
+                                ? {
+                                    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('${newTask.style.imgUrl}')`,
+                                }
+                                : { background: newTask.style.bgColor }
+                        }
+                    >
+                        <div className="lines">
+                            <div className="lines_1"></div>
+                            <div className="lines_2"></div>
+                        </div>
+                    </button>
+                    <span onClick={onRemoveCover} className="cover-btn">
+                        Remove cover
+                    </span>
                 </div>
-            </div> */}
-        </section>
+            </div>
+
+            {isOnPreviewTextColor && (
+                <div className="textcolor-section">
+                    <h3 className="label">Text color</h3>
+                    <div className="box-container">
+                        <button
+                            className={`box-full`}
+                            onClick={() => {
+                                onLightFont(true)
+                            }}
+                            style={
+                                newTask?.style?.imgUrl
+                                    ? {
+                                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${newTask.style.imgUrl}')`,
+                                    }
+                                    : { background: newTask.style.bgColor }
+                            }
+                        >
+                            <h3>{newTask.title}</h3>
+                        </button>
+                        <button
+                            className={`box-full`}
+                            onClick={() => {
+                                onLightFont(false)
+                            }}
+                            style={
+                                newTask?.style?.imgUrl
+                                    ? {
+                                        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('${newTask.style.imgUrl}')`,
+                                    }
+                                    : { background: newTask.style.bgColor }
+                            }
+                        >
+                            <h3 className="dark">{newTask.title}</h3>
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <div className="colors-section">
+                <h3 className="label">Colors</h3>
+                <div className="box-container">
+                    <button onClick={() => onPickColor('#7BC86C')} style={{ backgroundColor: `#7BC86C` }}></button>
+                    <button onClick={() => onPickColor('#F5DD29')} style={{ backgroundColor: `#F5DD29` }}></button>
+                    <button onClick={() => onPickColor('#FFAF3F')} style={{ backgroundColor: `#FFAF3F` }}></button>
+                    <button onClick={() => onPickColor('#EF7564')} style={{ backgroundColor: `#EF7564` }}></button>
+                    <button onClick={() => onPickColor('#CD8DE5')} style={{ backgroundColor: `#CD8DE5` }}></button>
+                    <button onClick={() => onPickColor('#5BA4CF')} style={{ backgroundColor: `#5BA4CF` }}></button>
+                    <button onClick={() => onPickColor('#29CCE5')} style={{ backgroundColor: `#29CCE5` }}></button>
+                    <button onClick={() => onPickColor('#6DECA9')} style={{ backgroundColor: `#6DECA9` }}></button>
+                    <button onClick={() => onPickColor('#FF8ED4')} style={{ backgroundColor: `#FF8ED4` }}></button>
+                    <button onClick={() => onPickColor('#172B4D')} style={{ backgroundColor: `#172B4D` }}></button>
+                </div>
+            </div>
+
+            <div className="attachments-section">
+                <h3 className="label">Attachments</h3>
+                <div className="box-container">
+                    {newTask?.attachments &&
+                        !!newTask?.attachments.length &&
+                        newTask?.attachments.map(
+                            (attachment) =>
+                                utilService.isImage(attachment.url) && (
+                                    <button
+                                        key={attachment.id}
+                                        onClick={() => onPickAttachments(attachment.url)}
+                                        className="box-full"
+                                        style={{ backgroundImage: `url('${attachment.url}')` }}
+                                    ></button>
+                                )
+                        )}
+                </div>
+
+                <label htmlFor="file-upload" className="custom-file-upload cover-btn">
+                    <i className=""></i> Upload a cover image
+                </label>
+                <input id="file-upload" type="file" onInput={addAttachment} />
+            </div>
+
+            <div className="unsplash-section">
+                <h3 className="label">Photos from Unsplash</h3>
+                <div className="box-container">
+                    <button
+                        className="box-full"
+                        onClick={() =>
+                            onPickUnsplash(
+                                'https://images.unsplash.com/photo-1653511442060-00c7b10827c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDZ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
+                            )
+                        }
+                        style={{
+                            backgroundImage: `url('https://images.unsplash.com/photo-1653511442060-00c7b10827c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDZ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
+                        }}
+                    ></button>
+                    <button
+                        className="box-full"
+                        onClick={() =>
+                            onPickUnsplash(
+                                'https://images.unsplash.com/photo-1653496905343-b1fc1277e3fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
+                            )
+                        }
+                        style={{
+                            backgroundImage: `url('https://images.unsplash.com/photo-1653496905343-b1fc1277e3fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
+                        }}
+                    ></button>
+                    <button
+                        className="box-full"
+                        onClick={() =>
+                            onPickUnsplash(
+                                'https://images.unsplash.com/photo-1652543549421-ea252bd209f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
+                            )
+                        }
+                        style={{
+                            backgroundImage: `url('https://images.unsplash.com/photo-1652543549421-ea252bd209f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
+                        }}
+                    ></button>
+                    <button
+                        className="box-full"
+                        onClick={() =>
+                            onPickUnsplash(
+                                'https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzODAwNzQ5&ixlib=rb-1.2.1&q=80&w=200'
+                            )
+                        }
+                        style={{
+                            backgroundImage: `url('https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzODAwNzQ5&ixlib=rb-1.2.1&q=80&w=200')`,
+                        }}
+                    ></button>
+                    <button
+                        className="box-full"
+                        onClick={() =>
+                            onPickUnsplash(
+                                'https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
+                            )
+                        }
+                        style={{
+                            backgroundImage: `url('https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
+                        }}
+                    ></button>
+                    <button
+                        className="box-full"
+                        onClick={() =>
+                            onPickUnsplash(
+                                'https://images.unsplash.com/photo-1653592328269-09c14b3628f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
+                            )
+                        }
+                        style={{
+                            backgroundImage: `url('https://images.unsplash.com/photo-1653592328269-09c14b3628f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
+                        }}
+                    ></button>
+                </div>
+            </div>
+        </>
     )
 }
