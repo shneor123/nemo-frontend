@@ -47,7 +47,16 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
 
   const updateTask = (updatedTask) => {
     task.archivedAt = updatedTask.archivedAt
-    dispatch(saveTask(task, boardId, groupId))
+    const activity = {
+      txt: "archivedAt this task" + task.title,
+      boardTxt: "archivedAt the " + task.title,
+      byMember: userService.getLoggedinUser() || {
+        username: "guest",
+        fullname: "guest",
+        imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+      },
+    }
+    dispatch(saveTask(task, boardId, groupId, activity))
   }
 
   const onCloseModal = () => {
@@ -101,9 +110,10 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
                 {button.txt}
               </span>
             </button>
-          );
+          )
         })}
       </div>
+      
       <h3 className="task-details-sidebar-section-title actions">Actions</h3>
       <div>
         {task.archivedAt ? (

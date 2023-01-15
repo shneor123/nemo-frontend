@@ -22,9 +22,11 @@ import { AttachmentDelete } from "../modals/attachment-delete";
 import { ChecklistDelete } from "../modals/checklist-delete";
 import { TaskDelete } from "../modals/task-delete";
 import { DateDelete } from "../modals/date-delete";
+import { useNavigate } from "react-router";
+import { taskService } from "../../services/board/task.service";
 
 export const DynamicModalCmp = ({
-  modalDetails: { bottom, left, top },
+  modalDetails: { bottom, left, top ,right},
   width,
   height,
   onCloseModal,
@@ -53,6 +55,7 @@ export const DynamicModalCmp = ({
   onRemove
 }) => {
   const editLabel = useRef()
+  const navigate = useNavigate()
   const changeEditLabel = (label) => { editLabel.current = label }
 
   let modalTypeToOpen;
@@ -257,7 +260,6 @@ export const DynamicModalCmp = ({
       )
       break
   }
-
 
   const getModalPositionStyle = () => {
     // const getModalPositionStyle = (top, height, left) => {

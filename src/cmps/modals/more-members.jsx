@@ -36,12 +36,9 @@ export function MoreMembers({ moreMembers, board, element, onCloseModal }) {
           member?.imgUrl ? (
             <li key={member._id}>
               <div className="member-list">
-                <span className='member-img'><MemberPreview member={member} board={board} /></span>
+                <span className='member-img'> <MemberPreview member={member} board={board}/> </span>
                 <span className="member-txt">{`${member.fullname}`}</span>
               </div>
-
-
-
             </li>
           ) : (
             <li key={member._id} onClick={(ev) => onOpenModal(ev, 'member actions')}>

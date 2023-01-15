@@ -5,7 +5,8 @@ export const taskService = {
     removeTask,
     getTaskById,
     saveTask,
-    setTasks
+    setTasks,
+    getModalPosition
 }
 window.ts = taskService;
 
@@ -42,8 +43,6 @@ async function saveTask(task, boardId, groupId, activity) {
     }
 }
 
-
-
 async function removeTask(boardId, groupId, taskId, activity) {
     //TODO: add try catch
 
@@ -68,7 +67,6 @@ async function getTaskById(boardId, groupId, taskId) {
     }
 }
 
-
 async function setTasks(boardId, groupId, tasks) {
     try {
         const board = await boardService.getById(boardId)
@@ -79,4 +77,27 @@ async function setTasks(boardId, groupId, tasks) {
     } catch (err) {
         console.log(err);
     }
+}
+
+function getEmptyAttachment() {
+    return {
+        id: utilService.makeId(),
+        createdAt: Date.now(),
+        fileUrl: '',
+    }
+}
+
+
+function getModalPosition(clickedElementPos) {
+
+    const position = {
+        topPos: clickedElementPos.top + clickedElementPos.height + 6,
+        leftPos: clickedElementPos.left
+    };
+    let intViewportWidth = window.innerWidth;
+    // const isOverflowY = (window.innerHeight - height - 45) < 0
+
+    if (intViewportWidth - position.leftPos <= 40) position.right = 0
+    else position.right = null
+    return position;
 }

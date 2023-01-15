@@ -5,12 +5,12 @@ import { TaskPreviewIcons } from './task-preview-icons'
 import { DynamicModalCmp } from '../../general/dynamic-modal-cmp'
 
 export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) => {
-  const navigate = useNavigate()
-  const [updatedTask, setUpdatedTask] = useState(task)
-  const taskRef = useRef()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [updatedTask, setUpdatedTask] = useState(task)
+  const navigate = useNavigate()
   const modalDetails = useRef()
   const modalTitle = useRef()
+  const taskRef = useRef()
 
   const onOpenDetails = (ev) => {
     ev.stopPropagation()

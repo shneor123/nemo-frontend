@@ -19,7 +19,7 @@ export const AboutThisBoard = ({ iOpenAboutBoard, board }) => {
         <section className="task-description flex column " onBlur={() => setIsDescOpen(false)} style={{ display: iOpenAboutBoard }}>
 
             <div className="member-img-container">
-                <h1><AiOutlineUser />Board admins</h1>
+                <h1><AiOutlineUser style={{ marginRight: '10px', marginLeft: '5px' }} />Board admins</h1>
                 <img src={board.createdBy.imgUrl} alt="" className="member-img" />
                 <strong>{board.createdBy.fullname}</strong>
                 <p>{board.createdBy.username}</p>
@@ -34,7 +34,7 @@ export const AboutThisBoard = ({ iOpenAboutBoard, board }) => {
                     name="description"
                     spellCheck={false}
                     className="text-desc-about"
-                    placeholder="Add a more detailed description..."
+                    placeholder="Add a description to let your teammates know what this board is used for. You’ll get bonus points if you add instructions for how to collaborate!"
                     value={fields.description}
                     onChange={handleChange}
                 >

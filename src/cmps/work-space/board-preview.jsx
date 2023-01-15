@@ -6,17 +6,17 @@ import { onRemoveBoardOptimistic, removeBoard } from "../../store/actions/board.
 
 
 export function BoardPreview({ board, onToggleStar }) {
+  console.log("🚀 ~ file: board-preview.jsx:9 ~ BoardPreview ~ board", board)
   const dispatch = useDispatch()
   const onRemoveTask = (ev) => {
     ev.stopPropagation()
-    dispatch(removeBoard(board._id))
+    dispatch(removeBoard(board.id))
   }
 
   return (
     <div>
       <Link to={`/board/${board._id}`}>
         <div className="board-preview-container"
-        // style={board.style }
           style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}
         >
           <h3>{board.title}</h3>

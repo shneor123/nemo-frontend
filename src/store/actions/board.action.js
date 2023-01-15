@@ -154,7 +154,6 @@ export function onRemoveBoardOptimistic(boardId) {
 
 export function handleDrag(
     board,
-    activity,
     droppableIdStart,
     droppableIdEnd,
     droppableIndexStart,
@@ -189,6 +188,7 @@ export function handleDrag(
                 // Put the task in the new group
                 groupEnd.tasks.splice(droppableIndexEnd, 0, ...task);
             }
+            // }
         }
         console.log(board._id);
         const savedBoard = await boardService.save(board);

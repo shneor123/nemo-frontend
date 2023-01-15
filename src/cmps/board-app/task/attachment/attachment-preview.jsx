@@ -26,11 +26,7 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
         }
         dispatch(saveTask(task, boardId, groupId, activity, attachmentIdx))
     }
-
     const editTitle = (name) => { }
-
-
-
 
     const toggleAttachmentCover = (ev) => {
         const { id, name, url } = attachment
@@ -39,15 +35,10 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
         updateTask({ ...task })
     }
 
-    
-
     const updateTask = (updatedTask) => {
         task.attachment = updatedTask
         dispatch(saveTask(task, boardId, groupId))
     }
-
-
-    // const toggleAttachmentCover = () => { }
 
     const onCloseModal = () => {
         setIsModalOpen(false)
@@ -64,7 +55,6 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
     return (
         <>
             <div className='attachment-preview-container' >
-
                 {isModalOpen && (
                     <DynamicModalCmp
                         modalDetails={modalDetails.current}
@@ -75,11 +65,11 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
                         onRemoveAttachment={onRemoveAttachment}
                     />
                 )}
+                <img className='attachment-preview-img' src={attachment.url} />
                 <a className='attachment-preview-img'
                     style={{ backgroundImage: `url(${attachment.url})` }}
                     href={attachment.url} target={'_blank'}>
                 </a>
-                <img className='attachment-preview-img' src={attachment.url} />
                 <div className='attachment-details'>
                     <span className='attachment-name'>{attachment.name}</span>
                     <div className='actions-container'>

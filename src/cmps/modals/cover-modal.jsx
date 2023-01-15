@@ -1,5 +1,8 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { utilService } from "../../services/basic/util.service"
+import { uploadService } from "../../services/board/cloudinary.service"
+import { taskService } from "../../services/board/task.service"
 import { saveTask } from "../../store/actions/task.action"
 
 
@@ -7,6 +10,8 @@ export const CoverModal = ({ boardId, groupId, task }) => {
     const [selectedColor, setSelectedColor] = useState(null)
     const [selectedSize, setSelectedSize] = useState('uncover')
     const dispatch = useDispatch()
+    const [newTask, setNewTask] = useState(task)
+    let fileURL = ''
 
     const coverColors = [
         { id: 'c1', color: '#61bd4f' },
@@ -39,6 +44,39 @@ export const CoverModal = ({ boardId, groupId, task }) => {
         dispatch(saveTask(taskAfterCopy, boardId, groupId))
     }
 
+    // const onPickAttachments = (attach) => {
+    //     const updatedTask = { ...newTask }
+    //     const style = { imgUrl: attach, coverSize: selectedSize }
+    //     updatedTask.style = style
+    //     dispatch(saveTask(updatedTask, boardId, groupId))
+    //     setNewTask(updatedTask)
+    // }
+
+    // const addAttachment = async (ev) => {
+    //     console.log(ev.target.files);
+    //     ev.preventDefault()
+
+    //     if (!ev.target.files) ev.target.files = [fileURL]
+    //     if (!newTask.attachments) newTask.attachments = []
+    //     let attachment = taskService.getEmptyAttachment()
+    //     const updatedTask = { ...newTask }
+
+    //     try {
+    //         const res = await uploadService.uploadImg(ev)
+    //         attachment.fileName = res.original_filename
+    //         attachment.url = res.secure_url
+    //         updatedTask.attachments.unshift(attachment)
+    //         dispatch(saveTask(updatedTask, boardId, groupId))
+    //         setNewTask(updatedTask)
+    //     } catch (err) {
+    //         attachment.fileName = fileURL
+    //         attachment.url = fileURL
+    //         updatedTask.attachments.unshift(attachment)
+    //         dispatch(saveTask(updatedTask, boardId, groupId))
+    //         setNewTask(updatedTask)
+    //     }
+    // }
+
     return (
         <section className="cover-modal-container">
             <div className="cover-size">
@@ -62,7 +100,7 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                             </div>
                         </div>
                     </div>
-                    <div className={`cover-choice choice ${selectedSize === 'cover' ? 'selected' : ''}`}
+                    <div className={`uncover-choice choice ${(selectedSize !== 'uncover') ? '' : 'selected'}`}
                         onClick={() => chooseSize('cover')}
                         style={{ backgroundColor: selectedColor?.color }} >
                         <div className="two-text-stripes-module">
@@ -88,6 +126,33 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                     );
                 })}
             </div>
+            {/* <div className={`cover-choice choice ${selectedSize === 'cover' ? 'selected' : ''}`}
+             onClick={() => chooseSize('uncover')}
+            >
+                <div className="attachments-section">
+                    <h3 className="label">Attachments</h3>
+                    <div className="box-container">
+                        {newTask?.attachments &&
+                            !!newTask?.attachments.length &&
+                            newTask?.attachments.map(
+                                (attachment) =>
+                                    utilService.isValidImg(attachment.url) && (
+                                        <button
+                                            key={attachment.id}
+                                            onClick={() => onPickAttachments(attachment.url)}
+                                            className="box-full"
+                                            style={{ backgroundImage: `url(${attachment.url})` }}
+                                        ></button>
+                                    )
+                            )}
+                    </div>
+
+                    <label htmlFor="file-upload" className="custom-file-upload cover-btn">
+                        <i className=""></i> Upload a cover image
+                    </label>
+                    <input id="file-upload" type="file" onInput={addAttachment} />
+                </div>
+            </div> */}
         </section>
     )
 }

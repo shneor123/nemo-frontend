@@ -85,7 +85,7 @@ export const AppHeader = () => {
 
             className='trello-logo-after-login-container'
           >
-            <div className="logo-continor">
+            <div className="logo-continor wobble-top-on-hover" >
               <svg onClick={() => navigate("/")}
                 className='trello-logo-after-login'
                 stroke='currentColor'

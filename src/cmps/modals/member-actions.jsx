@@ -1,3 +1,4 @@
+import { utilService } from "../../services/basic/util.service"
 import { boardService } from "../../services/board/board.service"
 
 export const MemberActions = ({ task, member, board }) => {
@@ -24,22 +25,23 @@ export const MemberActions = ({ task, member, board }) => {
       console.error(err)
     }
   }
+
   return (
     <div className="member-actions">
       <div className="member-info">
         <div className="member-img-container">
           {member?.imgUrl ? (
             <div>
-              <img src={member.imgUrl} alt={member.fullname} className="member-img" />
+              <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
             </div>
           ) : (
-            <div className="member">{member.fullname}</div>
+            <div className="member">{utilService.getInitials(member.fullname)}</div>
           )}
         </div>
 
         <div className="member-name">
-          <h1 className="member-fullname">{member.fullname}</h1>
-          <h2 className="member-username">{member.username}</h2>
+          <h1 className="member-fullname">{utilService.getInitials(member.fullname)}</h1>
+          <h2 className="member-username">{utilService.getInitials(member.username)}</h2>
         </div>
       </div>
       <button className="remove-btn" onClick={onRemoveMember}>
