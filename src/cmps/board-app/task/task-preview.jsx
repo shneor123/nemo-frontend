@@ -14,6 +14,7 @@ import { toggleLabelPreview } from '../../../store/actions/label.action'
 import { removeTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/basic/user.service";
 import { labelService } from "../../../services/board/label.service";
+import { utilService } from "../../../services/basic/util.service";
 
 export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
   const onCloseQuickEdit = () => {
     setIsEdit(!isEdit)
   }
+
   const getTaskStyle = (isQuick) => {
     if (task.style) {
       if (task.style.imgUrl && task.style.isCover) {
@@ -102,6 +104,21 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
     } else return ''
   }
 
+  const getTaskClass = (isQuick) => {
+    if (task.style) {
+      if (task.style.bgColor && task.style.isCover) {
+        if (!isQuick) return 'task-preview styled'
+        else return 'task-preview'
+      } else if (task.style.bgColor && !task.style.isCover) {
+        return 'task-preview'
+      } else if (task.style.imgUrl && task.style.isCover) {
+        return 'task-preview styled img'
+      } else if (task.style.imgUrl && !task.style.isCover) {
+        return 'task-preview img-header'
+      }
+      return 'task-preview'
+    }
+  }
   return (
     <>{isEdit ? <EditPreview
       onRemoveTask={onRemoveTask}
@@ -123,14 +140,18 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
           ref={provided.innerRef}
         >
           {!task.archivedAt && <span>
-            <div className="task-preview-wrapper" style={getTaskStyle()}>
-              {task.attachments.length > 0 && <div style={{ backgroundImage: `url(${task.attachments[0].url})` }} className="task-preview-image"></div>}
+            <div style={getTaskStyle()} className={`task-preview-wrapper ${getTaskClass()}`}>
+              {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'image' && (
+                <img className="task-preview-image" src={task.style.imgUrl} alt="..." />
+              )}
+              {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'video' && (
+                <video muted controls>
+                  <source src={task.style.imgUrl} type="video/mp4"></source>
+                </video>
+              )}
               <div className="task-preview-container">
-                <div className="task-preview-edit-icon" onClick={openQuickEdit}>
-                  <BsPencil />
-                </div>
-
-                {!!labels?.length && (
+                <div className="task-preview-edit-icon" onClick={openQuickEdit}> <BsPencil /> </div>
+                {!!labels?.length && !task.style.isCover && (
                   <div className="label-container">
                     {labels.map((label) => {
                       return (
@@ -144,39 +165,43 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
                     })}
                   </div>
                 )}
-                <span className="task-preview-title">{task.title}</span>
-
-                <div className="badges">
-                  {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
-                  {!!task.description && <span className="badge"><GrTextAlignFull /></span>}
-                  {!!task.attachments?.length && <span className="badge"> <FiPaperclip /></span>}
-                  {!!sumTodos && (
-                    <div style={
-                      sumTodos === sumTodosDone ? {
-                        backgroundColor: '#61bd4f',
-                        color: 'white', borderRadius: '3px'
-                      } : {}} className="badge checklist-badge">
-                      <FiCheckSquare />
-                      <div className="sum-todos-badge-title">
-                        {sumTodosDone}/{sumTodos}
+                <div className={`${!task.style.isCover ? 'task-preview-title' : 'task-preview-title task-preview-titleCover'}`}></div>
+                <span className='task-preview-title'>{task.title}</span>
+                {/* <span className={`${!task.style.isCover? 'task-preview-title': 'task-preview-title'}`}>{task.title}</span> */}
+                {!task.style.isCover && <>
+                  <div className="badges">
+                    {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
+                    {!!task.description && <span className="badge"><GrTextAlignFull /></span>}
+                    {!!task.attachments?.length && <span className="badge"> <FiPaperclip /></span>}
+                    {!!sumTodos && (
+                      <div style={
+                        sumTodos === sumTodosDone ? {
+                          backgroundColor: '#61bd4f',
+                          color: 'white', borderRadius: '3px'
+                        } : {}} className="badge checklist-badge">
+                        <FiCheckSquare />
+                        <div className="sum-todos-badge-title">
+                          {sumTodosDone}/{sumTodos}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {/* DUE DATE */}
-                  <div className='badge badges-icons'>
-                    {task.dueDate && (
-                      <DueDatePreview dueDate={task.dueDate}
-                        task={task} boardId={board._id} groupId={groupId}
-                      />
                     )}
+                    {/* DUE DATE */}
+                    <div className='badge badges-icons'>
+                      {task.dueDate && (
+                        <DueDatePreview dueDate={task.dueDate}
+                          task={task} boardId={board._id} groupId={groupId}
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-                {/* MENBER PREVIEW */}
-                <div className="task-members-preview">
-                  {task?.members.map(member => {
-                    return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
-                  })}
-                </div>
+                  {/* MENBER PREVIEW */}
+                  <div className="task-members-preview">
+                    {task?.members.map(member => {
+                      return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
+                    })}
+                  </div>
+                </>}
+
               </div>
             </div>
           </span>
@@ -184,5 +209,5 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
         </div>
       )}
     </Draggable>}</>
-  );
-};
+  )
+}

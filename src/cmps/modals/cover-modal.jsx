@@ -10,11 +10,10 @@ export const CoverModal = ({ boardId, groupId, task }) => {
     const [isOnPreviewTextColor, setIsOnPreviewTextColor] = useState(false)
     const [newTask, setNewTask] = useState(task)
     const [isCover, setIsCover] = useState(task.style.isCover || '')
-    console.log("🚀 ~ file: cover-modal.jsx:14 ~ CoverModal ~ ask.style.coverSize", task)
     const dispatch = useDispatch()
     const fileURL = ''
 
-    
+
     const onPreviewTextColor = (bool) => {
         setIsOnPreviewTextColor(bool)
     }
@@ -23,9 +22,8 @@ export const CoverModal = ({ boardId, groupId, task }) => {
         setIsCover(bool)
         const updatedTask = { ...newTask }
         updatedTask.style.isCover = bool
-        dispatch(saveTask(updatedTask, boardId, groupId))
-        dispatch(saveTask(updatedTask, boardId, groupId))
         setNewTask(updatedTask)
+        dispatch(saveTask(updatedTask, boardId, groupId))
     }
 
     const onLightFont = (bool) => {
@@ -98,15 +96,13 @@ export const CoverModal = ({ boardId, groupId, task }) => {
             <div className="size-section">
                 <h3 className="label">Size</h3>
                 <div className="box-container">
-                    <button
-                        className={`box-half`}
+                    <button className={`box-half`}
                         onClick={() => {
                             onPreviewTextColor(false)
                             onChangeCover(false)
                         }}
                     >
-                        <div
-                            className="background"
+                        <div className="background"
                             style={{ background: newTask?.style?.imgUrl ? `url('${newTask.style.imgUrl}')` : newTask.style.bgColor }}
                         ></div>
                         <div className="lines">
@@ -120,8 +116,7 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                         </div>
                     </button>
 
-                    <button
-                        className={`box-full`}
+                    <button className={`box-full`}
                         onClick={() => {
                             onPreviewTextColor(true)
                             onChangeCover(true)
@@ -139,7 +134,7 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                             <div className="lines_2"></div>
                         </div>
                     </button>
-                    <span onClick={onRemoveCover} className="cover-btn">
+                    <span onClickx={onRemoveCover} className="cover-btn">
                         Remove cover
                     </span>
                 </div>
@@ -149,11 +144,8 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                 <div className="textcolor-section">
                     <h3 className="label">Text color</h3>
                     <div className="box-container">
-                        <button
-                            className={`box-full`}
-                            onClick={() => {
-                                onLightFont(true)
-                            }}
+                        <button className={`box-full`}
+                            onClick={() => { onLightFont(true) }}
                             style={
                                 newTask?.style?.imgUrl
                                     ? {
@@ -164,11 +156,7 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                         >
                             <h3>{newTask.title}</h3>
                         </button>
-                        <button
-                            className={`box-full`}
-                            onClick={() => {
-                                onLightFont(false)
-                            }}
+                        <button className={`box-full`} onClick={() => { onLightFont(false) }}
                             style={
                                 newTask?.style?.imgUrl
                                     ? {
@@ -226,71 +214,32 @@ export const CoverModal = ({ boardId, groupId, task }) => {
             <div className="unsplash-section">
                 <h3 className="label">Photos from Unsplash</h3>
                 <div className="box-container">
-                    <button
-                        className="box-full"
-                        onClick={() =>
-                            onPickUnsplash(
-                                'https://images.unsplash.com/photo-1653511442060-00c7b10827c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDZ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
-                            )
-                        }
-                        style={{
-                            backgroundImage: `url('https://images.unsplash.com/photo-1653511442060-00c7b10827c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDZ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
-                        }}
+
+                    <button className="box-full"
+                        onClick={() => onPickUnsplash('https://images.unsplash.com/photo-1653511442060-00c7b10827c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDZ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')}
+                        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1653511442060-00c7b10827c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDZ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`, }}
                     ></button>
-                    <button
-                        className="box-full"
-                        onClick={() =>
-                            onPickUnsplash(
-                                'https://images.unsplash.com/photo-1653496905343-b1fc1277e3fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
-                            )
-                        }
-                        style={{
-                            backgroundImage: `url('https://images.unsplash.com/photo-1653496905343-b1fc1277e3fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
-                        }}
+                    <button className="box-full"
+                        onClick={() => onPickUnsplash('https://images.unsplash.com/photo-1653496905343-b1fc1277e3fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')}
+                        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1653496905343-b1fc1277e3fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`, }}
                     ></button>
-                    <button
-                        className="box-full"
+                    <button className="box-full"
                         onClick={() =>
-                            onPickUnsplash(
-                                'https://images.unsplash.com/photo-1652543549421-ea252bd209f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
-                            )
-                        }
-                        style={{
-                            backgroundImage: `url('https://images.unsplash.com/photo-1652543549421-ea252bd209f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
-                        }}
+                            onPickUnsplash('https://images.unsplash.com/photo-1652543549421-ea252bd209f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')}
+                        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1652543549421-ea252bd209f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`, }}
                     ></button>
-                    <button
-                        className="box-full"
+                    <button className="box-full"
                         onClick={() =>
-                            onPickUnsplash(
-                                'https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzODAwNzQ5&ixlib=rb-1.2.1&q=80&w=200'
-                            )
-                        }
-                        style={{
-                            backgroundImage: `url('https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzODAwNzQ5&ixlib=rb-1.2.1&q=80&w=200')`,
-                        }}
+                            onPickUnsplash('https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzODAwNzQ5&ixlib=rb-1.2.1&q=80&w=200')}
+                        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzODAwNzQ5&ixlib=rb-1.2.1&q=80&w=200')`, }}
                     ></button>
-                    <button
-                        className="box-full"
-                        onClick={() =>
-                            onPickUnsplash(
-                                'https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
-                            )
-                        }
-                        style={{
-                            backgroundImage: `url('https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
-                        }}
+                    <button className="box-full"
+                        onClick={() => onPickUnsplash('https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')}
+                        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`, }}
                     ></button>
-                    <button
-                        className="box-full"
-                        onClick={() =>
-                            onPickUnsplash(
-                                'https://images.unsplash.com/photo-1653592328269-09c14b3628f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200'
-                            )
-                        }
-                        style={{
-                            backgroundImage: `url('https://images.unsplash.com/photo-1653592328269-09c14b3628f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`,
-                        }}
+                    <button className="box-full"
+                        onClick={() => onPickUnsplash('https://images.unsplash.com/photo-1653592328269-09c14b3628f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')}
+                        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1653592328269-09c14b3628f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzNzQzMTM5&ixlib=rb-1.2.1&q=80&w=200')`, }}
                     ></button>
                 </div>
             </div>

@@ -19,7 +19,6 @@ export const TaskDetails = () => {
   const [task, setTask] = useState(null);
   const [group, setGroup] = useState(null);
   const [isEditTitle, setIsEditTitle] = useState(false);
-  const [taskTitle, setTaskTitle] = useState(null);
   const { board } = useSelector((storeState) => storeState.boardModule)
   // might need use effect for users as well
   const { users } = useSelector((storeState) => storeState.userModule)
@@ -54,21 +53,14 @@ export const TaskDetails = () => {
       >
 
         <div className="task-details" onClick={(ev) => ev.stopPropagation()}>
-          {task.style && <TaskDetailsCover task={task}/>}
-
-
-
-          {/* {task?.style?.bgColor &&
-            <div className="cover-color" style={{ backgroundColor: task.style.bgColor }}>
-              <div className="task-details-back-btn"
-                onClick={() => navigate(`/board/${boardId}`)}>
-                <GrClose />
-              </div>
+          {task.style && <TaskDetailsCover task={task} boardId={boardId} groupId={groupId} />}
+          {task?.style?.bgColor &&
+            <div className="task-details-back-btn" onClick={() => navigate(`/board/${boardId}`)}>
+              <GrClose />
             </div>}
-
           {!!task?.style?.bgColor || <div className="task-details-back-btn"
-            onClick={() => navigate(`/board/${boardId}`)}
-          ><GrClose /> </div>} */}
+            onClick={() => navigate(`/board/${boardId}`)}><GrClose />
+          </div>}
 
           {task.archivedAt && (
             <div className="task-archived">

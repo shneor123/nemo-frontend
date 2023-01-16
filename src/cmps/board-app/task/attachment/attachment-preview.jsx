@@ -29,12 +29,13 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
     const editTitle = (name) => { }
 
     const toggleAttachmentCover = (ev) => {
-        const { id, name, url } = attachment
-        const { coverSize } = task
-        task.style = { url: url, coverSize: coverSize === task.coverSize }
-        updateTask({ ...task })
+        if (attachment.url) {
+            task.style = { imgUrl: attachment.url, isCover: task.style.isCover }
+            updateTask({ ...task })
+        } else {
+            task.style = {}
+        }
     }
-
     const updateTask = (updatedTask) => {
         task.attachment = updatedTask
         dispatch(saveTask(task, boardId, groupId))
@@ -81,12 +82,9 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
                         <span> -</span>
                     </div>
                     <span className='actions-container action-btn'
-                        onClick={(event) => {
-                            toggleAttachmentCover()
-                        }}
-                    >
+                        onClick={() => { toggleAttachmentCover() }}>
                         <BsSquareHalf style={{ transform: `rotate(270deg)`, height: '10px' }} />
-                        {(attachment.url === task.style.backgroundColor) ? 'Remove' : 'Make'} Cover</span>
+                        {(attachment.url === task.style.imgUrl) ? 'Remove' : 'Make'} Cover</span>
                 </div>
             </div>
         </>

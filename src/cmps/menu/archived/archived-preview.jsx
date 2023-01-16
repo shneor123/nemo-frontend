@@ -22,13 +22,13 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
       if (task.style.imgUrl && task.style.coverSize) {
         return { background: `url(${task.style.imgUrl})` }
       }
-      if (task.style.backgroundColor) {
-        if (isQuick) return { borderTop: `32px solid ${task.style.backgroundColor}` }
+      if (task.style.bgColor) {
+        if (isQuick) return { borderTop: `32px solid ${task.style.bgColor}` }
 
         if (!task.style.coverSize) {
-          return { borderTop: `32px solid ${task.style.backgroundColor}` }
+          return { borderTop: `32px solid ${task.style.bgColor}` }
         } else {
-          return { backgroundColor: `${task.style.backgroundColor}` }
+          return { bgColor: `${task.style.bgColor}` }
         }
       }
     } else return ''
