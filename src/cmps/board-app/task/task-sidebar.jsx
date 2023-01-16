@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { TiTag } from "react-icons/ti";
-import { BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs";
+import { BsArrowRight, BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs";
 import { RiArchiveLine } from 'react-icons/ri'
 import { FiPaperclip } from "react-icons/fi";
 import { MdOutlineScreenShare } from "react-icons/md";
@@ -14,6 +14,7 @@ import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { userService } from "../../../services/basic/user.service";
 import { joinTask } from "../../../store/actions/member.action";
 import { saveTask } from "../../../store/actions/task.action";
+import { AiOutlineCopy } from "react-icons/ai";
 
 export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, groupTitle }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -31,6 +32,8 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
     { txt: "Attachment", icon: <FiPaperclip /> },
     { txt: "Cover", icon: <MdOutlineScreenShare /> },
     { txt: "AI Clara", icon: <GiRobotAntennas /> },
+    // { txt: "Copy", icon: <BsArrowRight /> },
+    { txt: "Copy", icon: <AiOutlineCopy /> },
   ]
 
   const onJoinTask = () => {

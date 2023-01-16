@@ -23,6 +23,7 @@ import { ChecklistDelete } from "../modals/checklist-delete";
 import { TaskDelete } from "../modals/task-delete";
 import { DateDelete } from "../modals/date-delete";
 import { ImgModal } from "../modals/img-modal";
+import { CopyModal } from "../modals/copy-modal";
 
 
 export const DynamicModalCmp = ({
@@ -263,6 +264,18 @@ export const DynamicModalCmp = ({
     case 'Img modal':
       modalTypeToOpen = (
         <ImgModal member={member} />
+      )
+      break
+    case 'Copy':
+      if (bottom >= 200 && bottom < 300) bottom -= 200;
+      if (bottom >= 300 && bottom < 400) bottom -= 300;
+      if (bottom >= 400 && bottom < 500) bottom -= 350;
+      if (bottom >= 500 && bottom < 600) bottom -= 400;
+      if (bottom >= 600 && bottom < 700) bottom -= 450;
+      if (bottom >= 700) bottom -= 460;
+      modalTypeToOpen = (
+        <CopyModal task={task} />
+        // <CopyModal isMove={isMove} toggleModal={toggleModal} posXAddition={posXAddition} posYAddition={posYAddition} task={task} group={group} board={board} type={type} />
       )
       break
   }
