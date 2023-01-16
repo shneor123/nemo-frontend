@@ -1,5 +1,7 @@
+import { useRef, useState } from "react"
 import { utilService } from "../../services/basic/util.service"
 import { boardService } from "../../services/board/board.service"
+import { DynamicModalCmp } from "../../cmps/general/dynamic-modal-cmp"
 
 export const MemberActions = ({ task, member, board }) => {
 
@@ -26,12 +28,38 @@ export const MemberActions = ({ task, member, board }) => {
     }
   }
 
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const modalDetails = useRef()
+  const modalTitle = useRef()
+
+  const onCloseModal = () => {
+    setIsModalOpen(false)
+  };
+
+  const onOpenModal = (ev, txt) => {
+    if (isModalOpen) {
+      setIsModalOpen(false)
+    }
+    modalTitle.current = txt
+    modalDetails.current = ev.target.getBoundingClientRect()
+    setIsModalOpen(true)
+  }
+
   return (
     <div className="member-actions">
+      {isModalOpen && (
+        <DynamicModalCmp
+          modalDetails={modalDetails.current}
+          modalTitle={modalTitle.current}
+          member={member}
+          onCloseModal={onCloseModal}
+        />
+      )}
       <div className="member-info">
         <div className="member-img-container">
           {member?.imgUrl ? (
-            <div>
+            <div onClick={(ev) => { onOpenModal(ev, 'Img modal') }}>
               <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
             </div>
           ) : (

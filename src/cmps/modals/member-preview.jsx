@@ -33,8 +33,7 @@ export const MemberPreview = ({ member, task, board, }) => {
 
         />
       )}
-
-      <div className="member-img-container">
+      <div className="member-img-container" >
         {member?.imgUrl ? (
           <div onClick={(ev) => onOpenModal(ev, 'member actions')}>
             <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />

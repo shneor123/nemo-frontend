@@ -6,20 +6,19 @@ import { toggleLabel } from "../../store/actions/label.action"
 import { DynamicModalCmp } from "../general/dynamic-modal-cmp"
 
 export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const dispatch = useDispatch()
+  const modalDetails = useRef()
+  const modalTitle = useRef()
 
   const onToggleLabel = (labelId) => {
     dispatch(toggleLabel(boardId, groupId, task.id, labelId))
   }
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const modalDetails = useRef()
-  const modalTitle = useRef()
 
   const onCloseModal = () => {
     setIsModalOpen(false)
-  };
-
+  }
   const onOpenModal = (ev, txt) => {
     if (isModalOpen) {
       setIsModalOpen(false)
@@ -57,11 +56,7 @@ export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) 
             return (
               <div key={label.id} className="edit-label-container">
                 <button className="edit-label-btn"
-
-                  // onClick={(ev) => {onOpenModal(ev, 'Change label') }}
-
                   onClick={(ev) => {
-                    ev.stopPropagation()
                     onOpenModal(ev, 'Change label')
                     changeEditLabel(label)
                   }}

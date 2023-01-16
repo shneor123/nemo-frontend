@@ -22,8 +22,8 @@ import { AttachmentDelete } from "../modals/attachment-delete";
 import { ChecklistDelete } from "../modals/checklist-delete";
 import { TaskDelete } from "../modals/task-delete";
 import { DateDelete } from "../modals/date-delete";
-import { useNavigate } from "react-router";
-import { taskService } from "../../services/board/task.service";
+import { ImgModal } from "../modals/img-modal";
+
 
 export const DynamicModalCmp = ({
   modalDetails: { bottom, left, top, right },
@@ -55,7 +55,8 @@ export const DynamicModalCmp = ({
   onRemove
 }) => {
   const editLabel = useRef()
-  const navigate = useNavigate()
+
+  const editLabels = editLabel.current = labels
   const changeEditLabel = (label) => { editLabel.current = label }
 
   let modalTypeToOpen;
@@ -217,7 +218,6 @@ export const DynamicModalCmp = ({
       modalTypeToOpen = (
         <ModalLabelCreate
           task={task}
-          editLabel={editLabel}
           onCloseModal={onCloseModal}
         />
       );
@@ -228,10 +228,11 @@ export const DynamicModalCmp = ({
       modalTypeToOpen = (
         <ModalLabelChange
           task={task}
-          editLabel={editLabel}
+          labels={labels}
+          editLabel={editLabel.current}
           onCloseModal={onCloseModal}
         />
-      );
+      )
       break;
     case 'attachment-delete':
       modalTypeToOpen = (
@@ -257,6 +258,11 @@ export const DynamicModalCmp = ({
       left = 1000;
       modalTypeToOpen = (
         <DateDelete onRemove={onRemove} />
+      )
+      break
+    case 'Img modal':
+      modalTypeToOpen = (
+        <ImgModal member={member} />
       )
       break
   }

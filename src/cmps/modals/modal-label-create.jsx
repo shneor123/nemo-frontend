@@ -19,7 +19,7 @@ export const ModalLabelCreate = () => {
   }, [updatedBoard])
 
   const onCreateLabel = () => {
-    const createBoard = board.labels.push({
+    board.labels.push({
       id: utilService.makeId(5),
       title: labelName,
       color: color,
@@ -53,7 +53,6 @@ export const ModalLabelCreate = () => {
           value={labelName}
           onChange={handleChange}
         />
-
       </div>
 
       <div className="create-box">
