@@ -150,8 +150,7 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                                 newTask?.style?.imgUrl
                                     ? {
                                         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${newTask.style.imgUrl}')`,
-                                    }
-                                    : { background: newTask.style.bgColor }
+                                    } : { background: newTask.style.bgColor }
                             }
                         >
                             <h3>{newTask.title}</h3>

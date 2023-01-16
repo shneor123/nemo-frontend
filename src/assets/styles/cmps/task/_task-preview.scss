@@ -45,6 +45,17 @@
     text-decoration: none;
   }
 
+  &-dark {
+    word-wrap: break-word;
+    clear: both;
+    color: #ffff;
+    display: block;
+    margin: 0 0 4px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: none !important;
+  }
+
   &-image {
     height: 163.33333333333334px;
     background-color: #252e32;
@@ -66,7 +77,15 @@
       min-height: 260px;
       background-size: cover;
       background-position: center;
-      box-shadow: inset 0px -40px 20px 0px rgba(234, 234, 234, 0.856);
+      box-shadow: inset 0px -40px 20px 0px #eaeaeada;
+
+      &-dark {
+        min-height: 260px;
+        background-size: cover;
+        background-position: center;
+        box-shadow: inset 0px -40px 20px 0px #161c14;
+
+      }
     }
   }
 }

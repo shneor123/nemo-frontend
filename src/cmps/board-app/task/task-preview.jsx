@@ -45,18 +45,18 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
 
   useEffect(() => {
     onSetLabels();
-  }, [task]);
+  }, [task])
 
 
   const onSetLabels = () => {
     const newLabels = labelService.getLabelsById(board, task);
     setLabels(newLabels);
-  };
+  }
 
   const onOpenTaskDetails = () => {
     setIsEdit(false)
     navigate(`/board/${boardId}/${groupId}/${task.id}`);
-  };
+  }
 
   const onRemoveTask = (ev) => {
     ev.stopPropagation();
@@ -71,12 +71,12 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
     }
     setIsEdit(false)
     dispatch(removeTask(boardId, groupId, task.id, activity));
-  };
+  }
 
   const onToggleLabelPreview = (ev) => {
     ev.stopPropagation();
     dispatch(toggleLabelPreview(boardId))
-  };
+  }
 
   const openQuickEdit = (ev) => {
     ev.stopPropagation();
@@ -90,7 +90,7 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
   const getTaskStyle = (isQuick) => {
     if (task.style) {
       if (task.style.imgUrl && task.style.isCover) {
-        return { backgroundImage: `url(${task.style.imgUrl})` }
+        return { backgroundImage: `url('${task.style.imgUrl}')`}
       }
       if (task.style.bgColor) {
         if (isQuick) return { borderTop: `32px solid ${task.style.bgColor}` }
@@ -104,6 +104,9 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
     } else return ''
   }
 
+  // style={{ background: board.style.background ? `${board.style.background}` : , backgroundColor: `${board.style.backgroundColor}` }}
+
+
   const getTaskClass = (isQuick) => {
     if (task.style) {
       if (task.style.bgColor && task.style.isCover) {
@@ -111,10 +114,12 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
         else return 'task-preview'
       } else if (task.style.bgColor && !task.style.isCover) {
         return 'task-preview'
-      } else if (task.style.imgUrl && task.style.isCover) {
+      } else if (task.style.imgUrl && task.style.isCover && !task.style.isLight) {
         return 'task-preview styled img'
+      } else if (task.style.imgUrl && task.style.isCover && task.style.isLight) {
+        return 'task-preview styled img img-dark'
       } else if (task.style.imgUrl && !task.style.isCover) {
-        return 'task-preview img-header'
+        return 'task-preview'
       }
       return 'task-preview'
     }
@@ -166,8 +171,7 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
                   </div>
                 )}
                 <div className={`${!task.style.isCover ? 'task-preview-title' : 'task-preview-title task-preview-titleCover'}`}></div>
-                <span className='task-preview-title'>{task.title}</span>
-                {/* <span className={`${!task.style.isCover? 'task-preview-title': 'task-preview-title'}`}>{task.title}</span> */}
+                <span className={`task-preview-title ${task.style.isLight ? 'task-preview-dark' : ''}`}>{task.title}</span>
                 {!task.style.isCover && <>
                   <div className="badges">
                     {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
