@@ -8,7 +8,8 @@ export const boardService = {
     save,
     query,
     getById,
-    remove
+    remove,
+    updateWithoutSocket
 
 }
 // window.cs = boardService;
@@ -16,6 +17,14 @@ export const boardService = {
 const STORAGE_KEY = 'board'
 const BOARD_BASE_ENDPOINT = 'board'
 
+async function updateWithoutSocket(board) {
+    try {
+        await httpService.put('board', board);
+        return board;
+    } catch (err) {
+        console.log('Cannot update board', err);
+    }
+}
 
 async function query() {
     const boardsFromDB = await httpService.get(BOARD_BASE_ENDPOINT)

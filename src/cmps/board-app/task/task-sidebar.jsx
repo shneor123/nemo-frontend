@@ -16,7 +16,8 @@ import { joinTask } from "../../../store/actions/member.action";
 import { saveTask } from "../../../store/actions/task.action";
 import { AiOutlineCopy } from "react-icons/ai";
 
-export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, groupTitle }) => {
+export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, labels, groupTitle }) => {
+  const [modal, setModal] = useState({ isModalOpen: false, type: null, ev: null });
   const [isModalOpen, setIsModalOpen] = useState(false)
   const user = userService.getLoggedinUser()
   const dispatch = useDispatch()
@@ -32,8 +33,6 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
     { txt: "Attachment", icon: <FiPaperclip /> },
     { txt: "Cover", icon: <MdOutlineScreenShare /> },
     { txt: "AI Clara", icon: <GiRobotAntennas /> },
-    // { txt: "Copy", icon: <BsArrowRight /> },
-    { txt: "Copy", icon: <AiOutlineCopy /> },
   ]
 
   const onJoinTask = () => {
@@ -75,6 +74,10 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
     setIsModalOpen(true)
   }
 
+  const currGroup = () => {
+    const currGroup = board?.groups.find(group => group.id === groupId)
+    return currGroup
+  }
   return (
     <div className="task-details-sidebar-container">
       {isModalOpen && (
@@ -83,9 +86,12 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
           modalTitle={modalTitle.current}
           boardId={boardId}
           groupId={groupId}
+          group={currGroup()}
           task={task}
           type={modalTitle}
           labels={labels}
+          isMove={modal.isMove}
+          event={modal.event}
           boardMembers={boardMembers}
           attachments={task.attachments}
           onCloseModal={onCloseModal}
@@ -116,8 +122,19 @@ export const TaskSidebar = ({ boardMembers, boardId, groupId, task, labels, grou
           )
         })}
       </div>
-      
+
+
       <h3 className="task-details-sidebar-section-title actions">Actions</h3>
+
+      <div className="sidebar-button" onClick={(ev) => { onOpenModal(ev, 'Move card', modal.isMove = true) }}>
+        <span className="sidebar-icon"> <BsArrowRight /> </span>
+        <span>Move</span>
+      </div>
+      <div className="sidebar-button" onClick={(ev) => { onOpenModal(ev, 'Copy card', modal.isMove = false) }}>
+        <span className="sidebar-icon"> <AiOutlineCopy /> </span>
+        <span>Copy</span>
+      </div>
+
       <div>
         {task.archivedAt ? (
           <div>

@@ -23,15 +23,15 @@ export const TaskDetails = () => {
   // might need use effect for users as well
   const { users } = useSelector((storeState) => storeState.userModule)
   const [fields, handleChange, _, setFields] = useForm(null)
+  console.log("🚀 ~ file: task-details.jsx:26 ~ TaskDetails ~ fields", fields)
 
   useEffect(() => {
     const currGroup = board?.groups.find(group => group.id === groupId);
+    setGroup(currGroup)
     const currTask = currGroup?.tasks?.find(task => task.id === taskId);
     setTask(currTask)
-    setGroup(currGroup)
-    setFields({ title: currTask.title })
+    // setFields({ title: currTask.title })
   }, [board]);
-
 
   const handleKeyEvent = (e) => {
     if (e.key === "Escape") navigate(-1);
@@ -79,7 +79,7 @@ export const TaskDetails = () => {
                 type="text"
                 name="title"
                 onBlur={onSaveTask}
-                value={fields.title}
+                value={task.title}
                 onChange={handleChange}
               />
             </form>
@@ -90,6 +90,7 @@ export const TaskDetails = () => {
           <div className="helper-container">
             <TaskDetailsMain board={board} task={task} boardId={boardId} groupId={groupId} labels={board.labels} activities={board.activities} boardMembers={board.members} />
             <TaskSidebar
+              board={board}
               boardId={boardId}
               groupId={groupId}
               taskId={taskId}

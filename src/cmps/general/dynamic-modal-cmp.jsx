@@ -53,7 +53,10 @@ export const DynamicModalCmp = ({
   onRemoveChecklist,
   checklist,
   OnDelete,
-  onRemove
+  onRemove,
+  isMove,
+  toggleModal,
+  event
 }) => {
   const editLabel = useRef()
 
@@ -266,18 +269,17 @@ export const DynamicModalCmp = ({
         <ImgModal member={member} />
       )
       break
-    case 'Copy':
-      if (bottom >= 200 && bottom < 300) bottom -= 200;
-      if (bottom >= 300 && bottom < 400) bottom -= 300;
-      if (bottom >= 400 && bottom < 500) bottom -= 350;
-      if (bottom >= 500 && bottom < 600) bottom -= 400;
-      if (bottom >= 600 && bottom < 700) bottom -= 450;
-      if (bottom >= 700) bottom -= 460;
-      modalTypeToOpen = (
-        <CopyModal task={task} />
-        // <CopyModal isMove={isMove} toggleModal={toggleModal} posXAddition={posXAddition} posYAddition={posYAddition} task={task} group={group} board={board} type={type} />
-      )
-      break
+      case `${isMove ? 'Move card' : 'Copy card'}`:
+        if (bottom >= 200 && bottom < 300) bottom -= 200;
+        if (bottom >= 300 && bottom < 400) bottom -= 300;
+        if (bottom >= 400 && bottom < 500) bottom -= 350;
+        if (bottom >= 500 && bottom < 600) bottom -= 400;
+        if (bottom >= 600 && bottom < 700) bottom -= 450;
+        if (bottom >= 700) bottom -= 460;
+        modalTypeToOpen = (
+          <CopyModal task={task} group={group} toggleModal={toggleModal} isMove={isMove} event={event} />
+        )
+        break
   }
 
   const getModalPositionStyle = () => {
