@@ -6,6 +6,7 @@ import { BsSquareHalf } from "react-icons/bs"
 import { userService } from '../../../../services/basic/user.service'
 import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
 export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
+    const [newTask, setNewTask] = useState(task)
     const [attachmentTitle, setAttachmentTitle] = useState(attachment.name)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const dispatch = useDispatch()
@@ -35,13 +36,41 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
     }
 
     const toggleAttachmentCover = (ev) => {
-        if (attachment.url) {
+        if (attachment.url !== task.style.imgUrl) {
             task.style = { imgUrl: attachment.url, isCover: task.style.isCover }
             updateTask({ ...task })
         } else {
             task.style = {}
         }
     }
+
+    const onRemoveCover = () => {
+        const updatedTask = { ...task }
+        const style = {}
+        updatedTask.style = style
+        setNewTask(updatedTask)
+        updateTask({ ...newTask })
+    }
+
+    // const toggleAttachmentCover = () => {
+    //     if (attachment.url === task.style.backgroundImage.url) {
+    //         const newTaskStyle = { ...task.style, backgroundImage: { title: '', url: null }, backgroundColor: null }
+    //         const taskToUpdate = { ...task, style: newTaskStyle }
+    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate));
+    //     } else {
+    //         const { url, name } = attachment
+    //         const newTaskStyle = { ...task.style, backgroundImage: { title: name, url }, backgroundColor: null }
+    //         const taskToUpdate = { ...task, style: newTaskStyle }
+    //         const activityTxt = `added the attachment ${name}`
+    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate, activityTxt));
+    //     }
+    // }
+
+
+
+
+
+
 
     const updateTask = (updatedTask) => {
         task.attachment = updatedTask
@@ -51,7 +80,6 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
     const onCloseModal = () => {
         setIsModalOpen(false)
     }
-
     const onOpenModal = (ev, txt) => {
         if (isModalOpen) {
             setIsModalOpen(false)
@@ -88,11 +116,11 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
                         <span className='action-btn' onClick={(ev) => { onOpenModal(ev, 'attachment-delete') }}>Delete</span>
                         <span> -</span>
                         <span className='action-btn' onClick={(ev) => { onOpenModal(ev, 'Attachment edit') }}>Edit</span>
-
-                        <span> -</span>
+                        <span> - </span>
                     </div>
                     <span className='actions-container action-btn'
-                        onClick={() => { toggleAttachmentCover() }}>
+                        onClick={() => { toggleAttachmentCover()}}>
+
                         <BsSquareHalf style={{ transform: `rotate(270deg)`, height: '10px' }} />
                         {(attachment.url === task.style.imgUrl) ? 'Remove' : 'Make'} Cover</span>
                 </div>
