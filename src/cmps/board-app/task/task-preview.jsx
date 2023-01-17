@@ -104,8 +104,6 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
     } else return ''
   }
 
-  // style={{ background: board.style.background ? `${board.style.background}` : , backgroundColor: `${board.style.backgroundColor}` }}
-
 
   const getTaskClass = (isQuick) => {
     if (task.style) {

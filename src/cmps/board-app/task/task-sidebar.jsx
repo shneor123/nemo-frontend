@@ -14,10 +14,9 @@ import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { userService } from "../../../services/basic/user.service";
 import { joinTask } from "../../../store/actions/member.action";
 import { saveTask } from "../../../store/actions/task.action";
-import { AiOutlineCopy } from "react-icons/ai";
+import { AiOutlineCopy, AiOutlineUser } from "react-icons/ai";
 
 export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, labels, groupTitle }) => {
-  const [modal, setModal] = useState({ isModalOpen: false, type: null, ev: null });
   const [isModalOpen, setIsModalOpen] = useState(false)
   const user = userService.getLoggedinUser()
   const dispatch = useDispatch()
@@ -26,7 +25,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
   const deleteRef = useRef()
 
   const buttons = [
-    { txt: "Members", icon: <BsPerson /> },
+    { txt: "Members", icon: <AiOutlineUser /> },
     { txt: "Labels", icon: <TiTag /> },
     { txt: "Checklist", icon: <BsCheck2Square /> },
     { txt: "Dates", icon: <BsClock /> },
@@ -74,10 +73,17 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
     setIsModalOpen(true)
   }
 
-  const currGroup = () => {
-    const currGroup = board?.groups.find(group => group.id === groupId)
-    return currGroup
+  const [modal, setModal] = useState({ isModalOpen: false, type: null, event: null });
+
+  const toggleModal = ({ event, type, isMove = false }) => {
+    if (modal.isModalOpen) {
+      setModal({ ...modal, isModalOpen: false })
+      return
+    }
+    setModal({ isModalOpen: true, type, event, isMove })
   }
+
+  const currGroup = board?.groups.find(group => group.id === groupId)
   return (
     <div className="task-details-sidebar-container">
       {isModalOpen && (
@@ -86,11 +92,12 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
           modalTitle={modalTitle.current}
           boardId={boardId}
           groupId={groupId}
-          group={currGroup()}
+          group={currGroup}
           task={task}
           type={modalTitle}
           labels={labels}
           isMove={modal.isMove}
+          toggleModal={toggleModal}
           event={modal.event}
           boardMembers={boardMembers}
           attachments={task.attachments}
@@ -123,14 +130,12 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
         })}
       </div>
 
-
       <h3 className="task-details-sidebar-section-title actions">Actions</h3>
-
       <div className="sidebar-button" onClick={(ev) => { onOpenModal(ev, 'Move card', modal.isMove = true) }}>
         <span className="sidebar-icon"> <BsArrowRight /> </span>
         <span>Move</span>
       </div>
-      <div className="sidebar-button" onClick={(ev) => { onOpenModal(ev, 'Copy card', modal.isMove = false) }}>
+      <div className="sidebar-button" onClick={(ev) => { onOpenModal(ev, 'Copy card') }}>
         <span className="sidebar-icon"> <AiOutlineCopy /> </span>
         <span>Copy</span>
       </div>

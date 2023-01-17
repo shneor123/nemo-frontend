@@ -38,6 +38,8 @@ export const AppHeader = () => {
     routeClass = "-login-signup"
   if (pathname === "/workspace") routeClass = "-workspace"
   if (pathname.includes("/board")) routeClass = "-workspace"
+  if (window.pageYOffset >=0) routeClass += ' scrolled'
+
 
   const onCloseModal = () => {
     setIsModalOpen(false);
@@ -51,7 +53,6 @@ export const AppHeader = () => {
     modalDetails.current = ev.target.getBoundingClientRect()
     setIsModalOpen(true)
   }
-
 
   return (
     <header

@@ -6,6 +6,7 @@ import { BsSquareHalf } from "react-icons/bs"
 import { userService } from '../../../../services/basic/user.service'
 import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
 export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
+    const [attachmentTitle, setAttachmentTitle] = useState(attachment.name)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const dispatch = useDispatch()
     const modalDetails = useRef()
@@ -26,7 +27,12 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
         }
         dispatch(saveTask(task, boardId, groupId, activity, attachmentIdx))
     }
-    const editTitle = (name) => { }
+
+    const editTitle = (fileName) => {
+        const attIdx = task.attachments.findIndex((currAtt) => currAtt.id === attachment.id)
+        task.attachments[attIdx].name = fileName
+        dispatch(saveTask(task, boardId, groupId))
+    }
 
     const toggleAttachmentCover = (ev) => {
         if (attachment.url) {
@@ -36,6 +42,7 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
             task.style = {}
         }
     }
+
     const updateTask = (updatedTask) => {
         task.attachment = updatedTask
         dispatch(saveTask(task, boardId, groupId))
@@ -63,6 +70,8 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
                         type={modalTitle}
                         onCloseModal={onCloseModal}
                         attachment={attachment}
+                        attachmentTitle={attachmentTitle}
+                        editTitle={editTitle}
                         onRemoveAttachment={onRemoveAttachment}
                     />
                 )}
@@ -78,7 +87,8 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
                         <span> -</span>
                         <span className='action-btn' onClick={(ev) => { onOpenModal(ev, 'attachment-delete') }}>Delete</span>
                         <span> -</span>
-                        <span className='action-btn' onClick={editTitle}>Edit</span>
+                        <span className='action-btn' onClick={(ev) => { onOpenModal(ev, 'Attachment edit') }}>Edit</span>
+
                         <span> -</span>
                     </div>
                     <span className='actions-container action-btn'

@@ -6,6 +6,7 @@ import { loadBoards, updateBoard } from '../store/actions/board.action'
 
 import { TiStarOutline } from "react-icons/ti";
 import { AiOutlineClockCircle } from 'react-icons/ai';
+import { Loader } from '../cmps/general/loader';
 
 export const WorkSpace = () => {
   const dispatch = useDispatch()
@@ -31,7 +32,7 @@ export const WorkSpace = () => {
     board.isStar = !board.isStar
     dispatch(updateBoard(board))
   }
-
+  if (!boards) return <Loader />
   return (
     <div className="workspace-page ">
       <section className="all-boards-list">
@@ -44,7 +45,6 @@ export const WorkSpace = () => {
               <h3>Starred boards</h3>
             </div>
             <div className="primary-boards-container-section">
-              {/* <DynamicFilter boards={boards} onToggleStar={onToggleStar} /> */}
               <BoardList
                 boards={getStarredBoards()}
                 updateBoard={updateBoard}

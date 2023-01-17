@@ -23,7 +23,6 @@ export const TaskDetails = () => {
   // might need use effect for users as well
   const { users } = useSelector((storeState) => storeState.userModule)
   const [fields, handleChange, _, setFields] = useForm(null)
-  console.log("🚀 ~ file: task-details.jsx:26 ~ TaskDetails ~ fields", fields)
 
   useEffect(() => {
     const currGroup = board?.groups.find(group => group.id === groupId);

@@ -24,6 +24,7 @@ import { TaskDelete } from "../modals/task-delete";
 import { DateDelete } from "../modals/date-delete";
 import { ImgModal } from "../modals/img-modal";
 import { CopyModal } from "../modals/copy-modal";
+import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit";
 
 
 export const DynamicModalCmp = ({
@@ -56,16 +57,15 @@ export const DynamicModalCmp = ({
   onRemove,
   isMove,
   toggleModal,
-  event
+  event,
+  editTitle,
+  attachment,
+  attachmentTitle
 }) => {
   const editLabel = useRef()
-
-  const editLabels = editLabel.current = labels
   const changeEditLabel = (label) => { editLabel.current = label }
-
   let modalTypeToOpen;
   console.log(modalTitle)
-
   switch (modalTitle) {
     case "Members":
       if (bottom >= 200 && bottom < 240) bottom -= 70;
@@ -269,57 +269,32 @@ export const DynamicModalCmp = ({
         <ImgModal member={member} />
       )
       break
-      case `${isMove ? 'Move card' : 'Copy card'}`:
-        if (bottom >= 200 && bottom < 300) bottom -= 200;
-        if (bottom >= 300 && bottom < 400) bottom -= 300;
-        if (bottom >= 400 && bottom < 500) bottom -= 350;
-        if (bottom >= 500 && bottom < 600) bottom -= 400;
-        if (bottom >= 600 && bottom < 700) bottom -= 450;
-        if (bottom >= 700) bottom -= 460;
-        modalTypeToOpen = (
-          <CopyModal task={task} group={group} toggleModal={toggleModal} isMove={isMove} event={event} />
-        )
-        break
-  }
-
-  const getModalPositionStyle = () => {
-    // const getModalPositionStyle = (top, height, left) => {
-    if (width < 800) {
-      // const { top, left, height, right } = event.target.getBoundingClientRect();
-      const startSide = (width / left < 10) ? 'left' : 'right'
-      const startSideValue = (width / left < 10) ? 130 : left;
-      if ((modalTypeToOpen === 'Dates' || modalTypeToOpen === 'Labels' || modalTypeToOpen === 'Create Board' || modalTypeToOpen === 'Cover')) {
-        return { top: top / 10, left }
-      }
-      if (width > 1050) return { top: top + bottom, left: left }
-      return { top: top, [startSide]: startSideValue + 'rem' }
-    } else {
-
-      // const { top, left, right } = event.target.getBoundingClientRect();
-      const startSide = (width - left > 320) ? 'left' : 'right'
-      const startSideValue = (width - left > 320) ? left : 20;
-
-      if (width > 1050) return { top: top, [startSide]: startSideValue }
-      if ((modalTypeToOpen === 'dates' || modalTypeToOpen === 'labels' || modalTypeToOpen === 'createBoard' || modalTypeToOpen === 'cover')) {
-
-        return { top: top / 2, right: 15 }
-      }
-      return { top: top, [startSide]: startSideValue + 'px' }
-    }
+    case `${isMove ? 'Move card' : 'Copy card'}`:
+      if (bottom >= 200 && bottom < 300) bottom -= 200;
+      if (bottom >= 300 && bottom < 400) bottom -= 300;
+      if (bottom >= 400 && bottom < 500) bottom -= 350;
+      if (bottom >= 500 && bottom < 600) bottom -= 400;
+      if (bottom >= 600 && bottom < 700) bottom -= 450;
+      if (bottom >= 700) bottom -= 460;
+      modalTypeToOpen = (
+        <CopyModal task={task} group={group} toggleModal={toggleModal} isMove={isMove} event={event} />
+      )
+      break
+    case 'Attachment edit':
+      modalTypeToOpen = (
+        <AttachmentEdit editTitle={editTitle} attachmentTitle={attachmentTitle}/>
+      )
+      break
   }
 
   return (
     <div
-      // tabIndex={"0"}
-      // onBlur={onCloseModal}
       className={`modal-container ${modalClasses}`}
       style={
         modalTitle === "Menu"
           ? {
             top: bottom,
             right: 0, // when menu open
-            // right: -340, //when closed
-            // height:`calc(100vh - 80px)`,
             width: width || "304px",
           }
           : {

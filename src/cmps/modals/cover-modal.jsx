@@ -105,14 +105,16 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                         <div className="background"
                             style={{ background: newTask?.style?.imgUrl ? `url('${newTask.style.imgUrl}')` : newTask.style.bgColor }}
                         ></div>
-                        <div className="lines">
-                            <div className="lines_1"></div>
-                            <div className="lines_2"></div>
-                            <div className="lines_3">
-                                <div className="lines_3_1"></div>
-                                <div className="lines_3_2"></div>
+                        <div className="lines-border">
+                            <div className="lines">
+                                <div className="lines_1"></div>
+                                <div className="lines_2"></div>
+                                <div className="lines_3">
+                                    <div className="lines_3_1"></div>
+                                    <div className="lines_3_2"></div>
+                                </div>
+                                <div className="lines_4"></div>
                             </div>
-                            <div className="lines_4"></div>
                         </div>
                     </button>
 
@@ -134,7 +136,7 @@ export const CoverModal = ({ boardId, groupId, task }) => {
                             <div className="lines_2"></div>
                         </div>
                     </button>
-                    <span onClickx={onRemoveCover} className="cover-btn">
+                    <span onClick={onRemoveCover} className="cover-btn">
                         Remove cover
                     </span>
                 </div>

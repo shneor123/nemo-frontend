@@ -9,7 +9,14 @@ export const utilService = {
   getDateTimeFormat,
   formatTimeToDM,
   isImage,
-  getExtension
+  getExtension,
+  getPosition
+}
+
+function getPosition(element) {
+  if (!element) return
+  let { top, left } = element.getBoundingClientRect()
+  return { top, left }
 }
 
 function getExtension(filename) {
