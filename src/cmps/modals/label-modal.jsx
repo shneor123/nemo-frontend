@@ -1,6 +1,6 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { BsPencil } from "react-icons/bs"
+import {  BsPencil } from "react-icons/bs"
 import { FiCheck } from "react-icons/fi"
 import { toggleLabel } from "../../store/actions/label.action"
 import { setModal } from "../../store/actions/app.actions"
@@ -45,22 +45,11 @@ export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) 
                     ev.stopPropagation()
                     onOpenModal('Change label')
                     changeEditLabel(label)
-                  }}><BsPencil />
-                </button>
-                <div
-                  // style={{ backgroundColor: label.color, '--i': 'blue'}}
-                  style={{ '--label-color': label.color }}
-                  className="task-label"
-                  onClick={() => onToggleLabel(label.id)}
-                >
-                  {label.title && (
-                    <span className="edit-label-title">{label.title}</span>
-                  )}
-                  {task.labelIds.includes(label.id) && (
-                    <span className="label-check-icon">
-                      <FiCheck />
-                    </span>
-                  )}
+                  }}>
+                  <BsPencil /></button>
+                <div style={{ '--label-color': label.color }} className="task-label" onClick={() => onToggleLabel(label.id)}>
+                  {label.title && (<span className="edit-label-title">{label.title}</span>)}
+                  {task.labelIds.includes(label.id) && (<span className="label-check-icon"><FiCheck /></span>)}
                 </div>
               </div>
             );

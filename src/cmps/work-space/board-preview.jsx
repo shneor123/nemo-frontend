@@ -5,8 +5,8 @@ import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 import { onRemoveBoardOptimistic, removeBoard } from "../../store/actions/board.action";
 
 export function BoardPreview({ board, onToggleStar }) {
-  console.log("🚀 ~ file: board-preview.jsx:8 ~ BoardPreview ~ board", board)
   const dispatch = useDispatch()
+  
   const onRemoveTask = (ev) => {
     ev.stopPropagation()
     dispatch(removeBoard(board.id))

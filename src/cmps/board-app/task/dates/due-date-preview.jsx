@@ -16,20 +16,19 @@ export function DueDatePreview({ task, boardId, groupId, dueDate }) {
     dispatch(saveTask(boardId, groupId, task, task.id))
   }
 
-
   const getDueStatus = () => {
-    if (task.isDone) return { txt: 'COMPLETE', className: 'complete' };
-    else if (Date.now() > dueDate) {
-      return { txt: 'OVERDUE', className: 'over-due' };
+    if (task.isDone) return { className: 'complete' };
+    if (Date.now() > task.dueDate) {
+      return { className: 'over-due' };
     } else {
       const timeDiff = dueDate - Date.now();
-      if (timeDiff < 90000000) return { txt: 'DUE SOON', className: 'due-soon' };
+      if (timeDiff < 90000000) return { className: 'due-soon' };
     }
-  };
+  }
 
   if (!getDueStatus()) return <></>
   return (
-    <div className={`badge due-date flex align-center ${getDueStatus().className}`}
+    <div className={`due-date flex align-center ${getDueStatus().className}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -37,7 +36,6 @@ export function DueDatePreview({ task, boardId, groupId, dueDate }) {
         {!isHover ? <IoTimeOutline />
           : task.isDone ? <GrCheckboxSelected onClick={(ev) => onToggleDone(ev)} />
             : <MdCheckBoxOutlineBlank onClick={(ev) => onToggleDone(ev)} />}
-
       </div>
       <span className='due-date-str'>{new Date(dueDate).toLocaleDateString('en-US', {
         month: 'short',

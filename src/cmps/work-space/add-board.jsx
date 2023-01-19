@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addBoard } from '../../store/actions/board.action'
 import boardPreview from '../../assets/svg/board-preview.svg'
+import { setModal } from '../../store/actions/app.actions';
 
-export const AddBoard = ({ onCloseModal }) => {
+export const AddBoard = () => {
   const dispatch = useDispatch()
   const [boardTitle, setBoardTitle] = useState('')
   const [selectedColor, setSelectedColor] = useState('#b04632')
@@ -37,7 +38,6 @@ export const AddBoard = ({ onCloseModal }) => {
     },
   ]
 
-  // const inputModal = useRef(true);
   const chooseColor = (color) => {
     setSelectedImg('');
     setSelectedColor(color.color);
@@ -45,6 +45,10 @@ export const AddBoard = ({ onCloseModal }) => {
   const chooseImg = (img) => {
     setSelectedImg(img.img);
     setSelectedColor('');
+  };
+
+  const onCloseModal = () => {
+    dispatch(setModal(null))
   };
 
   const createNewBoard = () => {

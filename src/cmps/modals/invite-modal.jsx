@@ -1,18 +1,10 @@
 import { useState } from "react";
-import QRCode from "react-qr-code";
-import { useDispatch } from "react-redux";
 import { utilService } from "../../services/basic/util.service";
 import { boardService } from "../../services/board/board.service";
-import { addUserToBoard } from "../../store/actions/board.action";
 import { BsCheck2 } from 'react-icons/bs'
 
 
-export const InviteModal = ({ boardId, users, boardMembers, board, deleteMemberFromBoard }) => {
-  const dispatch = useDispatch()
-  const [isQRShown, setIsQRShown] = useState(false);
-  // const boardMemberIds = boardMembers.map(boardMember => boardMember = boardMember._id)
-  // const usersToInvite = users.filter(user => !boardMemberIds.includes(user._id))
-
+export const InviteModal = ({ users, board, deleteMemberFromBoard }) => {
   const [searchMember, setSearchMember] = useState('')
   const [filterUsers, setFilterUsers] = useState(users)
   const [updatedBoard, setBoardMembers] = useState(board)
@@ -65,7 +57,7 @@ export const InviteModal = ({ boardId, users, boardMembers, board, deleteMemberF
       </div>
 
       <div className="members-box">
-        <h4 className="label" onClick={() => { setIsQRShown(prevIsQRShown => !prevIsQRShown) }}>Workspace members</h4>
+        <h4 className="label">Workspace members</h4>
         <ul className="">
           {filterUsers &&
             filterUsers?.map((user) =>
@@ -107,9 +99,6 @@ export const InviteModal = ({ boardId, users, boardMembers, board, deleteMemberF
               )
             )}
         </ul>
-        {isQRShown && <section className="qr-code flex justify-center">
-          <QRCode value={`https://ca-nemo-react.onrender.com/${boardId}`} />
-        </section>}
       </div>
     </div>
   )

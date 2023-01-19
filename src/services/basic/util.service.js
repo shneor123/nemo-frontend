@@ -10,7 +10,33 @@ export const utilService = {
   formatTimeToDM,
   isImage,
   getExtension,
-  getPosition
+  getPosition,
+  getYearMonthFormat,
+  getTimeFormat,
+  getNewDateTime
+}
+
+function getNewDateTime(date, time) {
+  const milliseconds = (h, m, s) => (h * 60 * 60 + m * 60 + s) * 1000
+  const timeParts = time.split(':')
+  let newDate = new Date(date)
+  newDate = newDate.setHours(0, 0, 0)
+
+  return milliseconds(timeParts[0], timeParts[1], 0) + newDate
+}
+
+
+function getTimeFormat(date) {
+  const time = new Intl.DateTimeFormat('he', { hour: 'numeric', minute: 'numeric' })
+  return time.format(date)
+}
+
+function getYearMonthFormat(date) {
+  const month = new Intl.DateTimeFormat('en', { month: 'short' })
+  const year = new Intl.DateTimeFormat('he', { year: 'numeric' })
+  const displayDate = `${month.format(date)} ${year.format(date)}`
+
+  return displayDate
 }
 
 function getPosition(element) {
@@ -68,11 +94,9 @@ function _imageOrVideo(filename) {
   return type
 }
 
-
 function isImage(url) {
   return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
 }
-
 
 function getDateTimeFormat(date) {
   const now = new Date()

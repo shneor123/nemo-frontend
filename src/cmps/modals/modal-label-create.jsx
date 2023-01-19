@@ -2,15 +2,20 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { boardService } from '../../services/board/board.service'
 import { utilService } from '../../services/basic/util.service'
+import { useDispatch } from 'react-redux'
+import { setModal } from '../../store/actions/app.actions'
 
-export const ModalLabelCreate = () => {
+export const ModalLabelCreate = ({ boardId, groupId, task, labels }) => {
   const { board } = useSelector((storeState) => storeState.boardModule)
+  const { modal } = useSelector(({ appModule }) => appModule)
   const [updatedBoard, setUpdatedBoard] = useState(board)
   const [labelName, setLabelName] = useState('')
   const [color, setColor] = useState('#7bc86c')
+  const dispatch = useDispatch()
 
   const firstLoad = useRef(false)
   const searchInput = useRef(null)
+  const modalRef = useRef()
 
 
   useEffect(() => {
@@ -24,7 +29,21 @@ export const ModalLabelCreate = () => {
       title: labelName,
       color: color,
     })
+    onOpenModal('Labels')
     onUpdateBoard(updatedBoard)
+
+  }
+
+  const onOpenModal = (category) => {
+    dispatch(
+      setModal({
+        element: modal.element,
+        category,
+        title: category,
+        props: { boardId, groupId, task, labels, element: modal.element, },
+
+      })
+    )
   }
 
   const onUpdateBoard = async (updatedBoard) => {
@@ -58,7 +77,7 @@ export const ModalLabelCreate = () => {
       <div className="create-box">
         <h3 className="label">Select a color</h3>
 
-        <div className="colors-section">
+        <div className="colors-section" ref={modalRef}>
           <div className="box-container">
             <button onClick={() => { onPickColor('#7BC86C') }} style={{ backgroundColor: `#7BC86C` }}></button>
             <button onClick={() => { onPickColor('#F5DD29') }} style={{ backgroundColor: `#F5DD29` }}></button>
@@ -72,7 +91,8 @@ export const ModalLabelCreate = () => {
             <button onClick={() => { onPickColor('#172B4D') }} style={{ backgroundColor: `#172B4D` }} ></button>
           </div>
         </div>
-        <button onClick={onCreateLabel}>Create</button>
+        <button className="create-label-btn" ref={modalRef}
+          onClick={onCreateLabel}>Create</button>
       </div>
     </div>
   )

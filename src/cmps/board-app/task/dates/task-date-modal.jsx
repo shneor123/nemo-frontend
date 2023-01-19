@@ -5,17 +5,27 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker, } from '@material-ui/picke
 import { saveTask } from '../../../../store/actions/task.action'
 import { userService } from '../../../../services/basic/user.service'
 import { setModal } from '../../../../store/actions/app.actions'
+import { utilService } from '../../../../services/basic/util.service'
 
 export function TaskDateModal({ boardId, groupId, task }) {
-    const dispatch = useDispatch()
     const dateRef = useRef()
+    const dispatch = useDispatch()
     const [selectedDate, setSelectedDate] = useState(new Date())
+    const [time, setTime] = useState(utilService.getTimeFormat(selectedDate))
 
     const handleDateChange = (date) => {
         setSelectedDate(date)
     }
 
-    const onSetDate = () => {
+    const handleChange = ({ target }) => {
+        setTime(target.value)
+    }
+
+    const onSaveDate = () => {
+        const updatedTask = { ...task }
+        const newDate = utilService.getNewDateTime(selectedDate, time)
+        if (newDate) updatedTask.dueDate = newDate
+        else updatedTask.dueDate = selectedDate
         const activity = {
             txt: "added date",
             boardTxt: `added date ${selectedDate} to ${task.title}`,
@@ -27,7 +37,7 @@ export function TaskDateModal({ boardId, groupId, task }) {
         };
         // task.dueDate = selectedDate ? Date.parse(selectedDate) : 0
         task.dueDate = Date.parse(selectedDate)
-        dispatch(saveTask(task, boardId, groupId, activity))
+        dispatch(saveTask(updatedTask, boardId, groupId, activity))
     }
 
     const onRemove = () => {
@@ -44,6 +54,7 @@ export function TaskDateModal({ boardId, groupId, task }) {
     const onOpenModal = (ev, modal) => {
         dispatch(setModal(modal))
     }
+
 
     return (
         <section className='dates-modal'>
@@ -63,15 +74,22 @@ export function TaskDateModal({ boardId, groupId, task }) {
                         }}
                     />
                 </MuiPickersUtilsProvider>
-                <button className='secondary-btn' onClick={onSetDate}> Save </button>
-                <button className='secondary-btn gray' ref={dateRef}
-                    onClick={(ev) => onOpenModal(ev, {
-                        element: dateRef.current,
-                        category: 'date-delete',
-                        title: 'date-delete',
-                        props: { element: dateRef.current, onRemove },
-                    })}>Remove </button>
             </div>
+
+            <div className="date-container">
+                <div className="display-date">{utilService.getDateTimeFormat(selectedDate).displayDateOnly}</div>
+                <input className="pick-time" type="text" onChange={handleChange} value={time}></input>
+            </div>
+
+
+            <button className='secondary-btn' onClick={onSaveDate}> Save </button>
+            <button className='secondary-btn gray' ref={dateRef}
+                onClick={(ev) => onOpenModal(ev, {
+                    element: dateRef.current,
+                    category: 'date-delete',
+                    title: 'date-delete',
+                    props: { element: dateRef.current, onRemove },
+                })}>Remove </button>
         </section>
     )
 }

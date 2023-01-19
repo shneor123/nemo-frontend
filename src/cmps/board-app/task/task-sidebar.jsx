@@ -192,6 +192,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
         <span>Copy</span>
       </div>
       <div>
+      <hr className="hr" />
         {task.archivedAt ? (
           <div>
             <div className="sidebar-button" onClick={onRestoreTask}>
@@ -220,7 +221,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             element: shareRef.current,
             category: 'Share',
             title: 'Share and more…',
-            props: { element: shareRef.current, },
+            props: { element: shareRef.current, boardId},
           })}>
           <span className="sidebar-icon"> <AiOutlineShareAlt /> </span>
           <span>Share</span>

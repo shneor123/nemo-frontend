@@ -90,7 +90,7 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
   const getTaskStyle = (isQuick) => {
     if (task.style) {
       if (task.style.imgUrl && task.style.isCover) {
-        return { backgroundImage: `url('${task.style.imgUrl}')`}
+        return { backgroundImage: `url('${task.style.imgUrl}')` }
       }
       if (task.style.bgColor) {
         if (isQuick) return { borderTop: `32px solid ${task.style.bgColor}` }
@@ -104,6 +104,13 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
     } else return ''
   }
 
+  const getDueStatus = () => {
+    const { dueDate } = task
+    if (task.isDone) return { txt: 'complete', className: 'complete' };
+    else if (Date.now() > dueDate) {
+      return { txt: 'overdue', className: 'over-due' };
+    }
+  }
 
   const getTaskClass = (isQuick) => {
     if (task.style) {
@@ -188,7 +195,7 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
                       </div>
                     )}
                     {/* DUE DATE */}
-                    <div className='badge badges-icons'>
+                    <div className={'badge'}>
                       {task.dueDate && (
                         <DueDatePreview dueDate={task.dueDate}
                           task={task} boardId={board._id} groupId={groupId}

@@ -68,7 +68,6 @@ export const CoverModal = ({ boardId, groupId, task }) => {
     }
 
     const addAttachment = async (ev) => {
-        console.log(ev.target.files);
         ev.preventDefault()
 
         if (!ev.target.files) ev.target.files = [fileURL]

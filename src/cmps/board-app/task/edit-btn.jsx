@@ -1,15 +1,16 @@
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../../store/actions/app.actions";
+import { saveTask } from "../../../store/actions/task.action";
+
 import { AiOutlineCreditCard } from "react-icons/ai";
 import { TiTag } from "react-icons/ti";
-import { BsPerson } from "react-icons/bs";
+import {  BsPerson } from "react-icons/bs";
 import { MdOutlineScreenShare } from "react-icons/md";
 import { BsClock } from "react-icons/bs";
 import { MdDeleteOutline } from "react-icons/md"
-import { useRef } from "react";
 import { GiRobotAntennas } from 'react-icons/gi'
-import { useDispatch } from "react-redux";
-import { saveTask } from "../../../store/actions/task.action";
 import { RiArchiveLine } from "react-icons/ri";
-import { setModal } from "../../../store/actions/app.actions";
 
 export const EditBtn = ({ onOpenTaskDetails, onRemoveTask, boardId, labels, groupId, task, boardMembers, onCloseQuickEdit }) => {
     const dispatch = useDispatch()

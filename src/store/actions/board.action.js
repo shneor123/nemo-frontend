@@ -41,10 +41,7 @@ export function loadBoards() {
     return (dispatch) => {
         boardService.query()
             .then(boards => {
-                dispatch({
-                    type: 'SET_BOARDS',
-                    boards
-                })
+                dispatch({ type: 'SET_BOARDS', boards })
             })
             .catch(err => {
                 console.log('Cannot load boards', err)
@@ -103,10 +100,7 @@ export function saveBg(boardId, color) {
 
 export function setFilter(filterBy) {
     return (dispatch) => {
-        return dispatch({
-            type: 'SET_FILTERBY',
-            filterBy,
-        })
+        return dispatch({ type: 'SET_FILTERBY', filterBy, })
     }
 }
 

@@ -8,7 +8,7 @@
 .user-img-container {
     margin-right: 4px;
     cursor: pointer;
-
+}
     .user-initial {
         @include task-member-button(tomato);
         margin: 0;
@@ -26,7 +26,6 @@
         object-fit: cover;
         max-width: 100%;
     }
-}
 
 .member-img-modal {
     height: 130px;

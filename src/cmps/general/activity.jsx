@@ -78,7 +78,7 @@ export const Activity = ({ activities, taskId, boardId }) => {
                             </div>
                             <div className="comment-info">
                                 <h2> <span className="activity-name">{activity.byMember?.fullname}</span> <span className="time">{utilService.timeSince(activity.createdAt)}</span></h2>
-                                <div className="comment-preview">{activity.comment}</div>
+                                <div className="comment-container"><span className="comment-content">{activity.comment}</span></div>
                             </div>
 
                         </div>

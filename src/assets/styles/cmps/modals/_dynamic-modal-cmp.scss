@@ -49,11 +49,6 @@
   cursor: pointer;
 }
 
-.qr-code {
-  margin-top: 15px;
-}
-
-
 .dynamic-modal {
   float: right;
   background-color: #ffffff;
@@ -68,6 +63,9 @@
 
   &.wide {
     width: 384px;
+  }
+  &.wide-filter {
+    width: 330px;
   }
 
   &.wide-dashboard {

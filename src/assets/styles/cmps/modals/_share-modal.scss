@@ -12,43 +12,105 @@
         margin-top: 4px;
     }
 
-    //     .members-icon {
-    //         color: #f2d600;
-    //         font-size: 16px;
-    //         height: 20px;
-    //         line-height: 20px;
-    //         width: 20px;
-    //         font-family: trellicons;
-    //         transform: translateY(2px);
-    //     }
+    a {
+        cursor: pointer;
+        text-decoration: underline;
+    }
 
-    //     .members-icon::before {
-    //         content: "\e951";
-    //     }
+    h4 {
+        color: #5e6c84;
+        // display: block;
+        font-size: rem(13.8px);
+        font-weight: 700;
+        line-height: 16px;
+        margin-bottom: 4px;
+        margin-top: 4px;
+    }
 
-    //     a {
-    //         text-decoration: none;
-    //     }
+    .show-hide {
+       margin-left: 3px;
+       margin-top: 1px;
+    }
 
-    //     .share-btn-container {
-    //         .facebook,
-    //         .whatsapp {
-    //             background-color: blueviolet;
-    //             width: 48%;
-    //             color: white;
-    //         }
+    .QRShown {
+        .qr-code {
+            display: block;
+            padding-left: 20px;
+            margin-block-start: 1em;
+        }
 
-    //         .whatsapp {
-    //             background-color: #61bd4f;
+        .flex-row {
+            display: flex;
+            flex-direction: column;
+            margin-inline-start: 30px;
+            display: block;
+            margin-block-start: 1em;
 
-    //             &:hover {
-    //                 background-color: #61bd4f;
-    //                 filter: saturate(85%) brightness(85%);
-    //             }
-    //         }
-    //         i {
-    //             margin-right: 5px;
-    //             color: white;
-    //         }
-    //     }
+            p {
+                color: #172b4d;
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+                font-size: rem(14px);
+                font-weight: 600;
+                line-height: 20px;
+            }
+
+            button {
+                transition-property: background-color, border-color, box-shadow;
+                transition-duration: 85ms;
+                transition-timing-function: ease;
+                border-radius: 3px;
+                cursor: pointer;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                padding: 6px 12px;
+                text-decoration: none;
+                display: inline-block;
+                background-color: var(--ds-background-brand-bold, #0079bf);
+                box-shadow: none;
+                border: none;
+                color: #fff;
+            }
+        }
+    }
+
+    .members-icon {
+        color: #f2d600;
+        font-size: 16px;
+        height: 20px;
+        line-height: 20px;
+        width: 20px;
+        font-family: trellicons;
+        transform: translateY(2px);
+    }
+
+    .members-icon::before {
+        content: "\e951";
+    }
+
+    .share-btn-container {
+        @include flex(row, space-evenly, center);
+
+        .facebook,
+        .whatsapp {
+            @include blue-btn;
+            width: 48%;
+            color: white;
+        }
+
+        .whatsapp {
+            background-color: #61bd4f;
+
+            &:hover {
+                background-color: #61bd4f;
+                filter: saturate(85%) brightness(85%);
+            }
+        }
+
+        i {
+            margin-right: 5px;
+            color: white;
+        }
+    }
 }

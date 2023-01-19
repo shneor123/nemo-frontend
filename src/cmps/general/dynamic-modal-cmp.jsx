@@ -26,20 +26,15 @@ import { CopyModal } from "../modals/copy-modal";
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit";
 import { CreateModal } from "../modals/create-modal";
 
-
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { debounce } from "lodash";
 import { setModal } from "../../store/actions/app.actions";
 
-
 import { IoIosArrowBack } from 'react-icons/io'
 import { CgClose } from 'react-icons/cg'
 import { utilService } from "../../services/basic/util.service";
 import { ShareModal } from "../modals/share-modal";
-
-
-
 
 export const DynamicModalCmp = () => {
   const { modal } = useSelector(({ appModule }) => appModule)
@@ -69,7 +64,7 @@ export const DynamicModalCmp = () => {
 
     // Pushes the modal into the viewport when it does not have enough space to open up, + 10 px from the edge of the viewport.
     if (position.top + modalRef.current.offsetHeight >= window.innerHeight) {
-      position.top = window.innerHeight - modalRef.current.offsetHeight - 10
+      position.top = window.innerHeight - modalRef.current.offsetHeight - 120
     }
     if (position.left + modalRef.current.offsetWidth >= window.innerWidth) {
       position.left = window.innerWidth - modalRef.current.offsetWidth - 10
@@ -91,7 +86,6 @@ export const DynamicModalCmp = () => {
   switch (modal.category) {
     case "Members":
       cmp = <MemberModal {...modal.props} />
-      // <MemberModal boardId={boardId}groupId={groupId}task={task}onCloseModal={onCloseModal}boardMembers={boardMembers}/>
       break;
     case "Labels":
       cmp = <LabelModal {...modal.props} changeEditLabel={changeEditLabel} />
@@ -105,22 +99,16 @@ export const DynamicModalCmp = () => {
     case "Attachment":
       cmp =
         <AttachmentModal {...modal.props} />
-      // <AttachmentModal boardId={boardId}groupId={groupId}task={task}attachments={task.attachments}/>
-
       break;
     case "Cover":
       cmp =
         <CoverModal {...modal.props} />
-      // <CoverModal boardId={boardId} groupId={groupId} task={task} />
-
       break;
     case "Actions":
       cmp = <ActionModal {...modal.props} />
-      // modalTypeToOpen = <ActionModal onRemoveTodo={onRemoveTodo} onRemoveGroup={onRemoveGroup} />;
       break;
     case "Create Board":
       cmp = <AddBoard{...modal.props} />;
-      // modalTypeToOpen = <AddBoard onCloseModal={onCloseModal} />;
       break;
     case "Menu":
       cmp = <Menu {...modal.props} />;
@@ -131,30 +119,23 @@ export const DynamicModalCmp = () => {
     case "AI Clara":
       cmp =
         <AiModal {...modal.props} />
-      // <AiModal onCloseModal={onCloseModal}boardId={boardId}groupId={groupId}task={task}groupTitle={groupTitle}/>
-
       break;
     case "Filter":
       cmp = <FilterMenu {...modal.props} />;
-      // modalTypeToOpen = <FilterMenu board={board} />;
       break;
     case "dashboard":
       cmp = <Dashboard {...modal.props} />
-      // modalTypeToOpen = <Dashboard task={task} />;
       break;
     case "account actions":
       cmp = <AccountActions {...modal.props} />
-      // modalTypeToOpen = <AccountActions user={user} onCloseModal={onCloseModal} />)
       break;
     case "member actions":
       cmp =
         <MemberActions {...modal.props} />
-      // <MemberActions task={task}board={board}onCloseModal={onCloseModal}member={member}/>
       break;
     case "more members":
       cmp =
         <MoreMembers {...modal.props} />
-      // <MoreMembers board={board}task={task}onCloseModal={onCloseModal}element={element}moreMembers={moreMembers}member={member}/>
       break;
     case "Create label":
       cmp = <ModalLabelCreate {...modal.props} />
@@ -162,44 +143,36 @@ export const DynamicModalCmp = () => {
     case "Change label":
       cmp =
         <ModalLabelChange{...modal.props} editLabel={editLabel.current} />
-      // <ModalLabelChange task={task}labels={labels}editLabel={editLabel.current}onCloseModal={onCloseModal}/>
       break;
     case 'attachment-delete':
       cmp =
         <AttachmentDelete {...modal.props} />
-      // <AttachmentDelete onRemoveAttachment={onRemoveAttachment} />
       break
     case 'checklist-delete':
       cmp =
         <ChecklistDelete{...modal.props} />
-      // <ChecklistDelete onRemoveChecklist={onRemoveChecklist} checklist={checklist} />
       break
     case 'task-delete':
       cmp =
         <TaskDelete {...modal.props} />
-      // <TaskDelete OnDelete={OnDelete} />
       break
     case 'date-delete':
       cmp =
         <DateDelete {...modal.props} />
-      // <DateDelete onRemove={onRemove} />
       break
     case 'Img modal':
       cmp =
         <ImgModal {...modal.props} />
-      // <ImgModal member={member} />
       break
     case 'Copy card':
       cmp = <CopyModal {...modal.props} />
       break
     case 'Move card':
       cmp = <CopyModal {...modal.props} />
-      // <CopyModal task={task} group={group} isMove={isMove} event={event} />
       break
     case 'Attachment edit':
       cmp =
         <AttachmentEdit {...modal.props} />
-      // <AttachmentEdit editTitle={editTitle} attachmentTitle={attachmentTitle} />
       break
     case 'Create':
       cmp = <CreateModal{...modal.props} />
@@ -212,21 +185,13 @@ export const DynamicModalCmp = () => {
   const onOpenModal = (ev, category) => {
     ev.stopPropagation()
     dispatch(
-      setModal({
-        element: modal.element,
-        category,
-        title: category,
-        props: {
-          ...modal.props,
-        },
-      })
+      setModal({ element: modal.element, category, title: category, props: { ...modal.props, }, })
     )
   }
 
-
   return (
     <div
-      className={`dynamic-modal ${modal.category === 'task-filter' ? 'wide' : modal.category === 'dashboard' ? 'wide-dashboard' : ''}`}
+      className={`dynamic-modal ${modal.category === '  Filter' ? 'wide' : modal.category === 'dashboard' ? 'wide-dashboard' : modal.category === 'Dates' ? 'wide-filter' : ''}`}
       style={{ ...position }}
       ref={modalRef}
       onClick={(e) => e.stopPropagation()}
@@ -235,23 +200,17 @@ export const DynamicModalCmp = () => {
         <header>
           {modal.category === 'Create label' && (
             <button ref={buttonRef} onClick={(ev) => onOpenModal(ev, 'Labels')} className="sidebar-icon-left">
-              <span>
-                <IoIosArrowBack />
-              </span>
+              <span><IoIosArrowBack /></span>
             </button>
           )}
           {modal.category === 'Change label' && (
             <button ref={buttonRef} onClick={(ev) => onOpenModal(ev, 'Labels')} className="sidebar-icon-left">
-              <span>
-                <IoIosArrowBack />
-              </span>
+              <span><IoIosArrowBack /></span>
             </button>
           )}
           <div className="label">{modal.title ? modal.title : modal.category}</div>
           <button className="sidebar-icon-right" onClick={() => dispatch(setModal(null))}>
-            <span>
-              <CgClose />
-            </span>
+            <span><CgClose /></span>
           </button>
         </header>
       )}
