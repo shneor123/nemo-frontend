@@ -6,33 +6,30 @@ import { RiArchiveLine } from 'react-icons/ri'
 import { FiPaperclip } from "react-icons/fi";
 import { MdOutlineScreenShare } from "react-icons/md";
 import { GiRobotAntennas } from 'react-icons/gi'
-import { BsPerson } from "react-icons/bs";
 import { CgUndo } from "react-icons/cg";
 import { HiOutlineMinus } from "react-icons/hi";
 
-import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { userService } from "../../../services/basic/user.service";
 import { joinTask } from "../../../store/actions/member.action";
 import { saveTask } from "../../../store/actions/task.action";
-import { AiOutlineCopy, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineCopy, AiOutlineShareAlt, AiOutlineUser } from "react-icons/ai";
+import { setModal } from "../../../store/actions/app.actions";
 
 export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, labels, groupTitle }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modal, setModals] = useState({ isModalOpen: false, type: null, event: null });
   const user = userService.getLoggedinUser()
   const dispatch = useDispatch()
-  const modalDetails = useRef()
-  const modalTitle = useRef()
+  const attachmentRef = useRef()
+  const checklistRef = useRef()
+  const membersRef = useRef()
   const deleteRef = useRef()
-
-  const buttons = [
-    { txt: "Members", icon: <AiOutlineUser /> },
-    { txt: "Labels", icon: <TiTag /> },
-    { txt: "Checklist", icon: <BsCheck2Square /> },
-    { txt: "Dates", icon: <BsClock /> },
-    { txt: "Attachment", icon: <FiPaperclip /> },
-    { txt: "Cover", icon: <MdOutlineScreenShare /> },
-    { txt: "AI Clara", icon: <GiRobotAntennas /> },
-  ]
+  const labelsRef = useRef()
+  const coverRef = useRef()
+  const datesRef = useRef()
+  const claraRef = useRef()
+  const moveRef = useRef()
+  const copyRef = useRef()
+  const shareRef = useRef()
 
   const onJoinTask = () => {
     dispatch(joinTask(boardId, groupId, task.id, user))
@@ -60,51 +57,54 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
     dispatch(saveTask(task, boardId, groupId, activity))
   }
 
-  const onCloseModal = () => {
-    setIsModalOpen(false);
-  }
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false)
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect()
-    setIsModalOpen(true)
-  }
-
-  const [modal, setModal] = useState({ isModalOpen: false, type: null, event: null });
-
   const toggleModal = ({ event, type, isMove = false }) => {
     if (modal.isModalOpen) {
-      setModal({ ...modal, isModalOpen: false })
+      setModals({ ...modal, isModalOpen: false })
       return
     }
-    setModal({ isModalOpen: true, type, event, isMove })
+    setModals({ isModalOpen: true, type, event, isMove })
+  }
+
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
+  }
+
+  const onOpenModalNove = (ev) => {
+    dispatch(
+      setModal({
+        element: moveRef.current,
+        category: 'Move card',
+        title: 'Move card',
+        props: { element: moveRef.current, event: modal.event, toggleModal, isMove: modal.isMove = true, task, group: currGroup },
+      })
+    )
+  }
+
+  const onOpenModalCopy = (ev) => {
+    dispatch(
+      setModal({
+        element: copyRef.current,
+        category: 'Copy card',
+        title: 'Copy card',
+        props: { element: copyRef.current, event: modal.event, toggleModal, isMove: modal.isMove = false, task, group: currGroup },
+      })
+    )
+  }
+
+  const onOpenModalChecklist = (ev) => {
+    dispatch(
+      setModal({
+        element: labelsRef.current,
+        category: 'Checklist',
+        title: 'Checklist',
+        props: { element: checklistRef.current, boardId, groupId, taskId: task.id, groupTitle, taskTitle: task.title },
+      })
+    )
   }
 
   const currGroup = board?.groups.find(group => group.id === groupId)
   return (
     <div className="task-details-sidebar-container">
-      {isModalOpen && (
-        <DynamicModalCmp
-          modalDetails={modalDetails.current}
-          modalTitle={modalTitle.current}
-          boardId={boardId}
-          groupId={groupId}
-          group={currGroup}
-          task={task}
-          type={modalTitle}
-          labels={labels}
-          isMove={modal.isMove}
-          toggleModal={toggleModal}
-          event={modal.event}
-          boardMembers={boardMembers}
-          attachments={task.attachments}
-          onCloseModal={onCloseModal}
-          groupTitle={groupTitle}
-        />
-      )}
       <div className="task-details-sidebar-button-container">
         {(!user || !!task.members.filter(member => member._id === user._id).length) || <><h3 className="task-details-sidebar-section-title">Suggested</h3>
           <button onClick={onJoinTask} className="task-details-sidebar-btn join-btn">
@@ -112,34 +112,85 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             <span className="task-details-sidebar-btn-text">Join</span>
           </button></>}
         <h3 className="task-details-sidebar-section-title">Add to card</h3>
-        {buttons.map((button) => {
-          return (
-            <button
-              onClick={(ev) => {
-                onOpenModal(ev, button.txt);
-              }}
-              key={button.txt}
-              className="task-details-sidebar-btn"
-            >
-              {button.icon}
-              <span className="task-details-sidebar-btn-text">
-                {button.txt}
-              </span>
-            </button>
-          )
-        })}
+
+        <button className="task-details-sidebar-btn" ref={membersRef}
+          onClick={(ev) => onOpenModal(ev, {
+            element: labelsRef.current,
+            category: 'Members',
+            title: 'Members',
+            props: { element: membersRef.current, groupTitle, attachments: task.attachments, boardMembers, labels, task, group: currGroup, groupId, boardId },
+          })}><AiOutlineUser />
+          <span className="task-details-sidebar-btn-text">Members</span>
+        </button>
+
+        <button className="task-details-sidebar-btn" ref={labelsRef}
+          onClick={(ev) => onOpenModal(ev, {
+            element: labelsRef.current,
+            category: 'Labels',
+            title: 'Labels',
+            props: { element: moveRef.current, groupTitle, attachments: task.attachments, boardMembers, labels, task, group: currGroup, groupId, boardId },
+          })}>
+          <TiTag />
+          <span className="task-details-sidebar-btn-text">Labels</span>
+        </button>
+
+        <button className="task-details-sidebar-btn" ref={checklistRef} onClick={onOpenModalChecklist}>
+          <BsCheck2Square />
+          <span className="task-details-sidebar-btn-text">Checklist</span>
+        </button>
+
+        <button className="task-details-sidebar-btn" ref={datesRef}
+          onClick={(ev) => onOpenModal(ev, {
+            element: labelsRef.current,
+            category: 'Dates',
+            title: 'Dates',
+            props: { element: datesRef.current, group: currGroup, task, boardId, groupId, groupTitle },
+          })}>
+          <BsClock />
+          <span className="task-details-sidebar-btn-text">Date</span>
+        </button>
+
+        <button className="task-details-sidebar-btn" ref={attachmentRef}
+          onClick={(ev) => onOpenModal(ev, {
+            element: labelsRef.current,
+            category: 'Attachment',
+            title: 'Attachment',
+            props: { element: attachmentRef.current, attachments: task.attachments, group: currGroup, task, boardId, groupId, groupTitle },
+          })}>
+          <FiPaperclip />
+          <span className="task-details-sidebar-btn-text">Attachment</span>
+        </button>
+
+        <button className="task-details-sidebar-btn" ref={coverRef}
+          onClick={(ev) => onOpenModal(ev, {
+            element: coverRef.current,
+            category: 'Cover',
+            title: 'Cover',
+            props: { element: coverRef.current, attachments: task.attachments, group: currGroup, task, boardId, groupId, groupTitle },
+          })}><MdOutlineScreenShare />
+          <span className="task-details-sidebar-btn-text">Cover</span>
+        </button>
+
+        <button className="task-details-sidebar-btn" ref={claraRef}
+          onClick={(ev) => onOpenModal(ev, {
+            element: claraRef.current,
+            category: 'AI Clara',
+            title: 'AI Clara',
+            props: { element: claraRef.current, attachments: task.attachments, group: currGroup, task, boardId, groupId, groupTitle },
+          })}><GiRobotAntennas />
+          <span className="task-details-sidebar-btn-text">AI Clara</span>
+        </button>
       </div>
 
       <h3 className="task-details-sidebar-section-title actions">Actions</h3>
-      <div className="sidebar-button" onClick={(ev) => { onOpenModal(ev, 'Move card', modal.isMove = true) }}>
+      <div className="sidebar-button" ref={moveRef} onClick={onOpenModalNove}>
         <span className="sidebar-icon"> <BsArrowRight /> </span>
         <span>Move</span>
       </div>
-      <div className="sidebar-button" onClick={(ev) => { onOpenModal(ev, 'Copy card') }}>
+      <div className="sidebar-button" ref={copyRef} onClick={onOpenModalCopy}>
         <span className="sidebar-icon"> <AiOutlineCopy /> </span>
         <span>Copy</span>
       </div>
-
       <div>
         {task.archivedAt ? (
           <div>
@@ -149,8 +200,12 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             </div>
 
             <div className="sidebar-button delete-btn" ref={deleteRef}
-              onClick={(ev) => { onOpenModal(ev, 'task-delete'); }}>
-              <span className="sidebar-icon"> <HiOutlineMinus /> </span>
+              onClick={(ev) => onOpenModal(ev, {
+                element: deleteRef.current,
+                category: 'task-delete',
+                title: 'task-delete',
+                props: { element: deleteRef.current },
+              })}><span className="sidebar-icon"> <HiOutlineMinus /> </span>
               <span>Delete</span>
             </div>
           </div>
@@ -160,8 +215,17 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             <span>Archive</span>
           </div>
         )}
+        <div className="sidebar-button" ref={shareRef}
+          onClick={(ev) => onOpenModal(ev, {
+            element: shareRef.current,
+            category: 'Share',
+            title: 'Share and more…',
+            props: { element: shareRef.current, },
+          })}>
+          <span className="sidebar-icon"> <AiOutlineShareAlt /> </span>
+          <span>Share</span>
+        </div>
       </div>
     </div >
   )
 }
-

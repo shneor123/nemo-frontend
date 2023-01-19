@@ -12,7 +12,6 @@ export const WorkSpace = () => {
   const dispatch = useDispatch()
   const { boards } = useSelector((storeState) => storeState.boardModule)
 
-
   useEffect(() => {
     onLoadBoards()
   }, [])
@@ -59,7 +58,7 @@ export const WorkSpace = () => {
               <div className="title-header-icon-container">
                 <AiOutlineClockCircle className="header-icon star-icon" />
               </div>
-              <h3>Recently viewed</h3>
+              <h3>Your Workspace</h3>
             </div>
             <div className="primary-boards-container-section ">
               <div className='board-list-container'>

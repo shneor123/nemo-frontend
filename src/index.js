@@ -5,14 +5,16 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { Provider } from 'react-redux';
 import { store } from './store/store'
 import './assets/styles/main.scss'
+import { BrowserRouter as Router } from 'react-router-dom'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>
-  // </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { utilService } from '../../services/basic/util.service';
-import { GrClose } from 'react-icons/gr';
 import { updateBoard } from '../../store/actions/board.action';
 import { useDispatch } from 'react-redux';
 import { boardService } from '../../services/board/board.service';

@@ -10,8 +10,8 @@ import { socketService } from "../services/basic/socket.service"
 import { DragDropContext } from "react-beautiful-dnd"
 
 export const BoardApp = () => {
-  const { boardId } = useParams()
   const dispatch = useDispatch()
+  const { boardId } = useParams()
   const { board } = useSelector((storeState) => storeState.boardModule)
   const { users } = useSelector((storeState) => storeState.userModule)
 
@@ -31,7 +31,6 @@ export const BoardApp = () => {
     } catch (err) {
       console.log('Cannot load board', err)
     }
-
   }
 
   const onLoadUsers = () => {

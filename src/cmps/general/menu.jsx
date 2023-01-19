@@ -71,7 +71,6 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
     setIOpenAboutBoard('block')
 
   }
-
   const onUpdateBoard = async (updatedBoard) => {
     try {
       await boardService.save(updatedBoard)

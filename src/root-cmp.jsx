@@ -1,16 +1,24 @@
 import React from "react";
 import { AppHeader } from "./cmps/general/app-header.jsx";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom'
 import { HomePage } from "./pages/home-page.jsx";
 import { LoginSignup } from "./pages/login-signup.jsx";
 import { WorkSpace } from "./pages/work-space.jsx";
 import { BoardApp } from "./pages/board-app.jsx";
 import { TaskDetails } from "./cmps/board-app/task/task-details.jsx";
 import { Dashboard } from "./pages/dashboard.jsx";
+import { DynamicModalCmp } from "./cmps/general/dynamic-modal-cmp.jsx";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setModal } from "./store/actions/app.actions.js";
 
 function App() {
+  const { modal } = useSelector(({ appModule }) => appModule)
+  const dispatch = useDispatch()
   return (
-    <Router>
+    <div
+      onClick={() => { if (modal) dispatch(setModal(null)) }}>
+      {modal && <DynamicModalCmp />}
       <AppHeader />
       <Routes>
         <Route element={<HomePage />} path={"/"} />
@@ -22,8 +30,8 @@ function App() {
           <Route element={<Dashboard />} path="dashboard" />
         </Route>
       </Routes>
-    </Router>
-  );
+    </div>
+  )
 }
 
 export default App;

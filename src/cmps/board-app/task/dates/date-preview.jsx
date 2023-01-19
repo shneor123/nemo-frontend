@@ -3,16 +3,15 @@ import { useDispatch } from 'react-redux'
 import { IoCheckbox } from 'react-icons/io5'
 import { MdCheckBoxOutlineBlank } from 'react-icons/md'
 
-import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
 import { saveTask } from '../../../../store/actions/task.action'
 import { utilService } from '../../../../services/basic/util.service'
 import { userService } from '../../../../services/basic/user.service'
+import { setModal } from '../../../../store/actions/app.actions'
 
-export function DatePreview({group, task, boardId, groupId }) {
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const modalDetails = useRef()
-    const modalTitle = useRef()
+export function DatePreview({ group, task, boardId, groupId }) {
     const dispatch = useDispatch()
+    const datesRef = useRef()
+
 
     const toggleIsDone = () => {
         task.isDone = !task.isDone
@@ -35,41 +34,22 @@ export function DatePreview({group, task, boardId, groupId }) {
         }
     }
 
-    const onCloseModal = () => {
-        setIsModalOpen(false);
+    const onOpenModal = (ev, modal) => {
+        dispatch(setModal(modal))
     }
-    const onOpenModal = (ev, txt) => {
-        if (isModalOpen) {
-            setIsModalOpen(false)
-        }
-        modalTitle.current = txt
-        modalDetails.current = ev.target.getBoundingClientRect()
-        setIsModalOpen(true)
-    }
-
     return (
         <div className='date-preview-container'>
-            {isModalOpen && (
-                <DynamicModalCmp
-                    modalDetails={modalDetails.current}
-                    modalTitle={modalTitle.current}
-                    boardId={boardId}
-                    groupId={groupId}
-                    task={task}
-                    group={group}
-                    type={modalTitle}
-                    onCloseModal={onCloseModal}
-                />
-            )}
-
-
             {(task.isDone) ?
                 <IoCheckbox className='checkbox-checked' onClick={toggleIsDone} />
                 : <MdCheckBoxOutlineBlank className='checkbox-blank' onClick={toggleIsDone} />
             }
-
-
-            <button type='button' onClick={(ev) => { onOpenModal(ev, 'Dates') }}>
+            <button type='button' ref={datesRef}
+                onClick={(ev) => onOpenModal(ev, {
+                    element: datesRef.current,
+                    category: 'Dates',
+                    title: 'Dates',
+                    props: { element: datesRef.current, boardId, groupId, task, group },
+                })}>
                 <span> {utilService.getDateByTimestamp(task.dueDate)}</span>
                 {getDueStatus() && <span className={getDueStatus().className}>{getDueStatus().txt}</span>}
                 <span className='drop-down-container' role='img' aria-label='DownIcon'>

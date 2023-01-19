@@ -1,4 +1,3 @@
-import { IoMdClose } from "react-icons/io";
 import { LabelModal } from "../modals/label-modal";
 import { ChecklistModal } from "../modals/checklist-modal";
 import { CoverModal } from "../modals/cover-modal.jsx";
@@ -14,7 +13,7 @@ import { FilterMenu } from "../menu/filter-menu";
 import { Dashboard } from "../dashboard/dashboard";
 import { AccountActions } from "../modals/account-actions";
 import { MemberActions } from "../modals/member-actions";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MoreMembers } from "../modals/more-members";
 import { ModalLabelCreate } from "../modals/modal-label-create";
 import { ModalLabelChange } from "../modals/modal-label-change";
@@ -25,312 +24,238 @@ import { DateDelete } from "../modals/date-delete";
 import { ImgModal } from "../modals/img-modal";
 import { CopyModal } from "../modals/copy-modal";
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit";
+import { CreateModal } from "../modals/create-modal";
 
 
-export const DynamicModalCmp = ({
-  modalDetails: { bottom, left, top, right },
-  width,
-  height,
-  onCloseModal,
-  modalTitle,
-  onRemoveTodo,
-  onRemoveGroup,
-  boardId,
-  groupId,
-  labels,
-  task,
-  users,
-  user,
-  boardMembers,
-  member,
-  modalClasses,
-  activities,
-  groupTitle,
-  board,
-  moreMembers,
-  element,
-  group,
-  onRemoveAttachment,
-  onRemoveChecklist,
-  checklist,
-  OnDelete,
-  onRemove,
-  isMove,
-  toggleModal,
-  event,
-  editTitle,
-  attachment,
-  attachmentTitle
-}) => {
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { debounce } from "lodash";
+import { setModal } from "../../store/actions/app.actions";
+
+
+import { IoIosArrowBack } from 'react-icons/io'
+import { CgClose } from 'react-icons/cg'
+import { utilService } from "../../services/basic/util.service";
+import { ShareModal } from "../modals/share-modal";
+
+
+
+
+export const DynamicModalCmp = () => {
+  const { modal } = useSelector(({ appModule }) => appModule)
+  const [position, setPosition] = useState(null)
+  const dispatch = useDispatch()
+  const deleteMember = useRef()
   const editLabel = useRef()
-  const changeEditLabel = (label) => { editLabel.current = label }
-  let modalTypeToOpen;
-  console.log(modalTitle)
-  switch (modalTitle) {
+  const buttonRef = useRef()
+  const modalRef = useRef()
+
+
+  useEffect(() => {
+    window.addEventListener('resize', debouncedAdjust)
+    return () => window.removeEventListener('resize', debouncedAdjust)
+    // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    adjustPosition()
+    // eslint-disable-next-line
+  }, [modal.element])
+
+  const adjustPosition = () => {
+    const position = utilService.getPosition(modal.element)
+    // Gives the modal some space from the element that triggered it, equal to 1/4 of that element height
+    position.top += modal.element.offsetHeight * 1.25
+
+    // Pushes the modal into the viewport when it does not have enough space to open up, + 10 px from the edge of the viewport.
+    if (position.top + modalRef.current.offsetHeight >= window.innerHeight) {
+      position.top = window.innerHeight - modalRef.current.offsetHeight - 10
+    }
+    if (position.left + modalRef.current.offsetWidth >= window.innerWidth) {
+      position.left = window.innerWidth - modalRef.current.offsetWidth - 10
+    }
+
+    setPosition(position)
+  }
+
+  const changeEditLabel = (label) => {
+    editLabel.current = label
+  }
+  const deleteMemberFromBoard = (id) => {
+    deleteMember.current = id
+  }
+
+  const debouncedAdjust = debounce(adjustPosition, 200)
+
+  var cmp
+  switch (modal.category) {
     case "Members":
-      if (bottom >= 200 && bottom < 240) bottom -= 70;
-      if (bottom >= 240) bottom -= 135;
-      // left = 730;
-      modalTypeToOpen = (
-        <MemberModal
-          boardId={boardId}
-          groupId={groupId}
-          task={task}
-          onCloseModal={onCloseModal}
-          boardMembers={boardMembers}
-        />
-      );
+      cmp = <MemberModal {...modal.props} />
+      // <MemberModal boardId={boardId}groupId={groupId}task={task}onCloseModal={onCloseModal}boardMembers={boardMembers}/>
       break;
     case "Labels":
-      if (bottom >= 200 && bottom < 240) bottom -= 70;
-      if (bottom >= 240) bottom -= 150;
-      modalTypeToOpen = (
-        <LabelModal
-          boardId={boardId}
-          groupId={groupId}
-          task={task}
-          board={board}
-          labels={labels}
-          changeEditLabel={changeEditLabel}
-          onCloseModal={onCloseModal}
-        />
-      );
+      cmp = <LabelModal {...modal.props} changeEditLabel={changeEditLabel} />
       break;
     case "Checklist":
-      if (bottom >= 390) bottom -= 70;
-      modalTypeToOpen = (
-        <ChecklistModal
-          onCloseModal={onCloseModal}
-          boardId={boardId}
-          groupId={groupId}
-          taskId={task.id}
-          groupTitle={groupTitle}
-          taskTitle={task.title}
-        />
-      );
+      cmp = <ChecklistModal {...modal.props} />
       break;
     case "Dates":
-      if (bottom >= 170 && bottom < 200) bottom -= 50;
-      if (bottom >= 200 && bottom < 270) bottom -= 100;
-      if (bottom >= 270 && bottom < 330) bottom -= 160;
-      if (bottom >= 330) bottom -= 200;
-      width = '343px'
-      modalTypeToOpen = (
-        <TaskDateModal boardId={boardId} groupId={groupId} task={task} group={group} />
-      );
+      cmp = <TaskDateModal {...modal.props} />
       break;
     case "Attachment":
-      if (bottom >= 330 && bottom < 360) bottom -= 50;
-      if (bottom >= 360) bottom -= 100;
-      modalTypeToOpen = (
-        <AttachmentModal
-          boardId={boardId}
-          groupId={groupId}
-          task={task}
-          attachments={task.attachments}
-        />
-      );
+      cmp =
+        <AttachmentModal {...modal.props} />
+      // <AttachmentModal boardId={boardId}groupId={groupId}task={task}attachments={task.attachments}/>
+
       break;
     case "Cover":
-      bottom -= 100;
-      if (bottom >= 210 && bottom < 250) bottom -= 50;
-      if (bottom >= 300 && bottom < 330) bottom -= 100;
-      if (bottom >= 330 && bottom < 380) bottom -= 160;
-      if (bottom >= 380) bottom -= 200;
-      modalTypeToOpen = (
-        <CoverModal boardId={boardId} groupId={groupId} task={task} />
-      );
+      cmp =
+        <CoverModal {...modal.props} />
+      // <CoverModal boardId={boardId} groupId={groupId} task={task} />
+
       break;
     case "Actions":
-      modalTypeToOpen = <ActionModal onRemoveTodo={onRemoveTodo} onRemoveGroup={onRemoveGroup} />;
+      cmp = <ActionModal {...modal.props} />
+      // modalTypeToOpen = <ActionModal onRemoveTodo={onRemoveTodo} onRemoveGroup={onRemoveGroup} />;
       break;
     case "Create Board":
-      if (bottom >= 170 && bottom < 230) bottom -= 60;
-      if (bottom >= 230 && bottom < 260) bottom -= 100;
-      if (bottom >= 260 && bottom < 300) bottom -= 140;
-      if (bottom >= 300) bottom -= 200;
-      modalTypeToOpen = <AddBoard onCloseModal={onCloseModal} />;
+      cmp = <AddBoard{...modal.props} />;
+      // modalTypeToOpen = <AddBoard onCloseModal={onCloseModal} />;
       break;
     case "Menu":
-      modalTypeToOpen = <Menu activities={activities} boardId={boardId} />;
+      cmp = <Menu {...modal.props} />;
       break;
     case "Invite to board":
-      modalTypeToOpen = (
-        <InviteModal
-          boardId={boardId}
-          boardMembers={boardMembers}
-          users={users}
-        />
-      );
+      cmp = <InviteModal {...modal.props} deleteMemberFromBoard={deleteMemberFromBoard} />
       break;
     case "AI Clara":
-      if (bottom >= 200 && bottom < 300) bottom -= 200;
-      if (bottom >= 300 && bottom < 400) bottom -= 300;
-      if (bottom >= 400 && bottom < 500) bottom -= 350;
-      if (bottom >= 500 && bottom < 600) bottom -= 400;
-      if (bottom >= 600 && bottom < 700) bottom -= 450;
-      if (bottom >= 700) bottom -= 460;
-      // if (bottom >= 230 && bottom < 260) bottom -= 100;
-      // if (bottom >= 260 && bottom < 300) bottom -= 140;
-      modalTypeToOpen = (
-        <AiModal
-          onCloseModal={onCloseModal}
-          boardId={boardId}
-          groupId={groupId}
-          task={task}
-          groupTitle={groupTitle}
-        />
-      );
+      cmp =
+        <AiModal {...modal.props} />
+      // <AiModal onCloseModal={onCloseModal}boardId={boardId}groupId={groupId}task={task}groupTitle={groupTitle}/>
+
       break;
     case "Filter":
-      left = 1091.8;
-      modalTypeToOpen = <FilterMenu board={board} />;
+      cmp = <FilterMenu {...modal.props} />;
+      // modalTypeToOpen = <FilterMenu board={board} />;
       break;
     case "dashboard":
-      modalTypeToOpen = <Dashboard task={task} />;
+      cmp = <Dashboard {...modal.props} />
+      // modalTypeToOpen = <Dashboard task={task} />;
       break;
     case "account actions":
-      left = 100;
-      modalTypeToOpen = (<AccountActions user={user} onCloseModal={onCloseModal} />)
+      cmp = <AccountActions {...modal.props} />
+      // modalTypeToOpen = <AccountActions user={user} onCloseModal={onCloseModal} />)
       break;
     case "member actions":
-      modalTypeToOpen = (
-        <MemberActions
-          task={task}
-          board={board}
-          onCloseModal={onCloseModal}
-          member={member}
-        />
-      );
+      cmp =
+        <MemberActions {...modal.props} />
+      // <MemberActions task={task}board={board}onCloseModal={onCloseModal}member={member}/>
       break;
     case "more members":
-      modalTypeToOpen = (
-        <MoreMembers
-          board={board}
-          task={task}
-          onCloseModal={onCloseModal}
-          element={element}
-          moreMembers={moreMembers}
-          member={member}
-        />
-      );
+      cmp =
+        <MoreMembers {...modal.props} />
+      // <MoreMembers board={board}task={task}onCloseModal={onCloseModal}element={element}moreMembers={moreMembers}member={member}/>
       break;
     case "Create label":
-      if (bottom >= 200 && bottom < 240) bottom -= 70;
-      if (bottom >= 240) bottom -= 150;
-      // left = 1000;
-      modalTypeToOpen = (
-        <ModalLabelCreate
-          task={task}
-          onCloseModal={onCloseModal}
-        />
-      );
+      cmp = <ModalLabelCreate {...modal.props} />
       break;
     case "Change label":
-      if (bottom >= 500 && bottom < 600) bottom -= 300;
-      // left = 1000;
-      modalTypeToOpen = (
-        <ModalLabelChange
-          task={task}
-          labels={labels}
-          editLabel={editLabel.current}
-          onCloseModal={onCloseModal}
-        />
-      )
+      cmp =
+        <ModalLabelChange{...modal.props} editLabel={editLabel.current} />
+      // <ModalLabelChange task={task}labels={labels}editLabel={editLabel.current}onCloseModal={onCloseModal}/>
       break;
     case 'attachment-delete':
-      modalTypeToOpen = (
-        <AttachmentDelete onRemoveAttachment={onRemoveAttachment} />
-      )
+      cmp =
+        <AttachmentDelete {...modal.props} />
+      // <AttachmentDelete onRemoveAttachment={onRemoveAttachment} />
       break
     case 'checklist-delete':
-      modalTypeToOpen = (
-        <ChecklistDelete onRemoveChecklist={onRemoveChecklist} checklist={checklist} />
-      )
+      cmp =
+        <ChecklistDelete{...modal.props} />
+      // <ChecklistDelete onRemoveChecklist={onRemoveChecklist} checklist={checklist} />
       break
     case 'task-delete':
-      if (bottom >= 380) bottom -= 105;
-      if (bottom >= 170 && bottom < 200) bottom -= 50;
-      left = 1000;
-      modalTypeToOpen = (
-        <TaskDelete OnDelete={OnDelete} />
-      )
+      cmp =
+        <TaskDelete {...modal.props} />
+      // <TaskDelete OnDelete={OnDelete} />
       break
     case 'date-delete':
-      if (bottom >= 380) bottom -= 105;
-      if (bottom >= 170 && bottom < 200) bottom -= 50;
-      left = 1000;
-      modalTypeToOpen = (
-        <DateDelete onRemove={onRemove} />
-      )
+      cmp =
+        <DateDelete {...modal.props} />
+      // <DateDelete onRemove={onRemove} />
       break
     case 'Img modal':
-      modalTypeToOpen = (
-        <ImgModal member={member} />
-      )
+      cmp =
+        <ImgModal {...modal.props} />
+      // <ImgModal member={member} />
       break
-    case `${isMove ? 'Move card' : 'Copy card'}`:
-      if (bottom >= 200 && bottom < 300) bottom -= 200;
-      if (bottom >= 300 && bottom < 400) bottom -= 300;
-      if (bottom >= 400 && bottom < 500) bottom -= 350;
-      if (bottom >= 500 && bottom < 600) bottom -= 400;
-      if (bottom >= 600 && bottom < 700) bottom -= 450;
-      if (bottom >= 700) bottom -= 460;
-      modalTypeToOpen = (
-        <CopyModal task={task} group={group} toggleModal={toggleModal} isMove={isMove} event={event} />
-      )
+    case 'Copy card':
+      cmp = <CopyModal {...modal.props} />
+      break
+    case 'Move card':
+      cmp = <CopyModal {...modal.props} />
+      // <CopyModal task={task} group={group} isMove={isMove} event={event} />
       break
     case 'Attachment edit':
-      modalTypeToOpen = (
-        <AttachmentEdit editTitle={editTitle} attachmentTitle={attachmentTitle}/>
-      )
+      cmp =
+        <AttachmentEdit {...modal.props} />
+      // <AttachmentEdit editTitle={editTitle} attachmentTitle={attachmentTitle} />
+      break
+    case 'Create':
+      cmp = <CreateModal{...modal.props} />
+      break
+    case 'Share':
+      cmp = <ShareModal{...modal.props} />
       break
   }
 
+  const onOpenModal = (ev, category) => {
+    ev.stopPropagation()
+    dispatch(
+      setModal({
+        element: modal.element,
+        category,
+        title: category,
+        props: {
+          ...modal.props,
+        },
+      })
+    )
+  }
+
+
   return (
     <div
-      className={`modal-container ${modalClasses}`}
-      style={
-        modalTitle === "Menu"
-          ? {
-            top: bottom,
-            right: 0, // when menu open
-            width: width || "304px",
-          }
-          : {
-            top: bottom,
-            left: left,
-            width: width || "304px",
-            height: height || ""
-          }
-      }
-    // style={getModalPositionStyle()}
+      className={`dynamic-modal ${modal.category === 'task-filter' ? 'wide' : modal.category === 'dashboard' ? 'wide-dashboard' : ''}`}
+      style={{ ...position }}
+      ref={modalRef}
+      onClick={(e) => e.stopPropagation()}
     >
-      <div className="modal-header-wrapper">
-        <div className="modal-header">
-          {modalTitle}
-          <span onClick={onCloseModal} className="modal-close-btn">
-            <IoMdClose />
-          </span>
-        </div>
-      </div>
-      <div className="modal-content-wrapper">{modalTypeToOpen}</div>
+      {modal.category !== 'member-actions' && (
+        <header>
+          {modal.category === 'Create label' && (
+            <button ref={buttonRef} onClick={(ev) => onOpenModal(ev, 'Labels')} className="sidebar-icon-left">
+              <span>
+                <IoIosArrowBack />
+              </span>
+            </button>
+          )}
+          {modal.category === 'Change label' && (
+            <button ref={buttonRef} onClick={(ev) => onOpenModal(ev, 'Labels')} className="sidebar-icon-left">
+              <span>
+                <IoIosArrowBack />
+              </span>
+            </button>
+          )}
+          <div className="label">{modal.title ? modal.title : modal.category}</div>
+          <button className="sidebar-icon-right" onClick={() => dispatch(setModal(null))}>
+            <span>
+              <CgClose />
+            </span>
+          </button>
+        </header>
+      )}
+      <main className="main-modal">{cmp}</main>
     </div>
   )
 }
-
-// props:
-// {
-//   component functions and props
-//   component(s) to render
-//   modalTitle
-// height, width, modal size
-// button size: to subtract half of the button size from the top so it will open under the button
-//   *** assuming the event opens in the middle of the button
-//  top subtract button size from it and make it the start point
-// }
-
-// add title, add title style
-//
-
-// DEFAULT WIDTH SHOULD BE 304PX

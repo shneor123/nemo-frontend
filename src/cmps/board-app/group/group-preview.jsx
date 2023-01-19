@@ -7,20 +7,18 @@ import { IoAdd } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 
 import { TaskList } from "../task/task-list";
-import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 import { removeGroup, saveGroup } from "../../../store/actions/group.action";
 import { saveTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/basic/user.service";
 import { useForm } from "../../../hooks/useForm";
+import { setModal } from "../../../store/actions/app.actions";
 
 export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, boardMembers }) => {
   let { filterBy } = useSelector((storeState) => storeState.boardModule);
-  const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddTask, setIsAddTask] = useState(false);
-  const modalDetails = useRef();
-  const modalTitle = useRef();
+  const dispatch = useDispatch()
   const addTaskRef = useRef()
+  const actionsRef = useRef()
   const [fields, handleChange, clearFields] = useForm({
     newTaskTitle: "",
     groupTitle: group.title,
@@ -57,7 +55,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
         byMember: userService.getLoggedinUser() || {
           username: "guest",
           fullname: "guest",
-          imgUrl:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         },
       };
       const taskToAdd = { title: fields.newTaskTitle };
@@ -67,18 +65,9 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
     handleBackClick();
   };
 
-  const onCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-    }
-    modalTitle.current = txt;
-    modalDetails.current = ev.target.getBoundingClientRect();
-    setIsModalOpen(true);
-  };
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
+  }
 
   const tasksToShow = () => {
     let taskToShow = group.tasks;
@@ -106,27 +95,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
 
   return (
     <>
-      {/* <Draggable draggableId={group.id} index={index}>
-    {(provided) => (
-      <div
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        ref={provided.innerRef}
-        className="group-preview-wrapper"
-      >
-        <section className="group-preview"> */}
-
       <div className="group-preview-wrapper">
-        {isModalOpen && (
-          <DynamicModalCmp
-            modalDetails={modalDetails.current}
-            modalTitle={modalTitle.current}
-            onCloseModal={onCloseModal}
-            onRemoveGroup={onRemoveGroup}
-            width={'200px'}
-            height={'110px'}
-          />
-        )}
         <Draggable draggableId={group.id} index={index}>
           {(provided) => (
             <section
@@ -144,10 +113,16 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
                   value={fields.groupTitle}
                   onChange={handleChange}
                 />
-                <div className="add-action" onClick={isModalOpen ? onCloseModal : (ev) => onOpenModal(ev, 'Actions')}>
-                  <MdMoreHoriz />
+                <div className="add-action" ref={actionsRef}
+                  onClick={(ev) =>
+                    onOpenModal(ev, {
+                      element: actionsRef.current,
+                      category: 'Actions',
+                      title: 'Actions',
+                      props: { onRemoveGroup },
+                    })
+                  }><MdMoreHoriz />
                 </div>
-
 
               </div>
               <div className="task-wrapper">

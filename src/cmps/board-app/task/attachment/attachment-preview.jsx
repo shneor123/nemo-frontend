@@ -4,14 +4,14 @@ import { utilService } from '../../../../services/basic/util.service'
 import { saveTask } from '../../../../store/actions/task.action'
 import { BsSquareHalf } from "react-icons/bs"
 import { userService } from '../../../../services/basic/user.service'
-import { DynamicModalCmp } from '../../../general/dynamic-modal-cmp'
+import { setModal } from '../../../../store/actions/app.actions'
+
 export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
-    const [newTask, setNewTask] = useState(task)
     const [attachmentTitle, setAttachmentTitle] = useState(attachment.name)
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [newTask, setNewTask] = useState(task)
     const dispatch = useDispatch()
-    const modalDetails = useRef()
-    const modalTitle = useRef()
+    const deleteRef = useRef()
+    const editRef = useRef()
 
     const onRemoveAttachment = () => {
         const { name } = attachment;
@@ -52,74 +52,47 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
         updateTask({ ...newTask })
     }
 
-    // const toggleAttachmentCover = () => {
-    //     if (attachment.url === task.style.backgroundImage.url) {
-    //         const newTaskStyle = { ...task.style, backgroundImage: { title: '', url: null }, backgroundColor: null }
-    //         const taskToUpdate = { ...task, style: newTaskStyle }
-    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate));
-    //     } else {
-    //         const { url, name } = attachment
-    //         const newTaskStyle = { ...task.style, backgroundImage: { title: name, url }, backgroundColor: null }
-    //         const taskToUpdate = { ...task, style: newTaskStyle }
-    //         const activityTxt = `added the attachment ${name}`
-    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate, activityTxt));
-    //     }
-    // }
-
-
-
-
-
-
-
     const updateTask = (updatedTask) => {
         task.attachment = updatedTask
         dispatch(saveTask(task, boardId, groupId))
     }
 
-    const onCloseModal = () => {
-        setIsModalOpen(false)
+    const onOpenModal = (ev, modal) => {
+        dispatch(setModal(modal))
     }
-    const onOpenModal = (ev, txt) => {
-        if (isModalOpen) {
-            setIsModalOpen(false)
-        }
-        modalTitle.current = txt
-        modalDetails.current = ev.target.getBoundingClientRect()
-        setIsModalOpen(true)
-    }
+
     return (
         <>
             <div className='attachment-preview-container' >
-                {isModalOpen && (
-                    <DynamicModalCmp
-                        modalDetails={modalDetails.current}
-                        modalTitle={modalTitle.current}
-                        type={modalTitle}
-                        onCloseModal={onCloseModal}
-                        attachment={attachment}
-                        attachmentTitle={attachmentTitle}
-                        editTitle={editTitle}
-                        onRemoveAttachment={onRemoveAttachment}
-                    />
-                )}
-                <img className='attachment-preview-img' src={attachment.url} />
                 <a className='attachment-preview-img'
                     style={{ backgroundImage: `url(${attachment.url})` }}
                     href={attachment.url} target={'_blank'}>
+                <img className='attachment-preview-img' src={attachment.url} />
                 </a>
                 <div className='attachment-details'>
                     <span className='attachment-name'>{attachment.name}</span>
                     <div className='actions-container'>
                         <span>{utilService.timeSince(attachment.createdAt)}</span>
                         <span> -</span>
-                        <span className='action-btn' onClick={(ev) => { onOpenModal(ev, 'attachment-delete') }}>Delete</span>
+                        <span className='action-btn' ref={deleteRef}
+                            onClick={(ev) => onOpenModal(ev, {
+                                element: deleteRef.current,
+                                category: 'attachment-delete',
+                                title: 'attachment-delete',
+                                props: { element: deleteRef.current, attachment, attachmentTitle, editTitle, onRemoveAttachment },
+                            })}>Delete</span>
                         <span> -</span>
-                        <span className='action-btn' onClick={(ev) => { onOpenModal(ev, 'Attachment edit') }}>Edit</span>
+                        <span className='action-btn' ref={editRef}
+                            onClick={(ev) => onOpenModal(ev, {
+                                element: editRef.current,
+                                category: 'Attachment edit',
+                                title: 'Attachment edit',
+                                props: { element: editRef.current, attachment, attachmentTitle, editTitle, onRemoveAttachment },
+                            })}>Edit</span>
                         <span> - </span>
                     </div>
                     <span className='actions-container action-btn'
-                        onClick={() => { toggleAttachmentCover()}}>
+                        onClick={() => { toggleAttachmentCover() }}>
 
                         <BsSquareHalf style={{ transform: `rotate(270deg)`, height: '10px' }} />
                         {(attachment.url === task.style.imgUrl) ? 'Remove' : 'Make'} Cover</span>

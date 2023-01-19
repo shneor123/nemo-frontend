@@ -146,8 +146,11 @@
   position: relative;
   overflow: hidden;
   padding-left: 8px;
-  background-color: #FFFFFF;
-  color: #000000;
+  // background-color: #FFFFFF;
+  background-color: #0079bf;
+  text-decoration: none;
+  box-shadow: none;
+  color: #ffffff;
   margin-bottom: 0px;
   display: flex;
   justify-content: space-between;
@@ -157,7 +160,7 @@
   margin-top: 2px;
 
   &:hover {
-    background-color: #ffffffe6;
+    background-color: #026aa7;
   }
 
   svg {

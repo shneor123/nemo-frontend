@@ -1,12 +1,17 @@
 import React, { useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { boardService } from '../../services/board/board.service'
+import { setModal } from '../../store/actions/app.actions'
 
-export const ModalLabelChange = ({ task, editLabel, labels }) => {
-  const searchInput = useRef(null)
+export const ModalLabelChange = ({ task, editLabel, labels, boardId, groupId, element }) => {
+  const { board } = useSelector((storeState) => storeState.boardModule)
   const [labelName, setLabelName] = useState(editLabel.title)
   const [color, setColor] = useState(editLabel.color)
-  const { board } = useSelector((storeState) => storeState.boardModule)
+  const { modal } = useSelector(({ appModule }) => appModule)
+
+  const dispatch = useDispatch()
+  const searchInput = useRef(null)
 
   if (!editLabel) return
   if (!task) return
@@ -14,16 +19,15 @@ export const ModalLabelChange = ({ task, editLabel, labels }) => {
 
   const onSave = (ev) => {
     ev.preventDefault()
-    const boardLabelIdx = board.labels.findIndex((boardLabel) => boardLabel._id === editLabel.id)
+    const boardLabelIdx = board.labels.findIndex((boardLabel) => boardLabel.id === editLabel.id)
     board.labels[boardLabelIdx] = {
       id: editLabel.id,
       title: labelName,
       color: color,
     }
+    onCloseModal('Labels')
     onUpdateBoard(board)
   }
-
-
 
   const onUpdateBoard = async (updatedBoard) => {
     try {
@@ -35,9 +39,8 @@ export const ModalLabelChange = ({ task, editLabel, labels }) => {
 
   const onDelete = (ev) => {
     ev.preventDefault()
-    const boardLabelIdx = board.labels.findIndex((boardLabel) => boardLabel._id === editLabel.id)
+    const boardLabelIdx = board.labels.findIndex((boardLabel) => boardLabel.id === editLabel.id)
     board.labels.splice(boardLabelIdx, 1)
-
     for (let i = 0; i < board.groups.length; i++) {
       const group = board.groups[i]
       for (let j = 0; j < group.tasks.length; j++) {
@@ -50,6 +53,7 @@ export const ModalLabelChange = ({ task, editLabel, labels }) => {
         }
       }
     }
+    onCloseModal('Labels')
     onUpdateBoard(board)
   }
 
@@ -59,6 +63,10 @@ export const ModalLabelChange = ({ task, editLabel, labels }) => {
 
   const handleChange = ({ target }) => {
     setLabelName(target.value)
+  }
+
+  const onCloseModal = () => {
+    dispatch(setModal(null))
   }
 
   return (

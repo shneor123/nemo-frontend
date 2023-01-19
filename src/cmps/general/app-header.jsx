@@ -4,54 +4,63 @@ import { NavLink, useLocation } from "react-router-dom"
 import { useNavigate } from "react-router"
 import { gapi } from "gapi-script";
 
-import { DynamicModalCmp } from "../../cmps/general/dynamic-modal-cmp"
 import { utilService } from "../../services/basic/util.service";
 import Logole from "../../assets/img/ttttCapture.PNG"
+import { useDispatch } from "react-redux";
+import { setModal } from "../../store/actions/app.actions";
 
 export const AppHeader = () => {
   const { user } = useSelector((storeState) => storeState.userModule)
   const { board } = useSelector((storeState) => storeState.boardModule)
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const modalDetails = useRef()
-  const modalTitle = useRef()
+  const dispatch = useDispatch()
+  const profileRef = useRef()
+  const createRef = useRef()
 
-  let routeClass
   let googleUser
+  let routeClass
 
   useEffect(() => {
     if (pathname !== "/" && pathname !== "/login" && pathname !== "/signup") {
       const auth2 = gapi?.auth2?.getAuthInstance()
       const profile = auth2?.currentUser?.get().getBasicProfile()
-      // googleUser = profile?.getName()
-      googleUser = profile?.getImageUrl()
-      // console.log(googleUser)
+      googleUser = profile?.getName()
+      // googleUser = profile?.getImageUrl()
     }
   }, [pathname])
-  const auth2 = gapi?.auth2?.getAuthInstance()
-  const profile = auth2?.currentUser?.get().getBasicProfile()
-  googleUser = profile?.getImageUrl()
 
+  const isHome = pathname === '/'
+  useEffect(() => {
+    if (isHome) window.addEventListener('scroll', checkScroll)
+    return () => {
+      window.removeEventListener('scroll', checkScroll)
+    }
+  }, [isHome])
+
+  const checkScroll = () => {
+    if (window.pageYOffset > 0) return setIsScrolled(true)
+    setIsScrolled(false)
+  }
   if (pathname === "/") routeClass = "-home"
-  if (pathname === "/login" || pathname === "/signup")
-    routeClass = "-login-signup"
+  if (pathname === "/login" || pathname === "/signup") routeClass = "-login-signup"
   if (pathname === "/workspace") routeClass = "-workspace"
   if (pathname.includes("/board")) routeClass = "-workspace"
-  if (window.pageYOffset >=0) routeClass += ' scrolled'
+  if (window.pageYOffset > 0) routeClass += ' scrolled'
 
-
-  const onCloseModal = () => {
-    setIsModalOpen(false);
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
   }
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false)
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect()
-    setIsModalOpen(true)
+  const onModal = (category) => {
+    dispatch(
+      setModal({
+        element: createRef.current,
+        category,
+        title: category,
+        position: utilService.getPosition(createRef.current),
+      })
+    )
   }
 
   return (
@@ -61,8 +70,7 @@ export const AppHeader = () => {
           ? { ...board?.style, filter: "brightness(0.9)" }
           : {}
       }
-      className={`app-header${routeClass}`}
-    >
+      className={`app-header${routeClass} } ${isScrolled ? 'scrolled' : ''}`}>
       {pathname === "/" && (
         <nav className='nav-bar flex justify-between align-center'>
           <div className='logo-container'>
@@ -82,46 +90,44 @@ export const AppHeader = () => {
 
       {pathname !== "/" && (
         <nav className='nav-bar'>
-          <div
-
-            className='trello-logo-after-login-container'
-          >
+          <div className='trello-logo-after-login-container'>
             <div className="logo-continor wobble-top-on-hover" >
-              <svg onClick={() => navigate("/")}
-                className='trello-logo-after-login'
-                stroke='currentColor'
-                fill='currentColor'
-                strokeWidth='0'
-                version='1.1'
-                viewBox='0 0 16 16'
-                height='1em'
-                width='1em'
-                xmlns='http://www.w3.org/2000/svg'
-              >
+              <svg onClick={() => navigate("/")} className='trello-logo-after-login'
+                stroke='currentColor' fill='currentColor' strokeWidth='0' version='1.1' viewBox='0 0 16 16' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'>
                 <path d='M14.5 0h-13c-0.825 0-1.5 0.675-1.5 1.5v13c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-13c0-0.825-0.675-1.5-1.5-1.5zM7 12c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-8c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v8zM13 9c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-5c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v5z'></path>
               </svg>
               <h1 onClick={() => navigate("/")} className='trello-logo-after-login-title'>Nemo</h1>
             </div>
+
             <NavLink to={"/workspace"} className="workspace-link"> Workspaces </NavLink>
+            {!isHome && (
+              <div className="workspace-create" ref={createRef}
+                onClick={(ev) => {
+                  ev.stopPropagation()
+                  onModal('Create')
+                }}>Create</div>
+            )}
           </div>
-          {isModalOpen && (
-            <DynamicModalCmp
-              modalDetails={modalDetails.current}
-              modalTitle={modalTitle.current}
-              type={modalTitle}
-              user={user}
-              onCloseModal={onCloseModal}
-            />
+          {!isHome && (
+            <div className="user-img-container" ref={profileRef}
+              onClick={(ev) =>
+                onOpenModal(ev, {
+                  category: 'account actions',
+                  title: 'Account',
+                  element: profileRef.current,
+                  props: { user },
+                })}>
+
+              {user &&
+                (user?.imgUrl ? (
+                  <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
+                ) : (
+                  <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
+                ))}
+              {!user && <span className="user-initial"></span>}
+            </div>
           )}
-          <div className="user-img-container" onClick={(ev) => { onOpenModal(ev, 'account actions') }}>
-            {user &&
-              (user?.imgUrl ? (
-                <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
-              ) : (
-                <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
-              ))}
-            {!user && <span className="user-initial"></span>}
-          </div>
+
         </nav>
       )}
     </header>

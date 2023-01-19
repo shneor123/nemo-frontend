@@ -1,21 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-
-import { utilService } from '../../../services/basic/util.service'
-
 import FastAverageColor from 'fast-average-color'
 import { FaWindowMaximize } from 'react-icons/fa'
-import { VscClose } from 'react-icons/vsc'
-import { DynamicModalCmp } from '../../general/dynamic-modal-cmp'
+import { utilService } from '../../../services/basic/util.service'
+import { setModal } from '../../../store/actions/app.actions'
 
 export function TaskDetailsCover({ task, boardId, groupId }) {
-  const modalDetails = useRef()
-  const modalTitle = useRef()
   const buttonRef = useRef()
+  const dispatch = useDispatch()
   const [bgColor, setBgColor] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isFullScreen, setIsFullScreen] = useState(false)
-
 
   const fac = new FastAverageColor()
 
@@ -37,37 +31,23 @@ export function TaskDetailsCover({ task, boardId, groupId }) {
     setIsFullScreen(!isFullScreen)
   }
 
-  const onCloseModal = () => {
-    setIsModalOpen(false)
-  };
+  const onOpenModal = (e) => {
+    e.stopPropagation()
+    dispatch(
+      setModal({
+        element: buttonRef.current,
+        category: 'Cover',
+        title: 'Cover',
+        props: { element: buttonRef.current, boardId, groupId, task },
 
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false)
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect()
-    setIsModalOpen(true)
+      })
+    )
   }
-
   return (
     <header>
-      {isModalOpen && (
-        <DynamicModalCmp
-          modalDetails={modalDetails.current}
-          modalTitle={modalTitle.current}
-          type={modalTitle}
-          boardId={boardId}
-          groupId={groupId}
-          task={task}
-          onCloseModal={onCloseModal}
-        />
-      )}
       {task?.style?.bgColor && (
         <div className="task-details-cover color" style={{ backgroundColor: `${task.style.bgColor}` }}>
-          <button
-            ref={buttonRef} onClick={(ev) => { onOpenModal(ev, 'Cover') }}>
-            {' '}<FaWindowMaximize /> Cover{' '}
+          <button ref={buttonRef}> <FaWindowMaximize /> Cover{' '}
           </button>
         </div>
       )}
@@ -77,7 +57,7 @@ export function TaskDetailsCover({ task, boardId, groupId }) {
           onClick={onFullScreen}
           style={{ backgroundColor: bgColor, backgroundImage: `url('${task.style.imgUrl}')` }}
         >
-          <button ref={buttonRef} onClick={(ev) => { onOpenModal(ev, 'Cover') }}>
+          <button ref={buttonRef} onClick={onOpenModal}>
             <FaWindowMaximize /> Cover
           </button>
         </div>
@@ -87,13 +67,13 @@ export function TaskDetailsCover({ task, boardId, groupId }) {
           <video height="160" width="100%" muted controls>
             <source src={task.style.imgUrl} type="video/mp4"></source>
           </video>
-          <button ref={buttonRef} onClick={(ev) => { onOpenModal(ev, 'Cover') }}>
+          <button ref={buttonRef} onClick={onOpenModal}>
             <FaWindowMaximize />Cover
           </button>
         </div>
       )}
 
-      
+
       {/* {isFullScreen && (
         <div className="background-blur" onClick={onGoBack}>
           <button className="go-back-button" onClick={onGoBack}>

@@ -163,9 +163,9 @@ function timeSince(date) {
 
 function getInitials(name) {
   const initials = name
-    // .split(' ')
-    // .map((word) => word[0])
-    // .join('')
+    .split(' ')
+    .map((word) => word[0])
+    .join('')
   return initials
 }
 

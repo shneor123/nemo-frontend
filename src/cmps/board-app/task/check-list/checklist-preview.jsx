@@ -6,11 +6,10 @@ import { TodosList } from './todo-list'
 import { saveChecklist } from '../../../../store/actions/checklist.action';
 import { ChecklistProgressBar } from './checklist-progress'
 import { useForm } from '../../../../hooks/useForm';
-import { DynamicModalCmp } from "../../../general/dynamic-modal-cmp";
-
-
+import { setModal } from "../../../../store/actions/app.actions";
 
 export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, groupId }) => {
+    const checklistRef = useRef()
     const dispatch = useDispatch()
     const [isEditOpen, setIsEditOpen] = useState(false)
     const [fields, handleChange] = useForm({ title: checklist.title });
@@ -20,38 +19,12 @@ export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, 
         dispatch(saveChecklist(checklist, boardId, groupId, task.id));
     }
 
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const modalDetails = useRef()
-    const modalTitle = useRef()
-
-    const onCloseModal = () => {
-        setIsModalOpen(false)
-    };
-
-    const onOpenModal = (ev, txt) => {
-        if (isModalOpen) {
-            setIsModalOpen(false)
-        }
-        modalTitle.current = txt
-        modalDetails.current = ev.target.getBoundingClientRect()
-        setIsModalOpen(true)
+    const onOpenModal = (ev, modal) => {
+        dispatch(setModal(modal))
     }
-
-
 
     return (
         <section className="checklist-preview ">
-            {isModalOpen && (
-                <DynamicModalCmp
-                    modalDetails={modalDetails.current}
-                    modalTitle={modalTitle.current}
-                    type={modalTitle}
-                    onCloseModal={onCloseModal}
-                    onRemoveChecklist={onRemoveChecklist}
-                    checklist={checklist}
-                />
-            )}
             <div className='title-container  '>
                 <div className='checklist-title'><span className='icon-check'><IoMdCheckboxOutline /></span>
                     <form >
@@ -70,8 +43,15 @@ export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, 
                             </span>
                         </div>}
                     </form>
-                    <div className='checklist-delete'>
-                        <button onClick={(ev) => { onOpenModal(ev, 'checklist-delete') }}>Delete</button>
+                    <div className='checklist-delete' ref={checklistRef}>
+                        <button onClick={(ev) => onOpenModal(ev, {
+                            element: checklistRef.current,
+                            category: 'checklist-delete',
+                            title: 'checklist-delete',
+                            props: { element: checklistRef.current, onRemoveChecklist, checklist },
+                        })}>
+
+                            Delete</button>
                     </div>
                 </div>
             </div>

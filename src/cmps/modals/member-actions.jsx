@@ -1,9 +1,12 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
+import { useDispatch } from "react-redux"
 import { utilService } from "../../services/basic/util.service"
 import { boardService } from "../../services/board/board.service"
-import { DynamicModalCmp } from "../../cmps/general/dynamic-modal-cmp"
+import { setModal } from "../../store/actions/app.actions"
 
 export const MemberActions = ({ task, member, board }) => {
+  const imgRef = useRef()
+  const dispatch = useDispatch()
 
   const onRemoveMember = () => {
     const memberIdx = board.members.findIndex((boardMember) => boardMember.id === member._id)
@@ -28,38 +31,21 @@ export const MemberActions = ({ task, member, board }) => {
     }
   }
 
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const modalDetails = useRef()
-  const modalTitle = useRef()
-
-  const onCloseModal = () => {
-    setIsModalOpen(false)
-  };
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false)
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect()
-    setIsModalOpen(true)
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
   }
 
   return (
     <div className="member-actions">
-      {isModalOpen && (
-        <DynamicModalCmp
-          modalDetails={modalDetails.current}
-          modalTitle={modalTitle.current}
-          member={member}
-          onCloseModal={onCloseModal}
-        />
-      )}
       <div className="member-info">
-        <div className="member-img-container">
+        <div className="member-img-container" ref={imgRef}>
           {member?.imgUrl ? (
-            <div onClick={(ev) => { onOpenModal(ev, 'Img modal') }}>
+            <div onClick={(ev) => onOpenModal(ev, {
+              element: imgRef.current,
+              category: 'Img modal',
+              title: 'Img modal',
+              props: { element: imgRef.current, member },
+            })}>
               <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
             </div>
           ) : (
@@ -68,8 +54,8 @@ export const MemberActions = ({ task, member, board }) => {
         </div>
 
         <div className="member-name">
-          <h1 className="member-fullname">{utilService.getInitials(member.fullname)}</h1>
-          <h2 className="member-username">{utilService.getInitials(member.username)}</h2>
+          <h1 className="member-fullname">{member.fullname}</h1>
+          <h2 className="member-username">{member.username}</h2>
         </div>
       </div>
       <button className="remove-btn" onClick={onRemoveMember}>

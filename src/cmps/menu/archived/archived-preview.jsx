@@ -2,15 +2,15 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { utilService } from '../../../services/basic/util.service'
 import { TaskPreviewIcons } from './task-preview-icons'
-import { DynamicModalCmp } from '../../general/dynamic-modal-cmp'
+import { setModal } from '../../../store/actions/app.actions'
+import { useDispatch } from 'react-redux'
 
-export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+export const ArchivedPreview = ({ task, groupId, board, onUpdateBoard }) => {
   const [updatedTask, setUpdatedTask] = useState(task)
   const navigate = useNavigate()
-  const modalDetails = useRef()
-  const modalTitle = useRef()
+  const dispatch = useDispatch()
   const taskRef = useRef()
+  const deleteRef = useRef()
 
   const onOpenDetails = (ev) => {
     ev.stopPropagation()
@@ -98,30 +98,12 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
     onUpdateBoard(board)
   }
 
-  const onCloseModal = () => {
-    setIsModalOpen(false)
-  }
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false)
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect()
-    setIsModalOpen(true)
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
   }
 
   return (
     <div className="task-preview">
-      {isModalOpen && (
-        <DynamicModalCmp
-          modalDetails={modalDetails.current}
-          modalTitle={modalTitle.current}
-          type={modalTitle}
-          OnDelete={OnDelete}
-          onCloseModal={onCloseModal}
-        />
-      )}
       <div ref={taskRef}>
         <section className={`${getTaskClass()}`} onClick={onOpenDetails} style={getTaskStyle()}>
           {!task.style.coverSize && task.style.imgUrl && (
@@ -144,8 +126,13 @@ export const ArchivedPreview = ({ task, groupId, index, board, onUpdateBoard }) 
       <div className="edit">
         <a onClick={OnSentToBoard}>Send to board</a>
         <span>
-          <a onClick={(ev) => { onOpenModal(ev, 'task-delete') }}>
-            <span>Delete</span>
+          <a ref={deleteRef}
+            onClick={(ev) => onOpenModal(ev, {
+              element: deleteRef.current,
+              category: 'task-delete',
+              title: 'task-delete',
+              props: { element: deleteRef.current, OnDelete },
+            })}><span>Delete</span>
           </a>
         </span>
       </div>

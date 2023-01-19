@@ -1,45 +1,36 @@
 import { useRef, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { utilService } from '../../services/basic/util.service';
-import { DynamicModalCmp } from '../general/dynamic-modal-cmp'
+import { setModal } from '../../store/actions/app.actions';
 
 export const MemberPreview = ({ member, task, board, }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState(null)
-  const modalDetails = useRef();
+  const memberActionRef = useRef()
+  const dispatch = useDispatch()
 
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-    }
-    modalDetails.current = ev.target.getBoundingClientRect();
-    setModalTitle(txt)
-    setIsModalOpen(true);
-  };
-
-  const onCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
+  }
 
   return (
     <>
-      {isModalOpen && (
-        <DynamicModalCmp
-          modalDetails={modalDetails.current}
-          modalTitle={modalTitle}
-          member={member}
-          onCloseModal={onCloseModal}
-          task={task}
-          board={board}
-
-        />
-      )}
       <div className="member-img-container" >
         {member?.imgUrl ? (
-          <div onClick={(ev) => onOpenModal(ev, 'member actions')}>
+          <div ref={memberActionRef} onClick={(ev) => onOpenModal(ev, {
+            element: memberActionRef.current,
+            category: 'member actions',
+            title: 'member actions',
+            props: { element: memberActionRef.current, member, task, board },
+          })}>
             <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
           </div>
         ) : (
-          <div onClick={(ev) => onOpenModal(ev, 'member actions')} className="member-img">
+          <div className="member-img" ref={memberActionRef}
+            onClick={(ev) => onOpenModal(ev, {
+              element: memberActionRef.current,
+              category: 'member actions',
+              title: 'member actions',
+              props: { element: memberActionRef.current, member, task, board },
+            })}>
             {utilService.getInitials(member.fullname)}
           </div>
         )}

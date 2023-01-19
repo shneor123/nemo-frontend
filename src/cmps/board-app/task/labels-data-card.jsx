@@ -1,41 +1,20 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../../store/actions/app.actions";
 import { FiPlus } from "react-icons/fi";
-import { DynamicModalCmp } from "../../general/dynamic-modal-cmp";
 
 export const LabelsDataCard = ({ board, task, labels, boardId, groupId }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const modalDetails = useRef()
-  const modalTitle = useRef()
+  const labelsRef = useRef()
+  const dispatch = useDispatch()
 
-  const onCloseModal = () => {
-    setIsModalOpen(false)
-  }
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false)
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect()
-    setIsModalOpen(true)
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
   }
 
   if (!task.labelIds || !task.labelIds.length) return;
   const labelsToRender = labels.filter(label => task.labelIds.includes(label.id))
   return (
     <div className="label-data">
-      {isModalOpen && (
-        <DynamicModalCmp
-          modalDetails={modalDetails.current}
-          modalTitle={modalTitle.current}
-          boardId={boardId}
-          groupId={groupId}
-          task={task}
-          board={board}
-          labels={labels}
-          type={modalTitle}
-          onCloseModal={onCloseModal}
-        />
-      )}
       <h3 className="data-gutter-card-title">Labels</h3>
       {labelsToRender.map((label) => {
         return (
@@ -49,7 +28,13 @@ export const LabelsDataCard = ({ board, task, labels, boardId, groupId }) => {
         );
       }
       )}
-      <div className="add-data-gutter-btn" onClick={(ev) => { onOpenModal(ev, 'Labels') }}>
+      <div className="add-data-gutter-btn" ref={labelsRef}
+        onClick={(ev) => onOpenModal(ev, {
+          element: labelsRef.current,
+          category: 'Labels',
+          title: 'Labels',
+          props: { element: labelsRef.current, boardId, groupId, task, board, labels },
+        })}>
         <FiPlus />
       </div>
     </div>

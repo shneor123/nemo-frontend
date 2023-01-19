@@ -8,10 +8,11 @@ import { taskService } from '../../services/board/task.service'
 
 export const CoverModal = ({ boardId, groupId, task }) => {
     const [isOnPreviewTextColor, setIsOnPreviewTextColor] = useState(false)
-    const [newTask, setNewTask] = useState(task)
     const [isCover, setIsCover] = useState(task.style.isCover || '')
+    const [newTask, setNewTask] = useState(task)
     const dispatch = useDispatch()
     const fileURL = ''
+
 
 
     const onPreviewTextColor = (bool) => {

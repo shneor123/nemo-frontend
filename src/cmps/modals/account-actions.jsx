@@ -26,15 +26,15 @@ export const AccountActions = ({ user }) => {
         <div className="account-img-container">
           {user?.imgUrl ? (
             <Link to={'/users'}>
-              <img src={user.imgUrl} alt={user.fullName} className="account-img" />
+              <img src={user.imgUrl} alt={user.fullname} className="account-img" />
             </Link>
           ) : (
             <a className="account">{utilService.getInitials(user.fullname)}</a>
           )}
         </div>
         <div className="credentials">
-          <h2 className="fullname">{utilService.getInitials(user.fullname)}</h2>
-          <h3 className="username">{utilService.getInitials(user.username)}</h3>
+          <h2 className="fullname">{user.fullname}</h2>
+          <h3 className="username">{user.username}</h3>
         </div>
       </div>
       <hr />

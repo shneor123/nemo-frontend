@@ -1,34 +1,24 @@
 
-import { useRef, useState } from "react";
-import { DynamicModalCmp } from "../general/dynamic-modal-cmp";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../store/actions/app.actions";
 
 export function CreateNewBoard() {
+  const newRef = useRef()
+  const dispatch = useDispatch()
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalDetails = useRef();
-  const modalTitle = useRef();
-
-  const onCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect();
-    setIsModalOpen(true);
-  };
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
+  }
 
   return (
     <div className="new-board-container">
-      {isModalOpen && (<DynamicModalCmp
-        modalDetails={modalDetails.current}
-        modalTitle={modalTitle.current}
-        onCloseModal={onCloseModal}
-      />)}
-      <div className="new-board-preview" onClick={(ev) => onOpenModal(ev, 'Create Board')} >
+      <div className="new-board-preview" ref={newRef} onClick={(ev) => onOpenModal(ev, {
+        element: newRef.current,
+        category: 'Create Board',
+        title: 'Create Board',
+        props: { element: newRef.current },
+      })}>
         <div className="board-details" >
           <span className="board-title">Create new board</span>
         </div>

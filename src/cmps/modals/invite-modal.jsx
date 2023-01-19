@@ -2,56 +2,115 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 import { useDispatch } from "react-redux";
 import { utilService } from "../../services/basic/util.service";
+import { boardService } from "../../services/board/board.service";
 import { addUserToBoard } from "../../store/actions/board.action";
+import { BsCheck2 } from 'react-icons/bs'
 
 
-export const InviteModal = ({ boardId, users, boardMembers }) => {
+export const InviteModal = ({ boardId, users, boardMembers, board, deleteMemberFromBoard }) => {
   const dispatch = useDispatch()
   const [isQRShown, setIsQRShown] = useState(false);
-  const boardMemberIds = boardMembers.map(boardMember => boardMember = boardMember._id)
-  const usersToInvite = users.filter(user => !boardMemberIds.includes(user._id))
+  // const boardMemberIds = boardMembers.map(boardMember => boardMember = boardMember._id)
+  // const usersToInvite = users.filter(user => !boardMemberIds.includes(user._id))
 
-  const onAddUserToBoard = (user) => {
-    dispatch(addUserToBoard(boardId, user))
+  const [searchMember, setSearchMember] = useState('')
+  const [filterUsers, setFilterUsers] = useState(users)
+  const [updatedBoard, setBoardMembers] = useState(board)
+
+
+  if (!board) return
+  if (!users) return
+
+  const onToggle = (id) => {
+    const boardMemberIdx = updatedBoard.members.findIndex((member) => member._id === id)
+    const userIdx = users.findIndex((user) => user._id === id)
+    const isBoardMember = updatedBoard.members.some((member) => member._id === id)
+
+    isBoardMember
+      ? updatedBoard.members.splice(boardMemberIdx, 1)
+      : updatedBoard.members.push(
+        users[userIdx]?.imgUrl
+          ? {
+            _id: users[userIdx]._id,
+            username: users[userIdx].username,
+            fullname: users[userIdx].fullname,
+            imgUrl: users[userIdx].imgUrl,
+          }
+          : { _id: users[userIdx]._id, username: users[userIdx].username, fullname: users[userIdx].fullname }
+      )
+
+    const newBoard = { ...updatedBoard }
+    onUpdateBoard(newBoard)
+    setBoardMembers(newBoard)
   }
 
+  const onUpdateBoard = async (updatedBoard) => {
+    try {
+      await boardService.save(updatedBoard)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleChange = ({ target }) => {
+    setSearchMember(target.value)
+    setFilterUsers(users.filter((user) => user.fullname.toLowerCase().includes(target.value.toLowerCase())))
+  }
+
+
   return (
-    <div className="member-modal">
-      <input
-        type="text"
-        className="search-member-input"
-        placeholder="Search Members"
-      />
-      <div className="member-section">
-        <div className="flex justify-space-between">
-          <h4 className="modal-small-title" onClick={() => { setIsQRShown(prevIsQRShown => !prevIsQRShown) }}>Workspace members</h4>
-        </div>
-        {usersToInvite.map((user) => {
-          return (
-            <div
-              key={user._id}
-              className="modal-member-item-container"
-              onClick={() => onAddUserToBoard(user)}
-            >
-              <div className="modal-member-item user-img-container">
-                <div
-                  style={{ marginRight: "8px" }}
-                  className="user-avatar">
-                  {user?.imgUrl ? (
-                    <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
-                  ) : (
-                    <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
-                  )}
-                </div>
-                {user.fullname}
-              </div>
-            </div>
-          );
-        })}
+    <div className="member-section">
+      <div className="search-box">
+        <input className="" type="text" placeholder="Search members" value={searchMember} onChange={handleChange} />
+      </div>
+
+      <div className="members-box">
+        <h4 className="label" onClick={() => { setIsQRShown(prevIsQRShown => !prevIsQRShown) }}>Workspace members</h4>
+        <ul className="">
+          {filterUsers &&
+            filterUsers?.map((user) =>
+              user?.imgUrl ? (
+                <li key={user._id}
+                  onClick={() => {
+                    onToggle(user._id)
+                    deleteMemberFromBoard(user._id)
+                  }}
+                >
+                  <a className="member-list">
+                    <span className="member-img" style={{ backgroundImage: `url('${user.imgUrl}')` }}></span>
+                    <span className="member-txt">{`${user.fullname} (${user.username.match(/^([^@]*)@/)[1]})`}</span>
+                    {updatedBoard.members && updatedBoard.members.some((boardMember) => boardMember._id === user._id) && (
+                      <span className="member-icon">
+                        <BsCheck2 />
+                      </span>
+                    )}
+                  </a>
+                </li>
+              ) : (
+                <li
+                  key={user._id}
+                  onClick={() => {
+                    onToggle(user._id)
+                    deleteMemberFromBoard(user._id)
+                  }}
+                >
+                  <a className="member-list">
+                    <span className="member">{utilService.getInitials(user.fullname)}</span>
+                    <span className="member-txt">{`${user.fullname} (${user.username.match(/^([^@]*)@/)[1]})`}</span>
+                    {updatedBoard.members && updatedBoard.members.some((boardMember) => boardMember._id === user._id) && (
+                      <span className="member-icon">
+                        <BsCheck2 />
+                      </span>
+                    )}
+                  </a>
+                </li>
+              )
+            )}
+        </ul>
         {isQRShown && <section className="qr-code flex justify-center">
           <QRCode value={`https://ca-nemo-react.onrender.com/${boardId}`} />
         </section>}
       </div>
-    </div >
-  );
-};
+    </div>
+  )
+}

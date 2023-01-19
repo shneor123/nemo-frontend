@@ -1,49 +1,34 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { useDispatch } from "react-redux"
 import { BsPencil } from "react-icons/bs"
 import { FiCheck } from "react-icons/fi"
 import { toggleLabel } from "../../store/actions/label.action"
-import { DynamicModalCmp } from "../general/dynamic-modal-cmp"
+import { setModal } from "../../store/actions/app.actions"
+import { useSelector } from "react-redux"
 
 export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { modal } = useSelector(({ appModule }) => appModule)
   const dispatch = useDispatch()
-  const modalDetails = useRef()
-  const modalTitle = useRef()
+  const modalRef = useRef()
 
   const onToggleLabel = (labelId) => {
     dispatch(toggleLabel(boardId, groupId, task.id, labelId))
   }
 
-
-  const onCloseModal = () => {
-    setIsModalOpen(false)
-  }
-  const onOpenModal = (ev, txt) => {
-    if (isModalOpen) {
-      setIsModalOpen(false)
-    }
-    modalTitle.current = txt
-    modalDetails.current = ev.target.getBoundingClientRect()
-    setIsModalOpen(true)
+  const onOpenModal = (category) => {
+    dispatch(
+      setModal({
+        element: modal.element,
+        category,
+        title: category,
+        props: { boardId, groupId, task, labels, element: modal.element, },
+      })
+    )
   }
 
 
   return (
-    <div className="label-modal-container">
-      {isModalOpen && (
-        <DynamicModalCmp
-          modalDetails={modalDetails.current}
-          modalTitle={modalTitle.current}
-          boardId={boardId}
-          groupId={groupId}
-          task={task}
-          type={modalTitle}
-          labels={labels}
-          onCloseModal={onCloseModal}
-        />
-      )}
-
+    <div className="label-modal-container" ref={modalRef}>
       <input
         placeholder="Search labels..."
         className="label-modal-main-input"
@@ -55,13 +40,12 @@ export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) 
           {labels.map((label) => {
             return (
               <div key={label.id} className="edit-label-container">
-                <button className="edit-label-btn"
+                <button className="edit-label-btn" ref={modalRef}
                   onClick={(ev) => {
-                    onOpenModal(ev, 'Change label')
+                    ev.stopPropagation()
+                    onOpenModal('Change label')
                     changeEditLabel(label)
-                  }}
-                >
-                  <BsPencil />
+                  }}><BsPencil />
                 </button>
                 <div
                   // style={{ backgroundColor: label.color, '--i': 'blue'}}
@@ -82,8 +66,11 @@ export const LabelModal = ({ boardId, groupId, task, labels, changeEditLabel }) 
             );
           })}
         </div>
-        <button className="create-label-btn" onClick={(ev) => { onOpenModal(ev, 'Create label') }}>
-          Create a new Label</button>
+        <button className="create-label-btn" ref={modalRef}
+          onClick={(ev) => {
+            ev.stopPropagation()
+            onOpenModal('Create label')
+          }}>Create a new Label</button>
       </div>
     </div>
   );
