@@ -7,6 +7,7 @@ import { loadBoards, updateBoard } from '../store/actions/board.action'
 import { TiStarOutline } from "react-icons/ti";
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { Loader } from '../cmps/general/loader';
+import { AppNav } from '../cmps/work-space/app-nav.jsx';
 
 
 export const WorkSpace = () => {
@@ -37,6 +38,7 @@ export const WorkSpace = () => {
     <div className="workspace-page ">
       <section className="all-boards-list">
         <div className="content-all-boards">
+          <AppNav />
           <section className="starred-boards-section">
             <div className="title-header flex">
               <div className="title-header-icon-container">

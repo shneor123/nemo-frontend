@@ -201,7 +201,8 @@
   text-decoration: none;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.325);
+    // background-color:rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.18);
     cursor: pointer;
     text-decoration: none;
 
@@ -209,7 +210,13 @@
 }
 
 .nav-input {
-  margin-right: -850px;
+  position: absolute;
+  right: 80px;
+  display: none;
+
+  @include for-normal-layout {
+    display: block;
+  }
 }
 
 .workspace-create {

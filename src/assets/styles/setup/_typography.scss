@@ -17,3 +17,133 @@
   font-family: Charlie-Display-Semibold;
   src: url(../../fonts/charlie-display-semibold.woff);
 }
+
+
+.trellicons {
+  font-family: "trellicons";
+
+  &.tick-icon::before {
+      content: "\e916";
+  }
+
+  &.external-link-icon::before {
+      content: "\e92c";
+  }
+
+  &.desc-icon::before {
+      content: "\e922";
+  }
+
+  &.card-icon::before {
+      content: "\e912";
+  }
+
+  &.plus-icon::before {
+      content: "\2b";
+  }
+
+  &.arrow-down-icon::before {
+      content: "\2b";
+  }
+
+  &.settings-icon::before {
+      content: "\e932";
+  }
+
+  &.members-icon::before {
+      content: "\e946";
+  }
+
+  &.labels-icon::before {
+      content: "\e93f";
+  }
+
+  &.checklist-icon::before {
+      content: "\e91a";
+  }
+
+  &.attachment::before {
+      content: "\e908";
+  }
+
+  &.location-icon::before {
+      content: "\e944";
+  }
+
+  &.move::before {
+      content: "\e94a";
+  }
+
+  &.copy::before {
+      content: "\e91f";
+  }
+
+  &.template::before {
+      content: "\e96e";
+  }
+
+  &.watch::before {
+      content: "\e969";
+  }
+
+  &.archive::before {
+      content: "\e907";
+  }
+
+  &.share::before {
+      content: "\e963";
+  }
+
+  &.cover-icon::before {
+      content: "\e914";
+  }
+
+  &.star::before {
+      content: "\e966";
+  }
+
+  &.icon-add:before {
+      content: "\e901";
+  }
+
+  &.activity-icon:before {
+      content: "\e900";
+  }
+
+  &.x-icon::before {
+      content: "\e91c";
+  }
+
+  &.icon-checklist-task-preview::before {
+      height: 16px;
+      width: 16px;
+      color: #de350b;
+      content: "\e91a";
+  }
+
+  &.icon-board:before {
+      content: "\e90b";
+  }
+
+  &.icon-template-board:before {
+      content: "\e96d";
+  }
+
+  &.icon-home:before {
+      content: "\e938";
+  }
+
+  &.icon-starred-full::before {
+      content: "\e966";
+      color: #f2d600;
+  }
+
+  &.icon-starred:before {
+      content: "\e967";
+  }
+
+  &.icon-clock:before {
+      font-size: 1rem;
+      content: "\e91b";
+  }
+}

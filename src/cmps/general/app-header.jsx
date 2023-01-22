@@ -9,6 +9,7 @@ import Logole from "../../assets/img/ttttCapture.PNG"
 import { useDispatch } from "react-redux";
 import { setModal } from "../../store/actions/app.actions";
 import { Search } from "./search";
+import { ModalStar } from "./modal-star";
 
 export const AppHeader = () => {
   const { user } = useSelector((storeState) => storeState.userModule)
@@ -100,6 +101,7 @@ export const AppHeader = () => {
             </div>
 
             <NavLink to={"/workspace"} className="workspace-link"> Workspaces </NavLink>
+            <ModalStar />
             {!isHome && (
               <div className="workspace-create" ref={createRef}
                 onClick={(ev) => {
@@ -108,9 +110,8 @@ export const AppHeader = () => {
                 }}>Create</div>
             )}
           </div>
-          <div className="nav-input">
-            <Search/>
-          </div>
+          <div className="nav-input">  <Search /> </div>
+
           {!isHome && (
             <div className="user-img-container" ref={profileRef}
               onClick={(ev) =>
@@ -120,7 +121,6 @@ export const AppHeader = () => {
                   element: profileRef.current,
                   props: { user },
                 })}>
-
 
 
               {user &&

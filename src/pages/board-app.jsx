@@ -7,7 +7,6 @@ import { GroupList } from "../cmps/board-app/group/group-list"
 import { handleDrag, loadBoard } from "../store/actions/board.action"
 import { loadUsers } from "../store/actions/user.actions"
 import { socketService } from "../services/basic/socket.service"
-import { BoardNav } from "../cmps/general/board-nav"
 import { DragDropContext } from "react-beautiful-dnd"
 
 export const BoardApp = () => {
@@ -66,7 +65,6 @@ export const BoardApp = () => {
           className="board-app-wrapper">
           <Outlet />
           <div className="board-app">
-            {/* <BoardNav /> */}
             <ToolBar boardId={boardId} board={board} users={users} />
             {board && (
               <GroupList

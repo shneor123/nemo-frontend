@@ -34,7 +34,7 @@ import { ChecklistDelete } from "../modals/checklist-delete";
 import { TaskDelete } from "../modals/task-delete";
 import { DateDelete } from "../modals/date-delete";
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit";
-import { BoardNav } from "./board-nav"
+import { ModalStar } from "./modal-star"
 
 
 
@@ -178,6 +178,9 @@ export const DynamicModalCmp = () => {
       break
     case 'Create':
       cmp = <CreateModal{...modal.props} />
+      break
+    case 'Star board':
+      cmp = <ModalStar{...modal.props} />
       break
     case 'Share':
       cmp = <ShareModal{...modal.props} />

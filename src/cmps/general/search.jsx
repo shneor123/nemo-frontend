@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
-import { ModalBoardNav } from './board-nav'
+import { DynamicFilter } from './dynamic-filter'
 
 export const Search = () => {
     const { boards } = useSelector(({ boardModule }) => boardModule)
@@ -37,7 +37,7 @@ export const Search = () => {
             />
             {boardsSearched.search &&
                 filteredBoards.length !== 0 &&
-                <ModalBoardNav boards={filteredBoards} setModal={onChooseBoard} />}
+                <DynamicFilter boards={filteredBoards} setModal={onChooseBoard} />}
 
         </div>
     )
