@@ -5,7 +5,7 @@ import { saveTask } from "../../../store/actions/task.action";
 
 import { AiOutlineCreditCard } from "react-icons/ai";
 import { TiTag } from "react-icons/ti";
-import {  BsPerson } from "react-icons/bs";
+import { BsPerson } from "react-icons/bs";
 import { MdOutlineScreenShare } from "react-icons/md";
 import { BsClock } from "react-icons/bs";
 import { MdDeleteOutline } from "react-icons/md"
@@ -52,7 +52,7 @@ export const EditBtn = ({ onOpenTaskDetails, onRemoveTask, boardId, labels, grou
                     element: membersRef.current,
                     category: 'Members',
                     title: 'Members',
-                    props: { element: membersRef.current, boardId, groupId, task, labels, boardMembers },
+                    props: { boardId, groupId, task, boardMembers }
                 })}><BsPerson /> Change members</span>
 
             <span className="quick-card-editor-buttons-item" ref={coverRef}

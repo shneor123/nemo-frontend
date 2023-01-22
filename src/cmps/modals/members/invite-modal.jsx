@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { utilService } from "../../services/basic/util.service";
-import { boardService } from "../../services/board/board.service";
+import { utilService } from "../../../services/basic/util.service";
+import { boardService } from "../../../services/board/board.service";
 import { BsCheck2 } from 'react-icons/bs'
 
 
@@ -8,7 +8,6 @@ export const InviteModal = ({ users, board, deleteMemberFromBoard }) => {
   const [searchMember, setSearchMember] = useState('')
   const [filterUsers, setFilterUsers] = useState(users)
   const [updatedBoard, setBoardMembers] = useState(board)
-
 
   if (!board) return
   if (!users) return
@@ -30,7 +29,6 @@ export const InviteModal = ({ users, board, deleteMemberFromBoard }) => {
           }
           : { _id: users[userIdx]._id, username: users[userIdx].username, fullname: users[userIdx].fullname }
       )
-
     const newBoard = { ...updatedBoard }
     onUpdateBoard(newBoard)
     setBoardMembers(newBoard)

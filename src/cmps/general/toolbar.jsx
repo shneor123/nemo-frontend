@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { AiOutlineStar, AiFillStar, AiOutlineDashboard, AiOutlinePlus } from "react-icons/ai";
-import { FaEllipsisH } from "react-icons/fa";
-import { MdOutlineFilterList } from "react-icons/md";
-import { BsPersonPlus } from "react-icons/bs";
-import { Menu } from "./menu";
-import { updateBoard } from "../../store/actions/board.action";
 import { useNavigate } from "react-router";
-import { MemberPreview } from "../modals/member-preview";
+
+import { FaEllipsisH } from "react-icons/fa";
+import { BsPersonPlus } from "react-icons/bs";
+import { MdOutlineFilterList } from "react-icons/md";
+import { AiOutlineStar, AiFillStar, AiOutlineDashboard } from "react-icons/ai";
+
+import { Menu } from "./menu";
+import { MemberPreview } from "../modals/members/member-preview";
+import { updateBoard } from "../../store/actions/board.action";
 import { setModal } from "../../store/actions/app.actions";
 
 

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setModal } from "../../../store/actions/app.actions";
 
 
-export const MembersDataCard = ({ task, boardId, groupId, boardMembers }) => {
+export const MembersDataCard = ({ task, boardId, board, groupId, boardMembers }) => {
   const membersRef = useRef()
   const dispatch = useDispatch()
 
@@ -25,7 +25,7 @@ export const MembersDataCard = ({ task, boardId, groupId, boardMembers }) => {
           element: membersRef.current,
           category: 'Members',
           title: 'Members',
-          props: { element: membersRef.current, boardId, groupId, task, boardMembers },
+          props: { boardId, groupId, task, boardMembers },
         })}><FiPlus />
       </div>
     </div >

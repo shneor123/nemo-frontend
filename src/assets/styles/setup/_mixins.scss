@@ -101,6 +101,30 @@
     }
 }
 
+@mixin btn-add-save($type: "save") {
+    align-self: flex-start;
+    padding: 0;
+    // margin-top: 20px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 3px;
+    margin-block: 0.5rem;
+
+    @if $type =="save" {
+        background-color: #0079bf;
+        color: #fff;
+    }
+
+    @if $type =="cancel" {
+        color: $textDark;
+        background-color: #eaecf0;
+    }
+
+    &:hover {
+        filter: brightness(0.8);
+    }
+}
+
 @mixin modal-label {
     display: block;
     width: 100%;
@@ -171,6 +195,13 @@
     }
 }
 
+@mixin flex($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
 @mixin nice-btn($bgclr: $brand-clr2, $fontclr: $font-clr1) {
     display: inline-flex;
     justify-content: center;
@@ -191,13 +222,6 @@
     }
 }
 
-@mixin flex($direction: row, $justify: center, $align: center) {
-    display: flex;
-    flex-direction: $direction;
-    justify-content: $justify;
-    align-items: $align;
-}
-
 @mixin blue-btn($padding-inline: rem(14px)) {
     cursor: pointer;
     border-radius: 3px;
@@ -212,6 +236,7 @@
     padding: rem(8px) $padding-inline;
     line-height: initial;
     @include flex;
+
     &:hover {
         background-color: #026aa7;
     }
@@ -252,6 +277,41 @@
     }
 }
 
+@mixin button-link() {
+    background-color: #091e420a;
+    color: #172b4d;
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    height: 32px;
+    margin-top: 8px;
+    max-width: 300px;
+    overflow: hidden;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition-duration: 85ms;
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: ease;
+    user-select: none;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+
+    &:hover {
+        background-color: #091e4214;
+        border: none;
+        box-shadow: none;
+        color: #091e42;
+    }
+}
+
 @mixin task-sub-header() {
     color: #5e6c84;
     display: block;
@@ -288,41 +348,6 @@
         color: #fff;
         border-radius: 3px;
         cursor: pointer;
-    }
-}
-
-@mixin button-link() {
-    background-color: #091e420a;
-    color: #172b4d;
-    border: none;
-    border-radius: 3px;
-    box-shadow: none;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: flex;
-    height: 32px;
-    margin-top: 8px;
-    max-width: 300px;
-    overflow: hidden;
-    padding: 6px 12px;
-    position: relative;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    transition-duration: 85ms;
-    transition-property: background-color, border-color, box-shadow;
-    transition-timing-function: ease;
-    user-select: none;
-    white-space: nowrap;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    text-align: center;
-
-    &:hover {
-        background-color: #091e4214;
-        border: none;
-        box-shadow: none;
-        color: #091e42;
     }
 }
 

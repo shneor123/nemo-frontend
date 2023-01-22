@@ -8,6 +8,7 @@ import { utilService } from "../../services/basic/util.service";
 import Logole from "../../assets/img/ttttCapture.PNG"
 import { useDispatch } from "react-redux";
 import { setModal } from "../../store/actions/app.actions";
+import { Search } from "./search";
 
 export const AppHeader = () => {
   const { user } = useSelector((storeState) => storeState.userModule)
@@ -18,7 +19,6 @@ export const AppHeader = () => {
   const dispatch = useDispatch()
   const profileRef = useRef()
   const createRef = useRef()
-
   let googleUser
   let routeClass
 
@@ -108,6 +108,9 @@ export const AppHeader = () => {
                 }}>Create</div>
             )}
           </div>
+          <div className="nav-input">
+            <Search/>
+          </div>
           {!isHome && (
             <div className="user-img-container" ref={profileRef}
               onClick={(ev) =>
@@ -117,6 +120,8 @@ export const AppHeader = () => {
                   element: profileRef.current,
                   props: { user },
                 })}>
+
+
 
               {user &&
                 (user?.imgUrl ? (

@@ -16,13 +16,13 @@ import { userService } from "../../../services/basic/user.service";
 import { labelService } from "../../../services/board/label.service";
 import { utilService } from "../../../services/basic/util.service";
 
-export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [labels, setLabels] = useState([]);
-  const user = userService.getLoggedinUser()
+export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
   const { board } = useSelector((storeState) => storeState.boardModule)
+  const user = userService.getLoggedinUser()
   const [isEdit, setIsEdit] = useState(false)
+  const [labels, setLabels] = useState([])
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   let sumTodos;
   let sumTodosDone;
@@ -102,14 +102,6 @@ export const TaskPreview = ({ group, boardId, groupId, task, index, labelOpenSta
         }
       }
     } else return ''
-  }
-
-  const getDueStatus = () => {
-    const { dueDate } = task
-    if (task.isDone) return { txt: 'complete', className: 'complete' };
-    else if (Date.now() > dueDate) {
-      return { txt: 'overdue', className: 'over-due' };
-    }
   }
 
   const getTaskClass = (isQuick) => {

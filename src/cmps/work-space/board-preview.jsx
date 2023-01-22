@@ -2,7 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
-import { onRemoveBoardOptimistic, removeBoard } from "../../store/actions/board.action";
+import { removeBoard } from "../../store/actions/board.action";
+import { Loader } from "../general/loader";
 
 export function BoardPreview({ board, onToggleStar }) {
   const dispatch = useDispatch()
@@ -11,6 +12,7 @@ export function BoardPreview({ board, onToggleStar }) {
     ev.stopPropagation()
     dispatch(removeBoard(board.id))
   }
+  if (!board) return <Loader/>
 
   return (
     <div>
@@ -20,7 +22,6 @@ export function BoardPreview({ board, onToggleStar }) {
           style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}
         >
           <h3>{board.title}</h3>
-
           <span className="starred-container">
             {(board.isStar) ?
               <TiStarFullOutline className="star-icon star" onClick={ev => onToggleStar(ev, board._id)} /> :

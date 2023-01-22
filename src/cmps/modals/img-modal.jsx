@@ -3,6 +3,10 @@ import { utilService } from '../../services/basic/util.service'
 
 export const ImgModal = ({ member }) => {
   return (
-    <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img-modal" />
+    <>
+      {member.imgUrl ? < img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img-modal" />
+        : <div>  {member.fullname}</div>
+      }
+    </>
   )
 }

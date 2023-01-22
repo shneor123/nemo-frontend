@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { utilService } from '../../services/basic/util.service';
-import { setModal } from '../../store/actions/app.actions';
+import { utilService } from '../../../services/basic/util.service';
+import { setModal } from '../../../store/actions/app.actions';
 
 export const MemberPreview = ({ member, task, board, }) => {
   const memberActionRef = useRef()

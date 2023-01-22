@@ -1,0 +1,110 @@
+.board-nav {
+    width: 300px;
+    cursor: auto;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(105%);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    right: 10px;
+    background-color: #FAFBFC;
+    padding: 0 10px 10px;
+    z-index: 1000;
+    color: #172b4d;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    cursor: pointer;
+
+
+
+    h3 {
+        border-bottom: 1px solid #00000014;
+        padding-block: 10px;
+        margin-block-start: 10px;
+        font-weight: bold;
+        padding: 0.5rem;
+    }
+
+    li {
+        display: grid;
+        grid-template-columns: 45px 1fr 30px;
+        grid-template-rows: 40px;
+        align-items: center;
+
+        &:hover {
+            background-color: rgba(#172b4d, 0.1);
+        }
+
+        &:first-of-type {
+            padding-top: 10px;
+        }
+
+        div {
+            margin-top: -5px;
+            height: 20px;
+            width: 26px;
+            border-radius: 3px;
+        }
+
+    }
+
+    p {
+        text-align: start;
+        break-inside: break-word;
+        font-size: 0.75rem;
+        color: #172b4d !important;
+    }
+
+    .star-wrapper {
+        cursor: pointer;
+
+        svg {
+            stroke: #172b4d;
+        }
+
+        &.starred {
+            svg {
+                stroke: none;
+                fill: #f2d600;
+            }
+        }
+
+        &.no-starred {
+            svg {
+                fill: #f2d600;
+            }
+        }
+    }
+}
+
+.search {
+    border-radius: 5px;
+    background-color: #FFFFFF14;
+    border: 1px solid #FFFFFF14;
+    height: 32px;
+    width: 250px;
+    box-shadow: none;
+    cursor: pointer;
+
+    ::placeholder {
+        color: #fff;
+    }
+
+    input {
+        cursor: pointer;
+        color: #fff;
+        width: 100%;
+        background-color: rgba(white, 0.1);
+        border: 1px solid rgba(#172b4d, 0.2);
+        background-color: transparent;
+        outline: none;
+        border: none;
+    }
+
+    svg {
+        height: 20px;
+        width: 20px;
+        fill: #FAFBFC;
+        margin: 2px 4px 0;
+    }
+}

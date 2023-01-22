@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { onLogout } from '../../store/actions/user.actions'
-import { setModal } from '../../store/actions/app.actions'
-import { utilService } from '../../services/basic/util.service'
+import { onLogout } from '../../../store/actions/user.actions'
+import { setModal } from '../../../store/actions/app.actions'
+import { utilService } from '../../../services/basic/util.service'
 
 export const AccountActions = ({ user }) => {
   const dispatch = useDispatch()

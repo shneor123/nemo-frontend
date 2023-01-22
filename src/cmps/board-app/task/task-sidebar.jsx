@@ -1,22 +1,22 @@
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { TiTag } from "react-icons/ti";
-import { BsArrowRight, BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs";
-import { RiArchiveLine } from 'react-icons/ri'
-import { FiPaperclip } from "react-icons/fi";
-import { MdOutlineScreenShare } from "react-icons/md";
+import { useRef, useState } from "react"
+import { useDispatch } from "react-redux"
+import { TiTag } from "react-icons/ti"
+import { BsArrowRight, BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs"
+import { AiOutlineCopy, AiOutlineShareAlt, AiOutlineUser } from "react-icons/ai"
+import { MdOutlineScreenShare } from "react-icons/md"
 import { GiRobotAntennas } from 'react-icons/gi'
-import { CgUndo } from "react-icons/cg";
-import { HiOutlineMinus } from "react-icons/hi";
+import { HiOutlineMinus } from "react-icons/hi"
+import { RiArchiveLine } from 'react-icons/ri'
+import { FiPaperclip } from "react-icons/fi"
+import { CgUndo } from "react-icons/cg"
 
-import { userService } from "../../../services/basic/user.service";
-import { joinTask } from "../../../store/actions/member.action";
-import { saveTask } from "../../../store/actions/task.action";
-import { AiOutlineCopy, AiOutlineShareAlt, AiOutlineUser } from "react-icons/ai";
-import { setModal } from "../../../store/actions/app.actions";
+import { userService } from "../../../services/basic/user.service"
+import { joinTask } from "../../../store/actions/member.action"
+import { saveTask } from "../../../store/actions/task.action"
+import { setModal } from "../../../store/actions/app.actions"
 
 export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, labels, groupTitle }) => {
-  const [modal, setModals] = useState({ isModalOpen: false, type: null, event: null });
+  const [modal, setModals] = useState({ isModalOpen: false, type: null, event: null })
   const user = userService.getLoggedinUser()
   const dispatch = useDispatch()
   const attachmentRef = useRef()
@@ -24,12 +24,13 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
   const membersRef = useRef()
   const deleteRef = useRef()
   const labelsRef = useRef()
+  const shareRef = useRef()
   const coverRef = useRef()
   const datesRef = useRef()
   const claraRef = useRef()
   const moveRef = useRef()
   const copyRef = useRef()
-  const shareRef = useRef()
+
 
   const onJoinTask = () => {
     dispatch(joinTask(boardId, groupId, task.id, user))
@@ -118,7 +119,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             element: labelsRef.current,
             category: 'Members',
             title: 'Members',
-            props: { element: membersRef.current, groupTitle, attachments: task.attachments, boardMembers, labels, task, group: currGroup, groupId, boardId },
+            props: { boardMembers, task, boardId, groupId },
           })}><AiOutlineUser />
           <span className="task-details-sidebar-btn-text">Members</span>
         </button>
@@ -192,7 +193,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
         <span>Copy</span>
       </div>
       <div>
-      <hr className="hr" />
+        <hr className="hr" />
         {task.archivedAt ? (
           <div>
             <div className="sidebar-button" onClick={onRestoreTask}>
@@ -221,7 +222,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             element: shareRef.current,
             category: 'Share',
             title: 'Share and more…',
-            props: { element: shareRef.current, boardId},
+            props: { element: shareRef.current, boardId },
           })}>
           <span className="sidebar-icon"> <AiOutlineShareAlt /> </span>
           <span>Share</span>

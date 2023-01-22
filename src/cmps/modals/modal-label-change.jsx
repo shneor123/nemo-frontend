@@ -8,7 +8,6 @@ export const ModalLabelChange = ({ task, editLabel, labels, boardId, groupId, el
   const { board } = useSelector((storeState) => storeState.boardModule)
   const [labelName, setLabelName] = useState(editLabel.title)
   const [color, setColor] = useState(editLabel.color)
-  const { modal } = useSelector(({ appModule }) => appModule)
 
   const dispatch = useDispatch()
   const searchInput = useRef(null)

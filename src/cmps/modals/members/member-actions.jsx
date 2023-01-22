@@ -1,8 +1,9 @@
 import { useRef } from "react"
 import { useDispatch } from "react-redux"
-import { utilService } from "../../services/basic/util.service"
-import { boardService } from "../../services/board/board.service"
-import { setModal } from "../../store/actions/app.actions"
+import { utilService } from "../../../services/basic/util.service"
+import { boardService } from "../../../services/board/board.service"
+import { setModal } from "../../../store/actions/app.actions"
+import { CgClose } from 'react-icons/cg'
 
 export const MemberActions = ({ task, member, board }) => {
   const imgRef = useRef()
@@ -37,19 +38,24 @@ export const MemberActions = ({ task, member, board }) => {
 
   return (
     <div className="member-actions">
+      <button className="close-btn" onClick={() => dispatch(setModal(null))}>
+        <CgClose className="close-icon" />
+      </button>
       <div className="member-info">
         <div className="member-img-container" ref={imgRef}>
           {member?.imgUrl ? (
-            <div onClick={(ev) => onOpenModal(ev, {
-              element: imgRef.current,
-              category: 'Img modal',
-              title: 'Img modal',
-              props: { element: imgRef.current, member },
-            })}>
+            <div
+              onClick={(ev) => onOpenModal(ev, {
+                element: imgRef.current,
+                category: 'Img modal',
+                title: 'Img modal',
+                props: { element: imgRef.current, member },
+              })}>
               <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
             </div>
           ) : (
-            <div className="member">{utilService.getInitials(member.fullname)}</div>
+            // <a className="member">{utilService.getInitials(member.fullname)}</a>
+            <div className="member">{member.fullname}</div>
           )}
         </div>
 

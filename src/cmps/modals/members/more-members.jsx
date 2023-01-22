@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setModal } from '../../store/actions/app.actions';
-import { MemberPreview } from '../modals/member-preview';
+import { setModal } from '../../../store/actions/app.actions';
+import { MemberPreview } from './member-preview';
 
 export function MoreMembers({ moreMembers, board }) {
   const moreRef = useRef()

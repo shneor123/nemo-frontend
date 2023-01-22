@@ -90,6 +90,7 @@ export const TaskDetails = () => {
             <TaskDetailsMain board={board} task={task} boardId={boardId} groupId={groupId} labels={board.labels} activities={board.activities} boardMembers={board.members} />
             <TaskSidebar
               board={board}
+              groups={board.groups}
               boardId={boardId}
               groupId={groupId}
               taskId={taskId}

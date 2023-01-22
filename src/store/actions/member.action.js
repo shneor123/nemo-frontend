@@ -11,10 +11,8 @@ export function toggleMember(boardId, groupId, taskId, user) {
         } catch (err) {
             console.log('could not toggle member', err);
         }
-
     }
 }
-
 
 export function joinTask(boardId, groupId, taskId, user) {
     return async (dispatch) => {
