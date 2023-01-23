@@ -1,5 +1,5 @@
 .workspace-page {
-    padding-top: 40px;
+    padding-top: 115px;
 
     a {
         text-decoration: none;
@@ -30,6 +30,7 @@
 
     .title-header-icon-container {
         margin-right: 10px;
+        margin-inline-start: 14.9%;
 
         @include for-mobile-layout {
             margin-inline-start: 20px;
@@ -45,4 +46,31 @@
 
 .primary-boards-container-section {
     padding-bottom: 10px;
+}
+
+.workspace-app-nav {
+    margin-inline-start: 8.7%;
+    margin-top: -490px;
+}
+
+@media (max-width: 1200px) {
+    .workspace-app-nav {
+        position: absolute;
+        bottom: 80%;
+        left: 19.3%;
+    }
+}
+@media (max-width: 1000px) {
+    .workspace-app-nav {
+        position: absolute;
+        bottom: 83%;
+        left: 19.3%;
+    }
+}
+@media (max-width: 660px) {
+    .workspace-app-nav {
+        position: absolute;
+        bottom: 89%;
+        left: 19.3%;
+    }
 }

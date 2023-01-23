@@ -42,7 +42,7 @@ export const BoardApp = () => {
   }
 
   const onDragEnd = (result) => {
-    const { source, destination, type } = result
+    const { source, destination, type } = result;
     dispatch(
       handleDrag(
         board,
@@ -52,8 +52,9 @@ export const BoardApp = () => {
         destination.index,
         type
       )
-    )
-  }
+    );
+  };
+
 
   if (!board) return <Loader />
   return (

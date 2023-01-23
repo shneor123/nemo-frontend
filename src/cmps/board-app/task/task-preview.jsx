@@ -142,7 +142,8 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
           ref={provided.innerRef}
         >
           {!task.archivedAt && <span>
-            <div style={getTaskStyle()} className={`task-preview-wrapper ${getTaskClass()} ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}>
+            <div style={getTaskStyle()}
+              className={`task-preview-wrapper ${getTaskClass()} ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}>
               {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'image' && (
                 <img className="task-preview-image" src={task.style.imgUrl} alt="..." />
               )}

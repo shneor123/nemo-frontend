@@ -86,54 +86,51 @@ export const AppHeader = () => {
         </nav>
       )
       }
-      {
-        pathname !== "/" && (
-          <nav className='nav-bar'>
-            <div className='trello-logo-after-login-container'>
-              <div className="logo-continor wobble-top-on-hover" >
-                <svg onClick={() => navigate("/")} className='trello-logo-after-login'
-                  stroke='currentColor' fill='currentColor' strokeWidth='0' version='1.1' viewBox='0 0 16 16' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'>
-                  <path d='M14.5 0h-13c-0.825 0-1.5 0.675-1.5 1.5v13c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-13c0-0.825-0.675-1.5-1.5-1.5zM7 12c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-8c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v8zM13 9c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-5c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v5z'></path>
-                </svg>
-                <h1 onClick={() => navigate("/")} className='trello-logo-after-login-title'>Nemo</h1>
-              </div>
-
-              <NavLink to={"/workspace"} className="workspace-link"> Workspaces </NavLink>
-              <ModalStar />
-              {!isHome && (
-                <div className="workspace-create" ref={createRef}
-                  onClick={(ev) => {
-                    ev.stopPropagation()
-                    onModal('Create')
-                  }}>Create</div>
-              )}
+      {pathname !== "/" && (
+        <nav className='nav-bar'>
+          <div className='trello-logo-after-login-container'>
+            <div className="logo-continor wobble-top-on-hover" >
+              <svg onClick={() => navigate("/workspace")} className='trello-logo-after-login'
+                stroke='currentColor' fill='currentColor' strokeWidth='0' version='1.1' viewBox='0 0 16 16' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'>
+                <path d='M14.5 0h-13c-0.825 0-1.5 0.675-1.5 1.5v13c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-13c0-0.825-0.675-1.5-1.5-1.5zM7 12c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-8c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v8zM13 9c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-5c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v5z'></path>
+              </svg>
+              <h1 onClick={() => navigate("/workspace")} className='trello-logo-after-login-title'>Nemo</h1>
             </div>
-
-            <div className="nav-input" ><Search /> </div>
-
+            <ModalStar />
             {!isHome && (
-              <div className="user-img-container" ref={profileRef}
-                onClick={(ev) =>
-                  onOpenModal(ev, {
-                    category: 'account actions',
-                    title: 'Account',
-                    element: profileRef.current,
-                    props: { user },
-                  })}>
-
-
-                {user &&
-                  (user?.imgUrl ? (
-                    <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
-                  ) : (
-                    <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
-                  ))}
-                {!user && <span className="user-initial"></span>}
-              </div>
+              <div className="workspace-create" ref={createRef}
+                onClick={(ev) => {
+                  ev.stopPropagation()
+                  onModal('Create Board')
+                }}>Create</div>
             )}
+          </div>
 
-          </nav>
-        )
+          <div className="nav-input" ><Search /> </div>
+
+          {!isHome && (
+            <div className="user-img-container" ref={profileRef}
+              onClick={(ev) =>
+                onOpenModal(ev, {
+                  category: 'account actions',
+                  title: 'Account',
+                  element: profileRef.current,
+                  props: { user },
+                })}>
+
+
+              {user &&
+                (user?.imgUrl ? (
+                  <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
+                ) : (
+                  <span className="user-initial">{utilService.getInitials(user.fullname)}</span>
+                ))}
+              {!user && <span className="user-initial"></span>}
+            </div>
+          )}
+
+        </nav>
+      )
       }
     </header >
   )

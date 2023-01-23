@@ -4,8 +4,8 @@
   grid-auto-rows: 100px;
   gap: 9px;
   padding: 10px 0 0 0px;
-  margin-inline-start: 15%;
-  margin-inline-end: 15%;
+  margin-inline-start: 30%;
+  margin-inline-end:10%;
 
   @include for-mobile-layout {
     margin-inline-start: 20%;

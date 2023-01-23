@@ -14,7 +14,6 @@ import { InviteModal } from "../modals/members/invite-modal"
 import { MemberModal } from "../modals/members/member-modal"
 import { ChecklistModal } from "../modals/checklist-modal"
 import { ActionModal } from "../modals/action-modal"
-import { CreateModal } from "../modals/create-modal"
 import { ShareModal } from "../modals/share-modal"
 import { LabelModal } from "../modals/label-modal"
 import { CoverModal } from "../modals/cover-modal"
@@ -172,11 +171,8 @@ export const DynamicModalCmp = () => {
       cmp =
         <AttachmentEdit {...modal.props} />
       break
-    case 'Create':
-      cmp = <CreateModal{...modal.props} />
-      break
     case 'Share':
-      cmp = <ShareModal{...modal.props} />
+      cmp = <ShareModal {...modal.props} />
       break
   }
 

@@ -38,7 +38,6 @@ export const WorkSpace = () => {
     <div className="workspace-page ">
       <section className="all-boards-list">
         <div className="content-all-boards">
-          <AppNav />
           <section className="starred-boards-section">
             <div className="title-header flex">
               <div className="title-header-icon-container">
@@ -74,7 +73,7 @@ export const WorkSpace = () => {
           </section>
         </div>
       </section>
-
+      <div className="workspace-app-nav"> <AppNav /> </div>
     </div >
   )
 }

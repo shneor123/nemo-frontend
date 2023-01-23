@@ -179,11 +179,16 @@ export function handleDrag(
                 const groupEnd = board.groups.find(group => group.id === droppableIdEnd);
 
                 // Put the task in the new group
-                groupEnd.tasks.splice(droppableIndexEnd, 0, ...task)
+                groupEnd.tasks.splice(droppableIndexEnd, 0, ...task);
             }
+            // }
         }
         console.log(board._id);
         const savedBoard = await boardService.save(board);
-        dispatch({ type: 'SAVE_BOARD', board: savedBoard })
-    }
+
+        dispatch({
+            type: 'SAVE_BOARD',
+            board: savedBoard,
+        });
+    };
 }
