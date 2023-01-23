@@ -8,8 +8,6 @@
 @import "basics/helpers";
 @import "basics/layout";
 @import "basics/base";
-@import "basics/links";
-
 
 // Pages
 @import 'pages/home-page';
@@ -26,7 +24,7 @@
 @import "cmps/general/avatar";
 @import "cmps/general/menu";
 @import "cmps/general/loader";
-@import "cmps/general/board-nav";
+@import "cmps/general/dynamic-filter";
 
 // Workspace
 @import "cmps/work-space/board-list";

@@ -1,22 +1,21 @@
 import { useEffect, useRef, useState } from "react"
-import { useSelector ,useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { debounce } from "lodash"
 import { setModal } from "../../store/actions/app.actions"
 import { IoIosArrowBack } from 'react-icons/io'
 import { CgClose } from 'react-icons/cg'
 import { utilService } from "../../services/basic/util.service"
-import { ShareModal } from "../modals/share-modal"
-
 
 import { AttachmentModal } from "../board-app/task/attachment/attachment-modal"
 import { TaskDateModal } from "../board-app/task/dates/task-date-modal"
 import { ModalLabelChange } from "../modals/modal-label-change"
 import { ModalLabelCreate } from "../modals/modal-label-create"
+import { InviteModal } from "../modals/members/invite-modal"
 import { MemberModal } from "../modals/members/member-modal"
 import { ChecklistModal } from "../modals/checklist-modal"
 import { ActionModal } from "../modals/action-modal"
 import { CreateModal } from "../modals/create-modal"
-import { InviteModal } from "../modals/members/invite-modal"
+import { ShareModal } from "../modals/share-modal"
 import { LabelModal } from "../modals/label-modal"
 import { CoverModal } from "../modals/cover-modal"
 import { CopyModal } from "../modals/copy-modal"
@@ -24,19 +23,16 @@ import { ImgModal } from "../modals/img-modal"
 import { AiModal } from "../modals/ai-modal"
 import { AddBoard } from "../work-space/add-board"
 import { Menu } from "./menu"
-import { FilterMenu } from "../menu/filter-menu";
-import { Dashboard } from "../dashboard/dashboard";
-import { AccountActions } from "../modals/members/account-actions";
-import { MemberActions } from "../modals/members/member-actions";
-import { MoreMembers } from "../modals/members/more-members";
-import { AttachmentDelete } from "../modals/attachment-delete";
-import { ChecklistDelete } from "../modals/checklist-delete";
-import { TaskDelete } from "../modals/task-delete";
-import { DateDelete } from "../modals/date-delete";
-import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit";
-import { ModalStar } from "./modal-star"
-
-
+import { FilterMenu } from "../menu/filter-menu"
+import { Dashboard } from "../dashboard/dashboard"
+import { AccountActions } from "../modals/members/account-actions"
+import { MemberActions } from "../modals/members/member-actions"
+import { MoreMembers } from "../modals/members/more-members"
+import { AttachmentDelete } from "../modals/attachment-delete"
+import { ChecklistDelete } from "../modals/checklist-delete"
+import { TaskDelete } from "../modals/task-delete"
+import { DateDelete } from "../modals/date-delete"
+import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
 
 export const DynamicModalCmp = () => {
   const { modal } = useSelector(({ appModule }) => appModule)
@@ -178,9 +174,6 @@ export const DynamicModalCmp = () => {
       break
     case 'Create':
       cmp = <CreateModal{...modal.props} />
-      break
-    case 'Star board':
-      cmp = <ModalStar{...modal.props} />
       break
     case 'Share':
       cmp = <ShareModal{...modal.props} />

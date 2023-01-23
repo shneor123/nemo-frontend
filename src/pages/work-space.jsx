@@ -56,7 +56,6 @@ export const WorkSpace = () => {
             </div>
           </section>
           <section className="recent-boards-section">
-
             <div className="title-header flex">
               <div className="title-header-icon-container">
                 <AiOutlineClockCircle className="header-icon star-icon" />

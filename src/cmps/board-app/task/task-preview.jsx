@@ -134,7 +134,7 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
       onCloseQuickEdit={onCloseQuickEdit}
 
     /> : <Draggable draggableId={task.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
           onClick={onOpenTaskDetails}
           {...provided.draggableProps}
@@ -142,7 +142,7 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
           ref={provided.innerRef}
         >
           {!task.archivedAt && <span>
-            <div style={getTaskStyle()} className={`task-preview-wrapper ${getTaskClass()}`}>
+            <div style={getTaskStyle()} className={`task-preview-wrapper ${getTaskClass()} ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}>
               {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'image' && (
                 <img className="task-preview-image" src={task.style.imgUrl} alt="..." />
               )}

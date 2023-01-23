@@ -46,7 +46,6 @@ export const MemberModal = ({ boardMembers, boardId, groupId, task }) => {
                   <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />
                 ) : (
                   <span className="user-initial">{user.username}</span>
-
                 )}
               </div>
               {user.fullname}
@@ -58,5 +57,5 @@ export const MemberModal = ({ boardMembers, boardId, groupId, task }) => {
         })}
       </div>
     </div>
-  );
-};
+  )
+}

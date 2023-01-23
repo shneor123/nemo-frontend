@@ -1,5 +1,6 @@
 .dynamic-filter {
-    width: 300px;
+    min-width: 190px;
+    width: 304px;
     cursor: auto;
     position: absolute;
     bottom: 0;
@@ -8,11 +9,12 @@
     flex-direction: column;
     margin: 0;
     right: 10px;
-    background-color: #FAFBFC;
+    background-color: #ffffff;
     padding: 0 10px 10px;
-    z-index: 1000;
+    z-index: 100;
     color: #172b4d;
-    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    border-radius: 3px;
     cursor: pointer;
 
     h3 {
@@ -21,6 +23,7 @@
         margin-block-start: 10px;
         font-weight: bold;
         padding: 0.5rem;
+        font-size: 14px;
     }
 
     li {
