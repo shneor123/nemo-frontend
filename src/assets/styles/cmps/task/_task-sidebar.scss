@@ -45,6 +45,10 @@
     margin-top: 5px;
   }
 
+  h1 {
+    font-size: 14px;
+  }
+
   &:hover {
     background-color: #091e4214;
     border: none;
@@ -69,12 +73,13 @@
 .sidebar-button {
   @include button-link();
   text-align: center;
-  
+
 
   &.delete-btn {
     background-color: red;
     color: #fff;
   }
+
   .sidebar-icon {
     margin: 0 6px 0 -6px;
     font-size: 16px;
@@ -83,7 +88,7 @@
     width: 20px;
     vertical-align: text-top;
     padding: 2px;
-  
+
     * {
       height: 100%;
       width: 100%;

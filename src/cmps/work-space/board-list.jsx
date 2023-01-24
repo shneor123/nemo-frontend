@@ -1,10 +1,11 @@
 import React from 'react'
-import { BoardPreview } from './board-preview.jsx'
+import { BoardPreview } from './board-preview'
 import { CreateNewBoard } from "./new-board"
 
 export function BoardList({ boards, updateBoard, onToggleStar, isStarBoard }) {
     return (
         <section className='board-list-container'>
+            
             {!isStarBoard && <CreateNewBoard />}
 
             {boards.map(board =>

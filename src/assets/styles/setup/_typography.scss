@@ -4,6 +4,11 @@
 }
 
 @font-face {
+  font-family: fa-brands;
+  src: url(../../fonts/fa//fa-brands-400.ttf);
+}
+
+@font-face {
   font-family: Charlie-Text;
   src: url(../../fonts/charlie-text-regular.woff);
 }
@@ -122,6 +127,7 @@
 
   &.icon-board:before {
       content: "\e90b";
+      font-size: 20px;
   }
 
   &.icon-template-board:before {
@@ -145,4 +151,64 @@
       font-size: 1rem;
       content: "\e91b";
   }
+}
+
+.fa-brands {
+    font-family: "fa-brands";
+    &.trello-icon::before {
+        content: "\f181";
+    }
+}
+
+.fa-regular {
+    font-family: "fa-regular";
+
+    &.date-icon::before {
+        content: "\f017";
+    }
+    &.settings-icon::before {
+        content: "\f013";
+    }
+
+    &.plus-icon::before {
+        content: "\2b";
+    }
+
+    &.arrow-down-icon::before {
+        content: "\2b";
+    }
+
+    &.dates-icon::before {
+        content: "\f017";
+    }
+
+    &.attachment-icon::before {
+        content: "\e908";
+    }
+
+    &.boards-icon::before {
+        content: "\f017";
+    }
+
+    &.pen-icon::before {
+        content: "\f044";
+    }
+
+    &.user-icon::before {
+        content: "\f007";
+    }
+
+    &.star-icon::before {
+        content: "\f005";
+    }
+
+    &.img-icon::before {
+        content: "\f302";
+    }
+
+    &.square-icon::before {
+        color: white;
+        font-size: rem(14px);
+        content: "\f0c8";
+    }
 }

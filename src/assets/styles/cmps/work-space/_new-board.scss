@@ -111,7 +111,6 @@
             min-height: 0;
             outline: 0;
             padding: 0;
-            position: relative;
             width: 100%;
         }
     }
@@ -224,12 +223,27 @@
                 padding: 0;
                 position: relative;
                 width: 100%;
-                // background-color: red;
             }
         }
     }
+}
 
+.btn-color {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffc0cb;
+    color: #172b4d;
+    line-height: 18px;
+    // text-align: start;
 
+    &:hover {
+        background-color: rgba(#ffc0cb, 0.9);
+    }
 
-
+    >span {
+        font-size: 20px;
+        color: black;
+        margin-bottom: 10px;
+    }
 }

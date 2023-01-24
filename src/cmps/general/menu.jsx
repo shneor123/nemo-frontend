@@ -89,11 +89,10 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
           {isFilterModalOpen === 'block' && 'Filter'}
           {isArchivedModalOpen === 'block' && 'Archived'}
           {iOpenAboutBoard === 'block' && 'About this board'}
-          <span
-            onClick={onOpenMenu}
-            style={{ display: isMainMenuOpen === 'none' ? 'inline-block' : 'none' }}
-            className="back-menu">
-            <FiChevronLeft size={25} /></span>
+          <span onClick={onOpenMenu} className="back-menu"
+            style={{ display: isMainMenuOpen === 'none' ? 'inline-block' : 'none' }}>
+            <FiChevronLeft size={25} />
+          </span>
           <span style={{ top: '7px' }} onClick={onCloseMenu} className="modal-close-btn">
             <IoMdClose size={25} />
           </span>
@@ -102,7 +101,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
       <div className="menu-content-wrapper">
         <AboutThisBoard board={board} iOpenAboutBoard={iOpenAboutBoard} />
         <ColorMenuModal board={board} isColorModalOpen={isColorModalOpen} />
-        <ImgsMenuModal  board={board} isImgModalOpen={isImgModalOpen} />
+        <ImgsMenuModal board={board} isImgModalOpen={isImgModalOpen} />
         <FilterMenu board={board} isFilterModalOpen={isFilterModalOpen} />
         <ArchivedList board={board} isArchivedModalOpen={isArchivedModalOpen} onUpdateBoard={onUpdateBoard} />
         <MainMenu

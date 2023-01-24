@@ -32,6 +32,7 @@ import { ChecklistDelete } from "../modals/checklist-delete"
 import { TaskDelete } from "../modals/task-delete"
 import { DateDelete } from "../modals/date-delete"
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
+import { MoreBackground } from "../work-space/more-background"
 
 export const DynamicModalCmp = () => {
   const { modal } = useSelector(({ appModule }) => appModule)
@@ -168,8 +169,7 @@ export const DynamicModalCmp = () => {
       cmp = <CopyModal {...modal.props} />
       break
     case 'Attachment edit':
-      cmp =
-        <AttachmentEdit {...modal.props} />
+      cmp = <AttachmentEdit {...modal.props} />
       break
     case 'Share':
       cmp = <ShareModal {...modal.props} />
@@ -212,3 +212,19 @@ export const DynamicModalCmp = () => {
     </div>
   )
 }
+
+// tyle={
+//   modalTitle === "Menu"
+//     ? {
+//       top: bottom,
+//       right: 0, // when menu open
+//       // right: -340, //when closed
+//       // height:`calc(100vh - 80px)`,
+//       width: width || "304px",
+//     }
+//     : {
+//       top: bottom,
+//       left,
+//       width: width || "304px",
+//       height: height || ""
+//     }

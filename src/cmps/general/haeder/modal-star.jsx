@@ -4,12 +4,11 @@ import { updateBoard } from '../../../store/actions/board.action'
 import { DynamicFilter } from './dynamic-filter'
 
 export const ModalStar = () => {
-  const { boards } = useSelector((storeState) => storeState.boardModule)
+  const { boards } = useSelector(({ boardModule }) => boardModule)
   const [modalType, setModal] = useState(null)
   const dispatch = useDispatch()
 
   let recentBoards = []
-  let Boards = []
   let starredBoards
 
   const onToggleStar = (ev, boardId) => {
@@ -34,13 +33,14 @@ export const ModalStar = () => {
     })()
   recentBoards = [...recentBoards]
 
-  const boardsAll = boards.map(board => board)
+  const allBoards = boards.map(board => board)
   return (
     <div className='filter'>
       <button className='boards' onClick={() => onToggleModal('boards')}>
         {modalType === 'boards' &&
           <DynamicFilter
-            boards={boardsAll}
+            boards={allBoards}
+            modalType={modalType}
             toggleStar={onToggleStar}
             setModal={setModal}
           />
@@ -52,6 +52,7 @@ export const ModalStar = () => {
       <button className='recent' onClick={() => onToggleModal('recent')}>
         {modalType === 'recent' &&
           <DynamicFilter
+            modalType={modalType}
             boards={recentBoards}
             toggleStar={onToggleStar}
             setModal={setModal}
@@ -64,6 +65,7 @@ export const ModalStar = () => {
       <button className='stared' onClick={() => onToggleModal('starred')}>
         {modalType === 'starred' &&
           <DynamicFilter
+            modalType={modalType}
             boards={starredBoards}
             toggleStar={onToggleStar}
             setModal={setModal} />

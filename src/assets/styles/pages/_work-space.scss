@@ -1,5 +1,6 @@
 .workspace-page {
     padding-top: 115px;
+    position: relative;
 
     a {
         text-decoration: none;
@@ -42,15 +43,16 @@
             width: 24px;
         }
     }
+
+    .workspace-app-nav {
+        position: absolute;
+        top: 130px;
+        margin-inline-start: 8.7%;
+    }
 }
 
 .primary-boards-container-section {
     padding-bottom: 10px;
-}
-
-.workspace-app-nav {
-    margin-inline-start: 8.7%;
-    margin-top: -490px;
 }
 
 @media (max-width: 1200px) {
@@ -60,6 +62,7 @@
         left: 19.3%;
     }
 }
+
 @media (max-width: 1000px) {
     .workspace-app-nav {
         position: absolute;
@@ -67,6 +70,7 @@
         left: 19.3%;
     }
 }
+
 @media (max-width: 660px) {
     .workspace-app-nav {
         position: absolute;

@@ -20,7 +20,7 @@ export const AppHeader = () => {
   const dispatch = useDispatch()
   const profileRef = useRef()
   const createRef = useRef()
-  const searchRef = useRef()
+
   let googleUser
   let routeClass
 
@@ -45,7 +45,7 @@ export const AppHeader = () => {
     if (window.pageYOffset > 0) return setIsScrolled(true)
     setIsScrolled(false)
   }
-  if (pathname === "/") routeClass = "-home"
+  if (isHome) routeClass = "-home"
   if (pathname === "/login" || pathname === "/signup") routeClass = "-login-signup"
   if (pathname === "/workspace") routeClass = "-workspace"
   if (pathname.includes("/board")) routeClass = "-workspace"
@@ -67,13 +67,9 @@ export const AppHeader = () => {
 
   return (
     <header
-      style={
-        pathname.includes("board") && board?.style?.backgroundColor
-          ? { ...board?.style, filter: "brightness(0.9)" }
-          : {}
-      }
+      style={pathname.includes("board") && board?.style?.backgroundColor ? { ...board?.style, filter: "brightness(0.9)" } : {}}
       className={`app-header${routeClass} } ${isScrolled ? 'scrolled' : ''}`}>
-      {pathname === "/" && (
+      {isHome && (
         <nav className='nav-bar flex justify-between align-center'>
           <div className='logo-container'>
             <img className='logo-img-home' src={Logole} alt='' />
@@ -86,23 +82,19 @@ export const AppHeader = () => {
         </nav>
       )
       }
-      {pathname !== "/" && (
+      {!isHome && (
         <nav className='nav-bar'>
           <div className='trello-logo-after-login-container'>
             <div className="logo-continor wobble-top-on-hover" >
-              <svg onClick={() => navigate("/workspace")} className='trello-logo-after-login'
-                stroke='currentColor' fill='currentColor' strokeWidth='0' version='1.1' viewBox='0 0 16 16' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'>
-                <path d='M14.5 0h-13c-0.825 0-1.5 0.675-1.5 1.5v13c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-13c0-0.825-0.675-1.5-1.5-1.5zM7 12c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-8c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v8zM13 9c0 0.55-0.45 1-1 1h-2c-0.55 0-1-0.45-1-1v-5c0-0.55 0.45-1 1-1h2c0.55 0 1 0.45 1 1v5z'></path>
-              </svg>
+              <span onClick={() => navigate("/workspace")} className="fa-brands trello-icon trello-logo-after-login"></span>
               <h1 onClick={() => navigate("/workspace")} className='trello-logo-after-login-title'>Nemo</h1>
             </div>
             <ModalStar />
             {!isHome && (
-              <div className="workspace-create" ref={createRef}
-                onClick={(ev) => {
-                  ev.stopPropagation()
-                  onModal('Create Board')
-                }}>Create</div>
+              <div className="workspace-create" ref={createRef} onClick={(ev) => { onModal('Create Board') }}>
+                <span className="share-btn-icon">Create</span>
+                <span className="plus trellicons plus-icon"></span> 
+              </div>
             )}
           </div>
 
@@ -110,15 +102,8 @@ export const AppHeader = () => {
 
           {!isHome && (
             <div className="user-img-container" ref={profileRef}
-              onClick={(ev) =>
-                onOpenModal(ev, {
-                  category: 'account actions',
-                  title: 'Account',
-                  element: profileRef.current,
-                  props: { user },
-                })}>
-
-
+              onClick={(ev) => onOpenModal(ev, { category: 'account actions', title: 'Account', element: profileRef.current, props: { user }, })}
+            >
               {user &&
                 (user?.imgUrl ? (
                   <img src={user.imgUrl} className="user-img" alt={utilService.getInitials(user.fullname)} />

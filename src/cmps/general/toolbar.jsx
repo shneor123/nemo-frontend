@@ -66,6 +66,7 @@ export const ToolBar = ({ boardId, board, users }) => {
   const onOpenModal = (ev, modal) => {
     dispatch(setModal(modal))
   }
+
   return (
     <div className="toolbar">
       <Menu
@@ -111,12 +112,13 @@ export const ToolBar = ({ boardId, board, users }) => {
             category: 'Invite to board',
             title: 'Invite to board',
             props: { element: shareRef.current, board, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
-          })}><BsPersonPlus /> Invite</button>
+          })}><BsPersonPlus /> <span className="share-btn-icon">Invite</span></button>
       </div>
       <div className="toolbar-right">
         <div>
           <span className="toolbar-btn toolbar-menu-btn" ref={dashboardRef} onClick={() => navigate(`/board/${board._id}/dashboard`)}>
-            <AiOutlineDashboard /> <span className="tool-title">Dashboard</span>
+            <AiOutlineDashboard /> <span className="tool-title share-btn-icon">Dashboard</span>
+            
           </span>
           <span className="toolbar-divider"></span>
 
@@ -126,12 +128,12 @@ export const ToolBar = ({ boardId, board, users }) => {
               category: 'Filter',
               title: 'Filter',
               props: { element: filterRef.current, board },
-            })}><MdOutlineFilterList /> <span className="tool-title">Filter</span>{" "}
+            })}><MdOutlineFilterList /> <span className="tool-title share-btn-icon">Filter</span>{" "}
           </span>
           <span className="toolbar-divider"></span>
 
           <span onClick={onOpenMenu} className="toolbar-btn toolbar-menu-btn">
-            <FaEllipsisH /> <span className="tool-title">Show menu</span>
+            <FaEllipsisH /> <span className="tool-title share-btn-icon">Show menu</span>{" "}
           </span>
         </div>
       </div>

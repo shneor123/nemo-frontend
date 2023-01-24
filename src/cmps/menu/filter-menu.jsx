@@ -6,7 +6,7 @@ import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
 export const FilterMenu = ({ isFilterModalOpen, board }) => {
     const dispatch = useDispatch()
-    const [currFilter, setCurrFilter] = useState({ txt: '', labelIds: [], memberIds: [] })
+    const [currFilter, setCurrFilter] = useState({ txt: '', labelIds: [], memberIds: []})
 
     useEffect(() => {
         onSetFilter()
@@ -47,8 +47,6 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
         dispatch(setFilter(currFilter))
     }
 
-    // board.labels[3].title = 'Important'
-
     return (
         <section className="filter-container" style={{ display: isFilterModalOpen }}>
             <p className="sub-title">Keyword</p>
@@ -63,25 +61,19 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
 
             </div>
             <p className="sub-info-title">Search cards, members, labels, and more.</p>
-            <div>
-                <p className="sub-title">Members</p>
-            </div>
+            <div> <p className="sub-title">Members</p> </div>
             <ul className="clean-list">
-                {board.members && board.members.map((member) =>{
+                {board.members && board.members.map((member) => {
                     return (
                         <li key={member._id}>
                             <div className="user-preview-conainer" onClick={() => setMemberChecked(member._id)}>
                                 {!member.checked && < MdCheckBoxOutlineBlank className="check-box-blank" onClick={() => setMemberChecked(member.id)} />}
                                 {member.checked && < MdCheckBox className="check-box-full" onClick={() => setMemberChecked(member.id)} />}
                                 <div className="user-info">
-                                    <div className="user-img-container ">
-                                        <img src={member.imgUrl} />
-                                    </div>
+                                    <div className="user-img-container "> <img src={member.imgUrl} /> </div>
                                     <span className="user-name">{member.fullname}</span>
-
                                 </div>
                             </div>
-
                         </li>
                     )
                 })}
