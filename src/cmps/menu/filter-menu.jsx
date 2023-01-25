@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setFilter } from "../../store/actions/board.action";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
+import { utilService } from "../../services/basic/util.service";
 
 
 export const FilterMenu = ({ isFilterModalOpen, board }) => {
     const dispatch = useDispatch()
-    const [currFilter, setCurrFilter] = useState({ txt: '', labelIds: [], memberIds: []})
+    const [currFilter, setCurrFilter] = useState({ txt: '', labelIds: [], memberIds: [] })
 
     useEffect(() => {
         onSetFilter()
@@ -50,18 +51,14 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
     return (
         <section className="filter-container" style={{ display: isFilterModalOpen }}>
             <p className="sub-title">Keyword</p>
+            
             <div className="search-container">
-                <input
-                    type="search"
-                    name="txt"
-                    placeholder="Enter a keyword..."
-                    value={currFilter.txt}
-                    onChange={onHandleChange}
-                />
-
+                <input type="search" name="txt" placeholder="Enter a keyword..." value={currFilter.txt} onChange={onHandleChange} />
             </div>
             <p className="sub-info-title">Search cards, members, labels, and more.</p>
+
             <div> <p className="sub-title">Members</p> </div>
+
             <ul className="clean-list">
                 {board.members && board.members.map((member) => {
                     return (
@@ -70,7 +67,14 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
                                 {!member.checked && < MdCheckBoxOutlineBlank className="check-box-blank" onClick={() => setMemberChecked(member.id)} />}
                                 {member.checked && < MdCheckBox className="check-box-full" onClick={() => setMemberChecked(member.id)} />}
                                 <div className="user-info">
-                                    <div className="user-img-container "> <img src={member.imgUrl} /> </div>
+                                    <div className="user-img-container ">
+                                        {/* <h3 className="data-gutter-card-title">Members</h3> */}
+                                        {member?.imgUrl
+                                            ? <img src={member.imgUrl} className="user-img" alt={utilService.getInitials(member.fullname)} />
+                                            : <span className="user-initial">{utilService.getInitials(member.fullname)}</span>
+                                        }
+                                        {/* <img src={member.imgUrl} />  */}
+                                    </div>
                                     <span className="user-name">{member.fullname}</span>
                                 </div>
                             </div>

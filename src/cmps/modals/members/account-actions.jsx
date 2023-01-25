@@ -25,9 +25,7 @@ export const AccountActions = ({ user }) => {
       <div className="account-info">
         <div className="account-img-container">
           {user?.imgUrl ? (
-            <Link to={'/users'}>
               <img src={user.imgUrl} alt={user.fullname} className="account-img" />
-            </Link>
           ) : (
             <a className="account">{utilService.getInitials(user.fullname)}</a>
           )}

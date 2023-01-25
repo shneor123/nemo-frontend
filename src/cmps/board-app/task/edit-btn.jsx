@@ -12,7 +12,7 @@ import { MdDeleteOutline } from "react-icons/md"
 import { GiRobotAntennas } from 'react-icons/gi'
 import { RiArchiveLine } from "react-icons/ri";
 
-export const EditBtn = ({ onOpenTaskDetails, onRemoveTask, boardId, labels, groupId, task, boardMembers, onCloseQuickEdit }) => {
+export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, labels, groupId, task, boardMembers, onCloseQuickEdit }) => {
     const dispatch = useDispatch()
     const labelsRef = useRef()
     const membersRef = useRef()
@@ -21,39 +21,53 @@ export const EditBtn = ({ onOpenTaskDetails, onRemoveTask, boardId, labels, grou
     const claraRef = useRef()
     const copyRef = useRef()
 
+
+
     const onArchiveTask = () => {
         updateTask({ ...task, archivedAt: Date.now() })
         onCloseQuickEdit()
     }
-
     const updateTask = (updatedTask) => {
         task.archivedAt = updatedTask.archivedAt
         dispatch(saveTask(task, boardId, groupId))
     }
 
-    const onOpenModal = (ev, modal) => {
+
+    const onOpenModal = (e, modal) => {
+        e.stopPropagation()
         dispatch(setModal(modal))
+    }
+    const onModalMember = (e) => {
+        e.stopPropagation()
+        dispatch(setModal({
+            element: membersRef.current,
+            category: 'Members',
+            title: 'Members',
+            props: { element: membersRef.current, board, boardId, groupId, task, boardMembers },
+
+        })
+        )
+    }
+    const onModallabels = (e) => {
+        e.stopPropagation()
+        dispatch(
+            setModal({
+                element: membersRef.current,
+                category: 'Labels',
+                title: 'Labels',
+                props: { element: labelsRef.current, boardId, groupId, task, labels, boardMembers },
+            })
+        )
     }
 
     return (
-        <div className="edit-btn">
+        <div className="edit-btn" >
+
             <span className="quick-card-editor-buttons-item" onClick={onOpenTaskDetails}><AiOutlineCreditCard /> Open card</span>
 
-            <span className="quick-card-editor-buttons-item" ref={labelsRef}
-                onClick={(ev) => onOpenModal(ev, {
-                    element: labelsRef.current,
-                    category: 'Labels',
-                    title: 'Labels',
-                    props: { element: labelsRef.current, boardId, groupId, task, labels, boardMembers },
-                })}>< TiTag /> Edit labels</span>
+            <span className="quick-card-editor-buttons-item" ref={labelsRef} onClick={onModallabels}> < TiTag /> Edit labels </span>
 
-            <span className="quick-card-editor-buttons-item" ref={membersRef}
-                onClick={(ev) => onOpenModal(ev, {
-                    element: membersRef.current,
-                    category: 'Members',
-                    title: 'Members',
-                    props: { boardId, groupId, task, boardMembers }
-                })}><BsPerson /> Change members</span>
+            <span className="quick-card-editor-buttons-item" ref={membersRef} onClick={onModalMember}> <BsPerson /> Change members </span>
 
             <span className="quick-card-editor-buttons-item" ref={coverRef}
                 onClick={(ev) => onOpenModal(ev, {

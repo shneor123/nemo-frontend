@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { FaEllipsisH } from "react-icons/fa";
 import { BsPersonPlus } from "react-icons/bs";
 import { MdOutlineFilterList } from "react-icons/md";
-import { AiOutlineStar, AiFillStar, AiOutlineDashboard } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar, AiOutlineDashboard, AiOutlinePlus } from "react-icons/ai";
 
 import { Menu } from "./menu";
 import { MemberPreview } from "../modals/members/member-preview";
@@ -22,6 +22,7 @@ export const ToolBar = ({ boardId, board, users }) => {
   const filterRef = useRef()
   const dashboardRef = useRef()
   const moreMembersRef = useRef()
+  const memberRef = useRef()
 
 
   useEffect(() => {
@@ -51,6 +52,12 @@ export const ToolBar = ({ boardId, board, users }) => {
     board.isStar = !board.isStar
     dispatch(updateBoard(board))
   }
+  const onOpenModal = (ev, modal) => {
+    ev.stopPropagation()
+    dispatch(setModal(modal))
+  }
+
+
   const membersToShow = () => {
     let members = [...board?.members]
     members = members.splice(0, shownMembers)
@@ -59,13 +66,17 @@ export const ToolBar = ({ boardId, board, users }) => {
   const getLengthOfExtraMembers = () => {
     return board.members.length - shownMembers
   }
+
+
   const getMembersForModal = (members) => {
-    const membersForModal = members.slice(4)
+    const membersForModal = members.slice(3)
     return membersForModal
   }
-  const onOpenModal = (ev, modal) => {
-    dispatch(setModal(modal))
+  const getMembersForPreview = (members) => {
+    const membersForPreview = members.slice(0, 3)
+    return membersForPreview
   }
+
 
   return (
     <div className="toolbar">
@@ -85,7 +96,7 @@ export const ToolBar = ({ boardId, board, users }) => {
         </span>
         <span className="toolbar-divider"></span>
 
-        <div className="toolbar-members">
+        <div className="toolbar-members">       
           {membersToShow().map((member) => {
             return (
               <div key={member._id} className="user-avatar"
@@ -103,22 +114,29 @@ export const ToolBar = ({ boardId, board, users }) => {
                 title: 'more members',
                 props: { element: moreMembersRef.current, board, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
               })}>{`+${getLengthOfExtraMembers()}`}
-            </div>)}
+            </div>)} 
         </div>
+
+
+
+
+
+
+
 
         <button className="share-btn" ref={shareRef}
           onClick={(ev) => onOpenModal(ev, {
             element: shareRef.current,
             category: 'Invite to board',
             title: 'Invite to board',
-            props: { element: shareRef.current, board, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
+            props: { element: shareRef.current, board, boardId, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
           })}><BsPersonPlus /> <span className="share-btn-icon">Invite</span></button>
       </div>
       <div className="toolbar-right">
         <div>
           <span className="toolbar-btn toolbar-menu-btn" ref={dashboardRef} onClick={() => navigate(`/board/${board._id}/dashboard`)}>
             <AiOutlineDashboard /> <span className="tool-title share-btn-icon">Dashboard</span>
-            
+
           </span>
           <span className="toolbar-divider"></span>
 

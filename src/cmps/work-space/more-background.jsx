@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CgClose } from 'react-icons/cg'
 
 export const MoreBackground = ({ onCloseModal, chooseColor, chooseImg }) => {
@@ -10,18 +10,6 @@ export const MoreBackground = ({ onCloseModal, chooseColor, chooseImg }) => {
         { id: 'c5', color: '#89609e' },
         { id: 'c6', color: '#89609e' },
     ]
-    const moreCoverColors = [
-        { id: 'c1', color: '#0079bf' },
-        { id: 'c2', color: '#d29034' },
-        { id: 'c3', color: '#519839' },
-        { id: 'c4', color: '#b04632' },
-        { id: 'c5', color: '#89609e' },
-        { id: 'c6', color: '#89609e' },
-        { id: 'c7', color: '#89609e' },
-        { id: 'c8', color: '#89609e' },
-        { id: 'c9', color: '#89609e' },
-    ]
-
     const coverImgs = [
         {
             id: 'p1',
@@ -48,7 +36,6 @@ export const MoreBackground = ({ onCloseModal, chooseColor, chooseImg }) => {
             img: 'https://images.unsplash.com/photo-1613336026275-d6d473084e85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTA3NzN8MHwxfHNlYXJjaHwxNnx8cmFuZG9tfGVufDB8fHx8MTY3NDQ2MzIyNQ&ixlib=rb-4.0.3&q=80&w=1080'
         },
     ]
-
     return (
         <section className="more-background more-select">
             <section className='haeder'>
@@ -57,7 +44,7 @@ export const MoreBackground = ({ onCloseModal, chooseColor, chooseImg }) => {
             </section>
             <div className="background-picker">
                 <span>Board background</span>
-                <span className='see-more'>See More</span>
+                <span className='see-more'>  See More</span>
                 <span className='title-color'>Photos</span>
                 <ul className="background-list clean-list flex">
                     {coverImgs.map((img) => {

@@ -17,7 +17,8 @@ import { labelService } from "../../../services/board/label.service";
 import { utilService } from "../../../services/basic/util.service";
 
 export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
-  const { board } = useSelector((storeState) => storeState.boardModule)
+  const { board } = useSelector(({ boardModule }) => boardModule)
+
   const user = userService.getLoggedinUser()
   const [isEdit, setIsEdit] = useState(false)
   const [labels, setLabels] = useState([])
@@ -126,6 +127,7 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
       onRemoveTask={onRemoveTask}
       closeQuickEdit={openQuickEdit}
       onOpenTaskDetails={onOpenTaskDetails}
+      board={board}
       task={task}
       boardId={boardId}
       groupId={groupId}
@@ -199,7 +201,14 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
                   {/* MENBER PREVIEW */}
                   <div className="task-members-preview">
                     {task?.members.map(member => {
-                      return <div key={member._id} style={{ background: `url(${member.imgUrl}) center center / cover ` }} className="user-avatar"></div>
+                      return (
+                        <div key={member._id} className="user-avatar">
+                          {member?.imgUrl
+                            ? <img src={member.imgUrl} className="user-img" alt={utilService.getInitials(member.fullname)} />
+                            : <span className="user-initial">{utilService.getInitials(member.fullname)}</span>
+                          }
+                        </div>
+                      )
                     })}
                   </div>
                 </>}

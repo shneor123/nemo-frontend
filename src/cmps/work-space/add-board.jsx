@@ -7,7 +7,7 @@ import { MoreBackground } from './more-background';
 
 export const AddBoard = () => {
   const dispatch = useDispatch()
-  const [modalType, seOntModal] = useState(null)
+  const [modalType, setOnMOdal] = useState(null)
   const [boardTitle, setBoardTitle] = useState('')
   const [selectedImg, setSelectedImg] = useState('')
   const [selectedColor, setSelectedColor] = useState('#b04632')
@@ -65,8 +65,8 @@ export const AddBoard = () => {
   }
 
   const onToggleModal = (type) => {
-    if (modalType === type) seOntModal(null)
-    else seOntModal(type)
+    if (modalType === type) setOnMOdal(null)
+    else setOnMOdal(type)
   }
 
 
@@ -75,11 +75,7 @@ export const AddBoard = () => {
       <div className="board-preview-wrapper">
         <div
           className="board-preview-container"
-          style={{
-            background:
-              selectedColor || `url(${selectedImg}) center center / cover`,
-          }}
-        >
+          style={{ background: selectedColor || `url(${selectedImg}) center center / cover` }}>
           <img src={boardPreview} />
         </div>
       </div>
@@ -116,7 +112,7 @@ export const AddBoard = () => {
             )
           })}
           <button className="color-selected btn-color" onClick={() => onToggleModal('colors')}>
-            {modalType === 'colors' && <MoreBackground chooseColor={chooseColor} chooseImg={chooseImg} onCloseModal={seOntModal} />}
+            {modalType === 'colors' && <MoreBackground chooseColor={chooseColor} chooseImg={chooseImg} onCloseModal={setOnMOdal} />}
             <span>...</span>
           </button>
         </div>

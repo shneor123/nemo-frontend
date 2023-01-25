@@ -1,7 +1,7 @@
 import { EditBtn } from "./edit-btn"
 import { EditText } from "./edit-text"
 
-export const EditPreview = ({ onRemoveTask, closeQuickEdit, task, onOpenTaskDetails, labelsTo, groupId, boardId, boardMembers, onCloseQuickEdit }) => {
+export const EditPreview = ({board, onRemoveTask, closeQuickEdit, task, onOpenTaskDetails, labelsTo, groupId, boardId, boardMembers, onCloseQuickEdit }) => {
     return (
         <>
             <div className="edit-preview-container">
@@ -10,6 +10,7 @@ export const EditPreview = ({ onRemoveTask, closeQuickEdit, task, onOpenTaskDeta
                     onRemoveTask={onRemoveTask}
                     labels={labelsTo}
                     closeQuickEdit={closeQuickEdit}
+                    board={board}
                     task={task}
                     groupId={groupId}
                     boardId={boardId}

@@ -9,7 +9,7 @@
     left: -55px;
     background-color: #ffffff;
     padding: 0 10px 10px;
-    z-index: 100;
+    z-index: 200;
     color: #172b4d;
     box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
     border-radius: 3px;
@@ -110,6 +110,8 @@
     width: 250px;
     box-shadow: none;
     cursor: pointer;
+    z-index: 200;
+
 
     ::placeholder {
         color: #fff;
@@ -135,6 +137,7 @@
 }
 
 .modal-star-nav {
+    z-index: 10000;
 
     h3 {
         border-bottom: 1px solid #00000014;
@@ -197,9 +200,10 @@
 }
 
 .filter {
+    z-index: 200;
+
     flex-grow: 1;
     position: relative;
-    z-index: 10;
     margin-right: 8px;
 
     &>* {

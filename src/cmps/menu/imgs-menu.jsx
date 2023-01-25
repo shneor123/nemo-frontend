@@ -3,12 +3,14 @@ import { boardService } from '../../services/board/board.service'
 import { utilService } from '../../services/basic/util.service'
 
 import { AccessKey } from '../../.secret/api'
+import { useLocation } from 'react-router'
 
 export function ImgsMenuModal({ board, isImgModalOpen }) {
     const unsplash = useRef()
     const [img, setImg] = useState('')
     const [res, setRes] = useState(unsplash.current || [])
-
+    // const pathname = useLocation()
+    // const boardIdx = pathname === '/board'
 
     useEffect(() => {
         setRes(utilService.getDemoImages())
@@ -43,7 +45,7 @@ export function ImgsMenuModal({ board, isImgModalOpen }) {
         setImg('')
     }
 
-    if (!board.groups) return
+    if (!board) return
     return (
         <div className="background-list" style={{ display: isImgModalOpen }}>
             <div className="img-container">

@@ -119,7 +119,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             element: labelsRef.current,
             category: 'Members',
             title: 'Members',
-            props: { boardMembers, task, boardId, groupId },
+            props: { boardMembers, task, boardId, groupId ,board},
           })}><AiOutlineUser />
           <span className="task-details-sidebar-btn-text">Members</span>
         </button>
