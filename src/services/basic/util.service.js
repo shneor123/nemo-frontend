@@ -25,8 +25,6 @@ function getNewDateTime(date, time) {
 
   return milliseconds(timeParts[0], timeParts[1], 0) + newDate
 }
-
-
 function getTimeAgo(timestamp, locale = 'en') {
   let value
   const diff = Math.floor((Date.now() - timestamp) / 1000)
@@ -52,8 +50,6 @@ function getTimeAgo(timestamp, locale = 'en') {
   }
   return value
 }
-
-
 
 function getTimeFormat(date) {
   const time = new Intl.DateTimeFormat('he', { hour: 'numeric', minute: 'numeric' })
