@@ -6,6 +6,7 @@ import { MemberPreview } from './member-preview';
 export function MoreMembers({ moreMembers, board }) {
   const moreRef = useRef()
   const dispatch = useDispatch()
+  
   const initials = (member) => { return [...member.fullname] }
 
   const onOpenModal = (ev, modal) => {

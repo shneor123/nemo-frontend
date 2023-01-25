@@ -34,14 +34,13 @@ import { DateDelete } from "../modals/date-delete"
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
 
 export const DynamicModalCmp = () => {
-  const { modal } = useSelector(({ appModule }) => appModule)
-  console.log("🚀 ~ file: dynamic-modal-cmp.jsx:39 ~ DynamicModalCmp ~ modal", modal)
-  const [position, setPosition] = useState(null)
   const dispatch = useDispatch()
   const deleteMember = useRef()
-  const editLabel = useRef()
   const buttonRef = useRef()
+  const editLabel = useRef()
   const modalRef = useRef()
+  const { modal } = useSelector(({ appModule }) => appModule)
+  const [position, setPosition] = useState(null)
 
 
   useEffect(() => {
@@ -52,7 +51,6 @@ export const DynamicModalCmp = () => {
 
   useEffect(() => {
     adjustPosition()
-    // eslint-disable-next-line
   }, [modal.element])
 
   const adjustPosition = () => {
@@ -214,19 +212,3 @@ export const DynamicModalCmp = () => {
     </div>
   )
 }
-
-// tyle={
-//   modalTitle === "Menu"
-//     ? {
-//       top: bottom,
-//       right: 0, // when menu open
-//       // right: -340, //when closed
-//       // height:`calc(100vh - 80px)`,
-//       width: width || "304px",
-//     }
-//     : {
-//       top: bottom,
-//       left,
-//       width: width || "304px",
-//       height: height || ""
-//     }
