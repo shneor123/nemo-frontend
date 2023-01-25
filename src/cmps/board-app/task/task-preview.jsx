@@ -10,6 +10,7 @@ import { HiOutlineEye } from "react-icons/hi"
 
 import { EditPreview } from "./task-edit";
 import { DueDatePreview } from "./dates/due-date-preview";
+import { MemberPreview } from "../../modals/members/member-preview";
 import { toggleLabelPreview } from '../../../store/actions/label.action'
 import { removeTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/basic/user.service";
@@ -211,8 +212,8 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
                       )
                     })}
                   </div>
-                </>}
-
+                </>
+                }
               </div>
             </div>
           </span>

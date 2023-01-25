@@ -6,23 +6,18 @@ import { setModal } from "../../../store/actions/app.actions"
 import { CgClose } from 'react-icons/cg'
 
 export const MemberActions = ({ task, member, board }) => {
-  const imgRef = useRef()
   const dispatch = useDispatch()
+  const imgRef = useRef()
 
   const onRemoveMember = () => {
-    const memberIdx = board.members.findIndex((boardMember) => boardMember.id === member._id)
-    board.members.splice(memberIdx, 1)
+    dispatch(setModal(null))
+    if (!task) board.members = board.members.filter((currMember) => currMember._id !== member._id)
+    else {
+      const memberIdx = task.members.findIndex((currMember) => currMember._id === member._id)
+      task.members.splice(memberIdx, 1)
+    }
     onUpdateBoard(board)
   }
-
-  // const onRemoveMember = () => {
-  //   if (!task) board.members = board.members.filter((currMember) => currMember._id !== member._id)
-  //   else {
-  //     const memberIdx = task.members.findIndex((currMember) => currMember._id === member._id)
-  //     task.members.splice(memberIdx, 1)
-  //   }
-  //   onUpdateBoard(board)
-  // }
 
   const onUpdateBoard = async (updatedBoard) => {
     try {
@@ -54,8 +49,7 @@ export const MemberActions = ({ task, member, board }) => {
               <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
             </div>
           ) : (
-            // <a className="member">{utilService.getInitials(member.fullname)}</a>
-            <div className="member">{member.fullname}</div>
+            <a className="member">{utilService.getInitials(member.fullname)}</a>
           )}
         </div>
 
@@ -65,7 +59,7 @@ export const MemberActions = ({ task, member, board }) => {
         </div>
       </div>
       <button className="remove-btn" onClick={onRemoveMember}>
-        {board ? 'Remove from board...' : 'Remove from task'}
+        {task ? 'Remove from task...' : 'Remove from board'}
       </button>
     </div>
   )

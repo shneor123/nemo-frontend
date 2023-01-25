@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { FiPlus } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { utilService } from "../../../services/basic/util.service";
 import { setModal } from "../../../store/actions/app.actions";
+import { MemberPreview } from "../../modals/members/member-preview";
 
 
 export const MembersDataCard = ({ board, boardMembers, boardId, groupId, task }) => {
@@ -17,16 +17,9 @@ export const MembersDataCard = ({ board, boardMembers, boardId, groupId, task })
     <div className="member-data">
       <h3 className="data-gutter-card-title">Members</h3>
       <div className="task-members-preview">
-        {task?.members.map(member => {
-          return (
-            <div key={member._id} className="user-avatar">
-              {member?.imgUrl
-                ? <img src={member.imgUrl} className="user-img" alt={utilService.getInitials(member.fullname)} />
-                : <span className="user-initial">{utilService.getInitials(member.fullname)}</span>
-              }
-            </div>
-          )
-        })}
+        {task.members?.map((member) => (
+          <MemberPreview key={member._id} member={member} task={task} board={board} />
+        ))}
       </div>
       <div className="add-data-gutter-btn  round-data-btn" ref={membersRef}
         onClick={(ev) => onOpenModal(ev, {

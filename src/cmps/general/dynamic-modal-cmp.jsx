@@ -32,10 +32,10 @@ import { ChecklistDelete } from "../modals/checklist-delete"
 import { TaskDelete } from "../modals/task-delete"
 import { DateDelete } from "../modals/date-delete"
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
-import { MoreBackground } from "../work-space/more-background"
 
 export const DynamicModalCmp = () => {
   const { modal } = useSelector(({ appModule }) => appModule)
+  console.log("🚀 ~ file: dynamic-modal-cmp.jsx:39 ~ DynamicModalCmp ~ modal", modal)
   const [position, setPosition] = useState(null)
   const dispatch = useDispatch()
   const deleteMember = useRef()
@@ -128,8 +128,7 @@ export const DynamicModalCmp = () => {
       cmp = <AccountActions {...modal.props} />
       break;
     case "member actions":
-      cmp =
-        <MemberActions {...modal.props} />
+      cmp = <MemberActions {...modal.props} />
       break;
     case "more members":
       cmp =
@@ -185,7 +184,10 @@ export const DynamicModalCmp = () => {
 
   return (
     <div
-      className={`dynamic-modal ${modal.category === '  Filter' ? 'wide' : modal.category === 'dashboard' ? 'wide-dashboard' : modal.category === 'Dates' ? 'wide-filter' : ''}`}
+      className={`dynamic-modal ${modal.category === '  Filter' ? 'wide' :
+        modal.category === 'dashboard' ? 'wide-dashboard' :
+          modal.category === 'Dates' ? 'wide-filter' :
+            modal.category === 'Img modal' ? 'pos-img ' : ' '}`}
       style={{ ...position }}
       ref={modalRef}
       onClick={(e) => e.stopPropagation()}

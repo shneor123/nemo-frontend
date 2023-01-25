@@ -22,8 +22,6 @@ export const ToolBar = ({ boardId, board, users }) => {
   const filterRef = useRef()
   const dashboardRef = useRef()
   const moreMembersRef = useRef()
-  const memberRef = useRef()
-
 
   useEffect(() => {
     window.addEventListener("resize", handleResize)
@@ -58,16 +56,14 @@ export const ToolBar = ({ boardId, board, users }) => {
   }
 
 
+  const currGroup = board?.groups.find(group => group);
+  const currTask = currGroup?.tasks?.find(task => task);
+
   const membersToShow = () => {
     let members = [...board?.members]
     members = members.splice(0, shownMembers)
     return members
   }
-  const getLengthOfExtraMembers = () => {
-    return board.members.length - shownMembers
-  }
-
-
   const getMembersForModal = (members) => {
     const membersForModal = members.slice(3)
     return membersForModal
@@ -95,35 +91,34 @@ export const ToolBar = ({ boardId, board, users }) => {
           {board.isStar ? <AiFillStar color={"gold"} size={17} /> : <AiOutlineStar size={17} />}
         </span>
         <span className="toolbar-divider"></span>
-
-        <div className="toolbar-members">       
-          {membersToShow().map((member) => {
-            return (
-              <div key={member._id} className="user-avatar"
-                style={{ background: `url(${member?.imgUrl}) center center / cover ` }}>
-                <MemberPreview key={member._id} member={member} isInTaskDetails={true} board={board} />
+        {board.members && (
+          <div className="toolbar-members">
+            {board.members.length <= 4 &&
+              board.members.map((member) => (
+                <MemberPreview key={member._id} member={member} isInTaskDetails={true} board={board} currTask={currTask} />
+              ))}
+            {board.members.length > 4 &&
+              getMembersForPreview(board.members).map((member) => (
+                <MemberPreview
+                  key={member._id}
+                  member={member}
+                  isInTaskDetails={true}
+                  board={board}
+                  currTask={currTask} />
+              ))}
+            {board.members.length > 4 && (
+              <div ref={moreMembersRef} className="extra-member-avatar"
+                onClick={(ev) => onOpenModal(ev, {
+                  category: 'more members',
+                  element: moreMembersRef.current,
+                  title: 'More members',
+                  props: { element: moreMembersRef.current, board, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
+                })}>
+                +{getMembersForModal(board.members).length}
               </div>
-            )
-          })}
-
-          {getLengthOfExtraMembers() > 0 && (
-            <div className="extra-member-avatar" ref={moreMembersRef}
-              onClick={(ev) => onOpenModal(ev, {
-                element: moreMembersRef.current,
-                category: 'more members',
-                title: 'more members',
-                props: { element: moreMembersRef.current, board, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
-              })}>{`+${getLengthOfExtraMembers()}`}
-            </div>)} 
-        </div>
-
-
-
-
-
-
-
-
+            )}
+          </div>
+        )}
         <button className="share-btn" ref={shareRef}
           onClick={(ev) => onOpenModal(ev, {
             element: shareRef.current,

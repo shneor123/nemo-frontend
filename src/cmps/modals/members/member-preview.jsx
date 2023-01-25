@@ -21,10 +21,10 @@ export const MemberPreview = ({ member, task, board, }) => {
             title: 'member actions',
             props: { element: memberActionRef.current, member, task, board },
           })}>
-            <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="member-img" />
+            <img src={member.imgUrl} alt={utilService.getInitials(member.fullname)} className="user-avatar" />
           </div>
         ) : (
-          <div  className="user-initial"  ref={memberActionRef}
+          <div className="user-initial" ref={memberActionRef}
             onClick={(ev) => onOpenModal(ev, {
               element: memberActionRef.current,
               category: 'member actions',

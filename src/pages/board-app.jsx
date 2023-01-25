@@ -60,8 +60,7 @@ export const BoardApp = () => {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div
-          style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}
+        <div style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}
           className="board-app-wrapper">
           <Outlet />
           <div className="board-app">
@@ -76,7 +75,6 @@ export const BoardApp = () => {
               />
             )}
           </div>
-
         </div>
       </DragDropContext>
     </>

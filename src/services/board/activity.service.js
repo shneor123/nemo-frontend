@@ -9,7 +9,6 @@ export const activityService = {
 
 async function saveActivity(activity, boardId) {
     const activityId = activity.id
-    // var savedBoard
     if (activity.id) {
         let board = await boardService.getById(boardId)
         const idx = board.activities.findIndex(activity => activityId === activity.id)

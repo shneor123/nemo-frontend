@@ -28,7 +28,7 @@ export function TaskDateModal({ boardId, groupId, task }) {
         else updatedTask.dueDate = selectedDate
         const activity = {
             txt: "added date",
-            boardTxt: `added date ${selectedDate} to ${task.title}`,
+            boardTxt: `changed the due date of this task to ${selectedDate} in ${task.title}`,
             byMember: userService.getLoggedinUser() || {
                 username: "guest",
                 fullname: "guest",
