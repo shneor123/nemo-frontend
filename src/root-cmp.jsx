@@ -1,23 +1,21 @@
-import React from "react";
-import { AppHeader } from "./cmps/general/haeder/app-header";
-import { Routes, Route } from 'react-router-dom'
-import { HomePage } from "./pages/home-page.jsx";
-import { LoginSignup } from "./pages/login-signup.jsx";
-import { WorkSpace } from "./pages/work-space.jsx";
-import { BoardApp } from "./pages/board-app.jsx";
-import { TaskDetails } from "./cmps/board-app/task/task-details.jsx";
-import { Dashboard } from "./pages/dashboard.jsx";
-import { DynamicModalCmp } from "./cmps/general/dynamic-modal-cmp.jsx";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setModal } from "./store/actions/app.actions.js";
+import React from "react"
+import { AppHeader } from "./cmps/general/haeder/app-header"
+import { HomePage } from "./pages/home-page"
+import { LoginSignup } from "./pages/login-signup"
+import { WorkSpace } from "./pages/work-space"
+import { BoardApp } from "./pages/board-app"
+import { TaskDetails } from "./cmps/board-app/task/task-details"
+import { Dashboard } from "./pages/dashboard"
+import { DynamicModalCmp } from "./cmps/general/dynamic-modal-cmp"
+import { useSelector,useDispatch } from "react-redux"
+import { setModal } from "./store/actions/app.actions.js"
+import { BrowserRouter as Router ,Routes, Route } from 'react-router-dom'
 
 function App() {
   const { modal } = useSelector(({ appModule }) => appModule)
   const dispatch = useDispatch()
   return (
-    <div
-      onClick={() => { if (modal) dispatch(setModal(null)) }}>
+    <Router>
       {modal && <DynamicModalCmp />}
       <AppHeader />
       <Routes>
@@ -30,7 +28,7 @@ function App() {
           <Route element={<Dashboard />} path="dashboard" />
         </Route>
       </Routes>
-    </div>
+    </Router>
   )
 }
 

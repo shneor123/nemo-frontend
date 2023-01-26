@@ -189,7 +189,7 @@ export const DynamicModalCmp = () => {
       className={`dynamic-modal ${modal.category === '  Filter' ? 'wide' :
         modal.category === 'dashboard' ? 'wide-dashboard' :
           modal.category === 'Dates' ? 'wide-filter' :
-            modal.category === 'Img modal' ? 'pos-img ' : ' '}`}
+            modal.category === 'Img modal' ? 'pos-img ' : modal.category === 'Members side' ? 'wide-side' : ''}`}
       style={{ ...position }}
       ref={modalRef}
       onClick={(e) => e.stopPropagation()}

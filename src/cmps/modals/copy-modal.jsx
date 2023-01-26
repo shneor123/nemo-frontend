@@ -16,6 +16,7 @@ export const CopyModal = ({ task, isMove = false, group }) => {
     const [selectedTaskPos, setSelectedTaskPos] = useState(null);
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const handleFocus = event => {
         event.target.select();
     }
@@ -51,7 +52,6 @@ export const CopyModal = ({ task, isMove = false, group }) => {
 
     const onMoveTask = async (ev) => {
         ev.preventDefault()
-
         // Same Board - Same Group
         if (selectedBoard._id === board._id) {
             if (selectedGroup.id === group.id) {
@@ -146,7 +146,8 @@ export const CopyModal = ({ task, isMove = false, group }) => {
                 <button className='secondary-btn' onClick={(ev) => {
                     ev.preventDefault()
                     handleSubmit(ev)
-                }}>{(isMove) ? 'Move' : 'Create Card'}</button>
+                }}>
+                    {(isMove) ? 'Move' : 'Create Card'}</button>
             </section>
         </section>
     )

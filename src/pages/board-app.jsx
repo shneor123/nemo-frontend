@@ -67,7 +67,9 @@ export const BoardApp = () => {
           className="board-app-wrapper">
           <Outlet />
           <div className="board-app">
+            <div className="board-toolbar">
             <ToolBar boardId={boardId} board={board} users={users} />
+            </div>
             {board && (
               <GroupList
               boards={boards}

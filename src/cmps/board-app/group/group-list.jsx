@@ -32,9 +32,7 @@ export const GroupList = ({ boards, board, groups, boardId, activities, labelOpe
             className="group-list-container flex"
           >
 
-            <div>
               <SideManuBoard boards={boards} boardId={boardId} board={board} boardMembers={boardMembers} groups={board.groups} />
-            </div>
 
             {groups &&
               groups.map((group, index) => {

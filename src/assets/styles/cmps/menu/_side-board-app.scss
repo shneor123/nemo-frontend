@@ -1,9 +1,9 @@
     .board-nav {
-        // margin-top: 50px;
+
         @include scroll-bar;
         min-width: 260px;
         max-width: 260px;
-        height: calc(100vh - 44px);
+        // height: calc(100vh - 44px);
         backdrop-filter: blur(2px);
         box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.1);
         margin-left: 0px;
