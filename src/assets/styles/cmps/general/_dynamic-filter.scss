@@ -96,7 +96,12 @@
             display: none;
 
             svg {
+                stroke: none;
                 fill: black;
+
+                &:hover {
+                    fill: #f2d600;
+                }
             }
         }
     }

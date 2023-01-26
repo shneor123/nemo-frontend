@@ -34,6 +34,43 @@
         minmax($layoutPadding, 1fr) minmax(auto, $max) minmax($layoutPadding, 1fr);
 }
 
+@mixin scroll-bar() {
+
+    /* ===== Scrollbar CSS ===== */
+    /* Firefox */
+    * {
+        scrollbar-width: auto;
+        scrollbar-color: #bfc4ce #d9dce2;
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-button {
+        width: 0px;
+        height: 0px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(#bfc4ce, 0.6);
+        border: 0px none #ffffff;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: rgba(#a5a5a5, 0.2);
+        // background: #d9dce2;
+        border: 0px none #ffffff;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
 @mixin task-member-button($bgclr) {
     border: none;
     border-radius: 3px;
@@ -151,6 +188,38 @@
 
     &:hover {
         filter: brightness(0.8);
+    }
+}
+
+@mixin btn($type: regular, $bg: #fafbfc, $clr: #0079bf, $padding: em(8px) em(8px), $hover: darken($bg, 50%)) {
+    display: inline-flex;
+    // align-items: center;
+    text-decoration: none;
+    border-radius: 3px;
+    padding: $padding;
+    line-height: 1.25;
+    font-size: 1rem;
+    font-variation-settings: "wght" 430;
+    border: none;
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+
+    @if $type ==regular {
+        height: 32px;
+        min-width: 32px;
+        padding: 0 0.5rem;
+        margin-inline: 0.2rem;
+
+        &:hover {
+            filter: brightness(120%) !important;
+        }
+    }
+
+    @else if $type =="board-nav" {
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
     }
 }
 

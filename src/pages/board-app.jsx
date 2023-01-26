@@ -1,18 +1,21 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useParams } from "react-router"
+import { DragDropContext } from "react-beautiful-dnd"
+
 import { Loader } from "../cmps/general/loader"
 import { ToolBar } from "../cmps/general/toolbar"
 import { GroupList } from "../cmps/board-app/group/group-list"
+import { socketService } from "../services/basic/socket.service"
+
 import { handleDrag, loadBoard } from "../store/actions/board.action"
 import { loadUsers } from "../store/actions/user.actions"
-import { socketService } from "../services/basic/socket.service"
-import { DragDropContext } from "react-beautiful-dnd"
 
 export const BoardApp = () => {
   const dispatch = useDispatch()
   const { boardId } = useParams()
   const { board } = useSelector((storeState) => storeState.boardModule)
+  const { boards } = useSelector((storeState) => storeState.boardModule)
   const { users } = useSelector((storeState) => storeState.userModule)
 
   useEffect(() => {
@@ -67,13 +70,15 @@ export const BoardApp = () => {
             <ToolBar boardId={boardId} board={board} users={users} />
             {board && (
               <GroupList
-                labelOpenState={board.labelOpenState}
-                groups={board.groups}
-                boardId={boardId}
-                labels={board.labels}
-                boardMembers={board.members}
+              boards={boards}
+              board={board}
+              labelOpenState={board.labelOpenState}
+              groups={board.groups}
+              boardId={boardId}
+              labels={board.labels}
+              boardMembers={board.members}
               />
-            )}
+              )}
           </div>
         </div>
       </DragDropContext>

@@ -23,6 +23,116 @@
   src: url(../../fonts/charlie-display-semibold.woff);
 }
 
+@font-face {
+    font-family: fa-solid;
+    src: url(../../fonts/fa/fa-solid-900.ttf);
+}
+
+@font-face {
+    font-family: trello-home;
+    src: url(../..//fonts/trello-home/trello-home.ttf);
+}
+
+.trello-home {
+    font-family: "trello-home";
+    font-size: 1rem;
+
+    &.clock-icon::before {
+        content: "\e91c";
+    }
+    &.board-icon::before {
+        content: "\e90f";
+    }
+
+    &.arrow-small::before {
+        content: "\e90e";
+    }
+
+    &.nav-icon::before {
+        content: "\e900";
+    }
+
+    &.arrow-down::before {
+        content: "\e901";
+    }
+
+    &.glass-icon::before {
+        content: "\e902";
+    }
+
+    &.bell-icon::before {
+        content: "\e903";
+    }
+
+    &.question-icon::before {
+        content: "\e904";
+    }
+
+    &.trello-icon::before {
+        content: "\e905";
+    }
+
+    &.members-icon::before {
+        content: "\e906";
+    }
+
+    &.plus-icon::before {
+        content: "\e907";
+    }
+
+    &.settings-icon::before {
+        content: "\e908";
+    }
+
+    &.elipsis-icon::before {
+        content: "\e90a";
+    }
+
+    &.table-icon::before {
+        content: "\e910";
+    }
+
+    &.calender-icon::before {
+        content: "\e911";
+    }
+
+    &.dashboard-icon::before {
+        content: "\e912";
+    }
+
+    &.timeline-icon::before {
+        content: "\e913";
+    }
+
+    &.location-icon::before {
+        content: "\e914";
+    }
+
+    &.space-icon::before {
+        content: "\e915";
+    }
+
+    &.filter-icon::before {
+        content: "\e916";
+    }
+
+    &.x-icon::before {
+        content: "\e917";
+    }
+
+    &.join-icon::before {
+        content: "\e918";
+    }
+
+    &.archive-icon::before {
+        content: "\e919";
+    }
+
+    &.arrow-nav::before {
+        content: "\e91a";
+    }
+}
+
 .trellicons {
   font-family: "trellicons";
 
@@ -210,5 +320,86 @@
         color: white;
         font-size: rem(14px);
         content: "\f0c8";
+    }
+}
+
+.fa-solid {
+    font-family: "fa-solid";
+
+    &.notification-icon::before {
+        content: "\f06a";
+        color: #f20000;
+    }
+    &.grid-icon::before {
+        content: "\f58e";
+    }
+    &.mic-icon::before {
+        content: "\f130";
+    }
+    &.trash-icon::before {
+        content: "\f1f8";
+    }
+    &.caret-down::before {
+        content: "\f0d7";
+    }
+
+    &.attachment-icon::before {
+        content: "\f0c6";
+    }
+
+    &.fa-circle::before {
+        content: "\f111";
+    }
+
+    &.settings-icon::before {
+        content: "\f013";
+    }
+
+    &.filter-icon::before {
+        content: "\f0b0";
+    }
+
+    &.location-icon::before {
+        content: "\f3c5";
+    }
+
+    &.dashboard-icon::before {
+        content: "\f625";
+    }
+
+    &.calender-icon::before {
+        content: "\f073";
+    }
+
+    &.table-icon::before {
+        content: "\f00b";
+    }
+
+    &.arrow-icon::before {
+        content: "\f053";
+    }
+
+    &.elipsis-icon::before {
+        content: "\f141";
+    }
+
+    &.x-icon::before {
+        content: "\58";
+    }
+
+    &.star-icon::before {
+        content: "\f005";
+        color: #f2d600;
+    }
+
+    &.act-icon::before {
+        content: "\f550";
+    }
+
+    & {
+        // transform: rotate(180deg);
+        &.board-icon::before {
+            content: "\e473";
+        }
     }
 }

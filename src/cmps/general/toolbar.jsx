@@ -5,13 +5,12 @@ import { useNavigate } from "react-router";
 import { FaEllipsisH } from "react-icons/fa";
 import { BsPersonPlus } from "react-icons/bs";
 import { MdOutlineFilterList } from "react-icons/md";
-import { AiOutlineStar, AiFillStar, AiOutlineDashboard, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar, AiOutlineDashboard } from "react-icons/ai";
 
 import { Menu } from "./menu";
 import { MemberPreview } from "../modals/members/member-preview";
 import { updateBoard } from "../../store/actions/board.action";
 import { setModal } from "../../store/actions/app.actions";
-
 
 export const ToolBar = ({ boardId, board, users }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -83,6 +82,7 @@ export const ToolBar = ({ boardId, board, users }) => {
         groups={board.groups}
         activities={board.activities}
       />
+
       <div className="toolbar-left">
         <span className="board-toolbar-title-container">
           <h1 className="board-toolbar-title">{board.title}</h1>

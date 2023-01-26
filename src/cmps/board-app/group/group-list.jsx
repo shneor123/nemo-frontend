@@ -6,19 +6,21 @@ import { IoMdClose } from "react-icons/io";
 import { GroupPreview } from "./group-preview";
 import { useForm } from "../../../hooks/useForm";
 import { saveGroup } from "../../../store/actions/group.action";
+import { SideManuBoard } from "../../menu/side-manu-board";
 
-export const GroupList = ({ groups, boardId, activities, labelOpenState, labels, boardMembers }) => {
-  const dispatch = useDispatch();
-  const [isAddGroup, setIsAddGroup] = useState(false);
-  const [newGroup, handleChange, clearFields] = useForm({ title: "" });
+export const GroupList = ({ boards, board, groups, boardId, activities, labelOpenState, labels, boardMembers }) => {
+  const dispatch = useDispatch()
+  const [isAddGroup, setIsAddGroup] = useState(false)
+  const [newGroup, handleChange, clearFields] = useForm({ title: "" })
 
   const onAddGroup = (ev = null) => {
-    ev.preventDefault();
-    if (!newGroup.title) return;
-    dispatch(saveGroup(newGroup, boardId));
+    ev.preventDefault()
+    if (!newGroup.title) return
+    dispatch(saveGroup(newGroup, boardId))
+
     setIsAddGroup(false);
     clearFields();
-  };
+  }
 
   return (
     <>
@@ -29,6 +31,8 @@ export const GroupList = ({ groups, boardId, activities, labelOpenState, labels,
             {...provided.droppableProps}
             className="group-list-container flex"
           >
+            <SideManuBoard boards={boards} boardId={boardId} />
+
             {groups &&
               groups.map((group, index) => {
                 return (

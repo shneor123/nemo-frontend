@@ -1,0 +1,108 @@
+    .board-nav {
+        @include scroll-bar;
+        min-width: 260px;
+        max-width: 260px;
+        height: calc(100vh - 44px);
+        backdrop-filter: blur(2px);
+        box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.1);
+        margin-left: 0px;
+        opacity: 1;
+        transition: all 0.3s ease-out;
+        order: -1;
+        margin-right: 10px;
+
+        .boards-container {
+            height: 100%;
+        }
+
+        & * {
+            font-size: 0.875rem;
+        }
+
+        & * {
+            color: $textLight;
+        }
+
+        .btn {
+            &-nav {
+                @include btn($type: "board-nav");
+                display: flex;
+                flex-direction: row;
+                font-family: "segoe-regular-light";
+                border-radius: 0;
+                padding-inline-start: 1rem;
+
+                span {
+                    margin-inline-end: 0.5rem;
+
+                }
+            }
+
+            &-regular {
+                @include btn($type: "board-nav");
+                border-radius: 3px;
+                height: 2rem;
+                aspect-ratio: 1/1;
+                color: white;
+                margin-inline-start: 0;
+                margin-inline-end: 0.5rem;
+            }
+        }
+
+        .nav-title {
+            font-weight: bold;
+            padding-block: 0.5rem;
+            padding-inline-start: 1rem;
+        }
+
+        .board-icon {
+            height: 1.5rem;
+            width: 2rem;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.8;
+            margin-inline-end: 1rem;
+            border-radius: 3px;
+        }
+
+        .isClicked {
+            background-color: rgba($textLight, 0.3);
+        }
+
+        &.navIsHidden {
+            margin-left: -255px;
+            opacity: 0.6;
+            z-index: 500;
+            background-color: aqua;
+
+            .btn-toggle {
+                position: relative;
+                left: 20px;
+                top: 6px;
+                border-radius: 50% !important;
+                background-color: rgba($textLight, 0.3);
+                backdrop-filter: blur(200px);
+                border: 1px solid $textDark;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 1.5rem;
+                width: 1.5rem;
+
+                span {
+                    position: absolute;
+                    top: 1.5px;
+                }
+
+                span::before {
+                    font-size: 0.6rem;
+                    content: "\f054";
+                }
+            }
+        }
+
+        .boards-container {
+            overflow-y: scroll;
+            height: 100%;
+        }
+    }
