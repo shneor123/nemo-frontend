@@ -9,13 +9,17 @@ import { Dashboard } from "./pages/dashboard"
 import { DynamicModalCmp } from "./cmps/general/dynamic-modal-cmp"
 import { useSelector,useDispatch } from "react-redux"
 import { setModal } from "./store/actions/app.actions.js"
-import { BrowserRouter as Router ,Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
   const { modal } = useSelector(({ appModule }) => appModule)
   const dispatch = useDispatch()
   return (
-    <Router>
+    <div
+      onClick={() => {
+        if (modal) dispatch(setModal(null))
+      }}
+    >
       {modal && <DynamicModalCmp />}
       <AppHeader />
       <Routes>
@@ -28,7 +32,7 @@ function App() {
           <Route element={<Dashboard />} path="dashboard" />
         </Route>
       </Routes>
-    </Router>
+    </div>
   )
 }
 
