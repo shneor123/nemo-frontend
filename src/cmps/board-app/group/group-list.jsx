@@ -31,7 +31,10 @@ export const GroupList = ({ boards, board, groups, boardId, activities, labelOpe
             {...provided.droppableProps}
             className="group-list-container flex"
           >
-            <SideManuBoard boards={boards} boardId={boardId} />
+
+            <div>
+              <SideManuBoard boards={boards} boardId={boardId} board={board} boardMembers={boardMembers} groups={board.groups} />
+            </div>
 
             {groups &&
               groups.map((group, index) => {
@@ -84,6 +87,7 @@ export const GroupList = ({ boards, board, groups, boardId, activities, labelOpe
               </div>
             )}
           </div>
+
         )}
       </Droppable>
     </>

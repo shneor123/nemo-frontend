@@ -32,6 +32,7 @@ import { ChecklistDelete } from "../modals/checklist-delete"
 import { TaskDelete } from "../modals/task-delete"
 import { DateDelete } from "../modals/date-delete"
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
+import { MembersSide } from "../modals/members/members-side"
 
 export const DynamicModalCmp = () => {
   const dispatch = useDispatch()
@@ -167,6 +168,9 @@ export const DynamicModalCmp = () => {
       break
     case 'Attachment edit':
       cmp = <AttachmentEdit {...modal.props} />
+      break
+    case 'Members side':
+      cmp = <MembersSide {...modal.props} />
       break
     case 'Share':
       cmp = <ShareModal {...modal.props} />

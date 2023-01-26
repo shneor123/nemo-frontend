@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { setModal } from '../../store/actions/app.actions'
 
-export const SideManuBoard = ({ boardId, boards }) => {
+export const SideManuBoard = ({ board, boardId, boards }) => {
   const [navIsHidden, setNavIsHidden] = useState(false)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const membersRef = useRef()
   const addRef = useRef()
 
   const onModal = (e) => {
@@ -17,6 +18,21 @@ export const SideManuBoard = ({ boardId, boards }) => {
       title: 'Create Board"',
     })
     )
+  }
+
+  const onModalMember = (e) => {
+    e.stopPropagation()
+    dispatch(setModal({
+      element: membersRef.current,
+      category: 'Members side',
+      title: 'Members side',
+      props: { element: membersRef.current, board },
+
+    }))
+  }
+
+  const onGoTo = (boardId) => {
+    navigate(`/board/${boardId}`)
   }
 
   return (
@@ -33,7 +49,7 @@ export const SideManuBoard = ({ boardId, boards }) => {
         <span> Boards</span>
       </NavLink >
 
-      <div className="btn-nav flex align-center">
+      <div className="btn-nav flex align-center" ref={membersRef} onClick={onModalMember}>
         <span className="trello-home join-icon"></span>
         <span> Members</span>
       </div >
@@ -45,9 +61,9 @@ export const SideManuBoard = ({ boardId, boards }) => {
         </div>
       </div >
 
-      <div className="boards-container ">
+      <div className="boards-container">
         {boards.map(board => {
-          return <div key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
+          return <div key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`} onClick={() => onGoTo(board._id)}>
             <div className="board-icon"
               style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}>
             </div>
