@@ -61,12 +61,11 @@ export const DynamicModalCmp = () => {
 
     // Pushes the modal into the viewport when it does not have enough space to open up, + 10 px from the edge of the viewport.
     if (position.top + modalRef.current.offsetHeight >= window.innerHeight) {
-      position.top = window.innerHeight - modalRef.current.offsetHeight - 120
+      position.top = window.innerHeight - modalRef.current.offsetHeight - 100
     }
     if (position.left + modalRef.current.offsetWidth >= window.innerWidth) {
       position.left = window.innerWidth - modalRef.current.offsetWidth - 10
     }
-
     setPosition(position)
   }
 
@@ -185,7 +184,7 @@ export const DynamicModalCmp = () => {
 
   return (
     <div
-      className={`dynamic-modal ${modal.category === '  Filter' ? 'wide' :
+      className={`dynamic-modal ${modal.category === 'Filter' ? 'wide' :
         modal.category === 'dashboard' ? 'wide-dashboard' :
           modal.category === 'Dates' ? 'wide-filter' :
             modal.category === 'Img modal' ? 'pos-img ' : modal.category === 'Members side' ? 'wide-side' : ''}`}

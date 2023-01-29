@@ -119,7 +119,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
                       element: actionsRef.current,
                       category: 'Actions',
                       title: 'Actions',
-                      props: { onRemoveGroup },
+                      props: { onRemoveGroup ,setIsAddTask},
                     })
                   }><MdMoreHoriz />
                 </div>

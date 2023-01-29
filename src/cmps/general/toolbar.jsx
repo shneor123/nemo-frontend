@@ -112,17 +112,15 @@ export const ToolBar = ({ boardId, board, users }) => {
         <div>
           <span className="toolbar-btn toolbar-menu-btn" ref={dashboardRef} onClick={() => navigate(`/board/${board._id}/dashboard`)}>
             <AiOutlineDashboard /> <span className="tool-title share-btn-icon">Dashboard</span>
-
           </span>
           <span className="toolbar-divider"></span>
-
-          <span className="toolbar-btn filter-btn" ref={filterRef}
-            onClick={(ev) => onOpenModal(ev, {
-              element: filterRef.current,
-              category: 'Filter',
-              title: 'Filter',
-              props: { element: filterRef.current, board },
-            })}><MdOutlineFilterList /> <span className="tool-title share-btn-icon">Filter</span>{" "}
+            <span className="toolbar-btn filter-btn" ref={filterRef}
+              onClick={(ev) => onOpenModal(ev, {
+                element: filterRef.current,
+                category: 'Filter',
+                title: 'Filter',
+                props: { element: filterRef.current, board },
+              })}><MdOutlineFilterList /> <span className="tool-title share-btn-icon">Filter</span>{" "}
           </span>
           <span className="toolbar-divider"></span>
 
