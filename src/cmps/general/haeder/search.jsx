@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useForm } from '../../../hooks/useForm'
 import { DynamicFilter } from './dynamic-filter'
@@ -7,7 +8,9 @@ export const Search = () => {
     const { boards } = useSelector(({ boardModule }) => boardModule)
     const [boardsSearched, handleSearch] = useForm('')
     const inputRef = useRef()
+    const dispatch = useDispatch()
     let filteredBoards
+
 
     const handleSearchChange = (ev) => {
         handleSearch(ev)

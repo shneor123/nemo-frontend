@@ -21,7 +21,10 @@ export function BoardPreview({ board, onToggleStar }) {
           style={{
             background: board.style.background
               ? `${board.style.background}`
-              : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}`
+              : `url(${board.style.bgImg
+                ? `${board.style.bgImg}`
+                : `${board.style.imgUrl}`})center center / cover`,
+            backgroundColor: `${board.style.backgroundColor}`
           }}>
           <h3>{board.title.length > 20 ? board.title.substring(0, 20) + '...' : board.title}</h3>
           <span className="starred-container">

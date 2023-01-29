@@ -31,9 +31,7 @@ export const GroupList = ({ boards, board, groups, boardId, activities, labelOpe
             {...provided.droppableProps}
             className="group-list-container flex"
           >
-
-              <SideManuBoard boards={boards} boardId={boardId} board={board} boardMembers={boardMembers} groups={board.groups} />
-
+            <SideManuBoard boards={boards} boardId={boardId} board={board} boardMembers={boardMembers} groups={board.groups} />
             {groups &&
               groups.map((group, index) => {
                 return (

@@ -94,8 +94,7 @@ export const DynamicModalCmp = () => {
       cmp = <TaskDateModal {...modal.props} />
       break;
     case "Attachment":
-      cmp =
-        <AttachmentModal {...modal.props} />
+      cmp = <AttachmentModal {...modal.props} />
       break;
     case "Cover":
       cmp =

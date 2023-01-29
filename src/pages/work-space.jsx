@@ -33,6 +33,7 @@ export const WorkSpace = () => {
     board.isStar = !board.isStar
     dispatch(updateBoard(board))
   }
+  
   if (!boards) return <Loader />
   return (
     <div className="workspace-page ">

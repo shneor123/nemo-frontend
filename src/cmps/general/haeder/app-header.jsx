@@ -97,7 +97,6 @@ export const AppHeader = () => {
               </div>
             )}
           </div>
-
           <div className="nav-input" ><Search /> </div>
 
           {!isHome && (

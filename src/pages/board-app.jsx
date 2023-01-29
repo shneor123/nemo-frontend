@@ -63,24 +63,29 @@ export const BoardApp = () => {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}
-          className="board-app-wrapper">
-          <Outlet />
+        <div style={{
+          background: board.style.background
+            ? `${board.style.background}`
+            : `${board.style.bgImg
+              ? `url(${board.style.bgImg})center center / cover`
+              : `url(${board.style.imgUrl})center center / cover`}`,
+          backgroundColor: `${board.style.backgroundColor}`
+        }}
+          className="board-app-wrapper" >
           <div className="board-app">
-            <div className="board-toolbar">
-            <ToolBar boardId={boardId} board={board} users={users} />
-            </div>
+            <ToolBar boardId={boardId} board={board} users={users} boards={boards} />
             {board && (
               <GroupList
-              boards={boards}
-              board={board}
-              labelOpenState={board.labelOpenState}
-              groups={board.groups}
-              boardId={boardId}
-              labels={board.labels}
-              boardMembers={board.members}
+                boards={boards}
+                board={board}
+                labelOpenState={board.labelOpenState}
+                groups={board.groups}
+                boardId={boardId}
+                labels={board.labels}
+                boardMembers={board.members}
               />
-              )}
+            )}
+            <Outlet />
           </div>
         </div>
       </DragDropContext>

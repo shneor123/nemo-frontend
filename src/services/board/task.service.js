@@ -6,7 +6,6 @@ export const taskService = {
     getTaskById,
     saveTask,
     setTasks,
-    getModalPosition,
     getEmptyAttachment
 }
 window.ts = taskService;
@@ -87,19 +86,4 @@ function getEmptyAttachment() {
         createdAt: Date.now(),
         fileUrl: '',
     }
-}
-
-
-function getModalPosition(clickedElementPos) {
-
-    const position = {
-        topPos: clickedElementPos.top + clickedElementPos.height + 6,
-        leftPos: clickedElementPos.left
-    };
-    let intViewportWidth = window.innerWidth;
-    // const isOverflowY = (window.innerHeight - height - 45) < 0
-
-    if (intViewportWidth - position.leftPos <= 40) position.right = 0
-    else position.right = null
-    return position;
 }

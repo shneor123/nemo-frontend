@@ -65,7 +65,15 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
         {boards.map(board => {
           return <div key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`} onClick={() => onGoTo(board._id)}>
             <div className="board-icon"
-              style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}>
+              style={{
+                background: board.style.background
+                  ? `${board.style.background}`
+                  : `url(${board.style.bgImg
+                    ? `${board.style.bgImg}`
+                    : `${board.style.imgUrl}`})center center / cover`,
+                backgroundColor: `${board.style.backgroundColor}`
+              }}>
+
             </div>
             <div className="board-icon"></div>
             <span>{board.title}</span>

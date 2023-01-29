@@ -9,8 +9,8 @@ export const boardService = {
     query,
     getById,
     remove,
-    updateWithoutSocket
-
+    updateWithoutSocket,
+    getEmptyBoardAttachment
 }
 // window.cs = boardService;
 
@@ -56,6 +56,15 @@ async function updateWithoutSocket(board) {
         console.log('Cannot update board', err);
     }
 }
+
+function getEmptyBoardAttachment() {
+    return {
+        id: utilService.makeId(),
+        createdAt: Date.now(),
+        fileUrl: '',
+    }
+}
+
 
 const ourBoard = {
     "_id": utilService.makeId(),//mongoID

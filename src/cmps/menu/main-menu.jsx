@@ -8,7 +8,7 @@ import { BsImage } from 'react-icons/bs'
 import colors from '../../assets/img/colors.jpg'
 import imgs from '../../assets/img/imgs.jpg'
 
-export const MainMenu = ({ onOpenAboutBoard, onOpenArchived, onOpenImges, isMainMenuOpen, activities, boardId, onOpenColors, onOpenFilter }) => {
+export const MainMenu = ({ onOpenCustom, onOpenAboutBoard, onOpenArchived, onOpenImges, isMainMenuOpen, activities, boardId, onOpenColors, onOpenFilter }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <section style={{ display: isMainMenuOpen }}>
@@ -48,6 +48,16 @@ export const MainMenu = ({ onOpenAboutBoard, onOpenArchived, onOpenImges, isMain
                         <div className="title">Photos</div>
                     </div>
                 </div>
+
+                <section>
+                    <div className="mini-title">Costume</div>
+                    <div className="costume " onClick={onOpenCustom}>
+                        <div className="btn flex align-center justify-center">
+                            <span className="fa-regular plus-icon"></span>
+                        </div>
+                    </div>
+                </section>
+
             </section>
             }
             <Activity activities={activities} boardId={boardId} />

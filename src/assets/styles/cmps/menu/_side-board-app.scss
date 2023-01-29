@@ -10,7 +10,7 @@
         opacity: 1;
         transition: all 0.3s ease-out;
         order: -1;
-        margin-right: 10px;
+        margin-right: 15px;
 
         .boards-container {
             height: 100%;
@@ -32,6 +32,7 @@
                 font-family: "segoe-regular-light";
                 border-radius: 0;
                 padding-inline-start: 1rem;
+
 
                 span {
                     margin-inline-end: 0.5rem;

@@ -4,6 +4,7 @@ import { FiChevronLeft } from "react-icons/fi"
 
 import { MainMenu } from "../menu/main-menu"
 import { ColorMenuModal } from "../menu/color-menu"
+import { CustomModal } from "../menu/custom-modal"
 import { FilterMenu } from "../menu/filter-menu"
 import { ImgsMenuModal } from "../menu/imgs-menu"
 import { ArchivedList } from "../menu/archived/archived-list"
@@ -16,6 +17,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState('none')
   const [isArchivedModalOpen, setIsArchivedModalOpen] = useState('none')
   const [iOpenAboutBoard, setIOpenAboutBoard] = useState('none')
+  const [isOpenCustom, setIsOpenCustom] = useState('none')
   const [isMainMenuOpen, setIsMainMenuOpen] = useState('block')
 
   const onOpenColors = () => {
@@ -25,6 +27,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
     setIsImgModalOpen('none')
     setIsArchivedModalOpen('none')
     setIOpenAboutBoard('none')
+    setIsOpenCustom('none')
   }
   const onOpenImges = () => {
     setIsImgModalOpen('block')
@@ -33,7 +36,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
     setIsColorModalOpen('none')
     setIsArchivedModalOpen('none')
     setIOpenAboutBoard('none')
-
+    setIsOpenCustom('none')
   }
   const onOpenFilter = () => {
     setIsMainMenuOpen('none')
@@ -42,7 +45,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
     setIsArchivedModalOpen('none')
     setIsImgModalOpen('none')
     setIOpenAboutBoard('none')
-
+    setIsOpenCustom('none')
   }
   const onOpenMenu = () => {
     setIsMainMenuOpen('block')
@@ -51,7 +54,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
     setIsArchivedModalOpen('none')
     setIsImgModalOpen('none')
     setIOpenAboutBoard('none')
-
+    setIsOpenCustom('none')
   }
   const onOpenArchived = () => {
     setIsMainMenuOpen('none')
@@ -60,7 +63,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
     setIsImgModalOpen('none')
     setIsArchivedModalOpen('block')
     setIOpenAboutBoard('none')
-
+    setIsOpenCustom('none')
   }
   const onOpenAboutBoard = () => {
     setIsMainMenuOpen('none')
@@ -69,7 +72,17 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
     setIsImgModalOpen('none')
     setIsArchivedModalOpen('none')
     setIOpenAboutBoard('block')
+    setIsOpenCustom('none')
+  }
 
+  const onOpenCustom = () => {
+    setIsMainMenuOpen('none')
+    setIsColorModalOpen('none')
+    setIsFilterModalOpen('none')
+    setIsImgModalOpen('none')
+    setIsArchivedModalOpen('none')
+    setIOpenAboutBoard('none')
+    setIsOpenCustom('block')
   }
   const onUpdateBoard = async (updatedBoard) => {
     try {
@@ -89,6 +102,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
           {isFilterModalOpen === 'block' && 'Filter'}
           {isArchivedModalOpen === 'block' && 'Archived'}
           {iOpenAboutBoard === 'block' && 'About this board'}
+          {isOpenCustom === 'block' && 'Change background'}
           <span onClick={onOpenMenu} className="back-menu"
             style={{ display: isMainMenuOpen === 'none' ? 'inline-block' : 'none' }}>
             <FiChevronLeft size={25} />
@@ -102,6 +116,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
         <AboutThisBoard board={board} iOpenAboutBoard={iOpenAboutBoard} />
         <ColorMenuModal board={board} isColorModalOpen={isColorModalOpen} />
         <ImgsMenuModal board={board} isImgModalOpen={isImgModalOpen} />
+        <CustomModal board={board} isOpenCustom={isOpenCustom} />
         <FilterMenu board={board} isFilterModalOpen={isFilterModalOpen} />
         <ArchivedList board={board} isArchivedModalOpen={isArchivedModalOpen} onUpdateBoard={onUpdateBoard} />
         <MainMenu
@@ -109,6 +124,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
           onOpenColors={onOpenColors}
           onOpenFilter={onOpenFilter}
           onOpenImges={onOpenImges}
+          onOpenCustom={onOpenCustom}
           onOpenAboutBoard={onOpenAboutBoard}
           isMainMenuOpen={isMainMenuOpen}
           activities={activities}

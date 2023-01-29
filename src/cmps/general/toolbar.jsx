@@ -14,7 +14,6 @@ import { setModal } from "../../store/actions/app.actions";
 
 export const ToolBar = ({ boardId, board, users }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [shownMembers, setShownMembers] = useState('4')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const shareRef = useRef()
@@ -22,51 +21,32 @@ export const ToolBar = ({ boardId, board, users }) => {
   const dashboardRef = useRef()
   const moreMembersRef = useRef()
 
-  useEffect(() => {
-    window.addEventListener("resize", handleResize)
-    handleResize()
-
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
-  const handleResize = () => {
-    if (window.innerWidth < 671) {
-      setShownMembers(2)
-    } else if (window.innerWidth < 691) {
-      setShownMembers(3)
-    } else if (window.innerWidth < 711) {
-      setShownMembers(4)
-    }
-  }
   const onOpenMenu = () => {
     setIsMenuOpen(true);
   }
+
   const onCloseMenu = () => {
     setIsMenuOpen(false);
   }
+
   const onToggleStar = () => {
     board.isStar = !board.isStar
     dispatch(updateBoard(board))
   }
+
   const onOpenModal = (ev, modal) => {
     ev.stopPropagation()
     dispatch(setModal(modal))
   }
 
-
   const currGroup = board?.groups.find(group => group);
   const currTask = currGroup?.tasks?.find(task => task);
 
-  const membersToShow = () => {
-    let members = [...board?.members]
-    members = members.splice(0, shownMembers)
-    return members
-  }
   const getMembersForModal = (members) => {
     const membersForModal = members.slice(3)
     return membersForModal
   }
+
   const getMembersForPreview = (members) => {
     const membersForPreview = members.slice(0, 3)
     return membersForPreview
@@ -82,14 +62,15 @@ export const ToolBar = ({ boardId, board, users }) => {
         groups={board.groups}
         activities={board.activities}
       />
-
       <div className="toolbar-left">
         <span className="board-toolbar-title-container">
           <h1 className="board-toolbar-title">{board.title}</h1>
         </span>
+
         <span onClick={onToggleStar} className="toolbar-btn star-btn">
           {board.isStar ? <AiFillStar color={"gold"} size={17} /> : <AiOutlineStar size={17} />}
         </span>
+
         <span className="toolbar-divider"></span>
         {board.members && (
           <div className="toolbar-members">
@@ -112,7 +93,7 @@ export const ToolBar = ({ boardId, board, users }) => {
                   category: 'more members',
                   element: moreMembersRef.current,
                   title: 'More members',
-                  props: { element: moreMembersRef.current, board, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
+                  props: { element: moreMembersRef.current, board, users, boardId, boardMembers: board.members, moreMembers: getMembersForModal(board.members) },
                 })}>
                 +{getMembersForModal(board.members).length}
               </div>
@@ -124,7 +105,7 @@ export const ToolBar = ({ boardId, board, users }) => {
             element: shareRef.current,
             category: 'Invite to board',
             title: 'Invite to board',
-            props: { element: shareRef.current, board, boardId, users, boardId, boardMembers: board.members, member: membersToShow(), moreMembers: getMembersForModal(board.members) },
+            props: { element: shareRef.current, board, boardId, users, boardId, boardMembers: board.members, moreMembers: getMembersForModal(board.members) },
           })}><BsPersonPlus /> <span className="share-btn-icon">Invite</span></button>
       </div>
       <div className="toolbar-right">

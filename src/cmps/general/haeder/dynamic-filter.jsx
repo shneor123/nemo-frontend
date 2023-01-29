@@ -15,7 +15,16 @@ export const DynamicFilter = ({ modalType, boards, setModal, toggleStar }) => {
             <p className='empty-star'>{modalType === 'starred' && boards.length === 0 ? 'Star important boards to access them quickly and easily.' : ''}</p>
             {boards.map(board => {
                 return <li key={board._id} className='filter-item' onClick={() => onGoTo(board._id)}>
-                    <div style={{ background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg})center center / cover`, backgroundColor: `${board.style.backgroundColor}` }}></div>
+                    <div style={{
+                            background: board.style.background
+                                ? `${board.style.background}`
+                                : `url(${board.style.bgImg
+                                    ? `${board.style.bgImg}`
+                                    : `${board.style.imgUrl}`})center center / cover`,
+                            backgroundColor: `${board.style.backgroundColor}`
+                        }}></div>
+
+
                     <p>{board.title}</p>
                     <div className={`star-wrapper ${board.isStar ? 'starred' : 'no-starred'}`}>
                         {(board.isStar)
