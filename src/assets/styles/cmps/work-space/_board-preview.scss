@@ -1,75 +1,71 @@
-.board-preview-container {
+.board-preview-container{
     position: relative;
-    cursor: pointer;
+    width: 100%;
     height: 100%;
-    border-radius: 3px;
-    margin-left: 3.5px;
-    margin-right: 3.5px;
-    opacity: 0.8;
-    padding: 10px 0 0 10px;
+    border-radius: 4px;
+    color: $clr1;
+    padding: 8px 8px 0 8px;
+    background-size: cover;
+    backdrop-filter: brightness(0.3);
 
-    @include for-mobile-layout {
-        opacity: 0.9;
+    .board-title {
+        z-index: 80px;
+    }
+
+    & * :not(.trellicons) {
+        font-family: "segoe-bold";
+    }
+
+    .board-title {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .board-icon {
+        top: 0;
+        left: 0;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.8;
+        border-radius: 3px;
+    }
+
+    .star {
+        position: absolute;
+        align-self: flex-end;
+        opacity: 0;
+        right: -10px;
+        bottom: 5px;
+        transition: 0.5s;
     }
 
     &:hover {
-        opacity: 0.9;
-        transition: 0.1s ease-in-out;
-        stroke-width: 4px;
-    }
+        cursor: pointer;
+        filter: brightness(90%);
 
-    &:hover {
-        .star-icon {
+        .star {
+            align-self: flex-end;
             opacity: 1;
-            stroke-width: 0px;
+            right: 10px;
+            bottom: 5px;
         }
     }
 
-
-    h3 {
-        color: #fff;
-        font-weight: 700;
-        line-height: 20px;
-        font-size: 16px;
+    h2 {
         margin: 0;
     }
 
-
-    // 550px
-    @include for-mobile-layout {
-        width: 250px;
-        height: 96%;
-    }
-
     .star-icon {
-        opacity: 1;
-        height: 17px;
-        width: 17px;
+        align-self: flex-end;
+        right: 10px;
+        bottom: 5px;
         position: absolute;
-        background-color: rgba(151, 160, 175, 0);
-        color: white;
-        right: 6px;
-        top: 77.8%;
-        line-height: 18px;
-        font-size: 26px;
-        text-align: center;
-
-        @include for-narrow-layout {
-            opacity: 0;
-        }
-
-        @include for-mobile-layout {
-            opacity: 1;
-        }
-
-        &.star {
-            display: block;
-            color: #f2d600;
-            width: 18px;
-            opacity: 1;
-        }
+        opacity: 1;
+        color: gold;
     }
-
 }
 
 .board-container {

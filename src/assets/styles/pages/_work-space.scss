@@ -30,11 +30,15 @@
     }
 
     .title-header-icon-container {
-        margin-right: 10px;
-        margin-inline-start: 14.9%;
+        margin-inline-start: 17.5%;
+        margin-block: 4px;
 
         @include for-mobile-layout {
             margin-inline-start: 20px;
+        }
+
+        span {
+            margin-right: 10px;
         }
 
         .header-icon {

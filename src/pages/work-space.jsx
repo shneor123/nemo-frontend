@@ -1,18 +1,14 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { BoardList } from "../cmps/work-space/board-list.jsx";
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { BoardList } from "../cmps/work-space/board-list"
 import { loadBoards, updateBoard } from '../store/actions/board.action'
-
-import { TiStarOutline } from "react-icons/ti";
-import { AiOutlineClockCircle } from 'react-icons/ai';
-import { Loader } from '../cmps/general/loader';
-import { AppNav } from '../cmps/work-space/app-nav.jsx';
+import { Loader } from '../cmps/general/loader'
+import { AppNav } from '../cmps/work-space/app-nav'
 
 
 export const WorkSpace = () => {
-  const dispatch = useDispatch()
   const { boards } = useSelector((storeState) => storeState.boardModule)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     onLoadBoards()
@@ -42,7 +38,8 @@ export const WorkSpace = () => {
           <section className="starred-boards-section">
             <div className="title-header flex">
               <div className="title-header-icon-container">
-                <TiStarOutline className="header-icon star-icon" />
+                <span className='trellicons star large top'></span>
+
               </div>
               <h3>Starred boards</h3>
             </div>
@@ -58,7 +55,7 @@ export const WorkSpace = () => {
           <section className="recent-boards-section">
             <div className="title-header flex">
               <div className="title-header-icon-container">
-                <AiOutlineClockCircle className="header-icon star-icon" />
+                <span className='trellicons icon-template-board large top'></span>
               </div>
               <h3>Your Workspace</h3>
             </div>
