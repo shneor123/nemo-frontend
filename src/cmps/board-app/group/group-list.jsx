@@ -8,10 +8,11 @@ import { useForm } from "../../../hooks/useForm";
 import { saveGroup } from "../../../store/actions/group.action";
 import { SideManuBoard } from "../../menu/side-manu-board";
 
-export const GroupList = ({ boards, board, groups, boardId, activities, labelOpenState, labels, boardMembers }) => {
+export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boardId, activities, labelOpenState, labels, boardMembers }) => {
   const dispatch = useDispatch()
   const [isAddGroup, setIsAddGroup] = useState(false)
   const [newGroup, handleChange, clearFields] = useForm({ title: "" })
+
 
   const onAddGroup = (ev = null) => {
     ev.preventDefault()
@@ -37,6 +38,8 @@ export const GroupList = ({ boards, board, groups, boardId, activities, labelOpe
                 return (
                   <GroupPreview
                     key={group.id}
+                    filterBy={filterBy}
+                    onSetFilterBy={onSetFilterBy}
                     group={group}
                     boardId={boardId}
                     index={index}

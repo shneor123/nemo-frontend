@@ -10,7 +10,7 @@ export const boardService = {
     getById,
     remove,
     updateWithoutSocket,
-    getEmptyBoardAttachment
+    getEmptyBoardAttachment,
 }
 // window.cs = boardService;
 
@@ -18,15 +18,14 @@ const STORAGE_KEY = 'board'
 const BOARD_BASE_ENDPOINT = 'board'
 
 
-async function query() {
-    const boardsFromDB = await httpService.get(BOARD_BASE_ENDPOINT)
+async function query(filterBy = { name: '', sort: 'created' }) {
+    let boardsFromDB = await httpService.get(BOARD_BASE_ENDPOINT, filterBy)
     return boardsFromDB
 }
 
-async function getById(boardId) {
-    const boardFromDB = await httpService.get(`${BOARD_BASE_ENDPOINT}/${boardId}`)
-    return boardFromDB
 
+async function getById(boardId) {
+    return await httpService.get(`${BOARD_BASE_ENDPOINT}/${boardId}`)
 }
 
 async function remove(boardId) {
@@ -64,7 +63,6 @@ function getEmptyBoardAttachment() {
         fileUrl: '',
     }
 }
-
 
 const ourBoard = {
     "_id": utilService.makeId(),//mongoID

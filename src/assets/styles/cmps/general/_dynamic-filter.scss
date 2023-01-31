@@ -1,33 +1,6 @@
 .dynamic-filter {
-    min-width: 190px;
-    width: 304px;
-    cursor: auto;
-    position: absolute;
-    bottom: 0;
-    transform: translateY(105%);
-    margin: 0;
-    left: -55px;
-    background-color: #ffffff;
-    padding: 0 10px 10px;
-    z-index: 200;
-    color: #172b4d;
-    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
-    border-radius: 3px;
-    cursor: pointer;
-
-    h3 {
-        border-bottom: 1px solid #00000014;
-        padding-block: 10px;
-        margin-block-start: 10px;
-        font-weight: bold;
-        padding: 0.5rem;
-        font-size: 14px;
-    }
-
     .empty-star {
-        margin-top: 5px;
-        margin-bottom: -5px;
-        padding: 0.5rem;
+        margin-inline-start: -7px;
         font-size: 14px;
         font-weight: 600;
     }
@@ -37,6 +10,7 @@
         grid-template-columns: 45px 1fr 30px;
         grid-template-rows: 40px;
         align-items: center;
+        margin-inline-start: -30px;
 
         &:hover {
             background-color: rgba(#172b4d, 0.1);
@@ -49,10 +23,6 @@
 
         }
 
-        &:first-of-type {
-            padding-top: 10px;
-        }
-
         div {
             display: inline-block;
             flex: 0 0 auto;
@@ -61,7 +31,9 @@
             height: 32px;
             width: 40px;
             position: relative;
-            opacity: 1
+            opacity: 1;
+            cursor: pointer;
+
         }
     }
 
@@ -205,57 +177,127 @@
 }
 
 .filter {
-    z-index: 200;
-
-    flex-grow: 1;
-    position: relative;
-    margin-right: 8px;
+    margin-right: 5px;
 
     &>* {
         @include btn-filter($type: dark);
         margin-inline-end: -5px;
         background: transparent;
-
-        svg {
-            height: 16px;
-            width: 16px;
-            fill: #FAFBFC;
-            transform: translateY(12%);
-        }
     }
+}
 
-    .boards {
-        .dynamic-filter {
-            @include for-narrow-layout {
-                left: 0px;
-            }
-        }
-    }
-
-    .recent {
-        .dynamic-filter {
-            @include for-narrow-layout {
-                left: 33%;
-            }
-        }
-    }
-
-    .stared {
-        .dynamic-filter {
-            bottom: -10px;
-
-            @include for-narrow-layout {
-                left: 68%;
-            }
-        }
-    }
+.filter-width {
+    display: none;
 }
 
 @media screen and (max-width: 700px) {
     .filter {
+        display: none;
+    }
+
+    .filter-width {
+        display: block;
         &>* {
+            @include btn-filter($type: dark);
+            margin-inline-end: -5px;
+            background: transparent;
+        }
+    }
+
+    .hidden-block {
+        display: block;
+    }
+
+    .hidden-none {
+        display: none;
+    }
+}
+
+
+
+.dynamic-filter-search {
+    min-width: 190px;
+    width: 284px;
+    cursor: auto;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(105%);
+    margin: 0;
+    left: -15px;
+    background-color: #ffffff;
+    padding: 0 10px 10px;
+    z-index: 200;
+    color: #172b4d;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    border-radius: 3px;
+    cursor: pointer;
+
+    li {
+        display: grid;
+        grid-template-columns: 45px 1fr 30px;
+        grid-template-rows: 40px;
+        align-items: center;
+
+        &:hover {
+            background-color: rgba(#172b4d, 0.1);
+
+            .star-wrapper {
+                &.no-starred {
+                    display: block;
+                }
+            }
+
+        }
+
+        div {
+            display: inline-block;
+            flex: 0 0 auto;
+            background-size: cover;
+            border-radius: 3px;
+            height: 32px;
+            width: 40px;
+            position: relative;
+            opacity: 1
+        }
+    }
+
+    p {
+        text-align: start;
+        margin-left: 4px;
+        break-inside: break-word;
+        color: #172b4d !important;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 500;
+    }
+
+    .star-wrapper {
+        margin-top: 9px;
+
+        svg {
+            stroke: #172b4d;
+            display: block;
+        }
+
+        &.starred {
             svg {
-                display: none;
+                stroke: none;
+                fill: #f2d600;
+                width: 18px;
+                opacity: 1;
+            }
+        }
+
+        &.no-starred {
+            display: none;
+
+            svg {
+                stroke: none;
+                fill: black;
+
+                &:hover {
+                    fill: #f2d600;
+                }
             }
         }
     }

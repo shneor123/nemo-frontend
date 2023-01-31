@@ -11,7 +11,7 @@ import { ArchivedList } from "../menu/archived/archived-list"
 import { boardService } from "../../services/board/board.service"
 import { AboutThisBoard } from "../board-app/task/about-this-board"
 
-export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => {
+export const Menu = ({ isMenuOpen, onCloseMenu, activities, board }) => {
   const [isColorModalOpen, setIsColorModalOpen] = useState('none')
   const [isImgModalOpen, setIsImgModalOpen] = useState('none')
   const [isFilterModalOpen, setIsFilterModalOpen] = useState('none')
@@ -120,6 +120,7 @@ export const Menu = ({ isMenuOpen, onCloseMenu, activities, board, groups }) => 
         <FilterMenu board={board} isFilterModalOpen={isFilterModalOpen} />
         <ArchivedList board={board} isArchivedModalOpen={isArchivedModalOpen} onUpdateBoard={onUpdateBoard} />
         <MainMenu
+          board={board}
           onOpenArchived={onOpenArchived}
           onOpenColors={onOpenColors}
           onOpenFilter={onOpenFilter}

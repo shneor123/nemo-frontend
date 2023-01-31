@@ -51,7 +51,7 @@ export const MainMenu = ({ onOpenCustom, onOpenAboutBoard, onOpenArchived, onOpe
 
                 <section>
                     <div className="mini-title">Costume</div>
-                    <div className="costume " onClick={onOpenCustom}>
+                    <div className="costume" onClick={onOpenCustom}>
                         <div className="btn flex align-center justify-center">
                             <span className="fa-regular plus-icon"></span>
                         </div>

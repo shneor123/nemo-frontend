@@ -32,7 +32,6 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
         dispatch(saveTask(task, boardId, groupId))
     }
 
-
     const onOpenModal = (e, modal) => {
         e.stopPropagation()
         dispatch(setModal(modal))

@@ -8,7 +8,7 @@ import { ToolBar } from "../cmps/general/toolbar"
 import { GroupList } from "../cmps/board-app/group/group-list"
 import { socketService } from "../services/basic/socket.service"
 
-import { handleDrag, loadBoard } from "../store/actions/board.action"
+import { handleDrag, loadBoard, setFilter } from "../store/actions/board.action"
 import { loadUsers } from "../store/actions/user.actions"
 
 export const BoardApp = () => {
@@ -17,6 +17,8 @@ export const BoardApp = () => {
   const { board } = useSelector((storeState) => storeState.boardModule)
   const { boards } = useSelector((storeState) => storeState.boardModule)
   const { users } = useSelector((storeState) => storeState.userModule)
+  let { filterBy } = useSelector((storeState) => storeState.boardModule);
+
 
   useEffect(() => {
     setSocket()
@@ -76,6 +78,7 @@ export const BoardApp = () => {
             <ToolBar boardId={boardId} board={board} users={users} boards={boards} />
             {board && (
               <GroupList
+                filterBy={filterBy}
                 boards={boards}
                 board={board}
                 labelOpenState={board.labelOpenState}

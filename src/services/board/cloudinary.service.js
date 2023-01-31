@@ -8,19 +8,6 @@ const uploadImg = async (ev) => {
   const FORM_DATA = new FormData();
   FORM_DATA.append('upload_preset', UPLOAD_PRESET)
   FORM_DATA.append('file', ev.target.files[0])
-  
-//   try {
-//       const res = await fetch(UPLOAD_URL, {
-//           method: 'POST',
-//           body: FORM_DATA
-//       })
-//       const { url } = await res.json()
-//       return url
-//   } catch (err) {
-//       console.error('ERROR!', err)
-//   }
-// }
-
   try {
     const res = await axios.post(UPLOAD_URL, FORM_DATA)
     return res.data
@@ -29,6 +16,17 @@ const uploadImg = async (ev) => {
   }
 }
 export const uploadService = {
-  uploadImg
+  uploadImg,
+  getStickers
 }
 
+
+
+async function getStickers(search) {
+  try {
+    const res = await fetch(`https://api.giphy.com/v1/stickers/search?api_key=rQgzccXSxZdfKDNtwJwPomi48MFP2ye1&limit=10&q=${search}`, { method: 'GET' })
+    return res.json()
+  } catch (err) {
+    console.log('cannot get stickers', err)
+  }
+}

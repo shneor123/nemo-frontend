@@ -12,9 +12,9 @@ import { saveTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/basic/user.service";
 import { useForm } from "../../../hooks/useForm";
 import { setModal } from "../../../store/actions/app.actions";
+import { filterBoard } from "../../../store/actions/board.action";
 
-export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, boardMembers }) => {
-  let { filterBy } = useSelector((storeState) => storeState.boardModule);
+export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, labels, boardMembers }) => {
   const [isAddTask, setIsAddTask] = useState(false);
   const dispatch = useDispatch()
   const addTaskRef = useRef()
@@ -29,22 +29,22 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
     if (addTaskRef.current) addTaskRef.current.scrollIntoView();
   }
 
-  useEffect(() => { }, [filterBy]);
+  useEffect(() => { }, [filterBy])
 
   const onRemoveGroup = () => {
-    dispatch(removeGroup(group.id, boardId));
-  };
+    dispatch(removeGroup(group.id, boardId))
+  }
 
   const onSaveGroup = (ev = null) => {
     dispatch(saveGroup(fields.groupTitle, boardId, group.id));
-  };
+  }
 
   const onHandleKeySubmit = (ev) => {
     if (ev.key === "Enter") {
       ev.preventDefault();
       onSaveTask();
     }
-  };
+  }
 
   const onSaveTask = (ev = null) => {
     if (ev) ev.preventDefault();
@@ -63,7 +63,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
       clearFields("newTaskTitle");
     }
     handleBackClick();
-  };
+  }
 
   const onOpenModal = (ev, modal) => {
     dispatch(setModal(modal))
@@ -77,12 +77,12 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
       );
     }
 
-    if (filterBy.labelIds.length > 0) {
-      filterBy.labelIds.forEach(
-        (id) =>
-          (taskToShow = taskToShow.filter((task) => task.labelIds.includes(id)))
-      );
-    }
+    // if (filterBy.labelIds.length > 0) {
+    //   filterBy.labelIds.forEach(
+    //     (id) =>
+    //       (taskToShow = taskToShow.filter((task) => task.labelIds.includes(id)))
+    //   );
+    // }
 
     if (filterBy.members?.length) {
       taskToShow = taskToShow.filter((task) =>
@@ -91,7 +91,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
     }
 
     return taskToShow;
-  };
+  }
 
   return (
     <>
@@ -104,7 +104,17 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
               ref={provided.innerRef}
               className="group-preview"
             >
+              {/* <div className="group-preview-wrapper">
+        <Draggable draggableId={group.id} index={index}>
+          {(provided, snapshot) => (
+            <section
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              className="group-preview"
+            > */}
               <div className="group-preview-header">
+                {/* <div className={`group-preview-header ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}> */}
                 <input
                   className="group-preview-title"
                   type="text"
@@ -119,7 +129,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
                       element: actionsRef.current,
                       category: 'Actions',
                       title: 'Actions',
-                      props: { onRemoveGroup ,setIsAddTask},
+                      props: { onRemoveGroup, setIsAddTask, filterBy, boardId, group },
                     })
                   }><MdMoreHoriz />
                 </div>
@@ -137,7 +147,7 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
 
                   />
                   {isAddTask && (
-                    <div className="add-task-open">
+                    <div className="add-task-open" >
                       <form onSubmit={onSaveTask}>
                         <textarea
                           className="task-txt"
@@ -178,5 +188,5 @@ export const GroupPreview = ({ group, boardId, index, labelOpenState, labels, bo
         </Draggable>
       </div>
     </>
-  );
-};
+  )
+}

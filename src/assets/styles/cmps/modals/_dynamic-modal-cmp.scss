@@ -86,6 +86,9 @@
     padding: 20px 0 0 24px;
     transform: translate(70%, 50%);
   }
+  &.wide-dynamic-filter {
+    width: 290px;
+  }
 
   header {
     margin-bottom: 8px;

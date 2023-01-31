@@ -1,11 +1,10 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { setModal } from '../../store/actions/app.actions'
 
 export const SideManuBoard = ({ board, boardId, boards }) => {
   const [navIsHidden, setNavIsHidden] = useState(false)
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const membersRef = useRef()
   const addRef = useRef()
@@ -29,10 +28,6 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
       props: { element: membersRef.current, board },
 
     }))
-  }
-
-  const onGoTo = (boardId) => {
-    navigate(`/board/${boardId}`)
   }
 
   return (
@@ -63,7 +58,7 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
 
       <div className="boards-container">
         {boards.map(board => {
-          return <div key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`} onClick={() => onGoTo(board._id)}>
+          return <Link to={`/board/${board._id}`} key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
             <div className="board-icon"
               style={{
                 background: board.style.background
@@ -77,7 +72,7 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
             </div>
             <div className="board-icon"></div>
             <span>{board.title}</span>
-          </div >
+          </Link >
         })}
       </div >
     </section >

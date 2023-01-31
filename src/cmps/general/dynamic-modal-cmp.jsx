@@ -33,6 +33,8 @@ import { TaskDelete } from "../modals/task-delete"
 import { DateDelete } from "../modals/date-delete"
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
 import { MembersSide } from "../modals/members/members-side"
+import { DynamicFilter } from "./haeder/dynamic-filter"
+import { ModalStar } from "./haeder/modal-star"
 
 export const DynamicModalCmp = () => {
   const dispatch = useDispatch()
@@ -173,6 +175,12 @@ export const DynamicModalCmp = () => {
     case 'Share':
       cmp = <ShareModal {...modal.props} />
       break
+    case 'Dynamic filter':
+      cmp = <DynamicFilter {...modal.props} />
+      break
+    case 'More filter':
+      cmp = <ModalStar {...modal.props} />
+      break
   }
 
   const onOpenModal = (ev, category) => {
@@ -187,7 +195,8 @@ export const DynamicModalCmp = () => {
       className={`dynamic-modal ${modal.category === 'Filter' ? 'wide' :
         modal.category === 'dashboard' ? 'wide-dashboard' :
           modal.category === 'Dates' ? 'wide-filter' :
-            modal.category === 'Img modal' ? 'pos-img ' : modal.category === 'Members side' ? 'wide-side' : ''}`}
+            modal.category === 'Img modal' ? 'pos-img ' : modal.category === 'Members side' ? 'wide-side' :
+              modal.category === 'Dynamic filter' ? 'wide-dynamic-filter' : ''}`}
       style={{ ...position }}
       ref={modalRef}
       onClick={(e) => e.stopPropagation()}

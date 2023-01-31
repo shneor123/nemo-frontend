@@ -1,16 +1,16 @@
 import React, { useRef } from 'react'
-import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useForm } from '../../../hooks/useForm'
-import { DynamicFilter } from './dynamic-filter'
+import { TiStarFullOutline, TiStarOutline } from "react-icons/ti"
+import { useNavigate } from 'react-router'
 
 export const Search = () => {
     const { boards } = useSelector(({ boardModule }) => boardModule)
     const [boardsSearched, handleSearch] = useForm('')
+    const navigate = useNavigate()
     const inputRef = useRef()
-    const dispatch = useDispatch()
-    let filteredBoards
 
+    let filteredBoards
 
     const handleSearchChange = (ev) => {
         handleSearch(ev)
@@ -21,11 +21,17 @@ export const Search = () => {
         inputRef.value = null
     }
 
+    const onGoTo = (boardId) => {
+        navigate(`/board/${boardId}`)
+        onChooseBoard(false)
+    }
+
     (() => {
         if (boardsSearched.search) {
             filteredBoards = boards.filter(board => board.title.includes(boardsSearched.search))
         }
     })()
+
 
     return (
         <div className='search flex align-center'>
@@ -37,9 +43,22 @@ export const Search = () => {
                 onBlur={(ev) => ev.target.value = ''}
                 onChange={handleSearchChange}
             />
-            {boardsSearched.search &&
-                filteredBoards.length !== 0 &&
-                <DynamicFilter boards={filteredBoards} setModal={onChooseBoard} />}
+            {boardsSearched.search && filteredBoards.length !== 0 &&
+                <ul className='dynamic-filter-search'>
+                    {filteredBoards && filteredBoards.map(board => {
+                        return <li key={board._id} className='filter-item' onClick={() => onGoTo(board._id)}>
+                            <div style={{
+                                background: board.style.background ? `${board.style.background}` : `url(${board.style.bgImg
+                                    ? `${board.style.bgImg}` : `${board.style.imgUrl}`})center center / cover`, backgroundColor: `${board.style.backgroundColor}`
+                            }}></div>
+                            <p>{board.title}</p>
+                            <div className={`star-wrapper ${board.isStar ? 'starred' : 'no-starred'}`}>
+                                {board.isStar ? <TiStarFullOutline className="star-icon star" /> : <TiStarOutline className="star-icon" />}
+                            </div>
+                        </li>
+                    })}
+                </ul>
+            }
         </div>
     )
-}
+}                              

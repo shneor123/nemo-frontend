@@ -147,7 +147,8 @@
 
     @if $type==light {
         background-color: #FFFFFF14;
-        color: $txt;
+        // color: $txt;
+        
 
         &:hover {
             // background-color: #FFFFFF29;
