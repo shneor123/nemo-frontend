@@ -1,12 +1,13 @@
-import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { IoCheckbox } from "react-icons/io5";
-import { IoMdClose } from "react-icons/io";
-import { MdMoreHoriz } from "react-icons/md";
-import { saveTodo, removeTodo } from '../../../../store/actions/checklist.action';
-import { userService } from "../../../../services/basic/user.service";
-import { useForm } from "../../../../hooks/useForm";
+import { useState, useRef } from "react"
+import { useDispatch } from "react-redux"
+import { IoCheckbox } from "react-icons/io5"
+import { IoMdClose } from "react-icons/io"
+import { MdMoreHoriz } from "react-icons/md"
+
+import { useForm } from "../../../../hooks/useForm"
+import { saveTodo, removeTodo } from '../../../../store/actions/checklist.action'
 import { setModal } from "../../../../store/actions/app.actions"
+import { userService } from "../../../../services/basic/user.service"
 
 
 export const TodoPreview = ({ todo, checklistId, taskId, boardId, groupId, taskTitle }) => {

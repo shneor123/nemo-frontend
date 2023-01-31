@@ -34,8 +34,7 @@ export const LabelsDataCard = ({ board, task, labels, boardId, groupId }) => {
           category: 'Labels',
           title: 'Labels',
           props: { element: labelsRef.current, boardId, groupId, task, board, labels },
-        })}>
-        <FiPlus />
+        })}><span className="fa-regular plus-icon"></span>
       </div>
     </div>
   );

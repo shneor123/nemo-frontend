@@ -128,7 +128,6 @@ export const AddBoard = () => {
         <button className={`create-btn ${boardTitle ? "full" : ""}`} onClick={createNewBoard}>
           Create New Board
         </button>
-
       </div>
     </section>
   )

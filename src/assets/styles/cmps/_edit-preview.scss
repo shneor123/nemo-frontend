@@ -39,6 +39,10 @@
     transition: transform 85ms ease-in;
     cursor: pointer;
 
+    span{
+        margin-right: 3px;
+    }
+
 }
 
 .quick-card-editor-buttons-item svg {

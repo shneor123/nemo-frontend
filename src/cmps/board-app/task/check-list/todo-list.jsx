@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { utilService } from "../../../../services/basic/util.service";
-import { TodoPreview } from "./todos-preview.jsx";
-import { saveTodo } from "../../../../store/actions/checklist.action.js";
-import { useDispatch } from "react-redux";
-import { useForm } from "../../../../hooks/useForm.js";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { TodoPreview } from "./todos-preview"
+import { useForm } from "../../../../hooks/useForm";
+import { utilService } from "../../../../services/basic/util.service"
+import { saveTodo } from "../../../../store/actions/checklist.action";
 
 export const TodosList = ({ todos, checklistId, taskId, boardId, groupId, taskTitle }) => {
   const dispatch = useDispatch();

@@ -1,7 +1,6 @@
-import { AttachmentPreview } from './attachment-preview'
-import { ImAttachment } from 'react-icons/im'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import { AttachmentPreview } from './attachment-preview'
 import { setModal } from '../../../../store/actions/app.actions'
 
 export const TaskAttachment = ({ task, boardId, groupId }) => {
@@ -25,7 +24,7 @@ export const TaskAttachment = ({ task, boardId, groupId }) => {
     return (
         attachments.length > 0 && <div className='task-attachments-container'>
             <div className='title-container'>
-                <ImAttachment className='attach-icon' />
+                <span className='attach-icon fa-solid attachment-icon' />
                 <h3>Attachments</h3>
             </div>
             <div className='attachments-container'>

@@ -1,14 +1,6 @@
 import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { TiTag } from "react-icons/ti"
-import { BsArrowRight, BsCheck2Square, BsClock, BsPersonPlus } from "react-icons/bs"
-import { AiOutlineCopy, AiOutlineShareAlt, AiOutlineUser } from "react-icons/ai"
-import { MdOutlineScreenShare } from "react-icons/md"
 import { GiRobotAntennas } from 'react-icons/gi'
-import { HiOutlineMinus } from "react-icons/hi"
-import { RiArchiveLine } from 'react-icons/ri'
-import { FiPaperclip } from "react-icons/fi"
-import { CgUndo } from "react-icons/cg"
 
 import { userService } from "../../../services/basic/user.service"
 import { joinTask } from "../../../store/actions/member.action"
@@ -109,7 +101,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
       <div className="task-details-sidebar-button-container">
         {(!user || !!task.members.filter(member => member._id === user._id).length) || <><h3 className="task-details-sidebar-section-title">Suggested</h3>
           <button onClick={onJoinTask} className="task-details-sidebar-btn join-btn">
-            <BsPersonPlus />
+            <span className="trello-home join-icon"></span>
             <span className="task-details-sidebar-btn-text">Join</span>
           </button></>}
         <h3 className="task-details-sidebar-section-title">Add to card</h3>
@@ -119,8 +111,8 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             element: labelsRef.current,
             category: 'Members',
             title: 'Members',
-            props: { boardMembers, task, boardId, groupId ,board},
-          })}><AiOutlineUser />
+            props: { boardMembers, task, boardId, groupId, board },
+          })}><span className="trellicons members-icon"></span>
           <span className="task-details-sidebar-btn-text">Members</span>
         </button>
 
@@ -130,13 +122,12 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             category: 'Labels',
             title: 'Labels',
             props: { element: moveRef.current, groupTitle, attachments: task.attachments, boardMembers, labels, task, group: currGroup, groupId, boardId },
-          })}>
-          <TiTag />
+          })}> <span className="trellicons labels-icon"></span>
           <span className="task-details-sidebar-btn-text">Labels</span>
         </button>
 
         <button className="task-details-sidebar-btn" ref={checklistRef} onClick={onOpenModalChecklist}>
-          <BsCheck2Square />
+          <span className="trellicons checklist-icon"></span>
           <span className="task-details-sidebar-btn-text">Checklist</span>
         </button>
 
@@ -146,8 +137,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             category: 'Dates',
             title: 'Dates',
             props: { element: datesRef.current, group: currGroup, task, boardId, groupId, groupTitle },
-          })}>
-          <BsClock />
+          })}><span className="fa-regular date-icon"></span>
           <span className="task-details-sidebar-btn-text">Date</span>
         </button>
 
@@ -157,8 +147,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             category: 'Attachment',
             title: 'Attachment',
             props: { element: attachmentRef.current, attachments: task.attachments, group: currGroup, task, boardId, groupId, groupTitle },
-          })}>
-          <FiPaperclip />
+          })}><span className="fa-solid attachment-icon"></span>
           <span className="task-details-sidebar-btn-text">Attachment</span>
         </button>
 
@@ -168,7 +157,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             category: 'Cover',
             title: 'Cover',
             props: { element: coverRef.current, attachments: task.attachments, group: currGroup, task, boardId, groupId, groupTitle },
-          })}><MdOutlineScreenShare />
+          })}><span className="trellicons cover-icon"></span>
           <span className="task-details-sidebar-btn-text">Cover</span>
         </button>
 
@@ -185,11 +174,11 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
 
       <h3 className="task-details-sidebar-section-title actions">Actions</h3>
       <div className="sidebar-button" ref={moveRef} onClick={onOpenModalNove}>
-        <span className="sidebar-icon"> <BsArrowRight /> </span>
+        <span className="sidebar-icon"> <span class="trellicons move"></span></span>
         <span>Move</span>
       </div>
       <div className="sidebar-button" ref={copyRef} onClick={onOpenModalCopy}>
-        <span className="sidebar-icon"> <AiOutlineCopy /> </span>
+        <span className="sidebar-icon"><span class="trellicons copy"></span></span>
         <span>Copy</span>
       </div>
       <div>
@@ -197,7 +186,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
         {task.archivedAt ? (
           <div>
             <div className="sidebar-button" onClick={onRestoreTask}>
-              <span className="sidebar-icon"> <CgUndo /> </span>
+              <span className="sidebar-icon"> <span className="trellicons icon-refresh"></span></span>
               <span>Send to board</span>
             </div>
 
@@ -207,13 +196,13 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
                 category: 'task-delete',
                 title: 'task-delete',
                 props: { element: deleteRef.current },
-              })}><span className="sidebar-icon"> <HiOutlineMinus /> </span>
+              })}><span className="sidebar-icon">  <span className="trellicons icon-remove"></span> </span>
               <span>Delete</span>
             </div>
           </div>
         ) : (
           <div className="sidebar-button" onClick={onArchiveTask}>
-            <span className="sidebar-icon"> <RiArchiveLine /> </span>
+            <span className="sidebar-icon"><span class="trellicons archive"></span></span>
             <span>Archive</span>
           </div>
         )}
@@ -224,7 +213,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             title: 'Share and more…',
             props: { element: shareRef.current, boardId },
           })}>
-          <span className="sidebar-icon"> <AiOutlineShareAlt /> </span>
+          <span className="sidebar-icon"> <span className="trellicons share"></span></span>
           <span>Share</span>
         </div>
       </div>

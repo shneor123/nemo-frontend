@@ -25,7 +25,7 @@ export const AboutThisBoard = ({ iOpenAboutBoard, board }) => {
                 <p>{board.createdBy.username}</p>
             </div>
             <div className="title-container flex row">
-                <span className="svg-icon-desc">< GrTextAlignFull /></span>
+                <span className="svg-icon-desc trellicons desc-icon large"></span>
                 <h3 className="desc-title">Description</h3>
             </div>
             <form onSubmit={onSaveBoard}>

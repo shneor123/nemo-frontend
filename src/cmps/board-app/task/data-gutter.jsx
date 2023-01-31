@@ -1,6 +1,6 @@
-import { MembersDataCard } from './members-data-card.jsx'
-import { LabelsDataCard } from "./labels-data-card.jsx";
-import { DateDataCard } from "./date-data-card.jsx"
+import { MembersDataCard } from './members-data-card'
+import { LabelsDataCard } from "./labels-data-card";
+import { DateDataCard } from "./date-data-card"
 export const DataGutter = ({ group, board, task, boardId, groupId, labels, boardMembers }) => {
   return (
     <div className="data-gutter">

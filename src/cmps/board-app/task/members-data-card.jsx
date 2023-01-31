@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { FiPlus } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { setModal } from "../../../store/actions/app.actions";
 import { MemberPreview } from "../../modals/members/member-preview";
@@ -27,7 +26,7 @@ export const MembersDataCard = ({ board, boardMembers, boardId, groupId, task })
           category: 'Members',
           title: 'Members',
           props: { boardMembers, board, boardId, groupId, task },
-        })}><FiPlus />
+        })}><span className="fa-regular plus-icon"></span>
       </div>
     </div >
   )

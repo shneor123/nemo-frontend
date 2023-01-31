@@ -72,6 +72,7 @@
 
     &.question-icon::before {
         content: "\e904";
+        font-size: 20px;
     }
 
     &.trello-icon::before {
@@ -141,6 +142,14 @@
 
 .trellicons {
     font-family: "trellicons";
+
+    &.icon-card:before {
+        content: "\e912";
+    }
+
+    &.icon-remove:before {
+        content: "\e95c";
+    }
 
     &.tick-icon::before {
         content: "\e916";
@@ -334,6 +343,9 @@
 .fa-solid {
     font-family: "fa-solid";
 
+    &.icon-refresh:before {
+        content: "\e95b";
+    }
     &.notification-icon::before {
         content: "\f06a";
         color: #f20000;

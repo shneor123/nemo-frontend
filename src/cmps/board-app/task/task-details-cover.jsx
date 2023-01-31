@@ -47,7 +47,7 @@ export function TaskDetailsCover({ task, boardId, groupId }) {
     <header>
       {task?.style?.bgColor && (
         <div className="task-details-cover color" style={{ backgroundColor: `${task.style.bgColor}` }}>
-          <button ref={buttonRef}> <FaWindowMaximize /> Cover{' '}
+          <button ref={buttonRef}> <span className='trellicons cover-icon'></span> Cover{' '}
           </button>
         </div>
       )}
@@ -58,7 +58,7 @@ export function TaskDetailsCover({ task, boardId, groupId }) {
           style={{ backgroundColor: bgColor, backgroundImage: `url('${task.style.imgUrl}')` }}
         >
           <button ref={buttonRef} onClick={onOpenModal}>
-            <FaWindowMaximize /> Cover
+            <span className='trellicons cover-icon'></span> Cover
           </button>
         </div>
       )}
@@ -68,7 +68,7 @@ export function TaskDetailsCover({ task, boardId, groupId }) {
             <source src={task.style.imgUrl} type="video/mp4"></source>
           </video>
           <button ref={buttonRef} onClick={onOpenModal}>
-            <FaWindowMaximize />Cover
+            <span className='trellicons cover-icon'></span> Cover
           </button>
         </div>
       )}

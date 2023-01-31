@@ -197,6 +197,7 @@
 
     .filter-width {
         display: block;
+
         &>* {
             @include btn-filter($type: dark);
             margin-inline-end: -5px;

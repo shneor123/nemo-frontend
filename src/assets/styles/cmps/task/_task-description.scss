@@ -42,6 +42,7 @@
     }
 
 }
+
 .text-desc {
     background-color: #091e420a;
     border: none;
@@ -66,7 +67,10 @@
         min-height: 108px;
         outline: none;
         cursor: auto;
+    }
 
+    @include for-mobile-layout {
+        width: 60%;
     }
 
 }

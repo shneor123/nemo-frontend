@@ -1,12 +1,13 @@
-import { useRef, useState } from "react";
-import { useDispatch } from 'react-redux';
-import { IoMdCheckboxOutline } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
+import { useRef, useState } from "react"
+import { useDispatch } from 'react-redux'
+import { IoMdCheckboxOutline } from "react-icons/io"
+import { IoMdClose } from "react-icons/io"
+
 import { TodosList } from './todo-list'
-import { saveChecklist } from '../../../../store/actions/checklist.action';
 import { ChecklistProgressBar } from './checklist-progress'
-import { useForm } from '../../../../hooks/useForm';
-import { setModal } from "../../../../store/actions/app.actions";
+import { useForm } from '../../../../hooks/useForm'
+import { saveChecklist } from '../../../../store/actions/checklist.action'
+import { setModal } from "../../../../store/actions/app.actions"
 
 export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, groupId }) => {
     const checklistRef = useRef()
@@ -26,7 +27,9 @@ export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, 
     return (
         <section className="checklist-preview ">
             <div className='title-container  '>
-                <div className='checklist-title'><span className='icon-check'><IoMdCheckboxOutline /></span>
+                <div className='checklist-title'><span className='icon-check'>
+                    <span className="trellicons checklist-icon large"></span>
+                </span>
                     <form >
                         <textarea onClick={() => setIsEditOpen(true)}
                             name="title"
@@ -49,9 +52,7 @@ export const ChecklistPreview = ({ checklist, onRemoveChecklist, task, boardId, 
                             category: 'checklist-delete',
                             title: 'checklist-delete',
                             props: { element: checklistRef.current, onRemoveChecklist, checklist },
-                        })}>
-
-                            Delete</button>
+                        })}>Delete</button>
                     </div>
                 </div>
             </div>

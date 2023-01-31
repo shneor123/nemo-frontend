@@ -93,15 +93,26 @@ export const AppHeader = () => {
             {!isHome && (
               <div className="workspace-create" ref={createRef} onClick={(ev) => { onModal('Create Board') }}>
                 <span className="share-btn-icon">Create</span>
-                <span className="plus trellicons plus-icon"></span> 
+                <span className="plus trellicons plus-icon"></span>
               </div>
             )}
           </div>
           <div className="nav-input" ><Search /> </div>
 
+          <span className="git-link">
+            <a href="https://github.com/shneor123/nemo-frontend" target='_blank'>
+              <span class="trello-home question-icon"></span></a>
+          </span>
+
+
           {!isHome && (
             <div className="user-img-container" ref={profileRef}
-              onClick={(ev) => onOpenModal(ev, { category: 'account actions', title: 'Account', element: profileRef.current, props: { user }, })}
+              onClick={(ev) => onOpenModal(ev, {
+                category: 'account actions',
+                title: 'Account',
+                element: profileRef.current,
+                props: { user },
+              })}
             >
               {user &&
                 (user?.imgUrl ? (

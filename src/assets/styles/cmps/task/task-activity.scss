@@ -51,6 +51,12 @@
             &:hover {
                 background-color: #091e4214;
             }
+
+            @include for-mobile-layout {
+                left: 40%;
+                width: 120px;
+            }
+
         }
     }
 
@@ -91,8 +97,9 @@
                 transition-timing-function: ease;
             }
 
-
-
+            @include for-mobile-layout {
+                width: 60%;
+            }
         }
     }
 

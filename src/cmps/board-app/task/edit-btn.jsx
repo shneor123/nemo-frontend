@@ -3,14 +3,8 @@ import { useDispatch } from "react-redux";
 import { setModal } from "../../../store/actions/app.actions";
 import { saveTask } from "../../../store/actions/task.action";
 
-import { AiOutlineCreditCard } from "react-icons/ai";
-import { TiTag } from "react-icons/ti";
-import { BsPerson } from "react-icons/bs";
-import { MdOutlineScreenShare } from "react-icons/md";
-import { BsClock } from "react-icons/bs";
 import { MdDeleteOutline } from "react-icons/md"
 import { GiRobotAntennas } from 'react-icons/gi'
-import { RiArchiveLine } from "react-icons/ri";
 
 export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, labels, groupId, task, boardMembers, onCloseQuickEdit }) => {
     const dispatch = useDispatch()
@@ -21,12 +15,11 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
     const claraRef = useRef()
     const copyRef = useRef()
 
-
-
     const onArchiveTask = () => {
         updateTask({ ...task, archivedAt: Date.now() })
         onCloseQuickEdit()
     }
+
     const updateTask = (updatedTask) => {
         task.archivedAt = updatedTask.archivedAt
         dispatch(saveTask(task, boardId, groupId))
@@ -36,6 +29,7 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
         e.stopPropagation()
         dispatch(setModal(modal))
     }
+
     const onModalMember = (e) => {
         e.stopPropagation()
         dispatch(setModal({
@@ -47,6 +41,7 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
         })
         )
     }
+
     const onModallabels = (e) => {
         e.stopPropagation()
         dispatch(
@@ -61,12 +56,15 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
 
     return (
         <div className="edit-btn" >
+            <span className="quick-card-editor-buttons-item" onClick={onOpenTaskDetails}><span className="trellicons icon-card"></span> Open card</span>
 
-            <span className="quick-card-editor-buttons-item" onClick={onOpenTaskDetails}><AiOutlineCreditCard /> Open card</span>
+            <span className="quick-card-editor-buttons-item" ref={labelsRef} onClick={onModallabels}>
+                <span className="trellicons labels-icon"></span> Edit labels
+            </span>
 
-            <span className="quick-card-editor-buttons-item" ref={labelsRef} onClick={onModallabels}> < TiTag /> Edit labels </span>
-
-            <span className="quick-card-editor-buttons-item" ref={membersRef} onClick={onModalMember}> <BsPerson /> Change members </span>
+            <span className="quick-card-editor-buttons-item" ref={membersRef} onClick={onModalMember}>
+                <span className="trellicons members-icon"></span> Change members
+            </span>
 
             <span className="quick-card-editor-buttons-item" ref={coverRef}
                 onClick={(ev) => onOpenModal(ev, {
@@ -74,7 +72,8 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
                     category: 'Cover',
                     title: 'Cover',
                     props: { element: coverRef.current, boardId, groupId, task, labels, boardMembers },
-                })}><MdOutlineScreenShare /> Change cover</span>
+                })}><span className="trellicons cover-icon"></span> Change cover
+            </span>
 
             <span className="quick-card-editor-buttons-item" ref={datesRef}
                 onClick={(ev) => onOpenModal(ev, {
@@ -82,7 +81,8 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
                     category: 'Dates',
                     title: 'Dates',
                     props: { element: datesRef.current, boardId, groupId, task, labels, boardMembers },
-                })}><BsClock /> Edit dates</span>
+                })}><span className="fa-regular date-icon"></span> Edit dates
+            </span>
 
             <span className="quick-card-editor-buttons-item" ref={claraRef}
                 onClick={(ev) => onOpenModal(ev, {
@@ -98,9 +98,12 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
                     category: 'Copy card',
                     title: 'Copy card',
                     props: { element: copyRef.current, boardId, groupId, task, labels, boardMembers },
-                })}><BsClock />  Copy</span>
+                })}><span className="trellicons copy"></span>Copy
+            </span>
 
-            <span className="quick-card-editor-buttons-item" onClick={onArchiveTask}><RiArchiveLine /> Archive</span>
+            <span className="quick-card-editor-buttons-item" onClick={onArchiveTask}>
+                <span className="trellicons archive"></span> Archive
+            </span>
 
             <span className="quick-card-editor-buttons-item" onClick={onRemoveTask}><MdDeleteOutline /> Remove task</span>
         </div>

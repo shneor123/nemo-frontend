@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate, useParams } from "react-router"
 
 import { GrClose } from 'react-icons/gr'
-import { AiOutlineCreditCard } from "react-icons/ai";
-import { RiArchiveLine } from "react-icons/ri";
-import { TaskSidebar } from "./task-sidebar";
-import { TaskDetailsMain } from "./task-details-main";
-import { saveTask } from "../../../store/actions/task.action";
-import { useForm } from "../../../hooks/useForm";
-import { TaskDetailsCover } from "../../board-app/task/task-details-cover";
+import { TaskSidebar } from "./task-sidebar"
+import { TaskDetailsMain } from "./task-details-main"
+import { saveTask } from "../../../store/actions/task.action"
+import { useForm } from "../../../hooks/useForm"
+import { TaskDetailsCover } from "../../board-app/task/task-details-cover"
 
 export const TaskDetails = () => {
   const navigate = useNavigate()
@@ -64,13 +62,13 @@ export const TaskDetails = () => {
           {task.archivedAt && (
             <div className="task-archived">
               <div className="archive-icon-container">
-                <RiArchiveLine className="archive-icon" />
+                <span className="trellicons archive archive-icon large"></span>
               </div>
               <p>This task is archived.</p>
             </div>
           )}
           <div className="task-details-header">
-            <span className="header-icon"> <AiOutlineCreditCard /></span>
+            <span className="header-icon"> <span className="trellicons card-icon large"></span></span>
             <form onSubmit={onSaveTask}>
               <input
                 onClick={() => setIsEditTitle(true)}

@@ -88,23 +88,11 @@
 @import "cmps/dashboard/dashboard";
 @import "cmps/dashboard/dashboard-chart";
 
+.large {
+    font-size: 1.8rem;
 
-.sub-btn {
-    pad: 0.5em;
-    border: none;
-    background-color: darken(#e9d8fd, 5%);
-    border-radius: 6px;
-
-    &:hover {
-        background-color: darken(#e9d8fd, 8%);
-    }
-
-    &.active {
-        background-color: darken(#e9d8fd, 15%)
+    &.trellicons {
+        top: 0;
+        margin-inline-end: 1rem;
     }
 }
-
-.sort {
-    margin: 8px 0 12px 0;
-  }
-

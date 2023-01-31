@@ -127,7 +127,7 @@
 
     &-task-details {
       background-color: red;
-      
+
     }
   }
 }
@@ -242,6 +242,27 @@
 .plus {
   visibility: hidden;
   font-size: 28px;
+}
+
+.git-link {
+  position: absolute;
+  right: 44px;
+  top: 9px;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    text-decoration: none !important;
+  }
+
+  * {
+    color: $textLight;
+  }
+
 }
 
 @media screen and (max-width: 700px) {

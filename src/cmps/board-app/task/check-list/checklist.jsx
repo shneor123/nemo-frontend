@@ -1,5 +1,5 @@
-import { ChecklistPreview } from './checklist-preview'
 import { useDispatch } from 'react-redux';
+import { ChecklistPreview } from './checklist-preview'
 import { removeChecklist } from '../../../../store/actions/checklist.action'
 
 export const Checklists = ({ task, boardId, groupId, groupTitle }) => {

@@ -1,21 +1,18 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { Draggable } from "react-beautiful-dnd";
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router"
+import { Draggable } from "react-beautiful-dnd"
 
-import { BsPencil } from "react-icons/bs";
-import { FiCheckSquare, FiPaperclip } from "react-icons/fi";
-import { GrTextAlignFull } from "react-icons/gr"
+import { BsPencil } from "react-icons/bs"
 import { HiOutlineEye } from "react-icons/hi"
 
-import { EditPreview } from "./task-edit";
-import { DueDatePreview } from "./dates/due-date-preview";
-import { MemberPreview } from "../../modals/members/member-preview";
+import { EditPreview } from "./task-edit"
+import { DueDatePreview } from "./dates/due-date-preview"
+import { removeTask } from "../../../store/actions/task.action"
 import { toggleLabelPreview } from '../../../store/actions/label.action'
-import { removeTask } from "../../../store/actions/task.action";
-import { userService } from "../../../services/basic/user.service";
-import { labelService } from "../../../services/board/label.service";
-import { utilService } from "../../../services/basic/util.service";
+import { userService } from "../../../services/basic/user.service"
+import { utilService } from "../../../services/basic/util.service"
+import { labelService } from "../../../services/board/label.service"
 
 export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
   const { board } = useSelector(({ boardModule }) => boardModule)
@@ -176,15 +173,15 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
                 {!task.style.isCover && <>
                   <div className="badges">
                     {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
-                    {!!task.description && <span className="badge"><GrTextAlignFull /></span>}
-                    {!!task.attachments?.length && <span className="badge"> <FiPaperclip /></span>}
+                    {!!task.description && <span className="badge"><span className="trellicons desc-icon"></span></span>}
+                    {!!task.attachments?.length && <span className="badge"> <span className="trellicons attachment"></span></span>}
                     {!!sumTodos && (
                       <div style={
                         sumTodos === sumTodosDone ? {
                           backgroundColor: '#61bd4f',
                           color: 'white', borderRadius: '3px'
                         } : {}} className="badge checklist-badge">
-                        <FiCheckSquare />
+                        <span className="trellicons checklist-icon"></span>
                         <div className="sum-todos-badge-title">
                           {sumTodosDone}/{sumTodos}
                         </div>

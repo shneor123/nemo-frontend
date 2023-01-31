@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { IoListOutline } from "react-icons/io5";
-import { useDispatch } from "react-redux";
-import { utilService } from "../../services/basic/util.service";
-import { saveActivity } from "../../store/actions/activity.action";
+import { useDispatch } from "react-redux"
 import { useForm } from '../../hooks/useForm'
+import { utilService } from "../../services/basic/util.service"
+import { saveActivity } from "../../store/actions/activity.action"
 
 export const Activity = ({ activities, taskId, boardId }) => {
     const [taskActivities, setTaskActivities] = useState(null)
@@ -36,7 +35,8 @@ export const Activity = ({ activities, taskId, boardId }) => {
     return (
         <section className="activity-container">
             <div className={`title-container ${taskId ? '' : 'menu'}`}>
-                <IoListOutline className="activity-icon" /> <h3>Activity</h3>
+                <span className="activity-icon trellicons activity-icon large"></span> 
+                <h3>Activity</h3>
                 {taskId && <button className="details-btn"
                     onClick={() => setToggleShow(!toggleShow)} >
                     {toggleShow ? 'Hide details' : 'Show details'}
