@@ -105,7 +105,6 @@ export function setFilter(filterBy) {
     }
 }
 
-
 export function addUserToBoard(boardId, user) {
     console.log('boardId', boardId);
     return async (dispatch) => {
@@ -122,30 +121,17 @@ export function addUserToBoard(boardId, user) {
     }
 }
 
-// Demo for Optimistic Mutation (IOW - Assuming the server call will work,
-//  so updating the UI first)
 export function onRemoveBoardOptimistic(boardId) {
-
-    return (dispatch, getState) => {
-
-        dispatch({
-            type: 'REMOVE_BOARD',
-            boardId
-        })
-
+    return (dispatch) => {
+        dispatch({ type: 'REMOVE_BOARD', boardId })
         boardService.remove(boardId)
-            .then(() => {
-                console.log('Server Reported - Deleted Succesfully');
-            })
+            .then(() => { console.log('Server Reported - Deleted Succesfully') })
             .catch(err => {
                 console.log('Cannot load boards', err)
-                dispatch({
-                    type: 'UNDO_REMOVE_BOARD',
-                })
+                dispatch({ type: 'UNDO_REMOVE_BOARD' })
             })
     }
 }
-
 
 export function handleDrag(
     board,

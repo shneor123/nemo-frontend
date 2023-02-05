@@ -43,7 +43,6 @@ export const LoginSignup = (props) => {
   }, [])
 
 
-  // var accessToken = gapi.auth.getToken().access_token
   const clearState = () => {
     setCredentials({ username: "", password: "", fullname: "", imgUrl: "" })
   }

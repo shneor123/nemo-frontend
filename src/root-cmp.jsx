@@ -7,9 +7,10 @@ import { BoardApp } from "./pages/board-app"
 import { TaskDetails } from "./cmps/board-app/task/task-details"
 import { Dashboard } from "./pages/dashboard"
 import { DynamicModalCmp } from "./cmps/general/dynamic-modal-cmp"
-import { useSelector,useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { setModal } from "./store/actions/app.actions.js"
 import { Routes, Route } from 'react-router-dom'
+import { UserProfile } from "./pages/user-profile"
 
 function App() {
   const { modal } = useSelector(({ appModule }) => appModule)
@@ -31,6 +32,7 @@ function App() {
           <Route element={<TaskDetails />} path={":groupId/:taskId"} />
           <Route element={<Dashboard />} path="dashboard" />
         </Route>
+        <Route element={<UserProfile />} path={'/users/:id'} />
       </Routes>
     </div>
   )

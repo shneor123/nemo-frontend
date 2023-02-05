@@ -74,22 +74,19 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
     if (filterBy.txt) {
       taskToShow = group.tasks.filter((task) =>
         task.title.toLowerCase().includes(filterBy.txt.toLowerCase())
-      );
+      )
     }
-
-    // if (filterBy.labelIds.length > 0) {
-    //   filterBy.labelIds.forEach(
-    //     (id) =>
-    //       (taskToShow = taskToShow.filter((task) => task.labelIds.includes(id)))
-    //   );
-    // }
-
+    if (filterBy.labelIds.length > 0) {
+      filterBy.labelIds.forEach(
+        (id) =>
+          (taskToShow = taskToShow.filter((task) => task.labelIds.includes(id)))
+      )
+    }
     if (filterBy.members?.length) {
       taskToShow = taskToShow.filter((task) =>
         task.members.some((member) => filterBy.members.includes(member._id))
-      );
+      )
     }
-
     return taskToShow;
   }
 
@@ -98,23 +95,12 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
       <div className="group-preview-wrapper">
         <Draggable draggableId={group.id} index={index}>
           {(provided) => (
-            <section
+            <section className="group-preview"
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
-              className="group-preview"
             >
-              {/* <div className="group-preview-wrapper">
-        <Draggable draggableId={group.id} index={index}>
-          {(provided, snapshot) => (
-            <section
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              ref={provided.innerRef}
-              className="group-preview"
-            > */}
               <div className="group-preview-header">
-                {/* <div className={`group-preview-header ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}> */}
                 <input
                   className="group-preview-title"
                   type="text"

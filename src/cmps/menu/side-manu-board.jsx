@@ -58,21 +58,25 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
 
       <div className="boards-container">
         {boards.map(board => {
-          return <Link to={`/board/${board._id}`} key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
-            <div className="board-icon"
-              style={{
-                background: board.style.background
-                  ? `${board.style.background}`
-                  : `url(${board.style.bgImg
-                    ? `${board.style.bgImg}`
-                    : `${board.style.imgUrl}`})center center / cover`,
-                backgroundColor: `${board.style.backgroundColor}`
-              }}>
+          return (
+            <div>
+              <Link to={`/board/${board._id}`} key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
+                <div className="board-icon"
+                  style={{
+                    background: board.style.background
+                      ? `${board.style.background}`
+                      : `url(${board.style.bgImg
+                        ? `${board.style.bgImg}`
+                        : `${board.style.imgUrl}`})center center / cover`,
+                    backgroundColor: `${board.style.backgroundColor}`
+                  }}>
 
+                </div>
+                <div className="board-icon"></div>
+                <span>{board.title}</span>
+              </Link >
             </div>
-            <div className="board-icon"></div>
-            <span>{board.title}</span>
-          </Link >
+          )
         })}
       </div >
     </section >

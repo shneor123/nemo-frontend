@@ -1,17 +1,21 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setModal } from '../../../store/actions/app.actions'
-import { updateBoard } from '../../../store/actions/board.action'
+import { loadBoards, updateBoard } from '../../../store/actions/board.action'
 
 export const ModalStar = () => {
   const { boards } = useSelector(({ boardModule }) => boardModule)
   const dispatch = useDispatch()
-  const boardsRef = useRef()
   const recentRef = useRef()
   const starredRef = useRef()
 
   let recentBoards = []
   let starredBoards
+
+
+  useEffect(() => {
+    dispatch(loadBoards())
+  }, [])
 
   const onToggleStar = (ev, boardId) => {
     ev.preventDefault()
@@ -20,16 +24,6 @@ export const ModalStar = () => {
     dispatch(updateBoard(board))
   }
 
-  const onOpenModal = (e) => {
-    e.stopPropagation()
-    dispatch(setModal({
-      element: boardsRef.current,
-      category: 'Dynamic filter',
-      title: 'boards',
-      props: { element: boardsRef.current, boards: allBoards, onToggleStar },
-    })
-    )
-  }
   const onOpenModalRecent = (e) => {
     e.stopPropagation()
     dispatch(setModal({
@@ -66,25 +60,15 @@ export const ModalStar = () => {
   return (
     <>
       <div className='filter'>
-        <button ref={boardsRef} onClick={onOpenModal}>
-          boards
-          <span className="fa-solid down-icon"></span>
-        </button>
         <button ref={recentRef} onClick={onOpenModalRecent}>
-          Recent
-          <span className="fa-solid down-icon"></span>
+          Recent <span className="fa-solid down-icon"></span>
         </button>
         <button ref={starredRef} onClick={onOpenModalStarred}>
-          Stared
-          <span className="fa-solid down-icon"></span>
+          Stared <span className="fa-solid down-icon"></span>
         </button>
       </div>
 
       <div className='filter-width'>
-        <button ref={boardsRef} onClick={onOpenModal}>
-          <span className="fa-solid board-icon"></span>
-        </button>
-
         <button ref={recentRef} onClick={onOpenModalRecent}>
           <span className="fa-regular date-icon"></span>
         </button>

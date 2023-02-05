@@ -29,6 +29,10 @@ export function userReducer(state = initialState, action) {
             return { ...state, watchedUser: action.user }
         case 'SET_USER_MSG':
             return { ...state, msg: action.msg }
+        case 'UPDATE_USER':
+            users = state.users.map(user => user._id === action.user._id ? action.user : user)
+            return { ...state, users }
+
         default:
             return state
     }

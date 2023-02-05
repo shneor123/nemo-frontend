@@ -48,7 +48,7 @@ export const AppHeader = () => {
   if (isHome) routeClass = "-home"
   if (pathname === "/login" || pathname === "/signup") routeClass = "-login-signup"
   if (pathname === "/workspace") routeClass = "-workspace"
-  if (pathname.includes("/board")) routeClass = "-workspace"
+  if (pathname.includes("/board") || pathname.includes("/users")) routeClass = "-workspace"
   if (window.pageYOffset > 0) routeClass += ' scrolled'
 
   const onOpenModal = (ev, modal) => {

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const uploadImg = async (ev) => {
-  const CLOUD_NAME = 'dxjt9fumq' 
-  const UPLOAD_PRESET = 'kvmv1bdp' 
+  const CLOUD_NAME = 'dxjt9fumq'
+  const UPLOAD_PRESET = 'kvmv1bdp'
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
 
   const FORM_DATA = new FormData();
@@ -15,11 +15,16 @@ const uploadImg = async (ev) => {
     throw err
   }
 }
-export const uploadService = {
-  uploadImg,
-  getStickers
-}
 
+
+async function getBgImages(search) {
+  try {
+    const res = await fetch(`https://api.unsplash.com/search?query=${search}&client_id=oMe4LiG85eXMR9Nf7b8cxU6jsTRHCtO81O_MjX-J4L0`, { method: 'GET' })
+    return res.json()
+  } catch (err) {
+    console.log('cannot get images', err)
+  }
+}
 
 
 async function getStickers(search) {
@@ -29,4 +34,10 @@ async function getStickers(search) {
   } catch (err) {
     console.log('cannot get stickers', err)
   }
+}
+
+export const uploadService = {
+  uploadImg,
+  getStickers,
+  getBgImages
 }

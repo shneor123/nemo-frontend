@@ -1,9 +1,9 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from 'react-router-dom';
-import { TiStarFullOutline } from "react-icons/ti";
-import { removeBoard } from "../../store/actions/board.action";
-import { Loader } from "../general/loader";
+import React from "react"
+import { useDispatch } from "react-redux"
+import { Link } from 'react-router-dom'
+import { TiStarFullOutline } from "react-icons/ti"
+import { removeBoard } from "../../store/actions/board.action"
+import { Loader } from "../general/loader"
 
 export function BoardPreview({ board, onToggleStar }) {
   const dispatch = useDispatch()
@@ -12,8 +12,7 @@ export function BoardPreview({ board, onToggleStar }) {
     ev.stopPropagation()
     dispatch(removeBoard(board.id))
   }
-  if (!board) return <Loader />
-
+  if (!board.style) return <Loader />
   return (
     <div>
       <Link to={`/board/${board._id}`}>
@@ -34,7 +33,6 @@ export function BoardPreview({ board, onToggleStar }) {
           <div className="board-title">{board.title.length > 20 ? board.title.substring(0, 20) + '...' : board.title}</div>
         </section>
       </Link >
-      {/* <button className="remove_board" onClick={onRemoveTask}>Delete</button>  */}
     </div >
   )
 }

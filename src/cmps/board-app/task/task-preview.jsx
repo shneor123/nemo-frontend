@@ -158,12 +158,11 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
                   <div className="label-container">
                     {labels.map((label) => {
                       return (
-                        <span
-                          onClick={onToggleLabelPreview}
-                          key={label.id}
+                        <span key={label.id}
                           style={{ backgroundColor: label.color }}
                           className={`label-preview ${labelOpenState ? 'label-open' : ''}`}
-                        >{labelOpenState && label.title}</span>
+                          onClick={onToggleLabelPreview}>
+                          {labelOpenState && label.title}</span>
                       )
                     })}
                   </div>
@@ -188,7 +187,7 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
                       </div>
                     )}
                     {/* DUE DATE */}
-                    <div className={'badge'}>
+                    <div className='badge date_icon'>
                       {task.dueDate && (
                         <DueDatePreview dueDate={task.dueDate}
                           task={task} boardId={board._id} groupId={groupId}

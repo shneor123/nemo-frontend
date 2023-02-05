@@ -213,11 +213,6 @@
 .nav-input {
   position: absolute;
   right: 80px;
-  display: none;
-
-  @include for-normal-layout {
-    display: block;
-  }
 }
 
 .workspace-create {

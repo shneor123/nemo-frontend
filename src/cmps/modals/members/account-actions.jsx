@@ -1,11 +1,12 @@
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import { onLogout } from '../../../store/actions/user.actions'
 import { setModal } from '../../../store/actions/app.actions'
 import { utilService } from '../../../services/basic/util.service'
 
 export const AccountActions = ({ user }) => {
+  console.log("🚀 ~ file: account-actions.jsx:9 ~ AccountActions ~ user", user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,7 +26,7 @@ export const AccountActions = ({ user }) => {
       <div className="account-info">
         <div className="account-img-container">
           {user?.imgUrl ? (
-              <img src={user.imgUrl} alt={user.fullname} className="account-img" />
+            <img src={user.imgUrl} alt={user.fullname} className="account-img" />
           ) : (
             <a className="account">{utilService.getInitials(user.fullname)}</a>
           )}
@@ -35,6 +36,9 @@ export const AccountActions = ({ user }) => {
           <h3 className="username">{user.username}</h3>
         </div>
       </div>
+      <Link to={`users/${user._id}`} className="Link login-btn" onClick={() => dispatch(setModal(null))}>
+        Edit Profile
+      </Link>
       <hr />
       {user._id === '1' ? (
         <>

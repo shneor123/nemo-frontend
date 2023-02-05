@@ -13,7 +13,6 @@ export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boar
   const [isAddGroup, setIsAddGroup] = useState(false)
   const [newGroup, handleChange, clearFields] = useForm({ title: "" })
 
-
   const onAddGroup = (ev = null) => {
     ev.preventDefault()
     if (!newGroup.title) return
@@ -27,36 +26,29 @@ export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boar
     <>
       <Droppable droppableId="all-groups" type="group" direction="horizontal">
         {(provided) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            className="group-list-container flex"
+          <div ref={provided.innerRef} {...provided.droppableProps} className="group-list-container flex"
           >
             <SideManuBoard boards={boards} boardId={boardId} board={board} boardMembers={boardMembers} groups={board.groups} />
-            {groups &&
-              groups.map((group, index) => {
-                return (
-                  <GroupPreview
-                    key={group.id}
-                    filterBy={filterBy}
-                    onSetFilterBy={onSetFilterBy}
-                    group={group}
-                    boardId={boardId}
-                    index={index}
-                    labelOpenState={labelOpenState}
-                    activities={activities}
-                    labels={labels}
-                    boardMembers={boardMembers}
-                  />
-                );
-              })}
+            {groups && groups.map((group, index) => {
+              return (
+                <GroupPreview
+                  key={group.id}
+                  filterBy={filterBy}
+                  onSetFilterBy={onSetFilterBy}
+                  group={group}
+                  boardId={boardId}
+                  index={index}
+                  labelOpenState={labelOpenState}
+                  activities={activities}
+                  labels={labels}
+                  boardMembers={boardMembers}
+                />
+              )
+            })}
 
             {!isAddGroup && (
               <div className="group-preview-wrapper">
-                <div
-                  className="add-group flex"
-                  onClick={() => setIsAddGroup(true)}
-                >
+                <div className="add-group flex" onClick={() => setIsAddGroup(true)}>
                   <IoAdd /> <p>Add another list</p>
                 </div>
               </div>
@@ -74,10 +66,7 @@ export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boar
                     />
                     <div className="add-group-btn group-btn flex align-center">
                       <button className="save-group ">Add list</button>
-                      <button
-                        className="close-group group-btn"
-                        onClick={() => setIsAddGroup(false)}
-                      >
+                      <button className="close-group group-btn" onClick={() => setIsAddGroup(false)}>
                         <IoMdClose />
                       </button>
                     </div>
@@ -86,9 +75,8 @@ export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boar
               </div>
             )}
           </div>
-
         )}
       </Droppable>
     </>
-  );
-};
+  )
+}

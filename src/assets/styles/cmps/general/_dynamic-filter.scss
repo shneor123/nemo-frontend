@@ -83,28 +83,30 @@
     border-radius: 5px;
     background-color: #FFFFFF14;
     border: 1px solid #FFFFFF14;
-    height: 32px;
-    width: 250px;
-    box-shadow: none;
+    margin-top: 3px;
     cursor: pointer;
-    z-index: 200;
-
 
     ::placeholder {
         color: #fff;
     }
 
-    input {
-        cursor: pointer;
-        color: #fff;
+    .search-input-header {
+        margin: 4px 9px 12px;
         width: 100%;
-        background-color: rgba(white, 0.1);
-        border: 1px solid rgba(#172b4d, 0.2);
-        background-color: transparent;
-        outline: none;
+        background-color: #fafbfc;
         border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+        display: block;
+        line-height: 20px;
+        margin-bottom: 12px;
+        outline: none;
+        padding: 8px 12px;
+        transition-duration: 85ms;
+        transition-property: background-color, border-color, box-shadow;
+        transition-timing-function: ease;
     }
-
+    
     svg {
         height: 20px;
         width: 20px;
@@ -211,95 +213,5 @@
 
     .hidden-none {
         display: none;
-    }
-}
-
-
-
-.dynamic-filter-search {
-    min-width: 190px;
-    width: 284px;
-    cursor: auto;
-    position: absolute;
-    bottom: 0;
-    transform: translateY(105%);
-    margin: 0;
-    left: -15px;
-    background-color: #ffffff;
-    padding: 0 10px 10px;
-    z-index: 200;
-    color: #172b4d;
-    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
-    border-radius: 3px;
-    cursor: pointer;
-
-    li {
-        display: grid;
-        grid-template-columns: 45px 1fr 30px;
-        grid-template-rows: 40px;
-        align-items: center;
-
-        &:hover {
-            background-color: rgba(#172b4d, 0.1);
-
-            .star-wrapper {
-                &.no-starred {
-                    display: block;
-                }
-            }
-
-        }
-
-        div {
-            display: inline-block;
-            flex: 0 0 auto;
-            background-size: cover;
-            border-radius: 3px;
-            height: 32px;
-            width: 40px;
-            position: relative;
-            opacity: 1
-        }
-    }
-
-    p {
-        text-align: start;
-        margin-left: 4px;
-        break-inside: break-word;
-        color: #172b4d !important;
-        font-size: 14px;
-        line-height: 18px;
-        font-weight: 500;
-    }
-
-    .star-wrapper {
-        margin-top: 9px;
-
-        svg {
-            stroke: #172b4d;
-            display: block;
-        }
-
-        &.starred {
-            svg {
-                stroke: none;
-                fill: #f2d600;
-                width: 18px;
-                opacity: 1;
-            }
-        }
-
-        &.no-starred {
-            display: none;
-
-            svg {
-                stroke: none;
-                fill: black;
-
-                &:hover {
-                    fill: #f2d600;
-                }
-            }
-        }
     }
 }

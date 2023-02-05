@@ -11,6 +11,8 @@ import { Menu } from "./menu";
 import { MemberPreview } from "../modals/members/member-preview";
 import { updateBoard } from "../../store/actions/board.action";
 import { setModal } from "../../store/actions/app.actions";
+import { boardService } from "../../services/board/board.service";
+import { useForm } from "../../hooks/useForm";
 
 export const ToolBar = ({ boardId, board, users }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,6 +52,26 @@ export const ToolBar = ({ boardId, board, users }) => {
   const getMembersForPreview = (members) => {
     const membersForPreview = members.slice(0, 3)
     return membersForPreview
+  }
+
+
+  const [fields, handleChange, clearFields] = useForm({
+    newTaskTitle: "",
+    boardTitle: board.title,
+  });
+
+
+  const onUpdateBoard = async (updatedBoard) => {
+    try {
+      await boardService.save(updatedBoard)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const updateBoard = (updatedTask) => {
+    fields.boardTitle = updatedTask.title
+    onUpdateBoard(...board,boardId)
   }
 
 
@@ -114,13 +136,13 @@ export const ToolBar = ({ boardId, board, users }) => {
             <AiOutlineDashboard /> <span className="tool-title share-btn-icon">Dashboard</span>
           </span>
           <span className="toolbar-divider"></span>
-            <span className="toolbar-btn filter-btn" ref={filterRef}
-              onClick={(ev) => onOpenModal(ev, {
-                element: filterRef.current,
-                category: 'Filter',
-                title: 'Filter',
-                props: { element: filterRef.current, board },
-              })}><MdOutlineFilterList /> <span className="tool-title share-btn-icon">Filter</span>{" "}
+          <span className="toolbar-btn filter-btn" ref={filterRef}
+            onClick={(ev) => onOpenModal(ev, {
+              element: filterRef.current,
+              category: 'Filter',
+              title: 'Filter',
+              props: { element: filterRef.current, board },
+            })}><MdOutlineFilterList /> <span className="tool-title share-btn-icon">Filter</span>{" "}
           </span>
           <span className="toolbar-divider"></span>
 

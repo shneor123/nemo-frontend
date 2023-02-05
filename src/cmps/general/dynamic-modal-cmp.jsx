@@ -34,7 +34,7 @@ import { DateDelete } from "../modals/date-delete"
 import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
 import { MembersSide } from "../modals/members/members-side"
 import { DynamicFilter } from "./haeder/dynamic-filter"
-import { ModalStar } from "./haeder/modal-star"
+import { SearchModal } from "./haeder/search-modal"
 
 export const DynamicModalCmp = () => {
   const dispatch = useDispatch()
@@ -49,7 +49,6 @@ export const DynamicModalCmp = () => {
   useEffect(() => {
     window.addEventListener('resize', debouncedAdjust)
     return () => window.removeEventListener('resize', debouncedAdjust)
-    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -98,8 +97,7 @@ export const DynamicModalCmp = () => {
       cmp = <AttachmentModal {...modal.props} />
       break;
     case "Cover":
-      cmp =
-        <CoverModal {...modal.props} />
+      cmp =<CoverModal {...modal.props} />
       break;
     case "Actions":
       cmp = <ActionModal {...modal.props} />
@@ -178,8 +176,8 @@ export const DynamicModalCmp = () => {
     case 'Dynamic filter':
       cmp = <DynamicFilter {...modal.props} />
       break
-    case 'More filter':
-      cmp = <ModalStar {...modal.props} />
+    case 'Search modal':
+      cmp = <SearchModal {...modal.props} />
       break
   }
 

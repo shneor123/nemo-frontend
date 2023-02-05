@@ -160,7 +160,7 @@
 
         &.done {
             background: #61bd4f;
-            width: 93.8%;
+            // width: 93.8%;
         }
 
         // width: 50%;
@@ -172,6 +172,10 @@
         clear: both;
         height: 8px;
         margin: 0 0 0 34px;
+
+        @include for-mobile-layout {
+            width: 60%;
+        }
     }
 }
 

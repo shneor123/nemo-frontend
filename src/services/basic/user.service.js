@@ -34,7 +34,7 @@ async function remove(userId) {
 }
 
 async function update(user) {
-    user = await httpService.put(`user/${user._id}`, user)
+    user = await httpService.put(`user/`, user)
     if (getLoggedinUser()._id === user._id) saveLocalUser(user)
     return user;
 }

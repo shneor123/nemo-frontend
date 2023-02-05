@@ -59,18 +59,13 @@ export function onLogout() {
     }
 }
 
-export function updateUser(user, isMakeHttpRequest = true, isSetAdmin = false) {
+export function onUpdateUser(user) {
     return async (dispatch) => {
         try {
-            let savedUser = user
-            if (isMakeHttpRequest) savedUser = await userService.update(user, isSetAdmin)
-
-            if (isSetAdmin) dispatch({ type: 'UPDATE_USER_ADMIN', user: savedUser }) //user_admin returns only mini-user
-            else dispatch({ type: 'UPDATE_USER', user: savedUser })
-            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'success', msg: 'User updated successfully' } }))
+            user = await userService.update(user)
+            dispatch({ type: 'UPDATE_USER', user })
         } catch (err) {
             console.error('Error on updating user', err)
-            dispatch(({ type: 'SET_USER_MSG', msg: { type: 'danger', msg: 'Failed updating user' } }))
         }
     }
 }

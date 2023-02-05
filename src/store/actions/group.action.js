@@ -4,7 +4,6 @@ import { getActionSetBoard } from "./board.action.js";
 export function saveGroup(groupTitle, boardId, groupId) {
     return async (dispatch) => {
         try {
-
             const board = await groupService.saveGroup(groupTitle, boardId, groupId)
             dispatch(getActionSetBoard(board))
         } catch (err) {

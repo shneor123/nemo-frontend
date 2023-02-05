@@ -3,7 +3,7 @@
 
     .account-info {
         display: flex;
-        
+
 
         .account-img-container {
             border-radius: 50%;
@@ -51,7 +51,9 @@
         height: 1px;
     }
 
+    .Link,
     button {
+        text-decoration: none;
         @include modal-main-btn;
     }
 }
