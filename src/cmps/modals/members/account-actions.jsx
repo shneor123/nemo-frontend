@@ -6,7 +6,6 @@ import { setModal } from '../../../store/actions/app.actions'
 import { utilService } from '../../../services/basic/util.service'
 
 export const AccountActions = ({ user }) => {
-  console.log("🚀 ~ file: account-actions.jsx:9 ~ AccountActions ~ user", user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -36,9 +35,7 @@ export const AccountActions = ({ user }) => {
           <h3 className="username">{user.username}</h3>
         </div>
       </div>
-      <Link to={`users/${user._id}`} className="Link login-btn" onClick={() => dispatch(setModal(null))}>
-        Edit Profile
-      </Link>
+      <Link to={`users/${user._id}`} className="Link login-btn" onClick={() => dispatch(setModal(null))}> Edit Profile Info </Link>
       <hr />
       {user._id === '1' ? (
         <>

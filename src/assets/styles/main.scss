@@ -11,6 +11,9 @@
 
 // Pages
 @import 'pages/home-page';
+@import 'pages/home/button-data';
+
+
 @import 'pages/board-app';
 @import "pages/login-signup";
 @import "pages/work-space";
@@ -45,6 +48,7 @@
 @import "cmps/task/task-sidebar";
 @import "cmps/task/task-description";
 @import "cmps/task/task-activity";
+@import "cmps/task/task-activity-profile";
 @import "cmps/task/task-checklists";
 @import "cmps/task/data-gutter";
 @import "cmps/task-atachment-edit";
@@ -90,10 +94,10 @@
 @import "cmps/dashboard/dashboard-chart";
 
 .large {
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 
-    &.trellicons {
-        top: 0;
-        margin-inline-end: 1rem;
-    }
+  &.trellicons {
+    top: 0;
+    margin-inline-end: 1rem;
+  }
 }

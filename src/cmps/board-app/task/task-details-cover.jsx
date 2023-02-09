@@ -15,7 +15,6 @@ export function TaskDetailsCover({ task, boardId, groupId }) {
 
   useEffect(() => {
     if (task?.style?.imgUrl) loadBgColor()
-    // eslint-disable-next-line
   }, [task])
 
   const loadBgColor = async () => {

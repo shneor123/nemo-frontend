@@ -68,7 +68,7 @@
         }
 
         .h1-profile {
-            color: var(--ds-text, #172b4d);
+            color: #172b4d;
             font-size: 24px;
             font-weight: 600;
             letter-spacing: -0.01em;
@@ -88,9 +88,14 @@
             }
         }
 
+        h3 {
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
         .lorem-profile {
-            background-color: var(--ds-background-neutral, #F4F5F7);
-            color: var(--ds-text-subtle, #5e6c84);
+            background-color: #F4F5F7;
+            color: #5e6c84;
             font-size: 14px;
             line-height: 18px;
             margin-bottom: 8px;
@@ -149,6 +154,50 @@
                     margin-right: 4px;
                     font-size: 12px;
                     margin-top: 12px;
+
+                    .word-svg {
+                        margin-right: 4px;
+                        display: inline-block;
+                        line-height: 1.2;
+
+                        >svg {
+                            overflow: hidden;
+                            pointer-events: none;
+                            max-width: 100%;
+                            max-height: 100%;
+                            color: #6B778C;
+                            fill: inherit;
+                            vertical-align: bottom;
+                        }
+                    }
+
+                    .nch-icon svg {
+                        height: 16px;
+                        width: 16px;
+                        line-height: 16px;
+                    }
+
+                    .style-lorem {
+                        position: absolute;
+                        right: -340px;
+                        width: 340px;
+                        line-height: 1.4;
+                        color: #000;
+                        background-color: white;
+                        box-shadow: rgb(9 30 66 / 15%) 0px 0.5rem 1rem 0px;
+                        padding: 7px;
+
+                        @include for-mobile-layout {
+                            display: none;
+                        }
+                    }
+
+                    &:hover {
+                        .style-lorem {
+                            position: absolute;
+                            right: 35%;
+                        }
+                    }
                 }
             }
 
@@ -184,18 +233,19 @@
             }
         }
     }
+
     .profile-btn {
         border-bottom: 1px solid #dfe1e6;
         position: relative;
         text-align: center;
-    
+
         .chart-header {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 0.5rem;
             flex-direction: row;
-    
+
             .chart-options {
                 button {
                     background-color: #dfe1e6;
@@ -207,11 +257,11 @@
                     font-weight: 700;
                     margin: 2px 2px 0;
                     padding: 8px 20px;
-    
+
                     &:hover {
                         background-color: darken(#dfe1e6, 4%);
                     }
-    
+
                     &:disabled {
                         cursor: auto;
                         background-color: #fff;
@@ -219,7 +269,7 @@
                         border-bottom: none;
                     }
                 }
-    
+
                 .btn-profile {
                     border-radius: 3px;
                 }
@@ -232,4 +282,53 @@
     clear: both;
     content: "";
     display: table;
+}
+
+.dataType-activity {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(123px, 1fr));
+    gap: 9px;
+    padding: 10px 0 0 0px;
+
+    .activity {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        justify-content: space-between;
+    }
+
+    .activityDataCreated {}
+
+}
+
+@media (max-width: 660px) {
+    .dataType-profile {
+        .h1-profile {
+            margin-inline-start: 10px;
+        }
+
+        .lorem-profile {
+            margin-inline-start: 10px;
+            margin-inline-end: 10px;
+        }
+
+        .svg-profile {
+            width: 95%;
+        }
+
+        h3,
+        hr {
+            margin-inline-start: 20px;
+        }
+
+        .hr {
+            width: 85%;
+        }
+    }
+
+    .from-submit-profile {
+        form {
+            margin-inline-start: 20px;
+        }
+    }
 }

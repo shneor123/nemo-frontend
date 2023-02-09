@@ -43,6 +43,16 @@
     src: url(../../fonts/Segoe_UI_Font_Family/segoeuib.ttf);
 }
 
+@font-face {
+    font-family: NunitoSansBlack;
+    src: url(../../fonts/NunitoSans-Black.ttf);
+}
+
+@font-face {
+    font-family: NunitoSans-Bold;
+    src: url(../../fonts/NunitoSans-Bold.ttf);
+}
+
 .trello-home {
     font-family: "trello-home";
     font-size: 1rem;
@@ -351,6 +361,7 @@
     &.icon-refresh:before {
         content: "\e95b";
     }
+
     &.notification-icon::before {
         content: "\f06a";
         color: #f20000;

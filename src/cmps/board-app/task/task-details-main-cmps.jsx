@@ -2,6 +2,7 @@ import { Description } from "./task-description"
 import { Checklists } from "./check-list/checklist"
 import { TaskAttachment } from './attachment/task-attachment'
 import { Activity } from '../../general/activity'
+import { ActivityProfile } from "../../general/activityProfile"
 
 
 export const TaskDetailsMainCmps = ({ task, boardId, groupId, activities, groupTitle }) => {
@@ -13,5 +14,8 @@ export const TaskDetailsMainCmps = ({ task, boardId, groupId, activities, groupT
         <Checklists task={task} boardId={boardId} groupId={groupId} groupTitle={groupTitle} />
         {/* <Attachment/> */}
         <Activity activities={activities} taskId={task.id} boardId={boardId} />
+        <div style={{ display: 'none' }}>
+            <ActivityProfile activities={activities} taskId={task.id} boardId={boardId} />
+        </div>
     </>
 }

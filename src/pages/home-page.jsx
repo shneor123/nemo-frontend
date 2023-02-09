@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import imgHero from "../assets/img/home-page/home1.jpeg";
 import imgDemo from "../assets/img/home-page/white-wave-bg.svg";
+import { HomeCards } from "./home/home-cards";
+import { ButtonData } from "./home/button-data";
 
 export const HomePage = () => {
+  const [dataType, setDataType] = useState('Boards')
+
+  let imgDada = []
+  switch (dataType) {
+    case 'Boards':
+      imgDada.push("https://res.cloudinary.com/ca-cloud/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669886243/Trello/guide-01_reaa50.jpg")
+      break
+    case 'Lists':
+      imgDada.push("https://res.cloudinary.com/ca-cloud/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669886243/Trello/guide-02_kzfibw.jpg")
+      break
+    case 'Cards':
+      imgDada.push("https://res.cloudinary.com/ca-cloud/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669886243/Trello/guide-03_aqoqhq.jpg")
+      break
+    default:
+      break
+  }
+
+
   return (
     <section className="home-page ">
       <section className="header flex row align-center justify-between"></section>
@@ -20,44 +40,28 @@ export const HomePage = () => {
           <img className="img1" src={imgHero} />
         </div>
       </section>
-    </section>
+
+      <div className="product">
+        <div className="product-info">
+          <h4>TRELLO 101</h4>
+          <h2>A productivity powerhouse</h2>
+          <p>
+            Simple, flexible, and powerful. All it takes are boards, lists, and cards to get a clear view of who's
+            doing what and what needs to get done. Learn more in our <a>guide for getting started</a>.
+          </p>
+        </div>
+        <section className="product-guide">
+          <div className="product-guide-preview">
+            <div className="guide-cards">
+              <div className="guide-card">
+                <ButtonData setDataType={setDataType} dataType={dataType} />
+              </div>
+            </div>
+            <HomeCards imgDada={imgDada} />
+          </div>
+        </section>
+      </div >
+    </section >
 
   )
 }
-
-
-
-// export const HomePage = () => {
-//   return (
-//     <section className="homepage-container">
-//       <section className="homepage-wrapper">
-//         <section className="homepage">
-//           <div className="homepage-text">
-//             <h1 className="homepage-title"> Nemo helps teams move work forward.</h1>
-//             <p className="homepage-paragraph">
-//               Collaborate, manage projects, and reach new productivity peaks.
-//               From high rises to the home office, the way your team works is
-//               unique—accomplish it all with Nemo.
-//             </p>
-//             <Link style={{ all: "unset" }} to={"/workspace"}>
-//               <button className="demo-btn">Start Demo</button>
-//             </Link>
-//           </div>
-//           <div className="homepage-hero">
-//             <img src={imgHero} alt="" />
-//           </div>
-//         </section>
-//         <section className="app-info">
-//           <h2 className="introduction-header">It's more than work. It's a way of working together.</h2>
-//           <p className="introduction">
-//             Start with a Tusk board, lists, and cards. Customize and expand with more features as your teamwork grows.
-//             Manage projects, organize tasks, and build team spirit—all in one place.
-//           </p>
-//           <div className="demo-img-container">
-//             <img src={imgDemo} alt="demo" />
-//           </div>
-//         </section>
-//       </section>
-//     </section>
-//   )
-// } 
