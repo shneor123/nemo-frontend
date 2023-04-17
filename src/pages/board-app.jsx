@@ -4,7 +4,7 @@ import { Outlet, useParams } from "react-router"
 import { DragDropContext } from "react-beautiful-dnd"
 
 import { Loader } from "../cmps/general/loader"
-import { ToolBar } from "../cmps/general/toolbar"
+import { BoardHeader } from "../cmps/general/board-header"
 import { GroupList } from "../cmps/board-app/group/group-list"
 import { socketService } from "../services/basic/socket.service"
 
@@ -65,33 +65,19 @@ export const BoardApp = () => {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div style={{
-          background: board.style.background
-            ? `${board.style.background}`
-            : `${board.style.bgImg
-              ? `url(${board.style.bgImg})center center / cover`
-              : `url(${board.style.imgUrl})center center / cover`}`,
-          backgroundColor: `${board.style.backgroundColor}`
-        }}
-          className="board-app-wrapper" >
+        <div className="board-app-wrapper"
+          style={{
+            background: board.style.background ? `${board.style.background}` : `${board.style.bgImg
+              ? `url(${board.style.bgImg})center center / cover` : `url(${board.style.imgUrl})center center / cover`}`,
+            backgroundColor: `${board.style.backgroundColor}`
+          }}>
           <div className="board-app">
-            <ToolBar boardId={boardId} board={board} users={users} boards={boards} />
-            {board && (
-              <GroupList
-                filterBy={filterBy}
-                boards={boards}
-                board={board}
-                labelOpenState={board.labelOpenState}
-                groups={board.groups}
-                boardId={boardId}
-                labels={board.labels}
-                boardMembers={board.members}
-              />
-            )}
+            <BoardHeader boardId={boardId} board={board} users={users} boards={boards} />
+            <GroupList filterBy={filterBy} boards={boards} board={board} labelOpenState={board.labelOpenState} groups={board.groups} boardId={boardId} labels={board.labels} boardMembers={board.members} />
             <Outlet />
           </div>
         </div>
       </DragDropContext>
     </>
-  );
-};
+  )
+}

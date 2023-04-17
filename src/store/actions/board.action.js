@@ -99,7 +99,6 @@ export function saveBg(boardId, color) {
 }
 
 export function setFilter(filterBy) {
-    console.log("🚀 ~ file: board.action.js:102 ~ setFilter ~ filterBy", filterBy)
     return (dispatch) => {
         return dispatch({ type: 'SET_FILTERBY', filterBy, })
     }

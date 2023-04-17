@@ -1,5 +1,5 @@
-import { groupService } from "../../services/board/group.service.js";
-import { getActionSetBoard } from "./board.action.js";
+import { groupService } from "../../services/board/group.service"
+import { getActionSetBoard } from "./board.action"
 
 export function saveGroup(groupTitle, boardId, groupId) {
     return async (dispatch) => {
