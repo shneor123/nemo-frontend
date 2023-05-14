@@ -212,7 +212,7 @@
 
 .nav-input {
   position: absolute;
-  right: 80px;
+  right: 120px;
 }
 
 .workspace-create {
@@ -241,7 +241,7 @@
 
 .git-link {
   position: absolute;
-  right: 44px;
+  right: 80px;
   top: 9px;
   height: 32px;
   width: 32px;
@@ -269,5 +269,24 @@
     padding: 2px 8px;
     line-height: 22px;
     margin-right: 8px;
+  }
+}
+
+.icon-theme {
+  cursor: pointer;
+  position: absolute;
+  right: 54px;
+  top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(to right, black 43%, white 57%);
+  border: 2px solid white;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.18) !important;
   }
 }

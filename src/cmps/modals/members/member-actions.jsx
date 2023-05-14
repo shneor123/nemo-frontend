@@ -55,7 +55,7 @@ export const MemberActions = ({ task, member, board }) => {
 
         <div className="member-name">
           <h1 className="member-fullname">{member.fullname}</h1>
-          <h2 className="member-username">{member.username}</h2>
+          <h2 className="member-username">{member.username === 'guest' ? 'guest@gmail.com' : member.username}</h2>
         </div>
       </div>
       <button className="remove-btn" onClick={onRemoveMember}>

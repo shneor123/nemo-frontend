@@ -85,6 +85,20 @@ export function updateBoard(board) {
     }
 }
 
+
+export function savedBoard(board, boardId) {
+    return async (dispatch) => {
+        try {
+            const boardTitle = await boardService.save(board, boardId)
+            dispatch(getActionUpdateBoard(boardTitle))
+        } catch (err) {
+            console.log('err in saving task')
+        }
+    }
+}
+
+
+
 export function saveBg(boardId, color) {
     return async (dispatch) => {
         try {

@@ -13,8 +13,10 @@ import { toggleLabelPreview } from '../../../store/actions/label.action'
 import { userService } from "../../../services/basic/user.service"
 import { utilService } from "../../../services/basic/util.service"
 import { labelService } from "../../../services/board/label.service"
+import { setModal } from "../../../store/actions/app.actions"
+import { AppHeader } from "../../general/haeder/app-header"
 
-export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers }) => {
+export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers, isPreviewEnd }) => {
   const { board } = useSelector(({ boardModule }) => boardModule)
 
   const user = userService.getLoggedinUser()
@@ -120,102 +122,105 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
       return 'task-preview'
     }
   }
-  return (
-    <>{isEdit ? <EditPreview
-      onRemoveTask={onRemoveTask}
-      closeQuickEdit={openQuickEdit}
-      onOpenTaskDetails={onOpenTaskDetails}
-      board={board}
-      task={task}
-      boardId={boardId}
-      groupId={groupId}
-      labelsTo={labelsTo}
-      boardMembers={boardMembers}
-      onCloseQuickEdit={onCloseQuickEdit}
 
-    /> : <Draggable draggableId={task.id} index={index}>
-      {(provided, snapshot) => (
-        <div
-          onClick={onOpenTaskDetails}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          {!task.archivedAt && <span>
-            <div style={getTaskStyle()}
-              className={`task-preview-wrapper ${getTaskClass()} ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}>
-              {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'image' && (
-                <img className="task-preview-image" src={task.style.imgUrl} alt="..." />
-              )}
-              {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'video' && (
-                <video muted controls>
-                  <source src={task.style.imgUrl} type="video/mp4"></source>
-                </video>
-              )}
-              <div className="task-preview-container">
-                <div className="task-preview-edit-icon" onClick={openQuickEdit}> <BsPencil /> </div>
-                {!!labels?.length && !task.style.isCover && (
-                  <div className="label-container">
-                    {labels.map((label) => {
-                      return (
-                        <span key={label.id}
-                          style={{ backgroundColor: label.color }}
-                          className={`label-preview ${labelOpenState ? 'label-open' : ''}`}
-                          onClick={onToggleLabelPreview}>
-                          {labelOpenState && label.title}</span>
-                      )
-                    })}
-                  </div>
+  return (
+    <>
+      {isEdit ? <EditPreview
+        onRemoveTask={onRemoveTask}
+        closeQuickEdit={openQuickEdit}
+        onOpenTaskDetails={onOpenTaskDetails}
+        board={board}
+        task={task}
+        boardId={boardId}
+        groupId={groupId}
+        labelsTo={labelsTo}
+        boardMembers={boardMembers}
+        onCloseQuickEdit={onCloseQuickEdit}
+
+      /> : <Draggable draggableId={task.id} index={index}>
+        {(provided, snapshot) => (
+          <div
+            onClick={onOpenTaskDetails}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+
+            {!task.archivedAt && <span>
+              <div style={getTaskStyle()}
+                className={`task-preview-wrapper ${isPreviewEnd ? 'preview-end' : ''} ${getTaskClass()} ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}>
+                {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'image' && (
+                  <img className="task-preview-image" src={task.style.imgUrl} alt="..." />
                 )}
-                <div className={`${!task.style.isCover ? 'task-preview-title' : 'task-preview-title task-preview-titleCover'}`}></div>
-                <span className={`task-preview-title ${task.style.isLight ? 'task-preview-dark' : ''}`}>{task.title}</span>
-                {!task.style.isCover && <>
-                  <div className="badges">
-                    {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
-                    {!!task.description && <span className="badge"><span className="trellicons desc-icon"></span></span>}
-                    {!!task.attachments?.length && <span className="badge"> <span className="trellicons attachment"></span></span>}
-                    {!!sumTodos && (
-                      <div style={
-                        sumTodos === sumTodosDone ? {
-                          backgroundColor: '#61bd4f',
-                          color: 'white', borderRadius: '3px'
-                        } : {}} className="badge checklist-badge">
-                        <span className="trellicons checklist-icon"></span>
-                        <div className="sum-todos-badge-title">
-                          {sumTodosDone}/{sumTodos}
-                        </div>
-                      </div>
-                    )}
-                    {/* DUE DATE */}
-                    <div className='badge date_icon'>
-                      {task.dueDate && (
-                        <DueDatePreview dueDate={task.dueDate}
-                          task={task} boardId={board._id} groupId={groupId}
-                        />
-                      )}
+                {!task.style.isCover && task.style.imgUrl && utilService.getExtension(task.style.imgUrl) === 'video' && (
+                  <video muted controls>
+                    <source src={task.style.imgUrl} type="video/mp4"></source>
+                  </video>
+                )}
+                <div className="task-preview-container">
+                  <div className="task-preview-edit-icon" onClick={openQuickEdit}> <BsPencil /> </div>
+                  {!!labels?.length && !task.style.isCover && (
+                    <div className="label-container">
+                      {labels.map((label) => {
+                        return (
+                          <span key={label.id}
+                            style={{ backgroundColor: label.color }}
+                            className={`label-preview ${labelOpenState ? 'label-open' : ''}`}
+                            onClick={onToggleLabelPreview}>
+                            {labelOpenState && label.title}</span>
+                        )
+                      })}
                     </div>
-                  </div>
-                  {/* MENBER PREVIEW */}
-                  <div className="task-members-preview">
-                    {task?.members.map(member => {
-                      return (
-                        <div key={member._id} className="user-avatar">
-                          {member?.imgUrl
-                            ? <img src={member.imgUrl} className="user-img" alt={utilService.getInitials(member.fullname)} />
-                            : <span className="user-initial">{utilService.getInitials(member.fullname)}</span>
-                          }
+                  )}
+                  <div className={`${!task.style.isCover ? 'task-preview-title' : 'task-preview-title task-preview-titleCover'}`}></div>
+                  <span className={`task-preview-title ${task.style.isLight ? 'task-preview-dark' : ''}`}>{task.title}</span>
+                  {!task.style.isCover && <>
+                    <div className="badges">
+                      {user && !!task.members.filter(member => member._id === user._id).length && <span className="badge"><HiOutlineEye /></span>}
+                      {!!task.description && <span className="badge"><span className="trellicons desc-icon"></span></span>}
+                      {!!task.attachments?.length && <span className="badge"> <span className="trellicons attachment"></span></span>}
+                      {!!sumTodos && (
+                        <div style={
+                          sumTodos === sumTodosDone ? {
+                            backgroundColor: '#61bd4f',
+                            color: 'white', borderRadius: '3px'
+                          } : {}} className="badge checklist-badge">
+                          <span className="trellicons checklist-icon"></span>
+                          <div className="sum-todos-badge-title">
+                            {sumTodosDone}/{sumTodos}
+                          </div>
                         </div>
-                      )
-                    })}
-                  </div>
-                </>
-                }
+                      )}
+                      {/* DUE DATE */}
+                      <div className='badge date_icon'>
+                        {task.dueDate && (
+                          <DueDatePreview dueDate={task.dueDate}
+                            task={task} boardId={board._id} groupId={groupId}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    {/* MENBER PREVIEW */}
+                    <div className="task-members-preview">
+                      {task?.members.map(member => {
+                        return (
+                          <div key={member._id} className="user-avatar">
+                            {member?.imgUrl
+                              ? <img src={member.imgUrl} className="user-img" alt={utilService.getInitials(member.fullname)} />
+                              : <span className="user-initial">{utilService.getInitials(member.fullname)}</span>
+                            }
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </>
+                  }
+                </div>
               </div>
-            </div>
-          </span>
-          }
-        </div>
-      )}
-    </Draggable>}</>
+            </span>
+            }
+          </div >
+        )}
+      </Draggable >}</>
   )
 }

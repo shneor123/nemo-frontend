@@ -61,7 +61,7 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
           return (
             <div>
               <Link to={`/board/${board._id}`} key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
-                <div className="board-icon"
+                {/* <div className="board-icon"
                   style={{
                     background: board.style.background
                       ? `${board.style.background}`
@@ -69,8 +69,22 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
                         ? `${board.style.bgImg}`
                         : `${board.style.imgUrl}`})center center / cover`,
                     backgroundColor: `${board.style.backgroundColor}`
-                  }}>
-
+                  }}
+                  > */}
+                <div className="board-icon"
+                  style={{
+                    background: board.style
+                      ? board.style.background
+                        ? `${board.style.background}`
+                        : board.style.bgImg
+                          ? `url(${board.style.bgImg}) center center / cover`
+                          : board.style.imgUrl
+                            ? `url(${board.style.imgUrl}) center center / cover`
+                            : 'none'
+                      : 'none',
+                    backgroundColor: board.style ? `${board.style.backgroundColor}` : 'transparent'
+                  }}
+                >
                 </div>
                 <div className="board-icon"></div>
                 <span>{board.title}</span>

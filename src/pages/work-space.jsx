@@ -30,7 +30,7 @@ export const WorkSpace = () => {
     dispatch(updateBoard(board))
   }
   
-  if (!boards) return <Loader />
+  // if (!boards) return <Loader />
   return (
     <div className="workspace-page ">
       <section className="all-boards-list">

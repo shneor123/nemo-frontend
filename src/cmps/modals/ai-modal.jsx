@@ -1,8 +1,16 @@
+
+ 
+
+// external
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition"
+// services
 import { aiService } from "../../services/board/ai.service"
 import { utilService } from "../../services/basic/util.service"
+// actions
 import { saveChecklist } from "../../store/actions/checklist.action"
+// react
 import { useDispatch } from "react-redux"
+// assets
 import clara from '../../assets/img/clara.png'
 import { MdOutlineExpandLess, MdOutlineExpandMore } from 'react-icons/md'
 import { useState } from "react"
@@ -29,7 +37,7 @@ export function AiModal({ task, boardId, groupId }) {
   
   const commands = [
     {
-      command: "build a to-do list for *",
+      command: "build *",
       callback: async (sttInput) => {
         try {
           const response = await aiService.getAiTextCompletion(sttInput)

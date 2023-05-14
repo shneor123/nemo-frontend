@@ -60,10 +60,10 @@ export const ModalStar = () => {
   return (
     <>
       <div className='filter'>
-        <button ref={recentRef} onClick={onOpenModalRecent}>
+        <button title="Recent" ref={recentRef} onClick={onOpenModalRecent}>
           Recent <span className="fa-solid down-icon"></span>
         </button>
-        <button ref={starredRef} onClick={onOpenModalStarred}>
+        <button title="Stared" ref={starredRef} onClick={onOpenModalStarred}>
           Stared <span className="fa-solid down-icon"></span>
         </button>
       </div>

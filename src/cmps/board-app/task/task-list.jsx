@@ -1,6 +1,6 @@
 import { TaskPreview } from "./task-preview";
-import {  Droppable } from "react-beautiful-dnd";
-export const TaskList = ({ tasks, groupId, boardId, labelOpenState, labels, boardMembers }) => {
+import { Droppable } from "react-beautiful-dnd";
+export const TaskList = ({ tasks, groupId, boardId, labelOpenState, labels, boardMembers, isPreviewEnd }) => {
   return (
     <Droppable droppableId={groupId}  >
       {(provided) => (
@@ -20,6 +20,7 @@ export const TaskList = ({ tasks, groupId, boardId, labelOpenState, labels, boar
                 labelOpenState={labelOpenState}
                 labelsTo={labels}
                 boardMembers={boardMembers}
+                isPreviewEnd={isPreviewEnd}
               />
             );
           })}

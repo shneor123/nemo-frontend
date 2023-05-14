@@ -1,40 +1,19 @@
-import React  from 'react';
-import { GoogleLogin } from 'react-google-login';
-import { useLocation, useNavigate } from 'react-router';
-import { CLIENT_ID } from '../.secret/api';
+import React from "react";
+import { gapi } from "gapi-script";
+import { useDispatch } from "react-redux";
+import { login } from "../store/actions/user.actions";
 
-export function LoginWithGoogle() {
-    const navigate = useNavigate()
+export const LoginWithGoogle = () => {
+  const dispatch = useDispatch();
 
-    const { pathname } = useLocation()
+  const handleGoogleLogin = () => {
+    gapi.auth2.getAuthInstance().signIn().then(googleUser => {
+      const id_token = googleUser.getAuthResponse().id_token;
+      dispatch(login({ id_token }));
+    });
+  };
 
-    const handleFailure = (res) => {
-        console.log('couldnt login', res)
-    }
-
-    const handleLogin = (googleUser) => {
-        const { profileObj } = googleUser
-        const user = {
-          email: profileObj.email,
-          firstName: profileObj.givenName,
-          lastName: profileObj.familyName,
-          imageUrl: profileObj.imageUrl,
-          googleId: profileObj.googleId
-        }
-        console.log(user)
-        navigate('/workspace')
-      }
-    
-    return (
-        <div className='login-google'>
-            <GoogleLogin
-                clientId={CLIENT_ID}
-                buttonText="Continue with Google"
-                onSuccess={handleLogin}
-                onFailure={handleFailure}
-                cookiePolicy={'single_host_origin'}
-                isSignedIn={false}
-            />
-        </div>
-    )
-}
+  return (
+    <button onClick={handleGoogleLogin}>Sign in with Google</button>
+  );
+};

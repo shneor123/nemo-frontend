@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import { AppHeader } from "./cmps/general/haeder/app-header"
 import { HomePage } from "./pages/home-page"
 import { LoginSignup } from "./pages/login-signup"
@@ -15,6 +15,24 @@ import { UserProfile } from "./pages/user-profile"
 function App() {
   const { modal } = useSelector(({ appModule }) => appModule)
   const dispatch = useDispatch()
+
+  const changeThemeRef = useRef()
+  const [isPreviewEnd, setIsPreviewEnd] = useState(false)
+  const onOpenModal = (ev, modal) => {
+    dispatch(setModal(modal))
+  }
+
+  const setPreviewEndTrue = () => {
+    setIsPreviewEnd(true);
+  };
+
+  const setPreviewEndFalse = () => {
+    setIsPreviewEnd(false);
+  };
+
+
+
+
   return (
     <div
       onClick={() => {
@@ -22,13 +40,13 @@ function App() {
       }}
     >
       {modal && <DynamicModalCmp />}
-      <AppHeader />
+      <AppHeader changeThemeRef={changeThemeRef} setPreviewEndTrue={setPreviewEndTrue} setPreviewEndFalse={setPreviewEndFalse} />
       <Routes>
         <Route element={<HomePage />} path={"/"} />
         <Route element={<LoginSignup />} path={"/signup"} />
         <Route element={<LoginSignup />} path={"/login"} />
         <Route element={<WorkSpace />} path={"/workspace"} />
-        <Route element={<BoardApp />} path={"/board/:boardId"}>
+        <Route element={<BoardApp isPreviewEnd={isPreviewEnd} setPreviewEndTrue={setPreviewEndTrue} setPreviewEndFalse={setPreviewEndFalse} />} path={"/board/:boardId"}>
           <Route element={<TaskDetails />} path={":groupId/:taskId"} />
           <Route element={<Dashboard />} path="dashboard" />
         </Route>

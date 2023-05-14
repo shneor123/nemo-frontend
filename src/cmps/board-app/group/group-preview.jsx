@@ -12,9 +12,8 @@ import { saveTask } from "../../../store/actions/task.action";
 import { userService } from "../../../services/basic/user.service";
 import { useForm } from "../../../hooks/useForm";
 import { setModal } from "../../../store/actions/app.actions";
-import { filterBoard } from "../../../store/actions/board.action";
 
-export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, labels, boardMembers }) => {
+export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, labels, boardMembers, isPreviewEnd }) => {
   const [isAddTask, setIsAddTask] = useState(false);
   const dispatch = useDispatch()
   const addTaskRef = useRef()
@@ -22,7 +21,8 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
   const [fields, handleChange, clearFields] = useForm({
     newTaskTitle: "",
     groupTitle: group.title,
-  });
+  })
+
 
   function handleBackClick() {
     addTaskRef.current?.focus();
@@ -94,16 +94,16 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
     <>
       <div className="group-preview-wrapper">
         <Draggable draggableId={group.id} index={index}>
-          {(provided) => (
-            <section className="group-preview"
+          {(provided, snapshot) => (
+            <section className={`group-preview  ${isPreviewEnd && 'preview-end'} ${snapshot.isDragging && !snapshot.isDropAnimating ? 'tilted' : ''}`}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
             >
+
               <div className="group-preview-header">
-                <input
+                <input type="text"
                   className="group-preview-title"
-                  type="text"
                   name="groupTitle"
                   onBlur={onSaveGroup}
                   value={fields.groupTitle}
@@ -124,6 +124,7 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
               <div className="task-wrapper">
                 <div className="group-preview-main">
                   <TaskList
+                    isPreviewEnd={isPreviewEnd}
                     tasks={tasksToShow()}
                     groupId={group.id}
                     boardId={boardId}
@@ -135,7 +136,7 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
                   {isAddTask && (
                     <div className="add-task-open" >
                       <form onSubmit={onSaveTask}>
-                        <textarea
+                        <textarea style={{ borderRadius: !isPreviewEnd ? '3px' : '15px' }}
                           className="task-txt"
                           name="newTaskTitle"
                           placeholder="Enter a title for this card..."
@@ -157,14 +158,11 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
               </div>
               <div className="add-task-wrapper">
                 {!isAddTask && (
-                  <div
-                    className="add-task-container flex"
+                  <div className="add-task-container flex"
                     onClick={() => {
                       setIsAddTask(true);
                       handleBackClick();
-                    }}
-                  >
-                    <IoAdd />
+                    }}> <IoAdd />
                     <p onClick={onSaveTask()}>Add a card</p>
                   </div>
                 )}

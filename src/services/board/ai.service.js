@@ -13,7 +13,7 @@ async function getAiTextCompletion(sttInput) {
             .createCompletion(
                 "text-davinci-002",
                 {
-                    prompt: `build a to-do list for ${sttInput} \n`,
+                    prompt: `build ${sttInput} \n`,
                     temperature: 1,
                     max_tokens: 311,
                     top_p: 0.3,

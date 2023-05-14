@@ -14,6 +14,10 @@
     text-decoration: none;
     z-index: 0;
 
+    &-end {
+      border-radius: 8px;
+    }
+
     &:hover {
       background-color: #f4f5f7;
       border-bottom-color: #091e4240;
@@ -187,7 +191,7 @@
   padding: 0 4px 0 4px;
   border-radius: 2px;
   margin: auto 0 auto 8px;
-  
+
 }
 
 .over-due {

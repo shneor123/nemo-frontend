@@ -11,7 +11,7 @@ import { ModalStar } from "./modal-star";
 
 import Logole from "../../../assets/img/ttttCapture.PNG"
 
-export const AppHeader = () => {
+export const AppHeader = ({ changeThemeRef, setPreviewEndTrue, setPreviewEndFalse }) => {
   const { user } = useSelector((storeState) => storeState.userModule)
   const { board } = useSelector((storeState) => storeState.boardModule)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -20,6 +20,7 @@ export const AppHeader = () => {
   const dispatch = useDispatch()
   const profileRef = useRef()
   const createRef = useRef()
+
 
   let googleUser
   let routeClass
@@ -92,21 +93,30 @@ export const AppHeader = () => {
             <ModalStar />
             {!isHome && (
               <div className="workspace-create" ref={createRef} onClick={(ev) => { onModal('Create Board') }}>
-                <span className="share-btn-icon">Create</span>
+                <span title="Create" className="share-btn-icon">Create</span>
                 <span className="plus trellicons plus-icon"></span>
               </div>
             )}
           </div>
-          <div className="nav-input" ><Search /> </div>
+          <div className="nav-input" title="Search"><Search /> </div>
 
-          <span className="git-link">
+          <span title="Theme" ref={changeThemeRef}
+            onClick={(ev) =>
+              onOpenModal(ev, {
+                element: changeThemeRef.current,
+                category: 'Theme',
+                title: 'Theme',
+                props: { changeThemeRef, setPreviewEndTrue, setPreviewEndFalse },
+              })
+            }><div className="icon-theme"></div>
+          </span>
+
+          <span className="git-link" title="Information">
             <a href="https://github.com/shneor123/nemo-frontend" target='_blank'>
               <span class="trello-home question-icon"></span></a>
           </span>
-
-
           {!isHome && (
-            <div className="user-img-container" ref={profileRef}
+            <div className="user-img-container" title="Account" ref={profileRef}
               onClick={(ev) => onOpenModal(ev, {
                 category: 'account actions',
                 title: 'Account',

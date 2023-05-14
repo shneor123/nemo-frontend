@@ -98,6 +98,6 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
                     )
                 })}
             </ul>
-        </section>
+        </section >
     )
 }

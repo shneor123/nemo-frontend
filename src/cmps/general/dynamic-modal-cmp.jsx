@@ -35,6 +35,7 @@ import { AttachmentEdit } from "../board-app/task/attachment/attachment-edit"
 import { MembersSide } from "../modals/members/members-side"
 import { DynamicFilter } from "./haeder/dynamic-filter"
 import { SearchModal } from "./haeder/search-modal"
+import { ThemeModalContent } from "./theme-modal"
 
 export const DynamicModalCmp = () => {
   const dispatch = useDispatch()
@@ -178,6 +179,9 @@ export const DynamicModalCmp = () => {
       break
     case 'Search modal':
       cmp = <SearchModal {...modal.props} />
+      break
+    case 'Theme':
+      cmp = <ThemeModalContent {...modal.props} />
       break
   }
 

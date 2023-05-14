@@ -8,7 +8,7 @@ import { useForm } from "../../../hooks/useForm";
 import { saveGroup } from "../../../store/actions/group.action";
 import { SideManuBoard } from "../../menu/side-manu-board";
 
-export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boardId, activities, labelOpenState, labels, boardMembers }) => {
+export const GroupList = ({ isPreviewEnd, filterBy, onSetFilterBy, boards, board, groups, boardId, activities, labelOpenState, labels, boardMembers }) => {
   const dispatch = useDispatch()
   const [isAddGroup, setIsAddGroup] = useState(false)
   const [newGroup, handleChange, clearFields] = useForm({ title: "" })
@@ -42,23 +42,23 @@ export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boar
                   activities={activities}
                   labels={labels}
                   boardMembers={boardMembers}
+                  isPreviewEnd={isPreviewEnd}
                 />
               )
             })}
-
             {!isAddGroup && (
-              <div className="group-preview-wrapper">
-                <div className="add-group flex" onClick={() => setIsAddGroup(true)}>
-                  <IoAdd /> <p>Add another list</p>
-                </div>
+              <div style={{ borderRadius: !isPreviewEnd ? '3px' : '10px', height: isPreviewEnd ? '45px' : '' }}
+                className="add-group flex"
+                onClick={() => setIsAddGroup(true)}
+              > <IoAdd /> <p>Add another list</p>
               </div>
             )}
             {isAddGroup && (
               <div className="group-preview-wrapper">
-                <div className="add-group-open">
+                <div className="add-group-open " style={{ borderRadius: isPreviewEnd ? '20px' : '3px', height: isPreviewEnd ? '100px' : '' }}>
                   <form onSubmit={(ev) => onAddGroup(ev)}>
-                    <input
-                      type="text"
+                    <input type="text"
+                      style={{ marginTop: !isPreviewEnd ? '3px' : '15px' }}
                       name="title"
                       placeholder="Enter list title..."
                       value={newGroup.title}
@@ -76,7 +76,7 @@ export const GroupList = ({ filterBy, onSetFilterBy, boards, board, groups, boar
             )}
           </div>
         )}
-      </Droppable>
+      </Droppable >
     </>
   )
 }
