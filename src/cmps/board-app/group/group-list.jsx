@@ -58,7 +58,7 @@ export const GroupList = ({ isPreviewEnd, filterBy, onSetFilterBy, boards, board
                 <div className="add-group-open " style={{ borderRadius: isPreviewEnd ? '20px' : '3px', height: isPreviewEnd ? '100px' : '' }}>
                   <form onSubmit={(ev) => onAddGroup(ev)}>
                     <input type="text"
-                      style={{ marginTop: !isPreviewEnd ? '3px' : '15px' }}
+                      style={{ borderRadius:'4px',marginTop: !isPreviewEnd ? '3px' : '15px' }}
                       name="title"
                       placeholder="Enter list title..."
                       value={newGroup.title}

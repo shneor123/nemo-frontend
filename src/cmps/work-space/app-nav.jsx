@@ -15,6 +15,8 @@ export const AppNav = () => {
                         <span className="trellicons icon-home"></span>
                         <span>Home</span>
                     </NavLink>
+                    <hr className='hr' />
+                    <span style={{ fontSize: 12,marginLeft:12 }}>Workspaces</span>
                 </div >
             </nav >
         </section >

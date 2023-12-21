@@ -12,7 +12,6 @@
     .dashboard-modal {
         position: absolute;
         padding: 2.5rem;
-        border-radius: 3px;
         max-width: 768px;
         width: 100%;
         top: 5%;
@@ -22,7 +21,7 @@
 
         .close-btn {
             position: absolute;
-            right: 0;
+            left: 0;
             top: 0;
             margin: 0.5rem;
             height: 2rem;

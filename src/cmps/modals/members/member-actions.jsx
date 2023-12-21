@@ -1,13 +1,17 @@
 import { useRef } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch ,useSelector} from "react-redux"
 import { utilService } from "../../../services/basic/util.service"
 import { boardService } from "../../../services/board/board.service"
 import { setModal } from "../../../store/actions/app.actions"
 import { CgClose } from 'react-icons/cg'
+import { IoIosArrowBack } from 'react-icons/io'
+
 
 export const MemberActions = ({ task, member, board }) => {
   const dispatch = useDispatch()
   const imgRef = useRef()
+  const backMembersRef = useRef()
+  const { users } = useSelector((storeState) => storeState.userModule)
 
   const onRemoveMember = () => {
     dispatch(setModal(null))
@@ -36,6 +40,7 @@ export const MemberActions = ({ task, member, board }) => {
       <button className="close-btn" onClick={() => dispatch(setModal(null))}>
         <CgClose className="close-icon" />
       </button>
+      {/* <button className="back-btn"onClick={() => dispatch(setModal(null))}><IoIosArrowBack className="close-icon" /></button> */}
       <div className="member-info">
         <div className="member-img-container" ref={imgRef}>
           {member?.imgUrl ? (

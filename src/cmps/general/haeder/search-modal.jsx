@@ -29,7 +29,7 @@ export const SearchModal = () => {
             <input type="text" className="search-input-header" autoComplete='off' placeholder='Search' value={boardsSearched} onChange={handleChange} />
             <div class="title">{boards.length > 1 ? "RECENT BOARDS" : "NO RESULTS"}</div>
 
-            <ul className='dynamic-filter'>
+            <ul className='dynamic-filter scrollable-content'>
                 {filterBoards && filterBoards.map(board => {
                     return <li key={board._id} className='filter-item' onClick={() => onGoTo(board._id)}>
                         <div style={{

@@ -3,12 +3,18 @@ import { useState } from "react"
 export const useForm = (initialFields) => {
     const [fields, setFields] = useState(initialFields)
 
-    const handleChange = ({target}) => {
-        const field = target.name
-        const value = target.type === 'number' ? (+target.value || '') : target.value
-        setFields((prevFields) => ({...prevFields, [field]:value}))
-    }
+    // const handleChange = ({target}) => {
+    //     const field = target.name
+    //     const value = target.type === 'number' ? (+target.value || '') : target.value
+    //     setFields((prevFields) => ({...prevFields, [field]:value}))
+    // }
 
+
+    const handleChange = ({ target }) => {
+        const { name, value } = target;
+        setFields((prevFields) => ({ ...prevFields, [name]: value }));
+      };
+    
     const clearFields = (field) => {
         setFields((prevFields) => {
             if (field) {

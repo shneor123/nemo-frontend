@@ -16,11 +16,9 @@ export function TaskDateModal({ boardId, groupId, task }) {
     const handleDateChange = (date) => {
         setSelectedDate(date)
     }
-
     const handleChange = ({ target }) => {
         setTime(target.value)
     }
-
     const onSaveDate = () => {
         const updatedTask = { ...task }
         const newDate = utilService.getNewDateTime(selectedDate, time)
@@ -39,18 +37,15 @@ export function TaskDateModal({ boardId, groupId, task }) {
         task.dueDate = Date.parse(selectedDate)
         dispatch(saveTask(updatedTask, boardId, groupId, activity))
     }
-
     const onRemove = () => {
         const updatedTask = { ...task }
         updatedTask.dueDate = null
         updateTask(updatedTask)
     }
-
     const updateTask = (updatedTask) => {
         task.dueDate = updatedTask.dueDate
         dispatch(saveTask(task, boardId, groupId))
     }
-
     const onOpenModal = (ev, modal) => {
         dispatch(setModal(modal))
     }

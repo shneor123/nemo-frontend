@@ -4,8 +4,7 @@ import { useNavigate } from "react-router"
 import { Link, useLocation } from "react-router-dom"
 
 import { gapi } from "gapi-script"
-import { LoginWithGoogle } from "../login/LoginGoogle"
-import { CLIENT_ID } from '../.secret/api'
+// import { CLIENT_ID } from '../.secret/api'
 
 import { login, signup } from "../store/actions/user.actions"
 import { useForm } from "../hooks/useForm"
@@ -35,7 +34,7 @@ export const LoginSignup = (props) => {
   useEffect(() => {
     function start() {
       gapi.auth2.init({
-        clientId: CLIENT_ID,
+        clientId: "UU3HN_fAmdAcd03JKanAqIk2a7qmRBK1YpSpETtTscI",
         scope: "",
       })
     }

@@ -37,7 +37,7 @@ import { DynamicFilter } from "./haeder/dynamic-filter"
 import { SearchModal } from "./haeder/search-modal"
 import { ThemeModalContent } from "./theme-modal"
 
-export const DynamicModalCmp = () => {
+export const DynamicModalCmp = ({ isPreviewEnd }) => {
   const dispatch = useDispatch()
   const deleteMember = useRef()
   const buttonRef = useRef()
@@ -46,11 +46,20 @@ export const DynamicModalCmp = () => {
   const { modal } = useSelector(({ appModule }) => appModule)
   const [position, setPosition] = useState(null)
 
-
   useEffect(() => {
-    window.addEventListener('resize', debouncedAdjust)
-    return () => window.removeEventListener('resize', debouncedAdjust)
-  }, [])
+    window.addEventListener('resize', debouncedAdjust);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('resize', debouncedAdjust);
+      window.removeEventListener('keydown', handleKeyDown); // Remove the event listener on component unmount
+    };
+  }, []);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      dispatch(setModal(null));
+    }
+  };
 
   useEffect(() => {
     adjustPosition()
@@ -98,7 +107,7 @@ export const DynamicModalCmp = () => {
       cmp = <AttachmentModal {...modal.props} />
       break;
     case "Cover":
-      cmp =<CoverModal {...modal.props} />
+      cmp = <CoverModal {...modal.props} />
       break;
     case "Actions":
       cmp = <ActionModal {...modal.props} />
@@ -198,8 +207,10 @@ export const DynamicModalCmp = () => {
         modal.category === 'dashboard' ? 'wide-dashboard' :
           modal.category === 'Dates' ? 'wide-filter' :
             modal.category === 'Img modal' ? 'pos-img ' : modal.category === 'Members side' ? 'wide-side' :
-              modal.category === 'Dynamic filter' ? 'wide-dynamic-filter' : ''}`}
-      style={{ ...position }}
+              modal.category === 'Dynamic filter' ? 'wide-dynamic-filter' :
+                modal.category === 'Search modal' ? 'hehigt-dynamic-search' :
+                  ''}`}
+      style={{ ...position, borderRadius: isPreviewEnd ? '10px' : '3px', }}
       ref={modalRef}
       onClick={(e) => e.stopPropagation()}
     >

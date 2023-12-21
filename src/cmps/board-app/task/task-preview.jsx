@@ -13,8 +13,6 @@ import { toggleLabelPreview } from '../../../store/actions/label.action'
 import { userService } from "../../../services/basic/user.service"
 import { utilService } from "../../../services/basic/util.service"
 import { labelService } from "../../../services/board/label.service"
-import { setModal } from "../../../store/actions/app.actions"
-import { AppHeader } from "../../general/haeder/app-header"
 
 export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, labelsTo, boardMembers, isPreviewEnd }) => {
   const { board } = useSelector(({ boardModule }) => boardModule)
@@ -48,17 +46,14 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
     onSetLabels();
   }, [task])
 
-
   const onSetLabels = () => {
     const newLabels = labelService.getLabelsById(board, task);
     setLabels(newLabels);
   }
-
   const onOpenTaskDetails = () => {
     setIsEdit(false)
     navigate(`/board/${boardId}/${groupId}/${task.id}`);
   }
-
   const onRemoveTask = (ev) => {
     ev.stopPropagation();
     const activity = {
@@ -73,21 +68,17 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
     setIsEdit(false)
     dispatch(removeTask(boardId, groupId, task.id, activity));
   }
-
   const onToggleLabelPreview = (ev) => {
     ev.stopPropagation();
     dispatch(toggleLabelPreview(boardId))
   }
-
   const openQuickEdit = (ev) => {
     ev.stopPropagation();
     setIsEdit(!isEdit)
   }
-
   const onCloseQuickEdit = () => {
     setIsEdit(!isEdit)
   }
-
   const getTaskStyle = (isQuick) => {
     if (task.style) {
       if (task.style.imgUrl && task.style.isCover) {
@@ -104,7 +95,6 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
       }
     } else return ''
   }
-
   const getTaskClass = (isQuick) => {
     if (task.style) {
       if (task.style.bgColor && task.style.isCover) {
@@ -136,6 +126,7 @@ export const TaskPreview = ({ boardId, groupId, task, index, labelOpenState, lab
         labelsTo={labelsTo}
         boardMembers={boardMembers}
         onCloseQuickEdit={onCloseQuickEdit}
+        isPreviewEnd={isPreviewEnd}
 
       /> : <Draggable draggableId={task.id} index={index}>
         {(provided, snapshot) => (

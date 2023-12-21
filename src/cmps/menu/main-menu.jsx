@@ -58,7 +58,9 @@ export const MainMenu = ({ onOpenCustom, onOpenAboutBoard, onOpenArchived, onOpe
 
             </section>
             }
+            <section className="scrollable-activity" style={{maxHeight:isOpen?'230px':'500px'}}>
             <Activity activities={activities} boardId={boardId} />
+            </section>
         </section>
     )
 }

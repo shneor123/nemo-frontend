@@ -57,13 +57,18 @@
   position: fixed;
   left: -1000px;
   z-index: 5000;
-  border-radius: 3px;
   box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+
+  &.hehigt-dynamic-search {
+    max-height: 350px;
+    overflow-y: hidden;
+    // overflow-y: auto;
+  }
 
   &.wide {
     width: 384px;
-    height: 100%;
-    margin-top: 150px;
+    height: auto;
+    margin-top: 110px;
     overflow: hidden;
   }
 
@@ -86,6 +91,7 @@
     padding: 20px 0 0 24px;
     transform: translate(70%, 50%);
   }
+
   &.wide-dynamic-filter {
     width: 290px;
   }
@@ -99,14 +105,13 @@
     grid-template-columns: 12px 1fr 12px;
 
     .label {
-      color: #172b4d;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans',
         'Helvetica Neue', sans-serif;
       font-size: 14px;
       line-height: 20px;
       font-weight: 400;
-      border-bottom: 1px solid rgba(9, 30, 66, 0.13);
-      color: #5e6c84;
+      // border-bottom: 1px solid rgba(9, 30, 66, 0.13);
+      // color: #5e6c84;
       height: 40px;
       display: block;
       line-height: 40px;
@@ -119,6 +124,11 @@
       grid-column: 1 / span 3;
       grid-row: 1;
       text-align: center;
+
+
+      font-size: 12px;
+      color:  #44546f;
+      font-weight: 600;
     }
 
     .sidebar-icon-left {

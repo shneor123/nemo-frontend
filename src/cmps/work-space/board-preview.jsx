@@ -2,21 +2,35 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { TiStarFullOutline } from "react-icons/ti";
-import { removeBoard } from "../../store/actions/board.action";
+import { removeBoard, updateBoard } from "../../store/actions/board.action";
 import { Loader } from "../general/loader";
+import { FaTrash } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
-export function BoardPreview({ board, onToggleStar }) {
+
+export function BoardPreview({ board, onToggleStar ,updateBoard}) {
   const dispatch = useDispatch();
+  const { user } = useSelector((storeState) => storeState.userModule)
 
+  const updateLastViewedAt = (ev,board) => {
+    board.lastViewedAt = Date.now()
+    dispatch(updateBoard(...board))
+  };
   const onRemoveTask = (ev) => {
     dispatch(removeBoard(board._id))
   };
+
   if (!board.style) return <Loader />;
   return (
     <div>
-      {/* <button onClick={()=>onRemoveTask(board._id)}>dddd</button> */}
+      {user.isAdmin && (
+        <button onClick={() => onRemoveTask(board._id)}>
+          <FaTrash />
+        </button>
+      )}
       <Link to={`/board/${board._id}`}>
-        <section className="board-preview-container"
+        <section className="board-preview-container" 
+        // onClick={(ev) => updateLastViewedAt(ev, board)}
           style={{
             background: board.style.background
               ? `${board.style.background}`
@@ -38,3 +52,4 @@ export function BoardPreview({ board, onToggleStar }) {
     </div>
   );
 }
+

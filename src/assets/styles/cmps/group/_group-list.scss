@@ -1,10 +1,10 @@
 .group-list-container {
-    height: 87.5vh;
-    margin-top: 93px;
-
-    display: flex;
-    padding-right: 2px;
-    height: calc(100% - 210px);
+    // height: 87.5;
+    // margin-top: 93px;
+    // height: auto;
+    // position:  fixed;
+    margin-block-start: 100px;
+    height: calc(100% - 150px);
     overflow-y: hidden;
     overflow-x: auto;
     padding-bottom: 8px;

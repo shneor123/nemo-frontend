@@ -156,3 +156,13 @@
     font-size: 14px;
     font-weight: 700
 }
+
+.scrollable-content{
+    max-height: 650px;
+    overflow-y: auto;
+}
+
+.scrollable-activity{
+    // max-height: 500px;
+    overflow-y: auto;
+}

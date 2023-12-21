@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { setModal } from '../../store/actions/app.actions'
 
 export const SideManuBoard = ({ board, boardId, boards }) => {
-  const [navIsHidden, setNavIsHidden] = useState(false)
+  const [navIsHidden, setNavIsHidden] = useState(true)
   const dispatch = useDispatch()
   const membersRef = useRef()
   const addRef = useRef()
@@ -61,7 +61,7 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
           return (
             <div>
               <Link to={`/board/${board._id}`} key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
-                {/* <div className="board-icon"
+               {/* <div className="board-icon"
                   style={{
                     background: board.style.background
                       ? `${board.style.background}`
@@ -70,7 +70,7 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
                         : `${board.style.imgUrl}`})center center / cover`,
                     backgroundColor: `${board.style.backgroundColor}`
                   }}
-                  > */}
+                  >  */}
                 <div className="board-icon"
                   style={{
                     background: board.style

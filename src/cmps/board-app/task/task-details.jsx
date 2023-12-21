@@ -30,9 +30,13 @@ export const TaskDetails = () => {
     // setFields({ title: currTask.title })
   }, [board]);
 
-  const handleKeyEvent = (e) => {
-    if (e.key === "Escape") navigate(-1);
-  };
+
+
+
+
+  // const handleKeyEvent = (e) => {
+  //   if (e.key === "Escape") navigate(-1);
+  // };
 
   const onSaveTask = (ev = null) => {
     if (ev) ev.preventDefault();
@@ -43,8 +47,8 @@ export const TaskDetails = () => {
   if (task) {
     return (
       <section
-        tabIndex={"0"}
-        onKeyDown={handleKeyEvent}
+        // tabIndex={"0"}
+        // onKeyDown={handleKeyEvent}
         onClick={() => navigate(`/board/${boardId}`)}
         className="task-details-wrapper"
       >

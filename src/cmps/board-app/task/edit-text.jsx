@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 import { saveTask } from "../../../store/actions/task.action";
 
-export const EditText = ({ task, boardId, groupId, onCloseQuickEdit }) => {
+export const EditText = ({ task, boardId, groupId, onCloseQuickEdit,isPreviewEnd }) => {
     const [fields, handleChange] = useForm({ title: task.title });
     const dispatch = useDispatch()
 
@@ -16,7 +16,9 @@ export const EditText = ({ task, boardId, groupId, onCloseQuickEdit }) => {
     return (
         <div className="edit-text">
             <form>
-                <textarea
+                <textarea 
+ style={{ borderRadius: !isPreviewEnd ? '3px' : '10px', }}
+
                     name="title"
                     value={fields.title}
                     onChange={handleChange}

@@ -59,8 +59,6 @@ export const BoardApp = ({ isPreviewEnd, setPreviewEndTrue, setPreviewEndFalse }
       )
     );
   };
-
-
   if (!board) return <Loader />
   return (
     <>
@@ -80,6 +78,7 @@ export const BoardApp = ({ isPreviewEnd, setPreviewEndTrue, setPreviewEndFalse }
           }}>
           <div className="board-app">
             <BoardHeader boardId={boardId} board={board} users={users} boards={boards} />
+            <br />
             <GroupList filterBy={filterBy} boards={boards} board={board} labelOpenState={board.labelOpenState} groups={board.groups} boardId={boardId} labels={board.labels} boardMembers={board.members} isPreviewEnd={isPreviewEnd} setPreviewEndTrue={setPreviewEndTrue} setPreviewEndFalse={setPreviewEndFalse} />
             <Outlet />
           </div>

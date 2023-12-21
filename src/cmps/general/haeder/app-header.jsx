@@ -21,7 +21,6 @@ export const AppHeader = ({ changeThemeRef, setPreviewEndTrue, setPreviewEndFals
   const profileRef = useRef()
   const createRef = useRef()
 
-
   let googleUser
   let routeClass
 
@@ -90,13 +89,13 @@ export const AppHeader = ({ changeThemeRef, setPreviewEndTrue, setPreviewEndFals
               <span onClick={() => navigate("/workspace")} className="fa-brands trello-icon trello-logo-after-login"></span>
               <h1 onClick={() => navigate("/workspace")} className='trello-logo-after-login-title'>Nemo</h1>
             </div>
-            <ModalStar />
-            {!isHome && (
-              <div className="workspace-create" ref={createRef} onClick={(ev) => { onModal('Create Board') }}>
-                <span title="Create" className="share-btn-icon">Create</span>
-                <span className="plus trellicons plus-icon"></span>
-              </div>
-            )}
+            <div>
+              <ModalStar />
+            </div>
+            <div className="workspace-create" ref={createRef} onClick={(ev) => { onModal('Create Board') }}>
+              <span title="Create" className="share-btn-icon">Create</span>
+              <span className="plus trellicons plus-icon"></span>
+            </div>
           </div>
           <div className="nav-input" title="Search"><Search /> </div>
 
@@ -133,7 +132,6 @@ export const AppHeader = ({ changeThemeRef, setPreviewEndTrue, setPreviewEndFals
               {!user && <span className="user-initial"></span>}
             </div>
           )}
-
         </nav>
       )
       }

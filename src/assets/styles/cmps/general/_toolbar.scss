@@ -1,11 +1,12 @@
 .toolbar {
   height: auto;
-  padding: 8px 4px 4px 12px;
+  padding: 14px 4px 8px 12px;
   position: fixed;
   display: flex;
   margin-block-start: 45px;
   width: 100%;
   z-index: 10;
+  backdrop-filter: blur(4px);
 
   &-right,
   &-left {
@@ -31,7 +32,8 @@
     background-color: #ffffff52;
     cursor: pointer;
   }
-  h1{
+
+  h1 {
     font-size: 18px;
     font-weight: 700;
     line-height: 32px;
@@ -82,14 +84,15 @@
   display: flex;
   width: 18%;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
   width: fit-content;
   margin-right: 4px;
   margin-left: 14px;
 
   &>* {
-    margin-left: -15px;
-    margin-right: 5px;
+    margin-left: -2px;
+    // margin-left: -15px;
+    // margin-right: 5px;
   }
 
   .extra-member-avatar {
@@ -114,6 +117,7 @@
   align-items: center;
   width: 108px;
 }
+
 .toolbar-menu-show-btn {
   align-self: flex-end;
   display: flex;
@@ -145,6 +149,7 @@
   margin-bottom: 3px;
 }
 
+
 .share-btn {
   margin-left: 10px;
   cursor: pointer;
@@ -159,10 +164,10 @@
   overflow: hidden;
   padding-left: 8px;
   // background-color: #FFFFFF;
-  background-color: #0079bf;
+  // background-color: #0079bf;
   text-decoration: none;
   box-shadow: none;
-  color: #ffffff;
+  // color: #ffffff;
   margin-bottom: 0px;
   display: flex;
   justify-content: space-between;
@@ -170,9 +175,12 @@
   width: 75px;
   height: 32px;
   margin-top: 2px;
+  background-color: #dfe1e6;
+  color: #172b4d;
 
   &:hover {
-    background-color: #026aa7;
+    background-color: #ffff;
+
   }
 
   svg {

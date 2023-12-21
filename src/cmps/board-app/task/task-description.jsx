@@ -37,7 +37,7 @@ export const Description = ({ task, boardId, groupId }) => {
                     <button onMouseDown={onSaveTask}>Save</button>
                     <span className="cancel" onClick={() => setIsDescOpen(false)}>
                         Cancel
-                    </span>Ï
+                    </span>
                 </div>}
             </form>
         </section>

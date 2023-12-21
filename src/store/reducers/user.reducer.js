@@ -11,7 +11,10 @@ const guestUser = {
 
 initialState = {
     users: [],
-    user: userService.getLoggedinUser() || guestUser,
+    user: {
+        ...userService.getLoggedinUser() || guestUser,
+        boards: [], 
+    },
     watchedUser: null
 }
 

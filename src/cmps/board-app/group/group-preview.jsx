@@ -22,30 +22,24 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
     newTaskTitle: "",
     groupTitle: group.title,
   })
-
+  useEffect(() => { }, [filterBy])
 
   function handleBackClick() {
     addTaskRef.current?.focus();
     if (addTaskRef.current) addTaskRef.current.scrollIntoView();
   }
-
-  useEffect(() => { }, [filterBy])
-
   const onRemoveGroup = () => {
     dispatch(removeGroup(group.id, boardId))
   }
-
   const onSaveGroup = (ev = null) => {
     dispatch(saveGroup(fields.groupTitle, boardId, group.id));
   }
-
   const onHandleKeySubmit = (ev) => {
     if (ev.key === "Enter") {
       ev.preventDefault();
       onSaveTask();
     }
   }
-
   const onSaveTask = (ev = null) => {
     if (ev) ev.preventDefault();
     if (fields.newTaskTitle) {
@@ -64,11 +58,9 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
     }
     handleBackClick();
   }
-
   const onOpenModal = (ev, modal) => {
     dispatch(setModal(modal))
   }
-
   const tasksToShow = () => {
     let taskToShow = group.tasks;
     if (filterBy.txt) {
@@ -90,6 +82,18 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
     return taskToShow;
   }
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsAddTask(false)
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
   return (
     <>
       <div className="group-preview-wrapper">
@@ -131,7 +135,6 @@ export const GroupPreview = ({ filterBy, group, boardId, index, labelOpenState, 
                     labelOpenState={labelOpenState}
                     labels={labels}
                     boardMembers={boardMembers}
-
                   />
                   {isAddTask && (
                     <div className="add-task-open" >

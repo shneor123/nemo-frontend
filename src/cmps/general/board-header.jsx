@@ -15,6 +15,8 @@ import { useForm } from "../../hooks/useForm"
 
 export const BoardHeader = ({ boardId, board, users }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const shareRef = useRef()
@@ -29,34 +31,35 @@ export const BoardHeader = ({ boardId, board, users }) => {
     boardTitle: board.title,
   })
 
+  const handleTitleClick = () => {
+    setIsEditing(true);
+  };
+  const handleInputBlur = () => {
+    setIsEditing(false);
+    updateBoard({ title: fields.boardTitle });
+  };
   const onOpenMenu = () => {
     setIsMenuOpen(true);
   }
-
   const onCloseMenu = () => {
     setIsMenuOpen(false);
   }
-
   const onToggleStar = () => {
     board.isStar = !board.isStar
     dispatch(updateBoard(board))
   }
-
   const onOpenModal = (ev, modal) => {
     ev.stopPropagation()
     dispatch(setModal(modal))
   }
-
   const getMembersForModal = (members) => {
     const membersForModal = members.slice(3)
     return membersForModal
   }
-
   const getMembersForPreview = (members) => {
     const membersForPreview = members.slice(0, 3)
     return membersForPreview
   }
-
   const onUpdateBoard = async (updatedBoard) => {
     try {
       await boardService.save(updatedBoard)
@@ -64,10 +67,9 @@ export const BoardHeader = ({ boardId, board, users }) => {
       console.error(err)
     }
   }
-
   const updateBoard = (updatedTask) => {
-    fields.boardTitle = updatedTask.title
-    onUpdateBoard(...board, boardId)
+    board.title = updatedTask.title
+    onUpdateBoard(board)
   }
 
 
@@ -81,10 +83,28 @@ export const BoardHeader = ({ boardId, board, users }) => {
         activities={board.activities}
       />
       <div className="toolbar-left">
-        <span className="board-toolbar-title-container">
-          <h1 className="board-toolbar-title">{board.title}</h1>
+        <span className="board-toolbar-title-container" onClick={handleTitleClick}>
+          {/* {isEditing ? (
+            <input
+              style={{ height: '30px', width: '100%', fontWeight: 'bold' }}
+              type="text"
+              className="board-toolbar-title-input"
+              name="boardTitle"
+              value={fields.boardTitle}
+              onChange={handleChange}
+              onBlur={handleInputBlur}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleInputBlur();
+                }
+              }}
+              autoFocus
+            />
+          ) : ( */}
+            <h1 className="board-toolbar-title">{board.title}</h1>
+           {/* )} */}
         </span>
-
         <span onClick={onToggleStar} className="toolbar-btn star-btn">
           {board.isStar ? <AiFillStar color={"gold"} size={17} /> : <AiOutlineStar size={17} />}
         </span>
@@ -124,7 +144,7 @@ export const BoardHeader = ({ boardId, board, users }) => {
             category: 'Invite to board',
             title: 'Invite to board',
             props: { element: shareRef.current, board, boardId, users, boardId, boardMembers: board.members, moreMembers: getMembersForModal(board.members) },
-          })}><BsPersonPlus /> <span className="share-btn-icon">Invite</span></button>
+          })}><BsPersonPlus /> <span className="share-btn-icon">Share</span></button>
       </div>
       <div className="toolbar-right">
         <div>

@@ -39,7 +39,7 @@ function App() {
         if (modal) dispatch(setModal(null))
       }}
     >
-      {modal && <DynamicModalCmp />}
+      {modal && <DynamicModalCmp  isPreviewEnd={isPreviewEnd}/>}
       <AppHeader changeThemeRef={changeThemeRef} setPreviewEndTrue={setPreviewEndTrue} setPreviewEndFalse={setPreviewEndFalse} />
       <Routes>
         <Route element={<HomePage />} path={"/"} />
@@ -48,7 +48,7 @@ function App() {
         <Route element={<WorkSpace />} path={"/workspace"} />
         <Route element={<BoardApp isPreviewEnd={isPreviewEnd} setPreviewEndTrue={setPreviewEndTrue} setPreviewEndFalse={setPreviewEndFalse} />} path={"/board/:boardId"}>
           <Route element={<TaskDetails />} path={":groupId/:taskId"} />
-          <Route element={<Dashboard />} path="dashboard" />
+          <Route element={<Dashboard isPreviewEnd={isPreviewEnd} />} path="dashboard" />
         </Route>
         <Route element={<UserProfile />} path={'/users/:id'} />
       </Routes>

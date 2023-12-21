@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setModal } from "../../../store/actions/app.actions";
 import { saveTask } from "../../../store/actions/task.action";
@@ -19,17 +19,14 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
         updateTask({ ...task, archivedAt: Date.now() })
         onCloseQuickEdit()
     }
-
     const updateTask = (updatedTask) => {
         task.archivedAt = updatedTask.archivedAt
         dispatch(saveTask(task, boardId, groupId))
     }
-
     const onOpenModal = (e, modal) => {
         e.stopPropagation()
         dispatch(setModal(modal))
     }
-
     const onModalMember = (e) => {
         e.stopPropagation()
         dispatch(setModal({
@@ -41,7 +38,6 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
         })
         )
     }
-
     const onModallabels = (e) => {
         e.stopPropagation()
         dispatch(
@@ -53,7 +49,7 @@ export const EditBtn = ({ board, onOpenTaskDetails, onRemoveTask, boardId, label
             })
         )
     }
-
+    
     return (
         <div className="edit-btn" >
             <span className="quick-card-editor-buttons-item" onClick={onOpenTaskDetails}><span className="trellicons icon-card"></span> Open card</span>

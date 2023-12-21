@@ -41,6 +41,7 @@ export function loadBoards() {
     return (dispatch) => {
         boardService.query()
             .then(boards => {
+            console.log('boards:', boards);
                 dispatch({ type: 'SET_BOARDS', boards })
             })
             .catch(err => {

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import QRCode from "react-qr-code"
+// import QRCode from "react-qr-code"
 import { saveAs } from 'file-saver'
 
 export function ShareModal() {
@@ -24,14 +24,14 @@ export function ShareModal() {
                 <a className="facebook" href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fca-nemo-react.onrender.com%2F%23%2Fboard%2F%2Fedit`} target="_blank">
                     <i className="fab fa-facebook-f"></i>Facebook
                 </a>
-                <a className="whatsapp" href={``} target="_blank" data-action="share/whatsapp/share">
+                <a className="whatsapp" href={`https://wa.me/?text=https://ca-nemo-react.onrender.com/`} target="_blank" data-action="share/whatsapp/share">
                     <i className="fa fa-whatsapp" aria-hidden="true"></i>Whatsapp
                 </a>
             </div>
             <a className="show-hide" onClick={() => { setIsQRShown(prevIsQRShown => !prevIsQRShown) }}>{!isQRShown ? 'Show QR Code' : 'Hide QR Code'}</a>
             {isQRShown && <section className="QRShown flex justify-center" ref={qrRef}>
                 <div className="qr-code">
-                    <QRCode size={80} value={`https://ca-nemo-react.onrender.com/`} />
+                    {/* <QRCode size={80} value={`https://ca-nemo-react.onrender.com/`} /> */}
                 </div>
                 <div className='flex-row'>
                     <p>Link anyone to this card by sending them this QR code:</p>
