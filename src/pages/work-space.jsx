@@ -4,6 +4,8 @@ import { BoardList } from "../cmps/work-space/board-list"
 import { loadBoards, updateBoard } from '../store/actions/board.action'
 import { Loader } from '../cmps/general/loader'
 import { AppNav } from '../cmps/work-space/app-nav'
+import { boardService } from '../services/board/board.service'
+import { userService } from '../services/basic/user.service'
 
 
 export const WorkSpace = () => {
@@ -34,28 +36,28 @@ export const WorkSpace = () => {
     dispatch(updateBoard(board))
   }
 
-  // if (!boards) return <Loader />
-  return (
-    <div className="workspace-page ">
-      <section className="all-boards-list">
-        <div className="content-all-boards">
-          <section className="starred-boards-section">
-            <div className="title-header flex">
-              <div className="title-header-icon-container">
-                <span className='trellicons star large top'></span>
+    // if (!boards) return <Loader />
+    return (
+      <div className="workspace-page ">
+        <section className="all-boards-list">
+          <div className="content-all-boards">
+            <section className="starred-boards-section">
+              <div className="title-header flex">
+                <div className="title-header-icon-container">
+                  <span className='trellicons star large top'></span>
+                </div>
+                <h3>Starred boards</h3>
               </div>
-              <h3>Starred boards</h3>
-            </div>
-            <div className="primary-boards-container-section">
-              <BoardList
-                boards={getStarredBoards()}
-                updateBoard={updateBoard}
-                onToggleStar={onToggleStar}
-                isStarBoard={true}
-              />
-            </div>
-          </section>
-          {/* <section className="starred-boards-section">
+              <div className="primary-boards-container-section">
+                <BoardList
+                  boards={getStarredBoards()}
+                  updateBoard={updateBoard}
+                  onToggleStar={onToggleStar}
+                  isStarBoard={true}
+                />
+              </div>
+            </section>
+            {/* <section className="starred-boards-section">
             <div className="title-header flex">
               <div className="title-header-icon-container ">
                 <span className='trellicons icon-clock large top'></span>
@@ -71,26 +73,26 @@ export const WorkSpace = () => {
               />
             </div>
           </section> */}
-          <section className="recent-boards-section">
-            <div className="title-header flex">
-              <div className="title-header-icon-container">
-                <span className='trellicons icon-template-board large top'></span>
+            <section className="recent-boards-section">
+              <div className="title-header flex">
+                <div className="title-header-icon-container">
+                  <span className='trellicons icon-template-board large top'></span>
+                </div>
+                <h3>Your Workspace</h3>
               </div>
-              <h3>Your Workspace</h3>
-            </div>
-            <div className="primary-boards-container-section ">
-              <div className='board-list-container'>
+              <div className="primary-boards-container-section ">
+                <div className='board-list-container'>
+                </div>
+                <BoardList
+                  boards={boards}
+                  updateBoard={updateBoard}
+                  onToggleStar={onToggleStar}
+                />
               </div>
-              <BoardList
-                boards={boards}
-                updateBoard={updateBoard}
-                onToggleStar={onToggleStar}
-              />
-            </div>
-          </section>
-        </div>
-      </section>
-      <div className="workspace-app-nav"> <AppNav /> </div>
-    </div >
-  )
-}
+            </section>
+          </div>
+        </section>
+        <div className="workspace-app-nav"> <AppNav /> </div>
+      </div >
+    )
+  }

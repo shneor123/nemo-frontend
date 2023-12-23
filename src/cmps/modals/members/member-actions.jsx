@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { useDispatch ,useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { utilService } from "../../../services/basic/util.service"
 import { boardService } from "../../../services/board/board.service"
 import { setModal } from "../../../store/actions/app.actions"
@@ -60,7 +60,14 @@ export const MemberActions = ({ task, member, board }) => {
 
         <div className="member-name">
           <h1 className="member-fullname">{member.fullname}</h1>
-          <h2 className="member-username">{member.username === 'guest' ? 'guest@gmail.com' : member.username}</h2>
+          <h2 className="member-username">
+            {member.username === 'guest'
+              ? 'guest@gmail.com'
+              : member.fullname.includes('@')
+                ? `@${member.fullname.split('@')[0]}`
+                : `@${member.fullname.replace(/\s/g, '')}`}
+          </h2>
+
         </div>
       </div>
       <button className="remove-btn" onClick={onRemoveMember}>

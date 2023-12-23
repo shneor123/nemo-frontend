@@ -94,6 +94,18 @@
 
   &.wide-dynamic-filter {
     width: 290px;
+    margin-top: 40px;
+    @include for-mobile-layout {
+      margin-top: 0px;
+  }
+  }
+  &.theme-modal{
+    @include for-narrow-layout {
+      margin-left: 220px;
+  }
+    @include for-mobile-layout {
+      margin-left:0px
+  }
   }
 
   header {

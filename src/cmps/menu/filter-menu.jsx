@@ -7,7 +7,7 @@ import { utilService } from "../../services/basic/util.service";
 
 export const FilterMenu = ({ isFilterModalOpen, board }) => {
     const dispatch = useDispatch()
-    const [currFilter, setCurrFilter] = useState({ txt: '', labelIds: [], memberIds: [], })
+    const [currFilter, setCurrFilter] = useState({ txt: '', labelIds: [], memberIds: [],filteredTasks:[] })
     const [filteredMembers, setFilteredMembers] = useState(board.members);
     const [filteredLabels, setFilteredLabels] = useState(board.labels);
 
@@ -58,13 +58,34 @@ export const FilterMenu = ({ isFilterModalOpen, board }) => {
         const membersToShow = board.members.filter(member => member.checked)
         const memberIds = membersToShow.map(member => member._id)
         setCurrFilter(() => ({ ...currFilter, members: memberIds }))
+        console.log('Tasks with No Due Date:', currFilter);
+        console.log('Tasks with :', memberIds);
         dispatch(setFilter(currFilter))
     }
+
+    const onShowOverdueTasks = () => {
+        const overdueTasks = board.groups.reduce((acc, group) => [
+            ...acc,
+            ...group.tasks.filter((task) => task.dueDate && !task.isDane && Date.now() - task.dueDate > 0)
+        ], []);
+    
+        console.log('Overdue Tasks:', overdueTasks);
+    };
+    const onShowNoDateTasks = () => {
+        const tasksWithNoDueDate = board.groups.reduce((acc, group) => [
+            ...acc,
+            ...group.tasks.filter(task => !task.dueDate)
+        ], []);
+        console.log('Tasks with No Due Date:', tasksWithNoDueDate);
+    };
+    
+    
 
     return (
         <section className="filter-container" style={{ display: isFilterModalOpen }}>
             <p className="sub-title">Keyword</p>
             <div className="search-container">
+
                 <input type="search" name="txt" placeholder="Enter a keyword..." value={currFilter.txt} onChange={onHandleChange} />
             </div>
             <div className="scrollable-content">

@@ -23,6 +23,7 @@ async function query(filterBy = { name: '', sort: 'created' }) {
     return boardsFromDB
 }
 
+
 async function getById(boardId) {
     return await httpService.get(`${BOARD_BASE_ENDPOINT}/${boardId}`)
 }

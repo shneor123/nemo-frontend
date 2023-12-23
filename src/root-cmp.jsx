@@ -47,7 +47,7 @@ function App() {
         <Route element={<LoginSignup />} path={"/login"} />
         <Route element={<WorkSpace />} path={"/workspace"} />
         <Route element={<BoardApp isPreviewEnd={isPreviewEnd} setPreviewEndTrue={setPreviewEndTrue} setPreviewEndFalse={setPreviewEndFalse} />} path={"/board/:boardId"}>
-          <Route element={<TaskDetails />} path={":groupId/:taskId"} />
+          <Route element={<TaskDetails isPreviewEnd={isPreviewEnd}/>} path={":groupId/:taskId"} />
           <Route element={<Dashboard isPreviewEnd={isPreviewEnd} />} path="dashboard" />
         </Route>
         <Route element={<UserProfile />} path={'/users/:id'} />

@@ -1,7 +1,7 @@
 .member-section {
   overflow-x: hidden;
-  overflow-y: auto;
-  width: 280px;
+  // overflow-y: auto;
+  max-width: 280px;
 
   .search-box {
     input {
@@ -35,6 +35,8 @@
 
   .members-box {
     margin-top: 12px;
+    max-height: 280px;
+    overflow-y: auto;
 
     .label {
       @include task-sub-header();

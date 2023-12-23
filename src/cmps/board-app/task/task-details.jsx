@@ -9,7 +9,7 @@ import { saveTask } from "../../../store/actions/task.action"
 import { useForm } from "../../../hooks/useForm"
 import { TaskDetailsCover } from "../../board-app/task/task-details-cover"
 
-export const TaskDetails = () => {
+export const TaskDetails = ({isPreviewEnd}) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -53,7 +53,7 @@ export const TaskDetails = () => {
         className="task-details-wrapper"
       >
 
-        <div className="task-details" onClick={(ev) => ev.stopPropagation()}>
+        <div style={{ borderRadius: isPreviewEnd ? '10px' : '3px',}} className="task-details" onClick={(ev) => ev.stopPropagation()}>
           {task.style && <TaskDetailsCover task={task} boardId={boardId} groupId={groupId} />}
           {task?.style?.bgColor &&
             <div className="task-details-back-btn" onClick={() => navigate(`/board/${boardId}`)}>

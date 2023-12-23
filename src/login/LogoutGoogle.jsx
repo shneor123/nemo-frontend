@@ -3,7 +3,7 @@ import { CLIENT_ID } from '../.secret/api';
 
 export function LogoutWithGoogle() {
     const handleLogout = (res) => {
-        console.log("Log out successfulli!")
+        console.log(" successfulli!")
     }
 
     return (

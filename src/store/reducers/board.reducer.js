@@ -5,7 +5,9 @@ const initialState = {
         txt: '',
         labelIds: [],
         members: [],
-    }
+        filteredTasks: [],
+    },
+
 }
 
 export function boardReducer(state = initialState, action) {

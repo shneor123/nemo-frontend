@@ -1,3 +1,4 @@
+import { userService } from "../../services/basic/user.service";
 import { boardService } from "../../services/board/board.service";
 
 // Action Creators:
@@ -38,17 +39,26 @@ export function loadBoard(boardId) {
 }
 
 export function loadBoards() {
-    return (dispatch) => {
-        boardService.query()
-            .then(boards => {
-            console.log('boards:', boards);
-                dispatch({ type: 'SET_BOARDS', boards })
-            })
-            .catch(err => {
-                console.log('Cannot load boards', err)
-            })
+    return async (dispatch) => {
+        try {
+            const boards = await boardService.query();
+            console.log('board',boards);
+            const currentUser = userService.getLoggedinUser();
+            if (currentUser) {
+                const filteredBoards = boards.filter(board => {
+                    return board.createdBy._id === currentUser._id || board.members.some(member => member._id === currentUser._id);
+                });
+                dispatch({ type: 'SET_BOARDS', boards: filteredBoards });
+            } else {
+                dispatch({ type: 'SET_BOARDS', boards });
+            }
+        } catch (err) {
+            console.log('Cannot load boards', err);
+        }
     }
 }
+
+
 
 export function removeBoard(boardId) {
     return async (dispatch) => {

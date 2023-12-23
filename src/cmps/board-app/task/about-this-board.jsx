@@ -4,6 +4,7 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
 import { useForm } from '../../../hooks/useForm'
 import { updateBoard } from '../../../store/actions/board.action'
+import { useSelector } from 'react-redux'
 export const AboutThisBoard = ({ iOpenAboutBoard, board }) => {
     const [isDescOpen, setIsDescOpen] = useState(false)
     const dispatch = useDispatch()
@@ -15,6 +16,10 @@ export const AboutThisBoard = ({ iOpenAboutBoard, board }) => {
         setIsDescOpen(false)
     }
 
+  const { user } = useSelector((storeState) => storeState.userModule)
+
+
+console.log(`createdBy ${board.createdBy._id == user._id}`);
     return (
         <section className="task-description flex column " onBlur={() => setIsDescOpen(false)} style={{ display: iOpenAboutBoard }}>
 

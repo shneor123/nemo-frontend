@@ -113,7 +113,7 @@ export const DynamicModalCmp = ({ isPreviewEnd }) => {
       cmp = <ActionModal {...modal.props} />
       break;
     case "Create Board":
-      cmp = <AddBoard{...modal.props} />;
+      cmp = <AddBoard {...modal.props} />;
       break;
     case "Menu":
       cmp = <Menu {...modal.props} />;
@@ -209,7 +209,7 @@ export const DynamicModalCmp = ({ isPreviewEnd }) => {
             modal.category === 'Img modal' ? 'pos-img ' : modal.category === 'Members side' ? 'wide-side' :
               modal.category === 'Dynamic filter' ? 'wide-dynamic-filter' :
                 modal.category === 'Search modal' ? 'hehigt-dynamic-search' :
-                  ''}`}
+                  modal.category === 'Theme' ? 'theme-modal' : ''}`}
       style={{ ...position, borderRadius: isPreviewEnd ? '10px' : '3px', }}
       ref={modalRef}
       onClick={(e) => e.stopPropagation()}
