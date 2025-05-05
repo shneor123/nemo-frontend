@@ -1,0 +1,51 @@
+.pop-up-menu {
+  position: absolute;
+  top: 44px;
+  width: 340px;
+  right: -340px;
+  padding: 0px 4px 5px 4px;
+  height: calc(100vh - 44px);
+  background-color: #f2f3f6;
+  z-index: 10000;
+  transition: all 0.5s;
+}
+
+.back-menu {
+  position: absolute;
+  left: 0;
+  top: 7px;
+
+}
+
+.menu-open {
+  right: 0px;
+
+}
+
+.menu-content-wrapper {
+  z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 12px;
+  height: 85vh;
+}
+
+.costume {
+  .btn {
+    border-radius: 0.5rem;
+    height: 96px;
+    width: 143px;
+    background-size: cover;
+    background-color: #eaecf0;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  span {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+}

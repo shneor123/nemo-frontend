@@ -1,0 +1,217 @@
+.dynamic-filter {
+    .empty-star {
+        margin-inline-start: -7px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    li {
+        display: grid;
+        grid-template-columns: 45px 1fr 30px;
+        grid-template-rows: 40px;
+        align-items: center;
+        margin-inline-start: -30px;
+
+        &:hover {
+            background-color: rgba(#172b4d, 0.1);
+
+            .star-wrapper {
+                &.no-starred {
+                    display: block;
+                }
+            }
+
+        }
+
+        div {
+            display: inline-block;
+            flex: 0 0 auto;
+            background-size: cover;
+            border-radius: 3px;
+            height: 32px;
+            width: 40px;
+            position: relative;
+            opacity: 1;
+            cursor: pointer;
+
+        }
+    }
+
+    p {
+        text-align: start;
+        margin-left: 4px;
+        break-inside: break-word;
+        color: #172b4d !important;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 500;
+    }
+
+    .star-wrapper {
+        margin-top: 9px;
+
+        svg {
+            stroke: #172b4d;
+            display: block;
+        }
+
+        &.starred {
+            svg {
+                stroke: none;
+                fill: #f2d600;
+                width: 18px;
+                opacity: 1;
+            }
+        }
+
+        &.no-starred {
+            display: none;
+
+            svg {
+                stroke: none;
+                fill: black;
+
+                &:hover {
+                    fill: #f2d600;
+                }
+            }
+        }
+    }
+}
+
+.search {
+    border-radius: 5px;
+    background-color: #FFFFFF14;
+    border: 1px solid #FFFFFF14;
+    margin-top: 3px;
+    cursor: pointer;
+
+    ::placeholder {
+        color: #fff;
+    }
+
+    .search-input-header {
+        margin: 4px 9px 12px;
+        width: 100%;
+        background-color: #fafbfc;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+        display: block;
+        line-height: 20px;
+        margin-bottom: 12px;
+        outline: none;
+        padding: 8px 12px;
+        transition-duration: 85ms;
+        transition-property: background-color, border-color, box-shadow;
+        transition-timing-function: ease;
+    }
+    
+    svg {
+        height: 20px;
+        width: 20px;
+        fill: #FAFBFC;
+        margin: 2px 4px 0;
+    }
+}
+
+.modal-star-nav {
+    z-index: 10000;
+
+    h3 {
+        border-bottom: 1px solid #00000014;
+        padding-block: 10px;
+        margin-block-start: 10px;
+        font-weight: bold;
+        padding: 0.5rem;
+    }
+
+    li {
+        display: grid;
+        grid-template-columns: 45px 1fr 30px;
+        grid-template-rows: 40px;
+        align-items: center;
+
+        &:hover {
+            background-color: rgba(#172b4d, 0.1);
+        }
+
+        &:first-of-type {
+            padding-top: 10px;
+        }
+
+        div {
+            margin-top: -5px;
+            height: 20px;
+            width: 26px;
+            border-radius: 3px;
+        }
+
+    }
+
+    p {
+        text-align: start;
+        break-inside: break-word;
+        font-size: 0.75rem;
+        color: #172b4d !important;
+    }
+
+    .star-wrapper {
+        cursor: pointer;
+
+        svg {
+            stroke: #172b4d;
+        }
+
+        &.starred {
+            svg {
+                stroke: none;
+                fill: #f2d600;
+            }
+        }
+
+        &.no-starred {
+            svg {
+                fill: #f2d600;
+            }
+        }
+    }
+}
+
+.filter {
+    margin-right: 5px;
+
+    &>* {
+        @include btn-filter($type: dark);
+        margin-inline-end: -5px;
+        background: transparent;
+    }
+}
+
+.filter-width {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .filter {
+        display: none;
+    }
+
+    .filter-width {
+        display: block;
+
+        &>* {
+            @include btn-filter($type: dark);
+            margin-inline-end: -5px;
+            background: transparent;
+        }
+    }
+
+    .hidden-block {
+        display: block;
+    }
+
+    .hidden-none {
+        display: none;
+    }
+}
