@@ -13,21 +13,26 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
     const deleteRef = useRef()
     const editRef = useRef()
 
-    const onRemoveAttachment = () => {
-        const { name } = attachment;
-        const attachmentIdx = task.attachments.findIndex(attachment => attachment.id === attachment)
+const onRemoveAttachment = () => {
+    const { name } = attachment;
+    const attachmentIdx = task.attachments.findIndex(a => a.id === attachment.id)
+    if (attachmentIdx !== -1) {
         task.attachments.splice(attachmentIdx, 1)
-        const activity = {
-            txt: 'deleted attachment from this card',
-            boardTxt: `deleted the ${name} attachment`,
-            byMember: userService.getLoggedinUser() || {
-                username: "guest",
-                fullname: "guest",
-                imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            },
-        }
-        dispatch(saveTask(task, boardId, groupId, activity, attachmentIdx))
     }
+
+    const activity = {
+        txt: 'deleted attachment from this card',
+        boardTxt: `deleted the ${name} attachment`,
+        byMember: userService.getLoggedinUser() || {
+            username: "guest",
+            fullname: "guest",
+            imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+        },
+    }
+
+    dispatch(saveTask(task, boardId, groupId, activity))
+}
+
 
     const editTitle = (fileName) => {
         const attIdx = task.attachments.findIndex((currAtt) => currAtt.id === attachment.id)
@@ -67,7 +72,7 @@ export const AttachmentPreview = ({ task, boardId, groupId, attachment }) => {
                 <a className='attachment-preview-img'
                     style={{ backgroundImage: `url(${attachment.url})` }}
                     href={attachment.url} target={'_blank'}>
-                <img className='attachment-preview-img' src={attachment.url} />
+                    <img className='attachment-preview-img' src={attachment.url} />
                 </a>
                 <div className='attachment-details'>
                     <span className='attachment-name'>{attachment.name}</span>

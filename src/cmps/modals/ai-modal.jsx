@@ -4,7 +4,6 @@
 // external
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition"
 // services
-import { aiService } from "../../services/board/ai.service"
 import { utilService } from "../../services/basic/util.service"
 // actions
 import { saveChecklist } from "../../store/actions/checklist.action"
@@ -40,8 +39,6 @@ export function AiModal({ task, boardId, groupId }) {
       command: "build *",
       callback: async (sttInput) => {
         try {
-          const response = await aiService.getAiTextCompletion(sttInput)
-          onCreateAiChecklist(response)
         } catch (err) {
           console.log('could not get response from stt : ', err)
         }

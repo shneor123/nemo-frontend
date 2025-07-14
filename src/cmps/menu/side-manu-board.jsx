@@ -59,8 +59,8 @@ export const SideManuBoard = ({ board, boardId, boards }) => {
       <div className="boards-container">
         {boards.map(board => {
           return (
-            <div>
-              <Link to={`/board/${board._id}`} key={board._id} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
+    <div key={board._id}>
+      <Link to={`/board/${board._id}`} className={`btn-nav ${boardId === board._id ? 'isClicked' : ''}`}>
                {/* <div className="board-icon"
                   style={{
                     background: board.style.background

@@ -165,42 +165,56 @@ export function handleDrag(
     droppableIndexEnd,
     type
 ) {
-    console.log('board start', board._id);
-    return async dispatch => {
-        if (type === 'group') {
-            // take out group from old index
-            const group = board.groups.splice(droppableIndexStart, 1);
-            // insert group to new index
-            board.groups.splice(droppableIndexEnd, 0, ...group);
-        } else {
-            // Moving task in the same group
-            if (droppableIdStart === droppableIdEnd) {
-                const group = board.groups.find(group => group.id === droppableIdStart);
-                const task = group.tasks.splice(droppableIndexStart, 1);
-                group.tasks.splice(droppableIndexEnd, 0, ...task);
-            } else {
-                // Moving task between differents groups // CR: also refactor name
-                // if (droppableIdStart !== droppableIdEnd) {
-                // Find the group where drag happened
-                const groupStart = board.groups.find(group => group.id === droppableIdStart);
+    console.log('🎯 handleDrag → board:', board?._id);
 
-                // Pull out task from this group
-                const task = groupStart.tasks.splice(droppableIndexStart, 1);
-
-                // Find the group where drag ended
-                const groupEnd = board.groups.find(group => group.id === droppableIdEnd);
-
-                // Put the task in the new group
-                groupEnd.tasks.splice(droppableIndexEnd, 0, ...task);
-            }
-            // }
+    return async (dispatch) => {
+        // הגנה בסיסית
+        if (!board || !board.groups) {
+            console.error('🚨 Invalid board data');
+            return;
         }
-        console.log(board._id);
-        const savedBoard = await boardService.save(board);
 
-        dispatch({
-            type: 'SAVE_BOARD',
-            board: savedBoard,
-        });
+        // העברת רשימות (groups)
+        if (type === 'group') {
+            const movedGroup = board.groups.splice(droppableIndexStart, 1);
+            board.groups.splice(droppableIndexEnd, 0, ...movedGroup);
+        } else {
+            // העברת משימה
+            if (!droppableIdStart || !droppableIdEnd) {
+                console.warn('🚫 Missing droppableId');
+                return;
+            }
+
+            const groupStart = board.groups.find(group => group.id === droppableIdStart);
+            const groupEnd = board.groups.find(group => group.id === droppableIdEnd);
+
+            if (!groupStart || !groupEnd) {
+                console.error('🚨 Could not find source or destination group');
+                return;
+            }
+
+            // באותה רשימה
+            if (droppableIdStart === droppableIdEnd) {
+                const movedTask = groupStart.tasks.splice(droppableIndexStart, 1);
+                groupStart.tasks.splice(droppableIndexEnd, 0, ...movedTask);
+            } else {
+                // בין רשימות שונות
+                const movedTask = groupStart.tasks.splice(droppableIndexStart, 1);
+                groupEnd.tasks.splice(droppableIndexEnd, 0, ...movedTask);
+            }
+        }
+
+        try {
+            const savedBoard = await boardService.save(board);
+
+            dispatch({
+                type: 'SAVE_BOARD',
+                board: savedBoard,
+            });
+
+            console.log('✅ Board saved after drag:', savedBoard._id);
+        } catch (err) {
+            console.error('❌ Failed to save board after drag', err);
+        }
     };
 }

@@ -9,40 +9,50 @@ export const AttachmentModal = ({ task, boardId, groupId }) => {
     const dispatch = useDispatch()
     const [attachData, setAttachData] = useState({ url: '' })
 
-    const onAttachLink = ev => {
-        ev.preventDefault()
-        const { url } = attachData
-        if (!url) return
-        const isValid = utilService.isValidUrl(url)
-        if (isValid) onAddFile(attachData)
-    }
+const onAttachLink = (ev) => {
+  ev.preventDefault()
+  const { url } = attachData
+  if (!url) return
+  console.log('URL:', url)
+
+  const isValid = utilService.isValidUrl(url)
+  console.log('isValid:', isValid)
+
+  if (isValid) onAddFile({ url, name: 'Link Attachment' })
+  else alert('Invalid URL!')
+}
 
     const onUploadFile = async (ev) => {
         try {
-            const url = await uploadService.uploadImg(ev)
+            const res = await uploadService.uploadImg(ev)
+            const url = res.secure_url // הוספתי כאן
             onAddFile({ url })
         } catch (err) {
             console.log('error in getting url From Cloudinary', err)
         }
     }
 
-    const onAddFile = (attachData) => {
-        const updateAttachment = attachData
-        updateAttachment.id = utilService.makeId()
-        updateAttachment.createdAt = Date.now()
-        updateAttachment.name = 'Media Url'
-        task.attachments.push(updateAttachment)
-        const activity = {
-            txt: 'add attachment in this card',
-            boardTxt: `added ${updateAttachment.name} in this attachment card`,
-            byMember: userService.getLoggedinUser() || {
-                username: "guest",
-                fullname: "guest",
-                imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            }
-        }
-        dispatch(saveTask(task, boardId, groupId, activity))
+   const onAddFile = (attachData) => {
+  const updatedAttachment = {
+    id: utilService.makeId(),
+    createdAt: Date.now(),
+    url: attachData.url,
+    name: attachData.name || 'Attachment'
+  }
+  task.attachments.push(updatedAttachment)
+
+  const activity = {
+    txt: 'added attachment to this card',
+    boardTxt: `added ${updatedAttachment.name} attachment`,
+    byMember: userService.getLoggedinUser() || {
+      username: "guest",
+      fullname: "guest",
+      imgUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     }
+  }
+  dispatch(saveTask(task, boardId, groupId, activity))
+}
+
 
 
     return (

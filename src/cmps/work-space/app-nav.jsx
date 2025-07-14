@@ -31,11 +31,12 @@ export const AppNav = () => {
                         <span className="trellicons icon-board"></span>
                         <span>Boards</span>
                     </NavLink>
-
-                    <NavLink to={'/'} className="btn home-btn align-center gap20">
-                        <span className="trellicons icon-home"></span>
-                        <span>Home</span>
-                    </NavLink>
+                    {!user && user.fullname == 'Guest' && (
+                        <NavLink to={'/'} className="btn home-btn align-center gap20">
+                            <span className="trellicons icon-home"></span>
+                            <span>Home</span>
+                        </NavLink>
+                    )}
                     <hr className='hr' />
                     <span style={{ fontSize: 12, marginLeft: 12 }}>Workspaces</span>
                     {user && user.fullname !== 'Guest' && (

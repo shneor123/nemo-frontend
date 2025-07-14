@@ -10,7 +10,7 @@
         grid-template-columns: 45px 1fr 30px;
         grid-template-rows: 40px;
         align-items: center;
-        margin-inline-start: -30px;
+        margin-inline-start: -4px;
 
         &:hover {
             background-color: rgba(#172b4d, 0.1);
@@ -39,7 +39,8 @@
 
     p {
         text-align: start;
-        margin-left: 4px;
+        margin-left:8px;
+        margin-top:8px;
         break-inside: break-word;
         color: #172b4d !important;
         font-size: 14px;

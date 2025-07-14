@@ -36,7 +36,7 @@ export const Activity = ({ activities, taskId, boardId }) => {
         <section className="activity-container">
             <div className={`title-container ${taskId ? '' : 'menu'}`}>
                 <span className="activity-icon trellicons activity-icon large"></span> 
-                <h3>Activity</h3>
+                <h3 style={{marginBottom:30, marginTop:12}}>Activity</h3>
                 {taskId && <button className="details-btn"
                     onClick={() => setToggleShow(!toggleShow)} >
                     {toggleShow ? 'Hide details' : 'Show details'}

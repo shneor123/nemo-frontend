@@ -12,6 +12,7 @@ import { MemberPreview } from "../modals/members/member-preview"
 import { setModal } from "../../store/actions/app.actions"
 import { boardService } from "../../services/board/board.service"
 import { useForm } from "../../hooks/useForm"
+import { updateBoard } from "../../store/actions/board.action"
 
 export const BoardHeader = ({ boardId, board, users }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -36,7 +37,7 @@ export const BoardHeader = ({ boardId, board, users }) => {
   };
   const handleInputBlur = () => {
     setIsEditing(false);
-    updateBoard({ title: fields.boardTitle });
+    updateThisBoard({ title: fields.boardTitle });
   };
   const onOpenMenu = () => {
     setIsMenuOpen(true);
@@ -67,7 +68,7 @@ export const BoardHeader = ({ boardId, board, users }) => {
       console.error(err)
     }
   }
-  const updateBoard = (updatedTask) => {
+  const updateThisBoard = (updatedTask) => {
     board.title = updatedTask.title
     onUpdateBoard(board)
   }
@@ -83,8 +84,8 @@ export const BoardHeader = ({ boardId, board, users }) => {
         activities={board.activities}
       />
       <div className="toolbar-left">
-        <span className="board-toolbar-title-container" onClick={handleTitleClick}>
-          {/* {isEditing ? (
+        <span className="board-toolbar-title-container">
+          {isEditing ? (
             <input
               style={{ height: '30px', width: '100%', fontWeight: 'bold' }}
               type="text"
@@ -93,18 +94,26 @@ export const BoardHeader = ({ boardId, board, users }) => {
               value={fields.boardTitle}
               onChange={handleChange}
               onBlur={handleInputBlur}
-              onKeyPress={(e) => {
+              onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleInputBlur();
+                  e.preventDefault()
+                  handleInputBlur()
                 }
               }}
               autoFocus
             />
-          ) : ( */}
-            <h1 className="board-toolbar-title">{board.title}</h1>
-           {/* )} */}
+          ) : (
+            <h1
+              className="board-toolbar-title"
+              onClick={handleTitleClick}
+              title="Click to edit"
+              style={{ cursor: 'pointer' }}
+            >
+              {board.title}
+            </h1>
+          )}
         </span>
+
         <span onClick={onToggleStar} className="toolbar-btn star-btn">
           {board.isStar ? <AiFillStar color={"gold"} size={17} /> : <AiOutlineStar size={17} />}
         </span>

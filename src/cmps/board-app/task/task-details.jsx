@@ -9,7 +9,7 @@ import { saveTask } from "../../../store/actions/task.action"
 import { useForm } from "../../../hooks/useForm"
 import { TaskDetailsCover } from "../../board-app/task/task-details-cover"
 
-export const TaskDetails = ({isPreviewEnd}) => {
+export const TaskDetails = ({ isPreviewEnd }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -17,19 +17,19 @@ export const TaskDetails = ({isPreviewEnd}) => {
   const [task, setTask] = useState(null);
   const [group, setGroup] = useState(null);
   const [isEditTitle, setIsEditTitle] = useState(false);
+  const [title, setTitle] = useState('');
   const { board } = useSelector((storeState) => storeState.boardModule)
-  // might need use effect for users as well
   const { users } = useSelector((storeState) => storeState.userModule)
   const [fields, handleChange, _, setFields] = useForm(null)
+
 
   useEffect(() => {
     const currGroup = board?.groups.find(group => group.id === groupId);
     setGroup(currGroup)
     const currTask = currGroup?.tasks?.find(task => task.id === taskId);
     setTask(currTask)
-    // setFields({ title: currTask.title })
+    if (currTask) setTitle(currTask.title);
   }, [board]);
-
 
 
 
@@ -38,11 +38,14 @@ export const TaskDetails = ({isPreviewEnd}) => {
   //   if (e.key === "Escape") navigate(-1);
   // };
 
+
   const onSaveTask = (ev = null) => {
     if (ev) ev.preventDefault();
-    task.title = fields.title
+    task.title = title;
     dispatch(saveTask(task, boardId, groupId));
+    setIsEditTitle(false);
   };
+
 
   if (task) {
     return (
@@ -53,7 +56,7 @@ export const TaskDetails = ({isPreviewEnd}) => {
         className="task-details-wrapper"
       >
 
-        <div style={{ borderRadius: isPreviewEnd ? '10px' : '3px',}} className="task-details" onClick={(ev) => ev.stopPropagation()}>
+        <div style={{ borderRadius: isPreviewEnd ? '10px' : '3px', }} className="task-details" onClick={(ev) => ev.stopPropagation()}>
           {task.style && <TaskDetailsCover task={task} boardId={boardId} groupId={groupId} />}
           {task?.style?.bgColor &&
             <div className="task-details-back-btn" onClick={() => navigate(`/board/${boardId}`)}>
@@ -80,10 +83,11 @@ export const TaskDetails = ({isPreviewEnd}) => {
                 type="text"
                 name="title"
                 onBlur={onSaveTask}
-                value={task.title}
-                onChange={handleChange}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </form>
+
             <p>
               In list <span className="task-title-group">{group.title}</span>
             </p>

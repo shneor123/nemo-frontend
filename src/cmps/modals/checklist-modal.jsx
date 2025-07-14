@@ -3,11 +3,17 @@ import { saveChecklist } from '../../store/actions/checklist.action';
 import { utilService } from '../../services/basic/util.service';
 import { userService } from '../../services/basic/user.service';
 import { useForm } from '../../hooks/useForm';
+import { setModal } from '../../store/actions/app.actions';
 
 
-export const ChecklistModal = ({ boardId, groupId, taskId, onCloseModal, taskTitle }) => {
+export const ChecklistModal = ({ boardId, groupId, taskId, taskTitle }) => {
     const [fields, handleChange] = useForm({ title: 'Checklist' })
     const dispatch = useDispatch()
+
+
+    const onCloseModal = () => {
+        dispatch(setModal(null))
+    }
 
     const onSaveChecklist = (ev) => {
         ev.preventDefault()
@@ -25,7 +31,7 @@ export const ChecklistModal = ({ boardId, groupId, taskId, onCloseModal, taskTit
             },
         }
         dispatch(saveChecklist(checklist, boardId, groupId, taskId, activity));
-        onCloseModal()
+        onCloseModal?.()
     }
 
     return <div className="checklist-modal-container">

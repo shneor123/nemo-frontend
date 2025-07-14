@@ -19,11 +19,13 @@
     "element-react": "^1.4.34",
     "fast-average-color": "^7.1.0",
     "file-saver": "^2.0.5",
+    "framer-motion": "^12.9.4",
     "gapi-script": "^1.2.0",
     "html-to-image": "^1.11.11",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.507.0",
     "moment": "^2.29.3",
-    "openai": "^2.0.5",
+    "openai": "^5.9.0",
     "react": "^18.1.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-chartjs-2": "^4.2.0",
@@ -40,7 +42,9 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "react-slideshow-image": "^4.3.2",
     "react-speech-recognition": "^3.9.1",
+    "react-swipeable": "^7.0.2",
     "react-transition-group": "^4.4.5",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
@@ -84,5 +88,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3"
   }
 }

@@ -28,7 +28,7 @@ export const BoardApp = ({ isPreviewEnd, setPreviewEndTrue, setPreviewEndFalse }
     socketService.on('update-board', async (boardFromSocket) => {
       onLoadBoard(boardFromSocket._id)
     })
-  }, []);
+  }, [boardId]);
 
   const setSocket = () => {
     try {
@@ -46,44 +46,59 @@ export const BoardApp = ({ isPreviewEnd, setPreviewEndTrue, setPreviewEndFalse }
     dispatch(loadBoard(boardId))
   }
 
-  const onDragEnd = (result) => {
-    const { source, destination, type } = result
-    dispatch(
-      handleDrag(
-        board,
-        source.droppableId,
-        destination.droppableId,
-        source.index,
-        destination.index,
-        type
-      )
-    );
-  };
-  if (!board) return <Loader />
-  return (
-    <>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <div className="board-app-wrapper"
-          // style={{
-          //   background: board.style.background ? `${board.style.background}` : `${board.style.bgImg
-          //     ? `url(${board.style.bgImg})center center / cover` : `url(${board.style.imgUrl})center center / cover`}`,
-          //   backgroundColor: `${board.style.backgroundColor}`
-          // }}>
+const onDragEnd = (result) => {
+    const { source, destination, type } = result;
 
-          style={{
-            background: board.style && board.style.background
-              ? `${board.style.background}`
-              : `url(${board.style && (board.style.bgImg || board.style.imgUrl)}) center center / cover`,
-            backgroundColor: board.style && `${board.style.backgroundColor}`
-          }}>
-          <div className="board-app">
-            <BoardHeader boardId={boardId} board={board} users={users} boards={boards} />
-            <br />
-            <GroupList filterBy={filterBy} boards={boards} board={board} labelOpenState={board.labelOpenState} groups={board.groups} boardId={boardId} labels={board.labels} boardMembers={board.members} isPreviewEnd={isPreviewEnd} setPreviewEndTrue={setPreviewEndTrue} setPreviewEndFalse={setPreviewEndFalse} />
-            <Outlet />
-          </div>
-        </div>
-      </DragDropContext>
-    </>
-  )
+    if (!destination) {
+        console.warn('🛑 No destination — item was dropped outside of droppable.');
+        return;
+    }
+
+    dispatch(
+        handleDrag(
+            board,
+            source.droppableId,
+            destination.droppableId,
+            source.index,
+            destination.index,
+            type
+        )
+    );
+};
+
+  console.log('board123', board);
+
+if (!board) return <Loader />
+
+return (
+  <DragDropContext onDragEnd={onDragEnd}>
+    <div
+      className="board-app-wrapper"
+      style={{
+        background: board.style?.background
+          ? board.style.background
+          : `url(${board.style?.bgImg || board.style?.imgUrl}) center center / cover`,
+        backgroundColor: board.style?.backgroundColor
+      }}
+    >
+      <div className="board-app">
+        <BoardHeader boardId={boardId} board={board} users={users} boards={boards} />
+        <GroupList
+          filterBy={filterBy}
+          boards={boards}
+          board={board}
+          labelOpenState={board.labelOpenState}
+          groups={board.groups}
+          boardId={boardId}
+          labels={board.labels}
+          boardMembers={board.members}
+          isPreviewEnd={isPreviewEnd}
+          setPreviewEndTrue={setPreviewEndTrue}
+          setPreviewEndFalse={setPreviewEndFalse}
+        />
+        <Outlet />
+      </div>
+    </div>
+  </DragDropContext>
+)
 }
