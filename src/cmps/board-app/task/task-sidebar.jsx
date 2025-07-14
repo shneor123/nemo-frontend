@@ -211,7 +211,7 @@ export const TaskSidebar = ({ board, boardMembers, boardId, groupId, task, label
             element: shareRef.current,
             category: 'Share',
             title: 'Share and more…',
-            props: { element: shareRef.current, boardId },
+            props: { element: shareRef.current,board, boardId, groupId, task },
           })}>
           <span className="sidebar-icon"> <span className="trellicons share"></span></span>
           <span>Share</span>
