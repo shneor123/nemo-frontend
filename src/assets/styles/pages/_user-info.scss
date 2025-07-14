@@ -1,0 +1,68 @@
+.users-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: auto;
+  margin-top: 10px;
+  justify-content: center;
+  width: 70%;
+
+  *>p {
+      padding: 0 10px 0 10px;
+      margin: 10px;
+  }
+
+  *>button {
+      margin: 10px;
+      font-size: 13px;
+      padding: 0 10px 0 10px;
+  }
+
+  *>span {
+      margin-top: -20px;
+      margin-left: -135px;
+  }
+}
+
+.user-preview {
+  margin-top: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $clr3;
+  box-shadow: 5px 5px 6px -3px $clr1;
+  border-radius: 0.3em;
+  gap: 0.2em;
+
+  &.selected {
+      outline: 5px solid $clr1;
+  }
+}
+
+.review-list.users-list {
+  max-height: 300px;
+
+  >* {
+      justify-content: space-between;
+  }
+}
+
+.user-img-container {
+  >img {
+      height: 50px;
+      width: 50px;
+      margin-top: 10px;
+      border-radius: 50%;
+  }
+}

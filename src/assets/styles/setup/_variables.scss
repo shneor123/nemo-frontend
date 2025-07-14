@@ -1,0 +1,33 @@
+// theme colors
+$clr1: #fafbfc; //bg
+$clr2: #026aa7; //header
+$clr3: #e4f0f6; // active side bar
+$clr4: #172b4d; //font color
+$clr5: #0079bf; //hoover font color
+$clr6: #fdfefe; //whites color
+$clr7: #717e92; // unbold font color
+$clr8: #ebecf0; // group background color
+$clr9: #172b4d; 
+$clr11: #42526e;
+
+
+$textDark: #172b4d;
+$textLight: white;
+
+
+// LAYOUT
+$layoutPadding: 20px;
+
+
+// Breakpoints
+$mobile-breakpoint: 550px;
+$narrow-breakpoint: 800px;
+$normal-breakpoint: 980px;
+$wide-breakpoint: 1200px;
+
+
+
+$padded-break-mobile: $mobile-breakpoint ;
+$padded-break-normal: $narrow-breakpoint ;
+$padded-break-narrow: $normal-breakpoint ;
+$padded-break-wide: $wide-breakpoint ;

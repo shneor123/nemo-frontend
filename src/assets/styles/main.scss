@@ -1,0 +1,140 @@
+// Setup
+@import "setup/variables";
+@import "setup/functions";
+@import "setup/mixins";
+@import "setup/typography";
+
+// // Basics
+@import "basics/helpers";
+@import "basics/layout";
+@import "basics/base";
+
+// Pages
+@import 'pages/home-page';
+@import 'pages/section__1';
+@import 'pages/section__2';
+@import 'pages/section__3';
+
+
+@import 'pages/board-app';
+@import "pages/login-signup";
+@import "pages/work-space";
+@import "pages/login-signup";
+@import "pages/user-profile";
+
+//  Components
+
+// General
+@import "cmps/general/app-header";
+@import "cmps/general/toolbar";
+@import "cmps/general/avatar";
+@import "cmps/general/menu";
+@import "cmps/general/loader";
+@import "cmps/general/dynamic-filter";
+@import "cmps/general/theme-modal";
+
+// Workspace
+@import "cmps/work-space/board-list";
+@import "cmps/work-space/board-preview";
+@import "cmps/work-space/new-board";
+@import "cmps/work-space/more-board";
+@import "cmps/work-space/app-nav";
+
+// Group
+@import "cmps/group/group-list";
+@import "cmps/group/group-preview";
+
+// Task
+@import "cmps/task/task-preview";
+@import "cmps/task/task-list";
+@import "cmps/task/task-details";
+@import "cmps/task/task-sidebar";
+@import "cmps/task/task-description";
+@import "cmps/task/task-activity";
+@import "cmps/task/task-activity-profile";
+@import "cmps/task/task-checklists";
+@import "cmps/task/data-gutter";
+@import "cmps/task-atachment-edit";
+@import "cmps/task-atachment-modal";
+@import "cmps/task-atachment-preivew";
+@import "cmps/task-dates";
+@import "cmps/task-date-preview";
+@import "cmps/edit-preview";
+@import "cmps/task-cover-modal";
+
+//menu
+@import "cmps/menu/main-menu";
+@import "cmps/menu/color-menu";
+@import "cmps/menu/filter-menu";
+@import "cmps/menu/archive-menu";
+@import "cmps/menu/side-board-app";
+
+
+// Modals
+@import "cmps/modals/dynamic-modal-cmp";
+@import "cmps/modals/member-modal";
+@import "cmps/modals/member-side";
+@import "cmps/modals/member-actions";
+@import "cmps/modals/label-modal";
+@import "cmps/modals/label-create";
+@import "cmps/modals/label-change";
+@import "cmps/modals/checklist-modal";
+@import "cmps/modals/cover-modal";
+@import "cmps/modals/imges-modal";
+@import "cmps/modals/action-modal";
+@import "cmps/modals/ai-modal";
+@import "cmps/modals/account-actions";
+@import "cmps/modals/more-members";
+@import "cmps/modals/modal-delete";
+@import "cmps/modals/copy-move";
+@import "cmps/modals/create-modal";
+@import "cmps/modals/share-modal";
+
+@import "cmps/modals/generic-modal-helpers";
+
+// Dashboard
+@import "cmps/dashboard/dashboard";
+@import "cmps/dashboard/dashboard-chart";
+
+
+.large {
+  font-size: 1.8rem;
+
+  &.trellicons {
+    top: 0;
+    margin-inline-end: 1rem;
+  }
+}
+
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(0%);
+
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0%);
+
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(1%);
+
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(0%);
+}
+
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 500ms, transform 500ms;
+}
+
+.preview-end {
+  border-radius: 15px;
+}

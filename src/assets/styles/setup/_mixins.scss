@@ -1,0 +1,486 @@
+/* Breakpoint mixins */
+
+
+// 550px
+@mixin for-mobile-layout {
+    @media (max-width: $mobile-breakpoint) {
+        @content;
+    }
+}
+
+// 800px
+@mixin for-narrow-layout {
+    @media (min-width: $mobile-breakpoint) {
+        @content;
+    }
+}
+
+// 980px
+@mixin for-normal-layout {
+    @media (min-width: $narrow-breakpoint) {
+        @content;
+    }
+}
+
+// 1200px
+@mixin for-wide-layout {
+    @media (min-width: $normal-breakpoint) {
+        @content;
+    }
+}
+
+@mixin layoutGTC($max) {
+    grid-template-columns:
+        minmax($layoutPadding, 1fr) minmax(auto, $max) minmax($layoutPadding, 1fr);
+}
+
+@mixin scroll-bar() {
+
+    /* ===== Scrollbar CSS ===== */
+    /* Firefox */
+    * {
+        scrollbar-width: auto;
+        scrollbar-color: #bfc4ce #d9dce2;
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-button {
+        width: 0px;
+        height: 0px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(#bfc4ce, 0.6);
+        border: 0px none #ffffff;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: rgba(#a5a5a5, 0.2);
+        // background: #d9dce2;
+        border: 0px none #ffffff;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
+@mixin task-member-button($bgclr) {
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    margin: 0 1px 8px 0;
+    transition-duration: 85ms;
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: ease;
+    border-radius: 50%;
+    text-transform: uppercase;
+    background-color: $bgclr;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+
+    span {
+        line-height: 30px;
+    }
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+@mixin task-sub-header() {
+    color: #5e6c84;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    line-height: 20px;
+    margin: 0 8px 4px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin button-cover() {
+    background-color: #ffffff3d;
+    color: #172b4d;
+    border-radius: 3px;
+    padding: 6px 12px 6px 6px;
+    text-decoration: none;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+        sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    cursor: pointer;
+    border: unset;
+
+    &:hover {
+        background-color: #00000029;
+        color: #091e42;
+        outline: 0;
+    }
+}
+
+@mixin btn-filter ($type: regular, $height: 32px) {
+    height: $height;
+    border-radius: 3px;
+    line-height: $height;
+    padding: 0 16px;
+    border: none;
+
+    @if $type==light {
+        background-color: #FFFFFF14;
+        // color: $txt;
+        
+
+        &:hover {
+            // background-color: #FFFFFF29;
+            background-color: rgba(0, 0, 0, 0.18);
+        }
+
+    }
+
+    @if $type==dark {
+        background-color: #00000014;
+        color: #FAFBFC;
+
+        &:hover {
+            // background-color: #FFFFFF29;
+            background-color: rgba(0, 0, 0, 0.18);
+        }
+    }
+}
+
+@mixin btn-add-save($type: "save") {
+    align-self: flex-start;
+    padding: 0;
+    // margin-top: 20px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 3px;
+    margin-block: 0.5rem;
+
+    @if $type =="save" {
+        background-color: #0079bf;
+        color: #fff;
+    }
+
+    @if $type =="cancel" {
+        color: $textDark;
+        background-color: #eaecf0;
+    }
+
+    &:hover {
+        filter: brightness(0.8);
+    }
+}
+
+@mixin btn($type: regular, $bg: #fafbfc, $clr: #0079bf, $padding: em(8px) em(8px), $hover: darken($bg, 50%)) {
+    display: inline-flex;
+    // align-items: center;
+    text-decoration: none;
+    border-radius: 3px;
+    padding: $padding;
+    line-height: 1.25;
+    font-size: 1rem;
+    font-variation-settings: "wght" 430;
+    border: none;
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+
+    @if $type ==regular {
+        height: 32px;
+        min-width: 32px;
+        padding: 0 0.5rem;
+        margin-inline: 0.2rem;
+
+        &:hover {
+            filter: brightness(120%) !important;
+        }
+    }
+
+    @else if $type =="board-nav" {
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+}
+
+@mixin modal-label {
+    display: block;
+    width: 100%;
+    margin: rem(4px) 0;
+    font-size: rem(12px);
+    line-height: 1rem;
+    font-weight: 700;
+    color: #5e6c84;
+}
+
+@mixin custom-input {
+    margin: 4px 0 12px;
+    width: 100%;
+    -webkit-appearance: none;
+    background-color: #fafbfc;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 2px #dfe1e6;
+    box-sizing: border-box;
+    display: block;
+    line-height: 20px;
+    outline: none;
+    padding: 8px 12px;
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 400;
+
+    transition-duration: 85ms;
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: ease;
+
+    &:hover {
+        background-color: #ebecf0;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+    }
+
+    &:focus {
+        background-color: #fff;
+        box-shadow: inset 0 0 0 2px #0079bf;
+    }
+}
+
+@mixin modal-input {
+    // background-color: #5e6c84;
+    width: 100%;
+    padding: 0.5rem rem(12px);
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: none;
+    box-shadow: inset 0 0 0 2px #dfe1e6;
+    outline: none;
+    border-radius: 3px;
+    height: rem(36px);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
+    font-size: rem(14px);
+    font-weight: 400;
+    color: #172b4d;
+    transition: background-color 0.085s;
+
+    &:hover {
+        background-color: #ebecf0;
+    }
+
+    &:focus {
+        box-shadow: inset 0 0 0 2px #0079bf;
+        background-color: #ffff;
+    }
+}
+
+@mixin flex($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin nice-btn($bgclr: $brand-clr2, $fontclr: $font-clr1) {
+    display: inline-flex;
+    justify-content: center;
+    padding: rem(6px) rem(24px);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
+    font-size: rem(14px);
+    font-weight: 400;
+    line-height: 20px;
+    color: $fontclr;
+    background-color: $bgclr;
+    border: none;
+    border-radius: 3px;
+    transition: 0.085s;
+
+    &:hover {
+        background-color: darken($bgclr, 4%);
+    }
+}
+
+@mixin blue-btn($padding-inline: rem(14px)) {
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    font-size: rem(14px);
+    font-weight: 400;
+    font-family: roboto-header;
+    text-decoration: none;
+    background-color: $clr7;
+    box-shadow: none;
+    color: $clr4;
+    padding: rem(8px) $padding-inline;
+    line-height: initial;
+    @include flex;
+
+    &:hover {
+        background-color: #026aa7;
+    }
+}
+
+@mixin modal-main-btn {
+    text-align: left;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
+    width: 200%;
+    height: 2rem;
+    line-height: 20px;
+    display: block;
+    font-size: rem(14px);
+    font-weight: 400;
+    margin: 0 em(-12px, 14px);
+    padding: em(6px, 14px) em(12px, 14px);
+    background-color: white;
+    border: none;
+    color: #172b4d;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken(white, 4%);
+    }
+}
+
+@mixin btn2($bgclr, $clr) {
+    padding: rem(6px) rem(6px);
+    border-radius: 6px;
+    border: none;
+    background-color: $bgclr;
+    color: $clr;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: darken($bgclr, 10%);
+    }
+}
+
+@mixin button-link() {
+    background-color: #091e420a;
+    color: #172b4d;
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    height: 32px;
+    margin-top: 8px;
+    max-width: 300px;
+    overflow: hidden;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition-duration: 85ms;
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: ease;
+    user-select: none;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+
+    &:hover {
+        background-color: #091e4214;
+        border: none;
+        box-shadow: none;
+        color: #091e42;
+    }
+}
+
+@mixin task-sub-header() {
+    color: #5e6c84;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    line-height: 20px;
+    margin: 0 8px 4px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin task-save() {
+    line-height: 20px;
+    padding: 6px 12px;
+    transition-duration: 85ms;
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: ease;
+    white-space: normal;
+    margin-bottom: 0;
+    margin-top: 0;
+    background-color: rgba(9, 30, 66, 0.0392156863);
+    border: none;
+    box-shadow: none;
+    color: #a5adba;
+    cursor: not-allowed;
+    text-align: center;
+
+    &.enableButton {
+        background-color: #0079bf;
+        border: none;
+        box-shadow: none;
+        color: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+}
+
+/* Media  Mixins */
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+
+    >* {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    >img {
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+// Mixin for removing hover efects on iphone screen
+@mixin hover-supported {
+    @media not all and (pointer: coarse) {
+        &:hover {
+            @content;
+        }
+    }
+}

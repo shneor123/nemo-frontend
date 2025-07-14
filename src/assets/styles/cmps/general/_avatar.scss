@@ -1,0 +1,34 @@
+.user-avatar {
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    border-radius: 50%;
+}
+
+.user-img-container {
+    margin-right: 4px;
+    cursor: pointer;
+}
+    .user-initial {
+        @include task-member-button(tomato);
+        margin: 0;
+    }
+
+    .user-img {
+        float: left;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        background-repeat: round;
+        background: center;
+        background-size: cover;
+        margin: 0;
+        object-fit: cover;
+        max-width: 100%;
+    }
+
+.member-img-modal {
+    height: 130px;
+    width: 130px;
+    margin-left: 70px;
+}

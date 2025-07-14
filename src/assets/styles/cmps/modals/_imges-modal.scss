@@ -1,0 +1,80 @@
+.background-list {
+    .image {
+        background-color: #dfe1e6;
+        background-size: cover;
+        border-radius: 8px;
+        height: 96px;
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
+        color: #172b4d;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+            sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+}
+
+.img-container {
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    margin: 1px;
+
+    .search-photos {
+        input {
+            font: inherit;
+            margin: 0;
+            color: #172b4d;
+            font-size: 14px;
+            font-weight: 400;
+            border: none;
+            border-radius: 3px;
+            box-shadow: inset 0 0 0 2px #dfe1e6;
+            box-sizing: border-box;
+            display: block;
+            line-height: 20px;
+            margin-bottom: 12px;
+            outline: none;
+            padding: 8px 12px;
+            background: #fafbfc;
+            width: 100%;
+            padding-left: 32px;
+        }
+    }
+
+    .unsplash-container {
+        padding: 12px 6px 12px 12px;
+        width: 100%;
+
+        .img-container {
+
+            grid-gap: 8px;
+            display: grid;
+            gap: 8px;
+            grid-template-columns: repeat(2, 1fr);
+
+            .image {
+                border-radius: 8px;
+                cursor: pointer;
+                height: 96px;
+                width: 100%;
+                background-size: cover;
+                background-position: 50% !important;
+
+                &:hover {
+                    opacity: 0.8;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

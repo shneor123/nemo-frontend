@@ -1,0 +1,241 @@
+.task-preview {
+  &-wrapper {
+    max-width: 300px;
+    min-height: 20px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #091e4240;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer !important;
+    display: block;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+
+    &-end {
+      border-radius: 8px;
+    }
+
+    &:hover {
+      background-color: #f4f5f7;
+      border-bottom-color: #091e4240;
+
+      .task-preview-edit-icon {
+        visibility: visible;
+        background-color: #cccdd1;
+        height: 25px;
+      }
+    }
+  }
+
+  &-container {
+    overflow: hidden;
+    padding: 6px 8px 2px;
+    position: relative;
+    z-index: 10;
+  }
+
+  &-title {
+    word-wrap: break-word;
+    clear: both;
+    color: #172b4d;
+    display: block;
+    margin: 0 0 4px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  &-dark {
+    word-wrap: break-word;
+    clear: both;
+    color: #ffff;
+    display: block;
+    margin: 0 0 4px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: none !important;
+  }
+
+  &-image {
+    height: 163.33333333333334px;
+    background-color: #252e32;
+    background-size: cover;
+    border-radius: 3px 3px 0 0;
+  }
+
+  &-titleCover {
+    height: rem(265px);
+  }
+
+  &.styled {
+    font-size: 16px;
+    font-weight: 500;
+    flex-direction: row;
+    min-height: 56px;
+
+    &.img {
+      min-height: 260px;
+      background-size: cover;
+      background-position: center;
+
+      &-dark {
+        min-height: 260px;
+        background-size: cover;
+        background-position: center;
+        box-shadow: inset 0px -40px 20px 0px #161c14;
+
+      }
+    }
+  }
+}
+
+.task-preview-edit-icon {
+  background-clip: padding-box;
+  background-color: #f4f5f7;
+  background-origin: initial;
+  border-radius: 3px;
+  opacity: 0.8;
+  padding: 4px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  visibility: hidden;
+  z-index: 40;
+}
+
+.label-container {
+  // see what you dont need from here later
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  user-select: none;
+  color: #172b4d;
+  cursor: pointer;
+  overflow: auto;
+  position: relative;
+  max-width: auto;
+  // width: 100%;
+  // height: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+// might need to refactor see if theres an easier way to get the selector
+.task-preview-container .label-container:hover {
+
+  & .label-preview,
+  & .label-preview~.label-preview {
+    box-shadow: inset 0 0 0 500px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.label-container .label-open {
+  height: 16px;
+  max-width: 198px;
+  padding: 0 8px;
+  width: 58px;
+  transition: height 0.1s 0.30s, width 0.08s;
+}
+
+.label-preview {
+  font-size: 12px;
+  font-weight: 700;
+  height: 8px;
+  line-height: 100px;
+  margin: 0 4px 4px 0;
+  width: 40px;
+  text-shadow: none;
+  border-radius: 4px;
+  transition: height 0.3s, width 0.3s 0.30s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.task-preview-color-top {
+  height: em(180px);
+  // height: 32px;
+  border-radius: 3px 3px 0 0;
+}
+
+.badges {
+  margin-left: -2px;
+  max-width: 100%;
+  float: left;
+}
+
+.badge {
+  color: #5e6c84;
+  display: inline-block;
+  margin: 0 4px 4px 0;
+  max-width: 100%;
+  min-height: 20px;
+  overflow: hidden;
+  padding: 2px;
+  position: relative;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  vertical-align: top;
+
+}
+
+.complete {
+  color: #ffffff;
+  background-color: #61bd4f;
+  font-size: 12px;
+  line-height: 24px;
+  padding: 0 4px 0 4px;
+  border-radius: 2px;
+  margin: auto 0 auto 8px;
+
+}
+
+.over-due {
+  color: #ffffff;
+  background-color: #ec9488;
+  font-size: 12px;
+  line-height: 24px;
+  padding: 0 4px 0 4px;
+  border-radius: 2px;
+  margin: auto 0 auto 8px;
+}
+
+.due-soon {
+  color: #172b4d;
+  background-color: #f2d600;
+  font-size: 12px;
+  line-height: 24px;
+  padding: 0 4px 0 4px;
+  border-radius: 2px;
+  margin: -1px 0 auto 8px;
+}
+
+.task-members-preview {
+  float: right;
+  max-width: 100%;
+  display: flex;
+}
+
+.checklist-badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 48px;
+}
+
+.sum-todos-badge-title {
+  font-size: 12px;
+}
+
+.ai-modal-title {
+  color: $clr4;
+}
+
+.date_icon {
+  margin-top: -2px;
+}
