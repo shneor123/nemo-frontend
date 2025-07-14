@@ -35,7 +35,9 @@ export const AccountActions = ({ user }) => {
           <h3 className="username">{user.username}</h3>
         </div>
       </div>
+           {user && user.fullname !== 'Guest' && (
       <Link to={`users/${user._id}`} className="Link login-btn" onClick={() => dispatch(setModal(null))}> Edit Profile Info </Link>
+      )}
       <hr />
       {user._id === '1' ? (
         <>
