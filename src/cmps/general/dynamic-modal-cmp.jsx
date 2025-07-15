@@ -65,20 +65,34 @@ export const DynamicModalCmp = ({ isPreviewEnd }) => {
     adjustPosition()
   }, [modal.element])
 
-  const adjustPosition = () => {
-    const position = utilService.getPosition(modal.element)
-    // Gives the modal some space from the element that triggered it, equal to 1/4 of that element height
-    position.top += modal.element.offsetHeight * 1.25
+const adjustPosition = () => {
+  if (!modal.element || !modalRef.current) return;
 
-    // Pushes the modal into the viewport when it does not have enough space to open up, + 10 px from the edge of the viewport.
-    if (position.top + modalRef.current.offsetHeight >= window.innerHeight) {
-      position.top = window.innerHeight - modalRef.current.offsetHeight - 100
-    }
-    if (position.left + modalRef.current.offsetWidth >= window.innerWidth) {
-      position.left = window.innerWidth - modalRef.current.offsetWidth - 10
-    }
-    setPosition(position)
+  const triggerRect = modal.element.getBoundingClientRect();
+  const modalEl = modalRef.current;
+  const margin = 10;
+
+  let top = triggerRect.bottom + 8; // ברירת מחדל: למטה
+  let left = triggerRect.left;
+
+  // אם לא נכנס למטה — נפתח למעלה
+  if (top + modalEl.offsetHeight + margin > window.innerHeight) {
+    top = triggerRect.top - modalEl.offsetHeight - 8;
   }
+
+  // אם לא נכנס שמאלה — נדחף פנימה
+  if (left + modalEl.offsetWidth + margin > window.innerWidth) {
+    left = window.innerWidth - modalEl.offsetWidth - margin;
+  }
+
+  // אם בכל זאת עבר שמאלה — תוקן
+  if (left < margin) {
+    left = margin;
+  }
+
+  setPosition({ top: Math.max(top, margin), left });
+};
+
 
   const changeEditLabel = (label) => {
     editLabel.current = label

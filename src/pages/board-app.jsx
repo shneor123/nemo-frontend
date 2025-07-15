@@ -66,7 +66,6 @@ const onDragEnd = (result) => {
     );
 };
 
-  console.log('board123', board);
 
 if (!board) return <Loader />
 
